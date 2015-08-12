@@ -1,0 +1,10 @@
+# Build output directories
+/build/
+/bin/
+
+# Sublime Text project files
+/*.sublime-project
+/*.sublime-workspace
+
+# Todo list
+/todo
