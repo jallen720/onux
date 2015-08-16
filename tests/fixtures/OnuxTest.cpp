@@ -3,7 +3,7 @@
 #include <iostream>
 
 #include "extensions.hpp"
-#include "helpers.hpp"
+#include "glHelpers.hpp"
 
 using std::cerr;
 

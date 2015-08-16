@@ -1,6 +1,7 @@
 #pragma once
 
-#include <GL/glew.h> // Must include before all other OpenGL headers.
+#include <GL/glew.h> // Must include before any OpenGL headers.
+
 #include <gtest/gtest.h>
 
 #include "Window.hpp"
