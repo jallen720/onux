@@ -65,54 +65,82 @@ void sampleEngine() {
 
     // Shader pipeline
     const ShaderSource shaderSources[] {
-      { shaderPath("onux.vert")    },
-      { shaderPath("sample0.vert") },
-      { shaderPath("sample1.vert") },
-      { shaderPath("onux.frag")    },
-      { shaderPath("sample0.frag") },
+      ShaderSource(shaderPath("onux.vert")),
+      ShaderSource(shaderPath("sample0.vert")),
+      ShaderSource(shaderPath("sample1.vert")),
+      ShaderSource(shaderPath("onux.frag")),
+      ShaderSource(shaderPath("sample0.frag")),
     };
 
     const ShaderObject shaderObjects[] {
-      {{
+      ShaderObject(ShaderObject::Sources {
         &shaderSources[0],
         &shaderSources[1],
-      }}, {{
+      }),
+      ShaderObject(ShaderObject::Sources {
         &shaderSources[0],
         &shaderSources[2],
-      }}, {{
+      }),
+      ShaderObject(ShaderObject::Sources {
         &shaderSources[3],
         &shaderSources[4],
-      }},
+      }),
     };
 
     const ShaderProgram shaderPrograms[] {
-      {{
+      ShaderProgram(ShaderProgram::Objects {
         &shaderObjects[0],
         &shaderObjects[2],
-      }}, {{
+      }),
+      ShaderProgram(ShaderProgram::Objects {
         &shaderObjects[1],
         &shaderObjects[2],
-      }},
+      }),
     };
 
     // Vertex data
     const ElementBufferObject elementBufferObjects[] {
-      { sizeof(elementData[0]), elementData[0], GL_STATIC_DRAW },
+      ElementBufferObject(
+        sizeof(elementData[0]),
+        elementData[0],
+        GL_STATIC_DRAW
+      ),
     };
 
     const VertexBufferObject vertexBufferObjects[] {
-      { sizeof(vertexData[0]), vertexData[0], GL_STATIC_DRAW },
-      { sizeof(vertexData[1]), vertexData[1], GL_STATIC_DRAW },
+      VertexBufferObject(
+        sizeof(vertexData[0]),
+        vertexData[0],
+        GL_STATIC_DRAW
+      ),
+      VertexBufferObject(
+        sizeof(vertexData[1]),
+        vertexData[1],
+        GL_STATIC_DRAW
+      ),
     };
 
     const VertexArrayObject vertexArrayObjects[] {
-      { vertexBufferObjects[0], elementBufferObjects[0] },
-      { vertexBufferObjects[1], elementBufferObjects[0] },
+      VertexArrayObject(
+        vertexBufferObjects[0],
+        elementBufferObjects[0]
+      ),
+      VertexArrayObject(
+        vertexBufferObjects[1],
+        elementBufferObjects[0]
+      ),
     };
 
+    // Renderable data
     const Renderable renderables[] {
-      { vertexArrayObjects[0], shaderPrograms[0] },
-      { vertexArrayObjects[1], shaderPrograms[1] },
+      Renderable(
+        vertexArrayObjects[0],
+        shaderPrograms[0]
+      ),
+      Renderable(
+        vertexArrayObjects[1],
+        shaderPrograms[1]
+      ),
     };
 
     const vector<const Renderable*> drawables {

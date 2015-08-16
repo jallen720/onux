@@ -16,17 +16,17 @@ static GLuint newBuffer() {
 }
 
 class BufferObject : public OpenGLData {
-  const GLenum target;
+  const GLenum  target;
   const GLsizei dataSize;
   const GLvoid* data;
-  const GLenum usage;
+  const GLenum  usage;
 
 protected:
   BufferObject(
-    const GLenum target,
+    const GLenum  target,
     const GLsizei dataSize,
     const GLvoid* data,
-    const GLenum usage
+    const GLenum  usage
   ) : OpenGLData(newBuffer())
     , target(target)
     , dataSize(dataSize)
@@ -122,8 +122,11 @@ static void defineVertexPointers() {
 }
 
 struct VertexBufferObject : BufferObject {
-  VertexBufferObject(const GLsizei dataSize, const GLvoid* data, const GLenum usage)
-    : BufferObject(GL_ARRAY_BUFFER, dataSize, data, usage) {}
+  VertexBufferObject(
+    const GLsizei dataSize,
+    const GLvoid* data,
+    const GLenum  usage
+  ) : BufferObject(GL_ARRAY_BUFFER, dataSize, data, usage) {}
 
   void loadData() const override {
     BufferObject::loadData();
@@ -132,8 +135,11 @@ struct VertexBufferObject : BufferObject {
 };
 
 struct ElementBufferObject : BufferObject {
-  ElementBufferObject(const GLsizei dataSize, const GLvoid* data, const GLenum usage)
-    : BufferObject(GL_ELEMENT_ARRAY_BUFFER, dataSize, data, usage) {}
+  ElementBufferObject(
+    const GLsizei dataSize,
+    const GLvoid* data,
+    const GLenum  usage
+  ) : BufferObject(GL_ELEMENT_ARRAY_BUFFER, dataSize, data, usage) {}
 };
 
 static GLuint newVertexArray() {
@@ -144,12 +150,12 @@ static GLuint newVertexArray() {
 
 struct VertexArrayObject : public OpenGLData {
   VertexArrayObject(
-    const VertexBufferObject& vbo,
-    const ElementBufferObject& ebo
+    const VertexBufferObject&  vertexBufferObject,
+    const ElementBufferObject& elementBufferObject
   ) : OpenGLData(newVertexArray()) {
     bind();
-    vbo.loadData();
-    ebo.loadData();
+    vertexBufferObject.loadData();
+    elementBufferObject.loadData();
     logCreation(this, "VertexArrayObject");
   }
 
@@ -164,10 +170,10 @@ struct VertexArrayObject : public OpenGLData {
 };
 
 static void drawElements() {
-  const static GLenum  MODE     = GL_TRIANGLE_STRIP;
-  const static GLsizei COUNT    = 6;
-  const static GLenum  TYPE     = GL_UNSIGNED_INT;
-  const static GLvoid* POINTER  = 0;
+  const static GLenum  MODE    = GL_TRIANGLE_STRIP;
+  const static GLsizei COUNT   = 6;
+  const static GLenum  TYPE    = GL_UNSIGNED_INT;
+  const static GLvoid* POINTER = 0;
 
   glDrawElements(
     MODE,
