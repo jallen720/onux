@@ -6,6 +6,7 @@
 
 #include "Window.hpp"
 #include "extensions.hpp"
+#include "glHelpers.hpp"
 #include "ShaderSource.hpp"
 #include "ShaderObject.hpp"
 #include "ShaderProgram.hpp"
@@ -23,11 +24,12 @@ static const string shaderPath(const string& name) {
   return SHADER_DIRECTORY + name;
 }
 
-static void modifyColor(const Renderable* renderable) {
-  renderable->getShaderProgram().setUniform(
-    "ourColor",
-    vec4(0.0f, fabs(sin(glfwGetTime() * 2.0f)), 0.0f, 1.0f)
-  );
+static float timeMod() {
+  return fabs(sin(glfwGetTime() * 2.f));
+}
+
+static void modifyColor(const ShaderProgram& shaderProgram) {
+  shaderProgram.setUniform("ourColor", vec4(0.f, timeMod(), 0.f, 1.f));
 }
 
 static void draw(const vector<const Renderable*>& renderables) {
@@ -35,9 +37,19 @@ static void draw(const vector<const Renderable*>& renderables) {
 
   for (auto renderable : renderables) {
     renderable->enable();
-    modifyColor(renderable);
+    modifyColor(renderable->getShaderProgram());
     drawElements();
   }
+}
+
+static void checkGLError() {
+  const GLenum error = glGetError();
+
+  if (error != GL_NO_ERROR)
+    throw runtime_error(
+      "Unhandled OpenGL error generated:\n"
+      "  " + getErrorMsg(error) + "\n\n"
+    );
 }
 
 void sampleEngine() {
@@ -105,11 +117,13 @@ void sampleEngine() {
 
     // Engine loop
     cout << "Running engine...\n";
+    checkGLError();
 
     while (!window.shouldClose()) {
       glfwPollEvents();
       draw(drawables);
       window.swapBuffers();
+      checkGLError();
     }
   } catch(const runtime_error& e) {
     cerr << e.what() << endl;
