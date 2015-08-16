@@ -47,14 +47,14 @@ void ShaderObject::compile() const {
 }
 
 void ShaderObject::validateCompileStatus() const {
-  if (compilationFailed()) {
+  if (!compilationSucceeded()) {
     // TODO: Destroy shader here
     throw runtime_error("ShaderObject compilation failed:\n" + getInfoLog());
   }
 }
 
-const bool ShaderObject::compilationFailed() const {
-  return getInt(GL_COMPILE_STATUS) == GL_FALSE;
+const bool ShaderObject::compilationSucceeded() const {
+  return getInt(GL_COMPILE_STATUS) == GL_TRUE;
 }
 
 const GLint ShaderObject::getInt(const GLenum parameter) const {
@@ -80,4 +80,8 @@ ShaderObject::ShaderObject(Sources sources)
 ShaderObject::~ShaderObject() {
   logDestruction(this, "ShaderObject");
   glDeleteShader(getID());
+}
+
+const GLenum ShaderObject::getType() const {
+  return getInt(GL_SHADER_TYPE);
 }

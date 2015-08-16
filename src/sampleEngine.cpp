@@ -1,21 +1,18 @@
 #include "sampleEngine.hpp"
 
+#include <GL/glew.h> // Must include before any OpenGL headers.
+
 #include <iostream>
-#include <vector>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
 
 #include "Window.hpp"
 #include "extensions.hpp"
 #include "ShaderSource.hpp"
 #include "ShaderObject.hpp"
+#include "ShaderProgram.hpp"
 
 using std::cout;
 using std::cerr;
 using std::endl;
-using std::vector;
-using glm::vec4;
 
 #include "../resources/nonsense.hpp"
 #include "../resources/data.hpp"

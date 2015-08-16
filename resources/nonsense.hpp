@@ -163,65 +163,6 @@ struct VertexArrayObject : public OpenGLData {
   }
 };
 
-static const bool isLocation(const GLint location) {
-  const static GLint UNKNOWN_LOCATION = -1;
-  return location != UNKNOWN_LOCATION;
-}
-
-static void logUnknownLocation(const string& type, const string& name) {
-  throw runtime_error(
-    "Failed to find location for uniform "
-    + type + " named \"" + name + "\"!"
-  );
-}
-
-class ShaderProgram : OpenGLData {
-  void attach(const vector<const ShaderObject*>& shaderObjects) const {
-    for (auto shaderObject : shaderObjects)
-      glAttachShader(getID(), shaderObject->getID());
-  }
-
-  void link() const {
-    glLinkProgram(getID());
-  }
-
-  void detach(const vector<const ShaderObject*>& shaderObjects) const {
-    for (auto shaderObject : shaderObjects)
-      glDetachShader(getID(), shaderObject->getID());
-  }
-
-  const GLint getUniformLocation(const GLchar* name) const {
-    return glGetUniformLocation(getID(), name);
-  }
-
-public:
-  ShaderProgram(const vector<const ShaderObject*>& shaderObjects)
-    : OpenGLData(glCreateProgram()) {
-    attach(shaderObjects);
-    link();
-    detach(shaderObjects);
-    logCreation(this, "ShaderProgram");
-  }
-
-  ~ShaderProgram() {
-    logDestruction(this, "ShaderProgram");
-    glDeleteProgram(getID());
-  }
-
-  void use() const {
-    glUseProgram(getID());
-  }
-
-  void setUniform(const GLchar* name, const vec4& value) const {
-    const GLint location = getUniformLocation(name);
-
-    if (isLocation(location))
-      glUniform4f(location, value.x, value.y, value.z, value.w);
-    else
-      logUnknownLocation("vec4", name);
-  }
-};
-
 static void drawElements() {
   const static GLenum  MODE     = GL_TRIANGLE_STRIP;
   const static GLsizei COUNT    = 6;
@@ -236,26 +177,16 @@ static void drawElements() {
   );
 }
 
-static uint id = 0;
-
 class Renderable {
   const VertexArrayObject& vertexArray;
   const ShaderProgram& shaderProgram;
-  const uint myID;
 
 public:
   Renderable(
     const VertexArrayObject& vertexArray,
     const ShaderProgram& shaderProgram
   ) : vertexArray(vertexArray)
-    , shaderProgram(shaderProgram)
-    , myID(id++) {
-    cout << "Renderable [" << myID << "] created\n";
-  }
-
-  ~Renderable() {
-    cout << "Renderable [" << myID << "] destroyed\n";
-  }
+    , shaderProgram(shaderProgram) {}
 
   void enable() const {
     vertexArray.bind();
