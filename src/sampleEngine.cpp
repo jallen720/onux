@@ -28,8 +28,12 @@ static float timeMod() {
   return fabs(sin(glfwGetTime() * 2.f));
 }
 
+static vec4 ourColor() {
+  return vec4(0.f, timeMod(), 0.f, 1.f);
+}
+
 static void modifyColor(const ShaderProgram& shaderProgram) {
-  shaderProgram.setUniform("ourColor", vec4(0.f, timeMod(), 0.f, 1.f));
+  shaderProgram.setUniform("ourColor", ourColor());
 }
 
 static void draw(const vector<const Renderable*>& renderables) {
@@ -57,6 +61,7 @@ void sampleEngine() {
     // Environment creation
     Window window(1280, 720, "Onux");
     loadExtensions();
+    glClearColor(1.f, 1.f, 1.f, 1.f);
 
     // Shader pipeline
     const ShaderSource shaderSources[] {
