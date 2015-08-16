@@ -18,7 +18,10 @@ void expectNoThrow(const function<void()>& block) {
   try {
     block();
   } catch (const exception& e) {
-    cerr << e.what() << endl;
+    cerr << "Exception throw in test:\n  " << e.what() << endl;
+    FAIL();
+  } catch(...) {
+    cerr << "Unknown exception thrown in test!\n";
     FAIL();
   }
 }
