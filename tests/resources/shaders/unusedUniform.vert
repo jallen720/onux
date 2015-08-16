@@ -4,9 +4,10 @@ layout (location = 0) in vec3 position;
 
 out vec4 vertColor;
 
-uniform vec4 testPosition;
+// Uniform that isn't used; optimized out by OpenGL.
+uniform vec4 unusedPosition;
 
 void main() {
   gl_Position = vec4(position, 1.0);
-  vertColor = vec4(position, 1.0) + testPosition;
+  vertColor = vec4(position, 1.0);
 }

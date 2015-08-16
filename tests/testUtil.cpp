@@ -26,18 +26,6 @@ void expectNoThrow(const function<void()>& block) {
   }
 }
 
-/*
-#include <Magick++.h>
-
-#include "GLData.hpp"
-#include "GLUtil.hpp"
-
-static const string TEST_TEXTURE_IMAGES_PATH = "tests/resources/textures/";
-
-const string testTextureImagePath(const string& imageName) {
-  return TEST_TEXTURE_IMAGES_PATH + imageName;
-}
-
 void expectGLError(const GLenum error, const function<void()>& block) {
 
   // Assert no error has already been generated before
@@ -49,6 +37,18 @@ void expectGLError(const GLenum error, const function<void()>& block) {
 
   // Expect error was generated during block.
   EXPECT_EQ(error, glGetError());
+}
+
+/*
+#include <Magick++.h>
+
+#include "GLData.hpp"
+#include "GLUtil.hpp"
+
+static const string TEST_TEXTURE_IMAGES_PATH = "tests/resources/textures/";
+
+const string testTextureImagePath(const string& imageName) {
+  return TEST_TEXTURE_IMAGES_PATH + imageName;
 }
 
 void assertGLError(const GLenum error, const function<void()>& block) {
