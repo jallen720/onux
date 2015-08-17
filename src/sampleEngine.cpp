@@ -95,35 +95,20 @@ void sampleEngine() {
     };
 
     const ShaderObject shaderObjects[] {
-      ShaderObject(ShaderObject::Sources {
-        &shaderSources[0],
-        &shaderSources[1],
-      }),
-      ShaderObject(ShaderObject::Sources {
-        &shaderSources[0],
-        &shaderSources[2],
-      }),
-      ShaderObject(ShaderObject::Sources {
-        &shaderSources[3],
-        &shaderSources[4],
-      }),
+      ShaderObject({ &shaderSources[0], &shaderSources[1] }),
+      ShaderObject({ &shaderSources[0], &shaderSources[2] }),
+      ShaderObject({ &shaderSources[3], &shaderSources[4] }),
     };
 
     const ShaderProgram shaderPrograms[] {
-      ShaderProgram(ShaderProgram::Objects {
-        &shaderObjects[0],
-        &shaderObjects[2],
-      }),
-      ShaderProgram(ShaderProgram::Objects {
-        &shaderObjects[1],
-        &shaderObjects[2],
-      }),
+      ShaderProgram({ &shaderObjects[0], &shaderObjects[2] }),
+      ShaderProgram({ &shaderObjects[1], &shaderObjects[2] }),
     };
 
     // Vertex data
-    static const GLuint VERTEXES_PER_ARRAY = 4;
+    const GLuint VERTEXES_PER_ARRAY = 4;
 
-    static Vertex vertexData[][VERTEXES_PER_ARRAY] {
+    const Vertex vertexData[][VERTEXES_PER_ARRAY] {
       {
         Vertex(vec3(-0.7f,-0.9f, 0.f), vec4(0.f, 0.5f, 0.5f, 1.f)), // Bottom left
         Vertex(vec3(-0.9f, 0.9f, 0.f), vec4(0.f, 0.5f, 0.5f, 1.f)), // Top left
@@ -137,53 +122,29 @@ void sampleEngine() {
       },
     };
 
-    static const GLuint indexes[] {
+    const GLuint indexData[] {
       0, 1, 2,
       0, 2, 3,
     };
 
-    const IndexBufferObject indexBufferObjects[] {
-      IndexBufferObject(
-        sizeof(indexes),
-        &indexes,
-        GL_STATIC_DRAW
-      ),
+    const IndexBufferObject ibos[] {
+      IndexBufferObject(sizeof(indexData), indexData, GL_STATIC_DRAW),
     };
 
-    const VertexBufferObject vertexBufferObjects[] {
-      VertexBufferObject(
-        sizeof(vertexData[0]),
-        vertexData[0],
-        GL_STATIC_DRAW
-      ),
-      VertexBufferObject(
-        sizeof(vertexData[1]),
-        vertexData[1],
-        GL_STATIC_DRAW
-      ),
+    const VertexBufferObject vbos[] {
+      VertexBufferObject(sizeof(vertexData[0]), vertexData[0], GL_STATIC_DRAW),
+      VertexBufferObject(sizeof(vertexData[1]), vertexData[1], GL_STATIC_DRAW),
     };
 
-    const VertexArrayObject vertexArrayObjects[] {
-      VertexArrayObject(
-        vertexBufferObjects[0],
-        indexBufferObjects[0]
-      ),
-      VertexArrayObject(
-        vertexBufferObjects[1],
-        indexBufferObjects[0]
-      ),
+    const VertexArrayObject vaos[] {
+      VertexArrayObject(vbos[0], ibos[0]),
+      VertexArrayObject(vbos[1], ibos[0]),
     };
 
     // Renderable data
     const Renderable renderables[] {
-      Renderable(
-        vertexArrayObjects[0],
-        shaderPrograms[0]
-      ),
-      Renderable(
-        vertexArrayObjects[1],
-        shaderPrograms[1]
-      ),
+      Renderable(vaos[0], shaderPrograms[1]),
+      Renderable(vaos[1], shaderPrograms[1]),
     };
 
     const vector<const Renderable*> drawables {

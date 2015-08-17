@@ -47,7 +47,7 @@ public:
 struct VertexBufferObject : BufferObject {
   VertexBufferObject(
     const GLsizei dataSize,
-    const GLvoid* data,
+    const Vertex* data,
     const GLenum  usage
   ) : BufferObject(GL_ARRAY_BUFFER, dataSize, data, usage) {}
 
@@ -60,7 +60,7 @@ struct VertexBufferObject : BufferObject {
 struct IndexBufferObject : BufferObject {
   IndexBufferObject(
     const GLsizei dataSize,
-    const GLvoid* data,
+    const GLuint* data,
     const GLenum  usage
   ) : BufferObject(GL_ELEMENT_ARRAY_BUFFER, dataSize, data, usage) {}
 };
