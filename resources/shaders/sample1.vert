@@ -1,8 +1,8 @@
-vec3 adjustedPosition() {
-  return position + vec3(0.5, 0.5, 0.0);
+vec4 adjustedPosition() {
+  return gl_Position + vec4(1, 1, 0.0, 0.0);
 }
 
 void main() {
-  gl_Position = vec4(position, 1.0);
-  vertColor = vec4(adjustedPosition(), 1.0);
+  gl_Position = vec4(position, 1.0) + objectPosition;
+  vertColor = vec4(color, 1.0) * adjustedPosition();
 }

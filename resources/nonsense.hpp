@@ -79,14 +79,10 @@ public:
     , norm(norm)
     , size(typeSize(type) * count) {}
 
-  const size_t getSize() const {
-    return size;
-  }
-
   void definePointer(
     const GLuint  index,
     const GLsizei stride,
-    const GLvoid* first
+    const GLvoid* offset
   ) const {
     glEnableVertexAttribArray(index);
     glVertexAttribPointer(
@@ -95,30 +91,38 @@ public:
       type,   // Type
       norm,   // Normalized
       stride, // Stride
-      first   // Pointer to first value
+      offset  // Offset of first value
     );
+  }
+
+  const size_t getSize() const {
+    return size;
   }
 };
 
-static GLsizei stride(const vector<VertexAttribute>& attributes) {
+static GLsizei stride(const vector<VertexAttribute>& attribs) {
   GLsizei stride = 0;
 
-  for (auto attribute : attributes)
-    stride += attribute.getSize();
+  for (const VertexAttribute& attrib : attribs)
+    stride += attrib.getSize();
 
   return stride;
 }
 
 static void defineVertexPointers() {
-  const static vector<VertexAttribute> attributes = {
+  const static vector<VertexAttribute> attribs = {
     { "position", 3, GL_FLOAT, GL_FALSE },
     { "color"   , 3, GL_FLOAT, GL_TRUE  },
   };
 
-  const static GLsizei STRIDE = stride(attributes);
+  const static GLsizei STRIDE = stride(attribs);
 
-  for (GLuint i = 0, p = 0; i < attributes.size(); p += attributes[i].getSize(), i++)
-    attributes[i].definePointer(i, STRIDE, (GLvoid*)p);
+  GLuint offset = 0;
+
+  for (GLuint index = 0; index < attribs.size(); index++) {
+    attribs[index].definePointer(index, STRIDE, (GLvoid*)offset);
+    offset += attribs[index].getSize();
+  }
 }
 
 struct VertexBufferObject : BufferObject {
@@ -168,20 +172,6 @@ struct VertexArrayObject : public OpenGLData {
     glBindVertexArray(getID());
   }
 };
-
-static void drawElements() {
-  const static GLenum  MODE    = GL_TRIANGLE_STRIP;
-  const static GLsizei COUNT   = 6;
-  const static GLenum  TYPE    = GL_UNSIGNED_INT;
-  const static GLvoid* POINTER = 0;
-
-  glDrawElements(
-    MODE,
-    COUNT,
-    TYPE,
-    POINTER
-  );
-}
 
 class Renderable {
   const VertexArrayObject& vertexArray;

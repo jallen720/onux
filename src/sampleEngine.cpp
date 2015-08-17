@@ -3,6 +3,9 @@
 #include <GL/glew.h> // Must include before any OpenGL headers.
 
 #include <iostream>
+#include <stdexcept>
+#include <thread>
+#include <chrono>
 
 #include "Window.hpp"
 #include "extensions.hpp"
@@ -14,6 +17,9 @@
 using std::cout;
 using std::cerr;
 using std::endl;
+using std::runtime_error;
+using std::this_thread::sleep_for;
+using std::chrono::milliseconds;
 
 #include "../resources/nonsense.hpp"
 #include "../resources/data.hpp"
@@ -25,15 +31,28 @@ static const string shaderPath(const string& name) {
 }
 
 static float timeMod() {
-  return fabs(sin(glfwGetTime() * 2.f));
+  return fabs(sin(glfwGetTime() * 2.f) / 2.f);
 }
 
 static vec4 ourColor() {
   return vec4(0.f, timeMod(), 0.f, 1.f);
 }
 
-static void modifyColor(const ShaderProgram& shaderProgram) {
+static vec4 objectPosition() {
+  return vec4(sin(glfwGetTime()) / 2.f, 0.f, 0.f, 0.f);
+}
+
+static void setUniforms(const ShaderProgram& shaderProgram) {
   shaderProgram.setUniform("ourColor", ourColor());
+  shaderProgram.setUniform("objectPosition", objectPosition());
+}
+
+static void drawElements() {
+  static const GLenum  MODE  = GL_TRIANGLE_STRIP;
+  static const GLsizei COUNT = 6;
+  static const GLenum  TYPE  = GL_UNSIGNED_INT;
+  static const GLvoid* FIRST = 0;
+  glDrawElements(MODE, COUNT, TYPE, FIRST);
 }
 
 static void draw(const vector<const Renderable*>& renderables) {
@@ -41,19 +60,23 @@ static void draw(const vector<const Renderable*>& renderables) {
 
   for (auto renderable : renderables) {
     renderable->enable();
-    modifyColor(renderable->getShaderProgram());
+    setUniforms(renderable->getShaderProgram());
     drawElements();
   }
 }
 
-static void checkGLError() {
-  const GLenum error = glGetError();
-
+static void checkGLError(const GLenum error) {
   if (error != GL_NO_ERROR)
     throw runtime_error(
       "Unhandled OpenGL error generated:\n"
       "  " + getErrorMsg(error) + "\n\n"
     );
+}
+
+static void frameWait() {
+  static const float FPS  = 60.f;
+  static const long  WAIT = ((1.f / FPS) * 1000);
+  sleep_for(milliseconds(WAIT));
 }
 
 void sampleEngine() {
@@ -150,13 +173,14 @@ void sampleEngine() {
 
     // Engine loop
     cout << "Running engine...\n";
-    checkGLError();
+    checkGLError(glGetError());
 
     while (!window.shouldClose()) {
       glfwPollEvents();
       draw(drawables);
       window.swapBuffers();
-      checkGLError();
+      checkGLError(glGetError());
+      frameWait();
     }
   } catch(const runtime_error& e) {
     cerr << e.what() << endl;
