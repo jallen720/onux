@@ -14,6 +14,10 @@ class BufferObject : public OpenGLData {
   const GLvoid* data;
   const GLenum  usage;
 
+  void bind() const {
+    glBindBuffer(target, getID());
+  }
+
 protected:
   BufferObject(
     const GLenum  target,
@@ -26,10 +30,6 @@ protected:
     , data(data)
     , usage(usage) {
     logCreation(this, "BufferObject");
-  }
-
-  void bind() const {
-    glBindBuffer(target, getID());
   }
 
 public:
