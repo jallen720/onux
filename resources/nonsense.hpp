@@ -1,13 +1,6 @@
-#include <iostream>
-#include <stdexcept>
-#include <glm/glm.hpp>
-
 #include "loggers.hpp"
 #include "OpenGLData.hpp"
-
-using std::cout;
-using std::runtime_error;
-using glm::vec4;
+#include "Vertex.hpp"
 
 static GLuint newBuffer() {
   GLuint id;
@@ -51,80 +44,6 @@ public:
   }
 };
 
-static size_t typeSize(const GLenum type) {
-  switch (type) {
-    case GL_FLOAT:
-      return sizeof(GLfloat);
-    default:
-      throw runtime_error("Failed to get size for GL type!");
-  }
-}
-
-class VertexAttribute {
-  const GLchar*   name;
-  const GLint     count;
-  const GLenum    type;
-  const GLboolean norm;
-  const size_t    size;
-
-public:
-  VertexAttribute(
-    const GLchar*   name,
-    const GLint     count,
-    const GLenum    type,
-    const GLboolean norm
-  ) : name(name)
-    , count(count)
-    , type(type)
-    , norm(norm)
-    , size(typeSize(type) * count) {}
-
-  void definePointer(
-    const GLuint  index,
-    const GLsizei stride,
-    const GLvoid* offset
-  ) const {
-    glEnableVertexAttribArray(index);
-    glVertexAttribPointer(
-      index,  // Index
-      count,  // Count
-      type,   // Type
-      norm,   // Normalized
-      stride, // Stride
-      offset  // Offset of first value
-    );
-  }
-
-  const size_t getSize() const {
-    return size;
-  }
-};
-
-static GLsizei stride(const vector<VertexAttribute>& attribs) {
-  GLsizei stride = 0;
-
-  for (const VertexAttribute& attrib : attribs)
-    stride += attrib.getSize();
-
-  return stride;
-}
-
-static void defineVertexPointers() {
-  const static vector<VertexAttribute> attribs = {
-    { "position", 3, GL_FLOAT, GL_FALSE },
-    { "color"   , 3, GL_FLOAT, GL_TRUE  },
-  };
-
-  const static GLsizei STRIDE = stride(attribs);
-
-  GLuint offset = 0;
-
-  for (GLuint index = 0; index < attribs.size(); index++) {
-    attribs[index].definePointer(index, STRIDE, (GLvoid*)offset);
-    offset += attribs[index].getSize();
-  }
-}
-
 struct VertexBufferObject : BufferObject {
   VertexBufferObject(
     const GLsizei dataSize,
@@ -134,12 +53,12 @@ struct VertexBufferObject : BufferObject {
 
   void loadData() const override {
     BufferObject::loadData();
-    defineVertexPointers();
+    Vertex::attributePointers();
   }
 };
 
-struct ElementBufferObject : BufferObject {
-  ElementBufferObject(
+struct IndexBufferObject : BufferObject {
+  IndexBufferObject(
     const GLsizei dataSize,
     const GLvoid* data,
     const GLenum  usage
@@ -154,12 +73,12 @@ static GLuint newVertexArray() {
 
 struct VertexArrayObject : public OpenGLData {
   VertexArrayObject(
-    const VertexBufferObject&  vertexBufferObject,
-    const ElementBufferObject& elementBufferObject
+    const VertexBufferObject& vertexBufferObject,
+    const IndexBufferObject&  indexBufferObject
   ) : OpenGLData(newVertexArray()) {
     bind();
     vertexBufferObject.loadData();
-    elementBufferObject.loadData();
+    indexBufferObject.loadData();
     logCreation(this, "VertexArrayObject");
   }
 

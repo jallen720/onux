@@ -22,7 +22,6 @@ using std::this_thread::sleep_for;
 using std::chrono::milliseconds;
 
 #include "../resources/nonsense.hpp"
-#include "../resources/data.hpp"
 
 static const string SHADER_DIRECTORY = "resources/shaders/";
 
@@ -122,10 +121,31 @@ void sampleEngine() {
     };
 
     // Vertex data
-    const ElementBufferObject elementBufferObjects[] {
-      ElementBufferObject(
-        sizeof(elementData[0]),
-        elementData[0],
+    static const GLuint VERTEXES_PER_ARRAY = 4;
+
+    static Vertex vertexData[][VERTEXES_PER_ARRAY] {
+      {
+        Vertex(vec3(-0.7f,-0.9f, 0.f), vec4(0.f, 0.5f, 0.5f, 1.f)), // Bottom left
+        Vertex(vec3(-0.9f, 0.9f, 0.f), vec4(0.f, 0.5f, 0.5f, 1.f)), // Top left
+        Vertex(vec3(-0.1f, 0.3f, 0.f), vec4(0.f, 0.5f, 0.5f, 1.f)), // Top right
+        Vertex(vec3(-0.1f,-0.9f, 0.f), vec4(0.f, 0.5f, 0.5f, 1.f)), // Bottom right
+      }, {
+        Vertex(vec3( 0.1f,-0.8f, 0.f), vec4(0.5f, 0.f, 0.5f, 1.f)), // Bottom left
+        Vertex(vec3( 0.1f, 0.9f, 0.f), vec4(0.5f, 0.f, 0.5f, 1.f)), // Top left
+        Vertex(vec3( 0.4f, 0.9f, 0.f), vec4(0.5f, 0.f, 0.5f, 1.f)), // Top right
+        Vertex(vec3( 0.9f,-0.9f, 0.f), vec4(0.5f, 0.f, 0.5f, 1.f)), // Bottom right
+      },
+    };
+
+    static const GLuint indexes[] {
+      0, 1, 2,
+      0, 2, 3,
+    };
+
+    const IndexBufferObject indexBufferObjects[] {
+      IndexBufferObject(
+        sizeof(indexes),
+        &indexes,
         GL_STATIC_DRAW
       ),
     };
@@ -146,11 +166,11 @@ void sampleEngine() {
     const VertexArrayObject vertexArrayObjects[] {
       VertexArrayObject(
         vertexBufferObjects[0],
-        elementBufferObjects[0]
+        indexBufferObjects[0]
       ),
       VertexArrayObject(
         vertexBufferObjects[1],
-        elementBufferObjects[0]
+        indexBufferObjects[0]
       ),
     };
 
