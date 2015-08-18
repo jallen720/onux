@@ -1,16 +1,8 @@
 #include "loggers.hpp"
 #include "OpenGLData.hpp"
 #include "Vertex.hpp"
-#include "BufferObject.hpp"
 #include "VertexBuffer.hpp"
-
-struct IndexBuffer : BufferObject {
-  IndexBuffer(
-    const GLsizei dataSize,
-    const GLuint* data,
-    const GLenum  usage
-  ) : BufferObject(GL_ELEMENT_ARRAY_BUFFER, dataSize, data, usage) {}
-};
+#include "IndexBuffer.hpp"
 
 static GLuint newVertexArray() {
   GLuint id;

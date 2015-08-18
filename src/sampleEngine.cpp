@@ -14,6 +14,7 @@
 #include "ShaderObject.hpp"
 #include "ShaderProgram.hpp"
 #include "VertexBuffer.hpp"
+#include "IndexBuffer.hpp"
 
 using std::cout;
 using std::cerr;
