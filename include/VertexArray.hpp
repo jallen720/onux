@@ -5,7 +5,7 @@
 struct VertexBuffer;
 struct IndexBuffer;
 
-struct VertexArray : public OpenGLData {
+struct VertexArray : OpenGLData {
   VertexArray(
     const VertexBuffer& vertexBuffer,
     const IndexBuffer&  indexBuffer

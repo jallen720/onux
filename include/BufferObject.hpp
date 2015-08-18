@@ -2,8 +2,7 @@
 
 #include "OpenGLData.hpp"
 
-// TODO: Inherit privately
-class BufferObject : public OpenGLData {
+class BufferObject : OpenGLData {
   const GLenum  target;
   const GLsizei dataSize;
   const GLvoid* data;
