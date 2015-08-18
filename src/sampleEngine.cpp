@@ -13,8 +13,10 @@
 #include "ShaderSource.hpp"
 #include "ShaderObject.hpp"
 #include "ShaderProgram.hpp"
+#include "Vertex.hpp"
 #include "VertexBuffer.hpp"
 #include "IndexBuffer.hpp"
+#include "VertexArray.hpp"
 
 using std::cout;
 using std::cerr;
@@ -23,7 +25,26 @@ using std::runtime_error;
 using std::this_thread::sleep_for;
 using std::chrono::milliseconds;
 
-#include "../resources/nonsense.hpp"
+class Renderable {
+  const VertexArray& vertexArray;
+  const ShaderProgram& shaderProgram;
+
+public:
+  Renderable(
+    const VertexArray& vertexArray,
+    const ShaderProgram& shaderProgram
+  ) : vertexArray(vertexArray)
+    , shaderProgram(shaderProgram) {}
+
+  void enable() const {
+    vertexArray.bind();
+    shaderProgram.use();
+  }
+
+  const ShaderProgram& getShaderProgram() const {
+    return shaderProgram;
+  }
+};
 
 static const string SHADER_DIRECTORY = "resources/shaders/";
 
