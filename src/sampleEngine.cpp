@@ -127,24 +127,24 @@ void sampleEngine() {
       0, 2, 3,
     };
 
-    const IndexBufferObject ibos[] {
-      IndexBufferObject(sizeof(indexData), indexData, GL_STATIC_DRAW),
+    const IndexBuffer indexBuffers[] {
+      IndexBuffer(sizeof(indexData), indexData, GL_STATIC_DRAW),
     };
 
-    const VertexBufferObject vbos[] {
-      VertexBufferObject(sizeof(vertexData[0]), vertexData[0], GL_STATIC_DRAW),
-      VertexBufferObject(sizeof(vertexData[1]), vertexData[1], GL_STATIC_DRAW),
+    const VertexBuffer vertexBuffers[] {
+      VertexBuffer(sizeof(vertexData[0]), vertexData[0], GL_STATIC_DRAW),
+      VertexBuffer(sizeof(vertexData[1]), vertexData[1], GL_STATIC_DRAW),
     };
 
-    const VertexArrayObject vaos[] {
-      VertexArrayObject(vbos[0], ibos[0]),
-      VertexArrayObject(vbos[1], ibos[0]),
+    const VertexArray vertexArrays[] {
+      VertexArray(vertexBuffers[0], indexBuffers[0]),
+      VertexArray(vertexBuffers[1], indexBuffers[0]),
     };
 
     // Renderable data
     const Renderable renderables[] {
-      Renderable(vaos[0], shaderPrograms[1]),
-      Renderable(vaos[1], shaderPrograms[1]),
+      Renderable(vertexArrays[0], shaderPrograms[1]),
+      Renderable(vertexArrays[1], shaderPrograms[1]),
     };
 
     const vector<const Renderable*> drawables {

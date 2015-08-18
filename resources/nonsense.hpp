@@ -1,51 +1,10 @@
 #include "loggers.hpp"
 #include "OpenGLData.hpp"
 #include "Vertex.hpp"
+#include "BufferObject.hpp"
 
-static GLuint newBuffer() {
-  GLuint id;
-  glGenBuffers(1, &id);
-  return id;
-}
-
-class BufferObject : public OpenGLData {
-  const GLenum  target;
-  const GLsizei dataSize;
-  const GLvoid* data;
-  const GLenum  usage;
-
-  void bind() const {
-    glBindBuffer(target, getID());
-  }
-
-protected:
-  BufferObject(
-    const GLenum  target,
-    const GLsizei dataSize,
-    const GLvoid* data,
-    const GLenum  usage
-  ) : OpenGLData(newBuffer())
-    , target(target)
-    , dataSize(dataSize)
-    , data(data)
-    , usage(usage) {
-    logCreation(this, "BufferObject");
-  }
-
-public:
-  ~BufferObject() {
-    logDestruction(this, "BufferObject");
-    glDeleteBuffers(1, &getID());
-  }
-
-  virtual void loadData() const {
-    bind();
-    glBufferData(target, dataSize, data, usage);
-  }
-};
-
-struct VertexBufferObject : BufferObject {
-  VertexBufferObject(
+struct VertexBuffer : BufferObject {
+  VertexBuffer(
     const GLsizei dataSize,
     const Vertex* data,
     const GLenum  usage
@@ -57,8 +16,8 @@ struct VertexBufferObject : BufferObject {
   }
 };
 
-struct IndexBufferObject : BufferObject {
-  IndexBufferObject(
+struct IndexBuffer : BufferObject {
+  IndexBuffer(
     const GLsizei dataSize,
     const GLuint* data,
     const GLenum  usage
@@ -71,19 +30,19 @@ static GLuint newVertexArray() {
   return id;
 }
 
-struct VertexArrayObject : public OpenGLData {
-  VertexArrayObject(
-    const VertexBufferObject& vertexBufferObject,
-    const IndexBufferObject&  indexBufferObject
+struct VertexArray : public OpenGLData {
+  VertexArray(
+    const VertexBuffer& vertexBuffer,
+    const IndexBuffer&  indexBuffer
   ) : OpenGLData(newVertexArray()) {
     bind();
-    vertexBufferObject.loadData();
-    indexBufferObject.loadData();
-    logCreation(this, "VertexArrayObject");
+    vertexBuffer.loadData();
+    indexBuffer.loadData();
+    logCreation(this, "VertexArray");
   }
 
-  ~VertexArrayObject() {
-    logDestruction(this, "VertexArrayObject");
+  ~VertexArray() {
+    logDestruction(this, "VertexArray");
     glDeleteVertexArrays(1, &getID());
   }
 
@@ -93,12 +52,12 @@ struct VertexArrayObject : public OpenGLData {
 };
 
 class Renderable {
-  const VertexArrayObject& vertexArray;
+  const VertexArray& vertexArray;
   const ShaderProgram& shaderProgram;
 
 public:
   Renderable(
-    const VertexArrayObject& vertexArray,
+    const VertexArray& vertexArray,
     const ShaderProgram& shaderProgram
   ) : vertexArray(vertexArray)
     , shaderProgram(shaderProgram) {}
