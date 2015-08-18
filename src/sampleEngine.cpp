@@ -13,6 +13,7 @@
 #include "ShaderSource.hpp"
 #include "ShaderObject.hpp"
 #include "ShaderProgram.hpp"
+#include "VertexBuffer.hpp"
 
 using std::cout;
 using std::cerr;

@@ -2,19 +2,7 @@
 #include "OpenGLData.hpp"
 #include "Vertex.hpp"
 #include "BufferObject.hpp"
-
-struct VertexBuffer : BufferObject {
-  VertexBuffer(
-    const GLsizei dataSize,
-    const Vertex* data,
-    const GLenum  usage
-  ) : BufferObject(GL_ARRAY_BUFFER, dataSize, data, usage) {}
-
-  void loadData() const override {
-    BufferObject::loadData();
-    Vertex::attributePointers();
-  }
-};
+#include "VertexBuffer.hpp"
 
 struct IndexBuffer : BufferObject {
   IndexBuffer(
