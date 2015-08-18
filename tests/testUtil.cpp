@@ -8,10 +8,15 @@ using std::cerr;
 using std::endl;
 using std::exception;
 
-static const string TEST_SHADER_PATH = "tests/resources/shaders/";
+static const string TEST_SHADERS_DIRECTORY = "tests/resources/shaders/";
+static const string TEST_IMAGES_DIRECTORY = "tests/resources/images/";
 
 const string testShaderPath(const string& name) {
-  return TEST_SHADER_PATH + name;
+  return TEST_SHADERS_DIRECTORY + name;
+}
+
+const string testImagePath(const string& name) {
+  return TEST_IMAGES_DIRECTORY + name;
 }
 
 void expectNoThrow(const function<void()>& block) {
@@ -44,12 +49,6 @@ void expectGLError(const GLenum error, const function<void()>& block) {
 
 #include "GLData.hpp"
 #include "GLUtil.hpp"
-
-static const string TEST_TEXTURE_IMAGES_PATH = "tests/resources/textures/";
-
-const string testTextureImagePath(const string& imageName) {
-  return TEST_TEXTURE_IMAGES_PATH + imageName;
-}
 
 void assertGLError(const GLenum error, const function<void()>& block) {
 

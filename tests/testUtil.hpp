@@ -7,15 +7,15 @@
 using std::string;
 using std::function;
 
-const string testShaderPath(const string&);
-void expectNoThrow(const function<void()>&);
-void expectGLError(const GLenum, const function<void()>&);
+const string testShaderPath(const string& name);
+const string testImagePath(const string& name);
+void expectNoThrow(const function<void()>& block);
+void expectGLError(const GLenum error, const function<void()>& block);
 
 /*
 class GLObject;
 class GLData;
 
-const string testTextureImagePath(const string&);
 void assertGLError(const GLenum, const function<void()>&);
 void expectNoGLError(const function<void()>&);
 void assertNoGLError(const function<void()>&);
