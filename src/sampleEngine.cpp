@@ -124,15 +124,15 @@ void sampleEngine() {
 
     const Vertex vertexData[][VERTEXES_PER_ARRAY] {
       {
-        Vertex(vec3(-0.7f,-0.9f, 0.f), vec4(0.f, 0.5f, 0.5f, 1.f), vec2(0.f, 0.f)), // Bottom left
-        Vertex(vec3(-0.9f, 0.9f, 0.f), vec4(0.f, 0.5f, 0.5f, 1.f), vec2(0.f, 1.f)), // Top left
-        Vertex(vec3(-0.1f, 0.3f, 0.f), vec4(0.f, 0.5f, 0.5f, 1.f), vec2(1.f, 1.f)), // Top right
-        Vertex(vec3(-0.1f,-0.9f, 0.f), vec4(0.f, 0.5f, 0.5f, 1.f), vec2(1.f, 0.f)), // Bottom right
+        Vertex({-0.7f,-0.9f, 0.f }, { 0.f, 0.5f, 0.5f, 1.f }, { 0.f, 0.f }), // Bottom left
+        Vertex({-0.9f, 0.9f, 0.f }, { 0.f, 0.5f, 0.5f, 1.f }, { 0.f, 1.f }), // Top left
+        Vertex({-0.1f, 0.3f, 0.f }, { 0.f, 0.5f, 0.5f, 1.f }, { 1.f, 1.f }), // Top right
+        Vertex({-0.1f,-0.9f, 0.f }, { 0.f, 0.5f, 0.5f, 1.f }, { 1.f, 0.f }), // Bottom right
       }, {
-        Vertex(vec3( 0.1f,-0.8f, 0.f), vec4(0.5f, 0.f, 0.5f, 1.f), vec2(0.f, 0.f)), // Bottom left
-        Vertex(vec3( 0.1f, 0.9f, 0.f), vec4(0.5f, 0.f, 0.5f, 1.f), vec2(0.f, 1.f)), // Top left
-        Vertex(vec3( 0.4f, 0.9f, 0.f), vec4(0.5f, 0.f, 0.5f, 1.f), vec2(1.f, 1.f)), // Top right
-        Vertex(vec3( 0.9f,-0.9f, 0.f), vec4(0.5f, 0.f, 0.5f, 1.f), vec2(1.f, 0.f)), // Bottom right
+        Vertex({ 0.1f,-0.8f, 0.f }, { 0.5f, 0.f, 0.5f, 1.f }, { 0.f, 0.f }), // Bottom left
+        Vertex({ 0.1f, 0.9f, 0.f }, { 0.5f, 0.f, 0.5f, 1.f }, { 0.f, 1.f }), // Top left
+        Vertex({ 0.4f, 0.9f, 0.f }, { 0.5f, 0.f, 0.5f, 1.f }, { 1.f, 1.f }), // Top right
+        Vertex({ 0.9f,-0.9f, 0.f }, { 0.5f, 0.f, 0.5f, 1.f }, { 1.f, 0.f }), // Bottom right
       },
     };
 
@@ -188,16 +188,8 @@ void sampleEngine() {
 
     // Renderable data
     const Renderable renderables[] {
-      Renderable(
-        vertexArrays[0],
-        shaderPrograms[0],
-        textures[1]
-      ),
-      Renderable(
-        vertexArrays[1],
-        shaderPrograms[1],
-        textures[0]
-      ),
+      Renderable(vertexArrays[0], shaderPrograms[0], textures[1]),
+      Renderable(vertexArrays[1], shaderPrograms[1], textures[0]),
     };
 
     const vector<const Renderable*> drawables {
