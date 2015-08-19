@@ -1,9 +1,10 @@
-#include "Vertex.hpp"
+#include "onux_gl/Vertex.hpp"
 
 #include <vector>
 #include <GL/glew.h>
 
 using std::vector;
+using namespace onux_gl;
 
 class Attribute {
   const GLint     size;

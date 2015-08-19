@@ -1,4 +1,4 @@
-#include "ShaderObject.hpp"
+#include "onux_gl/ShaderObject.hpp"
 
 #include <stdexcept>
 

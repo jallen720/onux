@@ -9,16 +9,16 @@
 
 #include "Window.hpp"
 #include "extensions.hpp"
-#include "glHelpers.hpp"
 #include "ShaderSource.hpp"
-#include "ShaderObject.hpp"
-#include "ShaderProgram.hpp"
-#include "Vertex.hpp"
-#include "VertexBuffer.hpp"
-#include "IndexBuffer.hpp"
-#include "VertexArray.hpp"
 #include "Image.hpp"
-#include "Texture.hpp"
+#include "onux_gl/helpers.hpp"
+#include "onux_gl/ShaderObject.hpp"
+#include "onux_gl/ShaderProgram.hpp"
+#include "onux_gl/Vertex.hpp"
+#include "onux_gl/VertexBuffer.hpp"
+#include "onux_gl/IndexBuffer.hpp"
+#include "onux_gl/VertexArray.hpp"
+#include "onux_gl/Texture.hpp"
 
 using std::cout;
 using std::cerr;
@@ -26,6 +26,7 @@ using std::endl;
 using std::runtime_error;
 using std::this_thread::sleep_for;
 using std::chrono::milliseconds;
+using namespace onux_gl;
 
 class Renderable {
 public:

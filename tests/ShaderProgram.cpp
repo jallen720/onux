@@ -1,10 +1,10 @@
-#include "ShaderProgram.hpp"
+#include "onux_gl/ShaderProgram.hpp"
 
 #include <stdexcept>
 #include <glm/glm.hpp>
 
 #include "fixtures/ShaderProgramTest.hpp"
-#include "glHelpers.hpp"
+#include "onux_gl/helpers.hpp"
 
 using std::runtime_error;
 using glm::vec4;

@@ -2,7 +2,7 @@
 
 #include "OnuxTest.hpp"
 #include "ShaderSource.hpp"
-#include "ShaderObject.hpp"
+#include "onux_gl/ShaderObject.hpp"
 #include "../testUtil.hpp"
 
 class ShaderProgramTest : public OnuxTest {

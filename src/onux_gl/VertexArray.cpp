@@ -1,7 +1,9 @@
-#include "VertexArray.hpp"
+#include "onux_gl/VertexArray.hpp"
 
-#include "VertexBuffer.hpp"
-#include "IndexBuffer.hpp"
+#include "onux_gl/VertexBuffer.hpp"
+#include "onux_gl/IndexBuffer.hpp"
+
+using namespace onux_gl;
 
 static GLuint newVertexArray() {
   GLuint id;

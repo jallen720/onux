@@ -1,10 +1,11 @@
-#include "ShaderObject.hpp"
+#include "onux_gl/ShaderObject.hpp"
 
 #include <stdexcept>
 
 #include "ShaderSource.hpp"
 
 using std::runtime_error;
+using namespace onux_gl;
 
 static void validateSameType(const GLenum type, ShaderObject::Sources sources) {
   for (auto source : sources)

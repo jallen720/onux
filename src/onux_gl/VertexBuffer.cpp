@@ -1,6 +1,8 @@
-#include "VertexBuffer.hpp"
+#include "onux_gl/VertexBuffer.hpp"
 
-#include "Vertex.hpp"
+#include "onux_gl/Vertex.hpp"
+
+using namespace onux_gl;
 
 VertexBuffer::VertexBuffer(
   const GLsizei dataSize,

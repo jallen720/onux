@@ -1,4 +1,6 @@
-#include "IndexBuffer.hpp"
+#include "onux_gl/IndexBuffer.hpp"
+
+using namespace onux_gl;
 
 IndexBuffer::IndexBuffer(
   const GLsizei dataSize,

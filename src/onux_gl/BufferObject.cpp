@@ -1,4 +1,6 @@
-#include "BufferObject.hpp"
+#include "onux_gl/BufferObject.hpp"
+
+using namespace onux_gl;
 
 static GLuint newBufferObject() {
   GLuint id;

@@ -1,10 +1,6 @@
-#include "glHelpers.hpp"
+#include "onux_gl/helpers.hpp"
 
-const GLint getInt(const GLenum parameter) {
-  GLint value;
-  glGetIntegerv(parameter, &value);
-  return value;
-}
+using namespace onux_gl;
 
 static const string errorString(const GLenum errorCode) {
   switch (errorCode) {
@@ -20,6 +16,12 @@ static const string errorString(const GLenum errorCode) {
   };
 }
 
-const string getErrorMsg(const GLenum errorCode) {
+const GLint getInt(const GLenum parameter) {
+  GLint value;
+  glGetIntegerv(parameter, &value);
+  return value;
+}
+
+const string onux_gl::getErrorMsg(const GLenum errorCode) {
   return "OPENGL ERROR: " + errorString(errorCode);
 }

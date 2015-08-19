@@ -1,12 +1,13 @@
-#include "ShaderProgram.hpp"
+#include "onux_gl/ShaderProgram.hpp"
 
 #include <string>
 #include <stdexcept>
 
-#include "ShaderObject.hpp"
+#include "onux_gl/ShaderObject.hpp"
 
 using std::string;
 using std::runtime_error;
+using namespace onux_gl;
 
 static const bool isValidLocation(const GLint location) {
   const static GLint UNKNOWN_LOCATION = -1;

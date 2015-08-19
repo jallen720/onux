@@ -1,6 +1,8 @@
-#include "Texture.hpp"
+#include "onux_gl/Texture.hpp"
 
 #include "Image.hpp"
+
+using namespace onux_gl;
 
 const Texture::Options Texture::DEFAULT_OPTIONS {
   { GL_TEXTURE_MIN_FILTER, GL_LINEAR },

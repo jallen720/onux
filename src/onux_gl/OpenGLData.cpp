@@ -1,4 +1,6 @@
-#include "OpenGLData.hpp"
+#include "onux_gl/OpenGLData.hpp"
+
+using namespace onux_gl;
 
 OpenGLData::OpenGLData(const GLuint id)
   : id(id) {}

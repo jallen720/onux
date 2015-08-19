@@ -3,7 +3,7 @@
 #include <iostream>
 
 #include "extensions.hpp"
-#include "glHelpers.hpp"
+#include "onux_gl/helpers.hpp"
 
 using std::cerr;
 
