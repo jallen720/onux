@@ -6,6 +6,7 @@
 #include "onux_gl/helpers.hpp"
 
 using std::cerr;
+using onux_gl::getErrorMsg;
 
 static void checkUnhandledGLError() {
   const GLenum error = glGetError();

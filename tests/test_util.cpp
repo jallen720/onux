@@ -1,4 +1,4 @@
-#include "testUtil.hpp"
+#include "test_util.hpp"
 
 #include <iostream>
 #include <exception>

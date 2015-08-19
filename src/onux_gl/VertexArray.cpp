@@ -3,27 +3,27 @@
 #include "onux_gl/VertexBuffer.hpp"
 #include "onux_gl/IndexBuffer.hpp"
 
-using namespace onux_gl;
+namespace onux_gl {
+  static GLuint newVertexArray() {
+    GLuint id;
+    glGenVertexArrays(1, &id);
+    return id;
+  }
 
-static GLuint newVertexArray() {
-  GLuint id;
-  glGenVertexArrays(1, &id);
-  return id;
-}
+  VertexArray::VertexArray(
+    const VertexBuffer& vertexBuffer,
+    const IndexBuffer&  indexBuffer
+  ) : OpenGLData(newVertexArray()) {
+    bind();
+    vertexBuffer.loadData();
+    indexBuffer.loadData();
+  }
 
-VertexArray::VertexArray(
-  const VertexBuffer& vertexBuffer,
-  const IndexBuffer&  indexBuffer
-) : OpenGLData(newVertexArray()) {
-  bind();
-  vertexBuffer.loadData();
-  indexBuffer.loadData();
-}
+  VertexArray::~VertexArray() {
+    glDeleteVertexArrays(1, &getID());
+  }
 
-VertexArray::~VertexArray() {
-  glDeleteVertexArrays(1, &getID());
-}
-
-void VertexArray::bind() const {
-  glBindVertexArray(getID());
+  void VertexArray::bind() const {
+    glBindVertexArray(getID());
+  }
 }

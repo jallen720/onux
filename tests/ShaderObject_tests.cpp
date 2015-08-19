@@ -3,10 +3,11 @@
 #include <stdexcept>
 
 #include "fixtures/ShaderObjectTest.hpp"
-#include "testUtil.hpp"
+#include "test_util.hpp"
 #include "ShaderSource.hpp"
 
 using std::runtime_error;
+using onux_gl::ShaderObject;
 
 TEST_F(ShaderObjectTest, validCreation) {
   const ShaderSource source(testShaderPath("valid.vert"));

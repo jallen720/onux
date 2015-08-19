@@ -3,7 +3,9 @@
 #include "OnuxTest.hpp"
 #include "ShaderSource.hpp"
 #include "onux_gl/ShaderObject.hpp"
-#include "../testUtil.hpp"
+#include "../test_util.hpp"
+
+using onux_gl::ShaderObject;
 
 class ShaderProgramTest : public OnuxTest {
   const ShaderSource validSources[2] {

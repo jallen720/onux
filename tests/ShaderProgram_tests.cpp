@@ -7,7 +7,10 @@
 #include "onux_gl/helpers.hpp"
 
 using std::runtime_error;
+using glm::vec3;
 using glm::vec4;
+using onux_gl::ShaderProgram;
+using onux_gl::getInt;
 
 TEST_F(ShaderProgramTest, validCreation) {
   expectNoThrow([&] {
@@ -65,8 +68,8 @@ TEST_F(ShaderProgramTest, setUniform) {
   shaderProgram.use();
 
   expectNoThrow([&shaderProgram] {
-    shaderProgram.setUniform("testPosition", vec4(-1.f, -0.5f, 0.f, 1.f));
-    shaderProgram.setUniform("testColor", vec4(1.f, 0.5f, 0.f, 1.f));
+    shaderProgram.setUniform("testPosition", vec3(-1.f, -0.5f, 0.f));
+    //shaderProgram.setUniform("testColor", vec4(1.f, 0.5f, 0.f, 1.f));
   });
 }
 
@@ -82,7 +85,7 @@ TEST_F(ShaderProgramTest, setUniformUnusedUniform) {
   // OpenGL optimizes out unused uniforms, so trying to set a uniform that is
   // unused will fail, as the uniform won't exist.
   EXPECT_THROW(
-    shaderProgram.setUniform("unusedPosition", vec4(-1.f, -0.5f, 0.f, 1.f)),
+    shaderProgram.setUniform("unusedPosition", vec3(-1.f, -0.5f, 0.f)),
     runtime_error
   );
 }
@@ -96,6 +99,6 @@ TEST_F(ShaderProgramTest, setUniformNotCurrentProgram) {
   // Trying to set a uniform on a program that is not the current program will
   // generate a GL_INVALID_OPERATION error.
   expectGLError(GL_INVALID_OPERATION, [&shaderProgram] {
-    shaderProgram.setUniform("testPosition", vec4(-1.f, -0.5f, 0.f, 1.f));
+    shaderProgram.setUniform("testPosition", vec3(-1.f, -0.5f, 0.f));
   });
 }

@@ -4,8 +4,10 @@
 
 #include <iostream>
 #include <stdexcept>
+#include <vector>
 #include <thread>
 #include <chrono>
+#include <glm/glm.hpp>
 
 #include "Window.hpp"
 #include "extensions.hpp"
@@ -24,9 +26,19 @@ using std::cout;
 using std::cerr;
 using std::endl;
 using std::runtime_error;
+using std::vector;
 using std::this_thread::sleep_for;
 using std::chrono::milliseconds;
-using namespace onux_gl;
+using glm::vec3;
+using glm::vec4;
+using onux_gl::getErrorMsg;
+using onux_gl::ShaderObject;
+using onux_gl::ShaderProgram;
+using onux_gl::Vertex;
+using onux_gl::VertexBuffer;
+using onux_gl::IndexBuffer;
+using onux_gl::VertexArray;
+using onux_gl::Texture;
 
 class Renderable {
 public:
