@@ -2,7 +2,7 @@
 
 #include "loggers.hpp"
 
-static GLuint newBuffer() {
+static GLuint newBufferObject() {
   GLuint id;
   glGenBuffers(1, &id);
   return id;
@@ -17,7 +17,7 @@ BufferObject::BufferObject(
   const GLsizei dataSize,
   const GLvoid* data,
   const GLenum  usage
-) : OpenGLData(newBuffer())
+) : OpenGLData(newBufferObject())
   , target(target)
   , dataSize(dataSize)
   , data(data)
