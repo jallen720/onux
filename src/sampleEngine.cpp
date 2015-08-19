@@ -67,16 +67,16 @@ static float timeMod() {
   return fabs(sin(glfwGetTime() * 2.f) / 2.f);
 }
 
-static vec4 ourColor() {
-  return vec4(0.f, timeMod(), 0.f, 1.f);
-}
+// static vec4 ourColor() {
+//   return vec4(0.f, timeMod(), 0.f, 1.f);
+// }
 
 static vec4 objectPosition() {
-  return vec4(sin(glfwGetTime()) / 2.f, 0.f, 0.f, 0.f);
+  return vec4(sin(glfwGetTime() / 2.f) / 2.f, 0.f, 0.f, 0.f);
 }
 
 static void setUniforms(const ShaderProgram& shaderProgram) {
-  shaderProgram.setUniform("ourColor", ourColor());
+  // shaderProgram.setUniform("ourColor", ourColor());
   shaderProgram.setUniform("objectPosition", objectPosition());
 }
 
@@ -106,11 +106,13 @@ static void checkGLError(const GLenum error) {
     );
 }
 
-static void frameWait() {
-  static const float FPS  = 60.f;
-  static const long  WAIT = ((1.f / FPS) * 1000);
-  sleep_for(milliseconds(WAIT));
+static void frameWait(float frameStart) {
+  static const float FPS  = 50.f;
+  long wait = ((1.f / FPS) * 1000) - (glfwGetTime() - frameStart);
+  sleep_for(milliseconds(wait));
 }
+
+static const vec4 WHITE = vec4(1, 1, 1, 1);
 
 void sampleEngine() {
   try {
@@ -124,15 +126,15 @@ void sampleEngine() {
 
     const Vertex vertexData[][VERTEXES_PER_ARRAY] {
       {
-        Vertex({-0.7f,-0.9f, 0.f }, { 0.f, 0.5f, 0.5f, 1.f }, { 0.f, 0.f }), // Bottom left
-        Vertex({-0.9f, 0.9f, 0.f }, { 0.f, 0.5f, 0.5f, 1.f }, { 0.f, 1.f }), // Top left
-        Vertex({-0.1f, 0.3f, 0.f }, { 0.f, 0.5f, 0.5f, 1.f }, { 1.f, 1.f }), // Top right
-        Vertex({-0.1f,-0.9f, 0.f }, { 0.f, 0.5f, 0.5f, 1.f }, { 1.f, 0.f }), // Bottom right
+        Vertex({-0.7f,-0.9f, 0 }, WHITE, { 0, 0 }), // Bottom left
+        Vertex({-0.9f, 0.9f, 0 }, WHITE, { 0, 1 }), // Top left
+        Vertex({-0.1f, 0.3f, 0 }, WHITE, { 1, 1 }), // Top right
+        Vertex({-0.1f,-0.9f, 0 }, WHITE, { 1, 0 }), // Bottom right
       }, {
-        Vertex({ 0.1f,-0.8f, 0.f }, { 0.5f, 0.f, 0.5f, 1.f }, { 0.f, 0.f }), // Bottom left
-        Vertex({ 0.1f, 0.9f, 0.f }, { 0.5f, 0.f, 0.5f, 1.f }, { 0.f, 1.f }), // Top left
-        Vertex({ 0.4f, 0.9f, 0.f }, { 0.5f, 0.f, 0.5f, 1.f }, { 1.f, 1.f }), // Top right
-        Vertex({ 0.9f,-0.9f, 0.f }, { 0.5f, 0.f, 0.5f, 1.f }, { 1.f, 0.f }), // Bottom right
+        Vertex({ 0.1f,-0.8f, 0 }, WHITE, { 0, 0 }), // Bottom left
+        Vertex({ 0.1f, 0.9f, 0 }, WHITE, { 0, 1 }), // Top left
+        Vertex({ 0.4f, 0.9f, 0 }, WHITE, { 1, 1 }), // Top right
+        Vertex({ 0.9f,-0.9f, 0 }, WHITE, { 1, 0 }), // Bottom right
       },
     };
 
@@ -201,12 +203,15 @@ void sampleEngine() {
     cout << "Running engine...\n";
     checkGLError(glGetError());
 
+    float frameStart;
+
     while (!window.shouldClose()) {
+      frameStart = glfwGetTime();
       glfwPollEvents();
       draw(drawables);
       window.swapBuffers();
       checkGLError(glGetError());
-      frameWait();
+      frameWait(frameStart);
     }
   } catch(const runtime_error& e) {
     cerr << e.what() << endl;
