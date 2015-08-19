@@ -28,23 +28,32 @@ using std::this_thread::sleep_for;
 using std::chrono::milliseconds;
 
 class Renderable {
+public:
+  typedef const vector<const Texture*> Textures;
+
+private:
   const VertexArray& vertexArray;
   const ShaderProgram& shaderProgram;
-  const Texture& texture;
+  Textures textures;
+
+  void bindTextures() const {
+    for (unsigned int i = 0; i < textures.size(); i++)
+      textures[i]->bind(i);
+  }
 
 public:
   Renderable(
     const VertexArray& vertexArray,
     const ShaderProgram& shaderProgram,
-    const Texture& texture
+    Textures textures
   ) : vertexArray(vertexArray)
     , shaderProgram(shaderProgram)
-    , texture(texture) {}
+    , textures(textures) {}
 
   void enable() const {
     vertexArray.bind();
     shaderProgram.use();
-    texture.bind(0);
+    bindTextures();
   }
 
   const ShaderProgram& getShaderProgram() const {
@@ -63,20 +72,11 @@ static const string imagePath(const string& name) {
   return IMAGE_DIRECTORY + name;
 }
 
-// static float timeMod() {
-//   return fabs(sin(glfwGetTime() * 2.f) / 2.f);
-// }
-
-// static vec4 ourColor() {
-//   return vec4(0.f, timeMod(), 0.f, 1.f);
-// }
-
-static vec4 objectPosition() {
-  return vec4(sin(glfwGetTime() / 2.f) / 2.f, 0.f, 0.f, 0.f);
+static vec3 objectPosition() {
+  return vec3(sin(glfwGetTime() / 2.f) / 2.f, 0.f, 0.f);
 }
 
 static void setUniforms(const ShaderProgram& shaderProgram) {
-  // shaderProgram.setUniform("ourColor", ourColor());
   shaderProgram.setUniform("objectPosition", objectPosition());
 }
 
@@ -119,7 +119,7 @@ void sampleEngine() {
     // Environment creation
     Window window(1280, 720, "Onux");
     loadExtensions();
-    glClearColor(1.f, 1.f, 1.f, 1.f);
+    glClearColor(1, 1, 1, 1);
 
     // Vertex data
     const GLuint VERTEXES_PER_ARRAY = 4;
@@ -164,18 +164,23 @@ void sampleEngine() {
       ShaderSource(shaderPath("sample1.vert")),
       ShaderSource(shaderPath("onux.frag")),
       ShaderSource(shaderPath("sample0.frag")),
+      ShaderSource(shaderPath("sample1.frag")),
     };
 
     const ShaderObject shaderObjects[] {
       ShaderObject({ &shaderSources[0], &shaderSources[1] }),
       ShaderObject({ &shaderSources[0], &shaderSources[2] }),
       ShaderObject({ &shaderSources[3], &shaderSources[4] }),
+      ShaderObject({ &shaderSources[3], &shaderSources[5] }),
     };
 
     const ShaderProgram shaderPrograms[] {
       ShaderProgram({ &shaderObjects[0], &shaderObjects[2] }),
-      ShaderProgram({ &shaderObjects[1], &shaderObjects[2] }),
+      ShaderProgram({ &shaderObjects[1], &shaderObjects[3] }),
     };
+
+    shaderPrograms[0].use();
+    shaderPrograms[0].setUniform("texture1", 1);
 
     // Textures
     const Image images[] {
@@ -190,8 +195,8 @@ void sampleEngine() {
 
     // Renderable data
     const Renderable renderables[] {
-      Renderable(vertexArrays[0], shaderPrograms[0], textures[1]),
-      Renderable(vertexArrays[1], shaderPrograms[1], textures[0]),
+      Renderable(vertexArrays[0], shaderPrograms[0], { &textures[1], &textures[0] }),
+      Renderable(vertexArrays[1], shaderPrograms[1], { &textures[0] }),
     };
 
     const vector<const Renderable*> drawables {

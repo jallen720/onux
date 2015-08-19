@@ -8,7 +8,7 @@
 
 using std::vector;
 using std::string;
-using glm::vec4;
+using glm::vec3;
 
 class ShaderObject;
 
@@ -30,5 +30,6 @@ public:
   ShaderProgram(Objects objects);
   ~ShaderProgram();
   void use() const;
-  void setUniform(const GLchar* name, const vec4& value) const;
+  void setUniform(const GLchar* name, const vec3& value) const;
+  void setUniform(const GLchar* name, const GLint value) const;
 };

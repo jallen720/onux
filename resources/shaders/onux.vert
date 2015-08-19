@@ -7,4 +7,4 @@ layout (location = 2) in vec2 texCoord;
 out vec4 vertColor;
 out vec2 vertTexCoord;
 
-uniform vec4 objectPosition;
+uniform vec3 objectPosition;

@@ -14,16 +14,9 @@ static const bool isValidLocation(const GLint location) {
   return location != UNKNOWN_LOCATION;
 }
 
-static void validateLocation(
-  const GLint location,
-  const string& type,
-  const string& name
-) {
+static void validateLocation(const GLint location, const string& name) {
   if (!isValidLocation(location))
-    throw runtime_error(
-      "Failed to find location for uniform "
-      + type + " named \"" + name + "\"!"
-    );
+    throw runtime_error("Failed to find location of uniform \"" + name + "\"!");
 }
 
 static const bool hasType(ShaderProgram::Objects objects, const GLenum type) {
@@ -85,7 +78,9 @@ const string ShaderProgram::getInfoLog() const {
 }
 
 const GLint ShaderProgram::getUniformLocation(const GLchar* name) const {
-  return glGetUniformLocation(getID(), name);
+  const GLint location = glGetUniformLocation(getID(), name);
+  validateLocation(location, name);
+  return location;
 }
 
 ShaderProgram::ShaderProgram(Objects objects)
@@ -107,8 +102,10 @@ void ShaderProgram::use() const {
   glUseProgram(getID());
 }
 
-void ShaderProgram::setUniform(const GLchar* name, const vec4& value) const {
-  const GLint location = getUniformLocation(name);
-  validateLocation(location, "vec4", name);
-  glUniform4f(location, value.x, value.y, value.z, value.w);
+void ShaderProgram::setUniform(const GLchar* name, const vec3& value) const {
+  glUniform3f(getUniformLocation(name), value.x, value.y, value.z);
+}
+
+void ShaderProgram::setUniform(const GLchar* name, const GLint value) const {
+  glUniform1i(getUniformLocation(name), value);
 }
