@@ -63,9 +63,9 @@ static const string imagePath(const string& name) {
   return IMAGE_DIRECTORY + name;
 }
 
-static float timeMod() {
-  return fabs(sin(glfwGetTime() * 2.f) / 2.f);
-}
+// static float timeMod() {
+//   return fabs(sin(glfwGetTime() * 2.f) / 2.f);
+// }
 
 // static vec4 ourColor() {
 //   return vec4(0.f, timeMod(), 0.f, 1.f);
@@ -107,7 +107,7 @@ static void checkGLError(const GLenum error) {
 }
 
 static void frameWait(float frameStart) {
-  static const float FPS  = 50.f;
+  static const float FPS  = 60.f;
   long wait = ((1.f / FPS) * 1000) - (glfwGetTime() - frameStart);
   sleep_for(milliseconds(wait));
 }
@@ -203,15 +203,15 @@ void sampleEngine() {
     cout << "Running engine...\n";
     checkGLError(glGetError());
 
-    float frameStart;
+    float frameStart = glfwGetTime();
 
     while (!window.shouldClose()) {
-      frameStart = glfwGetTime();
       glfwPollEvents();
       draw(drawables);
       window.swapBuffers();
       checkGLError(glGetError());
       frameWait(frameStart);
+      frameStart = glfwGetTime();
     }
   } catch(const runtime_error& e) {
     cerr << e.what() << endl;
