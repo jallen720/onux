@@ -2,7 +2,6 @@
 
 #include "VertexBuffer.hpp"
 #include "IndexBuffer.hpp"
-#include "loggers.hpp"
 
 static GLuint newVertexArray() {
   GLuint id;
@@ -17,11 +16,9 @@ VertexArray::VertexArray(
   bind();
   vertexBuffer.loadData();
   indexBuffer.loadData();
-  logCreation(this, "VertexArray");
 }
 
 VertexArray::~VertexArray() {
-  logDestruction(this, "VertexArray");
   glDeleteVertexArrays(1, &getID());
 }
 

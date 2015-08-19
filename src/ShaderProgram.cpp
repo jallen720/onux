@@ -4,7 +4,6 @@
 #include <stdexcept>
 
 #include "ShaderObject.hpp"
-#include "loggers.hpp"
 
 using std::string;
 using std::runtime_error;
@@ -90,11 +89,9 @@ ShaderProgram::ShaderProgram(Objects objects)
   link();
   detach(objects);
   validateLinkStatus();
-  logCreation(this, "ShaderProgram");
 }
 
 ShaderProgram::~ShaderProgram() {
-  logDestruction(this, "ShaderProgram");
   glDeleteProgram(getID());
 }
 

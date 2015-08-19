@@ -1,7 +1,5 @@
 #include "BufferObject.hpp"
 
-#include "loggers.hpp"
-
 static GLuint newBufferObject() {
   GLuint id;
   glGenBuffers(1, &id);
@@ -21,12 +19,9 @@ BufferObject::BufferObject(
   , target(target)
   , dataSize(dataSize)
   , data(data)
-  , usage(usage) {
-  logCreation(this, "BufferObject");
-}
+  , usage(usage) {}
 
 BufferObject::~BufferObject() {
-  logDestruction(this, "BufferObject");
   glDeleteBuffers(1, &getID());
 }
 

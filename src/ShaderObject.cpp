@@ -3,7 +3,6 @@
 #include <stdexcept>
 
 #include "ShaderSource.hpp"
-#include "loggers.hpp"
 
 using std::runtime_error;
 
@@ -74,11 +73,9 @@ ShaderObject::ShaderObject(Sources sources)
   loadSources(sources);
   compile();
   validateCompileStatus();
-  logCreation(this, "ShaderObject");
 }
 
 ShaderObject::~ShaderObject() {
-  logDestruction(this, "ShaderObject");
   glDeleteShader(getID());
 }
 

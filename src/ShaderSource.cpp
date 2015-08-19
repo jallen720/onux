@@ -3,7 +3,6 @@
 #include <stdexcept>
 
 #include "helpers.hpp"
-#include "loggers.hpp"
 
 using std::runtime_error;
 
@@ -33,18 +32,9 @@ static const string loadExtension(const string& path) {
   return extension;
 }
 
-static unsigned int idIndex = 0;
-
 ShaderSource::ShaderSource(const string& path)
   : type(types.at(loadExtension(path)))
-  , code(readFile(path))
-  , id(idIndex++) {
-  logCreation(id, "ShaderSource");
-}
-
-ShaderSource::~ShaderSource() {
-  logDestruction(id, "ShaderSource");
-}
+  , code(readFile(path)) {}
 
 const GLenum ShaderSource::getType() const {
   return type;
