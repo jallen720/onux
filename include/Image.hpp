@@ -1,13 +1,15 @@
 #pragma once
 
 #include <string>
-#include <GL/glew.h>
 #include <Magick++.h>
+
+#include "onux_gl/IImage.hpp"
 
 using std::string;
 using Magick::Blob;
+using onux_gl::IImage;
 
-class Image {
+class Image : public IImage {
   Blob blob;
   Magick::Image image;
 
@@ -15,7 +17,9 @@ class Image {
 
 public:
   Image(const string& path);
-  const GLsizei getWidth() const;
-  const GLsizei getHeight() const;
-  const GLvoid* getData() const;
+
+  // IImage
+  const GLsizei getWidth() const override;
+  const GLsizei getHeight() const override;
+  const GLvoid* getData() const override;
 };

@@ -2,12 +2,14 @@
 
 #include <string>
 #include <map>
-#include <GL/glew.h>
+
+#include "onux_gl/IShaderSource.hpp"
 
 using std::string;
 using std::map;
+using onux_gl::IShaderSource;
 
-class ShaderSource {
+class ShaderSource : public IShaderSource {
   const GLenum type;
   const string code;
 
@@ -16,6 +18,8 @@ public:
   static Types types;
 
   ShaderSource(const string& path);
-  const GLenum getType() const;
-  const GLchar* getCode() const;
+
+  // IShaderSource
+  const GLenum getType() const override;
+  const GLchar* getCode() const override;
 };

@@ -1,6 +1,6 @@
 #include "onux_gl/Texture.hpp"
 
-#include "Image.hpp"
+#include "onux_gl/IImage.hpp"
 
 using namespace onux_gl;
 
@@ -15,7 +15,7 @@ static GLuint newTexture() {
   return id;
 }
 
-void Texture::loadImage(const Image& image) const {
+void Texture::loadImage(const IImage& image) const {
   static const GLint  LEVEL_OF_DETAIL = 0; // 0 is base image LOD
   static const GLint  INTERNAL_FORMAT = GL_RGBA;
   static const GLint  BORDER_WIDTH    = 0; // Must be 0 apparently?
@@ -40,7 +40,7 @@ void Texture::loadOptions(const Options& options) const {
     glTexParameteri(TARGET, option.first, option.second);
 }
 
-Texture::Texture(const Image& image, const Options& options)
+Texture::Texture(const IImage& image, const Options& options)
   : OpenGLData(newTexture()) {
   bind(0);
   loadImage(image);

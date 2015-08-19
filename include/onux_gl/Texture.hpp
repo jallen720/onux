@@ -4,11 +4,10 @@
 
 #include "onux_gl/OpenGLData.hpp"
 
-// TODO: Abstract interface
-class Image;
-
 namespace onux_gl {
   using std::map;
+
+  struct IImage;
 
   class Texture : OpenGLData {
   public:
@@ -18,11 +17,11 @@ namespace onux_gl {
     static const GLenum TARGET = GL_TEXTURE_2D;
     static const Options DEFAULT_OPTIONS;
 
-    void loadImage(const Image& image) const;
+    void loadImage(const IImage& image) const;
     void loadOptions(const Options& options) const;
 
   public:
-    Texture(const Image& image, const Options& options = DEFAULT_OPTIONS);
+    Texture(const IImage& image, const Options& options = DEFAULT_OPTIONS);
     ~Texture();
 
     void bind(const unsigned int unit) const;

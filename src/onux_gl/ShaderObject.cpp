@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-#include "ShaderSource.hpp"
+#include "onux_gl/IShaderSource.hpp"
 
 using std::runtime_error;
 using namespace onux_gl;

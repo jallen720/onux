@@ -5,16 +5,15 @@
 
 #include "onux_gl/OpenGLData.hpp"
 
-// TODO: Extract interface
-class ShaderSource;
-
 namespace onux_gl {
   using std::vector;
   using std::string;
 
+  struct IShaderSource;
+
   class ShaderObject : public OpenGLData {
   public:
-    typedef const vector<const ShaderSource*>& Sources;
+    typedef const vector<const IShaderSource*>& Sources;
 
   private:
     void loadSources(Sources sources) const;
