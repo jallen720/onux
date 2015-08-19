@@ -29,14 +29,16 @@ public:
   }
 };
 
-Vertex::Vertex(const vec3 position, const vec4 color)
+Vertex::Vertex(const vec3 position, const vec4 color, const vec2 texCoord)
   : position(position)
-  , color(color) {}
+  , color(color)
+  , texCoord(texCoord) {}
 
 void Vertex::attributePointers() {
   static const vector<Attribute> attributes {
     { 3, GL_FLOAT, GL_FALSE, (GLvoid*)offsetof(Vertex, position) },
     { 4, GL_FLOAT, GL_TRUE , (GLvoid*)offsetof(Vertex, color)    },
+    { 2, GL_FLOAT, GL_TRUE , (GLvoid*)offsetof(Vertex, texCoord) },
   };
 
   for (GLuint i = 0; i < attributes.size(); i++)

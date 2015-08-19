@@ -17,6 +17,8 @@
 #include "VertexBuffer.hpp"
 #include "IndexBuffer.hpp"
 #include "VertexArray.hpp"
+#include "Image.hpp"
+#include "Texture.hpp"
 
 using std::cout;
 using std::cerr;
@@ -28,17 +30,21 @@ using std::chrono::milliseconds;
 class Renderable {
   const VertexArray& vertexArray;
   const ShaderProgram& shaderProgram;
+  const Texture& texture;
 
 public:
   Renderable(
     const VertexArray& vertexArray,
-    const ShaderProgram& shaderProgram
+    const ShaderProgram& shaderProgram,
+    const Texture& texture
   ) : vertexArray(vertexArray)
-    , shaderProgram(shaderProgram) {}
+    , shaderProgram(shaderProgram)
+    , texture(texture) {}
 
   void enable() const {
     vertexArray.bind();
     shaderProgram.use();
+    texture.bind(0);
   }
 
   const ShaderProgram& getShaderProgram() const {
@@ -47,9 +53,14 @@ public:
 };
 
 static const string SHADER_DIRECTORY = "resources/shaders/";
+static const string IMAGE_DIRECTORY = "resources/images/";
 
 static const string shaderPath(const string& name) {
   return SHADER_DIRECTORY + name;
+}
+
+static const string imagePath(const string& name) {
+  return IMAGE_DIRECTORY + name;
 }
 
 static float timeMod() {
@@ -108,40 +119,20 @@ void sampleEngine() {
     loadExtensions();
     glClearColor(1.f, 1.f, 1.f, 1.f);
 
-    // Shader pipeline
-    const ShaderSource shaderSources[] {
-      ShaderSource(shaderPath("onux.vert")),
-      ShaderSource(shaderPath("sample0.vert")),
-      ShaderSource(shaderPath("sample1.vert")),
-      ShaderSource(shaderPath("onux.frag")),
-      ShaderSource(shaderPath("sample0.frag")),
-    };
-
-    const ShaderObject shaderObjects[] {
-      ShaderObject({ &shaderSources[0], &shaderSources[1] }),
-      ShaderObject({ &shaderSources[0], &shaderSources[2] }),
-      ShaderObject({ &shaderSources[3], &shaderSources[4] }),
-    };
-
-    const ShaderProgram shaderPrograms[] {
-      ShaderProgram({ &shaderObjects[0], &shaderObjects[2] }),
-      ShaderProgram({ &shaderObjects[1], &shaderObjects[2] }),
-    };
-
     // Vertex data
     const GLuint VERTEXES_PER_ARRAY = 4;
 
     const Vertex vertexData[][VERTEXES_PER_ARRAY] {
       {
-        Vertex(vec3(-0.7f,-0.9f, 0.f), vec4(0.f, 0.5f, 0.5f, 1.f)), // Bottom left
-        Vertex(vec3(-0.9f, 0.9f, 0.f), vec4(0.f, 0.5f, 0.5f, 1.f)), // Top left
-        Vertex(vec3(-0.1f, 0.3f, 0.f), vec4(0.f, 0.5f, 0.5f, 1.f)), // Top right
-        Vertex(vec3(-0.1f,-0.9f, 0.f), vec4(0.f, 0.5f, 0.5f, 1.f)), // Bottom right
+        Vertex(vec3(-0.7f,-0.9f, 0.f), vec4(0.f, 0.5f, 0.5f, 1.f), vec2(0.f, 0.f)), // Bottom left
+        Vertex(vec3(-0.9f, 0.9f, 0.f), vec4(0.f, 0.5f, 0.5f, 1.f), vec2(0.f, 1.f)), // Top left
+        Vertex(vec3(-0.1f, 0.3f, 0.f), vec4(0.f, 0.5f, 0.5f, 1.f), vec2(1.f, 1.f)), // Top right
+        Vertex(vec3(-0.1f,-0.9f, 0.f), vec4(0.f, 0.5f, 0.5f, 1.f), vec2(1.f, 0.f)), // Bottom right
       }, {
-        Vertex(vec3( 0.1f,-0.8f, 0.f), vec4(0.5f, 0.f, 0.5f, 1.f)), // Bottom left
-        Vertex(vec3( 0.1f, 0.9f, 0.f), vec4(0.5f, 0.f, 0.5f, 1.f)), // Top left
-        Vertex(vec3( 0.4f, 0.9f, 0.f), vec4(0.5f, 0.f, 0.5f, 1.f)), // Top right
-        Vertex(vec3( 0.9f,-0.9f, 0.f), vec4(0.5f, 0.f, 0.5f, 1.f)), // Bottom right
+        Vertex(vec3( 0.1f,-0.8f, 0.f), vec4(0.5f, 0.f, 0.5f, 1.f), vec2(0.f, 0.f)), // Bottom left
+        Vertex(vec3( 0.1f, 0.9f, 0.f), vec4(0.5f, 0.f, 0.5f, 1.f), vec2(0.f, 1.f)), // Top left
+        Vertex(vec3( 0.4f, 0.9f, 0.f), vec4(0.5f, 0.f, 0.5f, 1.f), vec2(1.f, 1.f)), // Top right
+        Vertex(vec3( 0.9f,-0.9f, 0.f), vec4(0.5f, 0.f, 0.5f, 1.f), vec2(1.f, 0.f)), // Bottom right
       },
     };
 
@@ -164,10 +155,49 @@ void sampleEngine() {
       VertexArray(vertexBuffers[1], indexBuffers[0]),
     };
 
+    // Shaders
+    const ShaderSource shaderSources[] {
+      ShaderSource(shaderPath("onux.vert")),
+      ShaderSource(shaderPath("sample0.vert")),
+      ShaderSource(shaderPath("sample1.vert")),
+      ShaderSource(shaderPath("onux.frag")),
+      ShaderSource(shaderPath("sample0.frag")),
+    };
+
+    const ShaderObject shaderObjects[] {
+      ShaderObject({ &shaderSources[0], &shaderSources[1] }),
+      ShaderObject({ &shaderSources[0], &shaderSources[2] }),
+      ShaderObject({ &shaderSources[3], &shaderSources[4] }),
+    };
+
+    const ShaderProgram shaderPrograms[] {
+      ShaderProgram({ &shaderObjects[0], &shaderObjects[2] }),
+      ShaderProgram({ &shaderObjects[1], &shaderObjects[2] }),
+    };
+
+    // Textures
+    const Image images[] {
+      Image(imagePath("box.jpg")),
+      Image(imagePath("bricks.png")),
+    };
+
+    const Texture textures[] {
+      Texture(images[0]),
+      Texture(images[1]),
+    };
+
     // Renderable data
     const Renderable renderables[] {
-      Renderable(vertexArrays[0], shaderPrograms[1]),
-      Renderable(vertexArrays[1], shaderPrograms[1]),
+      Renderable(
+        vertexArrays[0],
+        shaderPrograms[0],
+        textures[1]
+      ),
+      Renderable(
+        vertexArrays[1],
+        shaderPrograms[1],
+        textures[0]
+      ),
     };
 
     const vector<const Renderable*> drawables {

@@ -11,7 +11,6 @@ static void validatePath(const string& path) {
 
 void Image::loadBlob(const string& path) {
   static const string FORMAT = "RGBA";
-  Magick::Image image;
   image.read(path);
   image.flip();
   image.write(&blob, FORMAT);
@@ -20,4 +19,16 @@ void Image::loadBlob(const string& path) {
 Image::Image(const string& path) {
   validatePath(path);
   loadBlob(path);
+}
+
+const GLsizei Image::getWidth() const {
+  return image.columns();
+}
+
+const GLsizei Image::getHeight() const {
+  return image.rows();
+}
+
+const GLvoid* Image::getData() const {
+  return blob.data();
 }
