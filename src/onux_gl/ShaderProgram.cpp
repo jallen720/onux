@@ -1,11 +1,9 @@
 #include "onux_gl/ShaderProgram.hpp"
 
-#include <string>
 #include <stdexcept>
 
 #include "onux_gl/ShaderObject.hpp"
 
-using std::string;
 using std::runtime_error;
 
 namespace onux_gl {
@@ -102,6 +100,10 @@ namespace onux_gl {
 
   void ShaderProgram::setUniform(const GLchar* name, const vec3& value) const {
     glUniform3f(getUniformLocation(name), value.x, value.y, value.z);
+  }
+
+  void ShaderProgram::setUniform(const GLchar* name, const vec4& value) const {
+    glUniform4f(getUniformLocation(name), value.x, value.y, value.z, value.w);
   }
 
   void ShaderProgram::setUniform(const GLchar* name, const GLint value) const {

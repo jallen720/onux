@@ -69,7 +69,7 @@ TEST_F(ShaderProgramTest, setUniform) {
 
   expectNoThrow([&shaderProgram] {
     shaderProgram.setUniform("testPosition", vec3(-1.f, -0.5f, 0.f));
-    //shaderProgram.setUniform("testColor", vec4(1.f, 0.5f, 0.f, 1.f));
+    shaderProgram.setUniform("testColor", vec4(1.f, 0.5f, 0.f, 1.f));
   });
 }
 

@@ -10,6 +10,7 @@ namespace onux_gl {
   using std::vector;
   using std::string;
   using glm::vec3;
+  using glm::vec4;
 
   class ShaderObject;
 
@@ -32,6 +33,7 @@ namespace onux_gl {
     ~ShaderProgram();
     void use() const;
     void setUniform(const GLchar* name, const vec3& value) const;
+    void setUniform(const GLchar* name, const vec4& value) const;
     void setUniform(const GLchar* name, const GLint value) const;
   };
 }
