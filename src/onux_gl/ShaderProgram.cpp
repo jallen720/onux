@@ -1,10 +1,12 @@
 #include "onux_gl/ShaderProgram.hpp"
 
 #include <stdexcept>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "onux_gl/ShaderObject.hpp"
 
 using std::runtime_error;
+using glm::value_ptr;
 
 namespace onux_gl {
   static const bool isValidLocation(const GLint location) {
@@ -98,6 +100,10 @@ namespace onux_gl {
     glUseProgram(getID());
   }
 
+  void ShaderProgram::setUniform(const GLchar* name, const GLint value) const {
+    glUniform1i(getUniformLocation(name), value);
+  }
+
   void ShaderProgram::setUniform(const GLchar* name, const vec3& value) const {
     glUniform3f(getUniformLocation(name), value.x, value.y, value.z);
   }
@@ -106,7 +112,17 @@ namespace onux_gl {
     glUniform4f(getUniformLocation(name), value.x, value.y, value.z, value.w);
   }
 
-  void ShaderProgram::setUniform(const GLchar* name, const GLint value) const {
-    glUniform1i(getUniformLocation(name), value);
+  void ShaderProgram::setUniform(
+    const GLchar*   name,
+    const mat4&     value,
+    const GLboolean transpose
+  ) const {
+    static const GLsizei MATRIX_COUNT = 1;
+    glUniformMatrix4fv(
+      getUniformLocation(name),
+      MATRIX_COUNT,
+      transpose,
+      value_ptr(value)
+    );
   }
 }

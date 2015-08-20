@@ -11,6 +11,7 @@ namespace onux_gl {
   using std::string;
   using glm::vec3;
   using glm::vec4;
+  using glm::mat4;
 
   class ShaderObject;
 
@@ -32,8 +33,13 @@ namespace onux_gl {
     ShaderProgram(Objects objects);
     ~ShaderProgram();
     void use() const;
+    void setUniform(const GLchar* name, const GLint value) const;
     void setUniform(const GLchar* name, const vec3& value) const;
     void setUniform(const GLchar* name, const vec4& value) const;
-    void setUniform(const GLchar* name, const GLint value) const;
+    void setUniform(
+      const GLchar*   name,
+      const mat4&     value,
+      const GLboolean transpose
+    ) const;
   };
 }

@@ -22,7 +22,6 @@
 #include "onux_gl/VertexArray.hpp"
 #include "onux_gl/Texture.hpp"
 
-using std::cout;
 using std::cerr;
 using std::endl;
 using std::runtime_error;
@@ -85,14 +84,6 @@ static const string imagePath(const string& name) {
   return IMAGE_DIRECTORY + name;
 }
 
-static vec3 objectPosition() {
-  return vec3(sin(glfwGetTime() / 2.f) / 2.f, 0.f, 0.f);
-}
-
-static void setUniforms(const ShaderProgram& shaderProgram) {
-  shaderProgram.setUniform("objectPosition", objectPosition());
-}
-
 static void drawElements() {
   static const GLenum  MODE  = GL_TRIANGLE_STRIP;
   static const GLsizei COUNT = 6;
@@ -106,7 +97,6 @@ static void draw(const vector<const Renderable*>& renderables) {
 
   for (auto renderable : renderables) {
     renderable->enable();
-    setUniforms(renderable->getShaderProgram());
     drawElements();
   }
 }
@@ -171,25 +161,32 @@ void sampleEngine() {
     };
 
     // Shaders
-    const ShaderSource shaderSources[] {
-      ShaderSource(shaderPath("onux.vert")),
+    const ShaderSource onuxVertHeader(shaderPath("onux.vert"));
+    const ShaderSource onuxFragHeader(shaderPath("onux.frag"));
+
+    const ShaderSource vertSources[] {
       ShaderSource(shaderPath("sample0.vert")),
       ShaderSource(shaderPath("sample1.vert")),
-      ShaderSource(shaderPath("onux.frag")),
+    };
+
+    const ShaderSource fragSources[] {
       ShaderSource(shaderPath("sample0.frag")),
       ShaderSource(shaderPath("sample1.frag")),
     };
 
-    const ShaderObject shaderObjects[] {
-      ShaderObject({ &shaderSources[0], &shaderSources[1] }),
-      ShaderObject({ &shaderSources[0], &shaderSources[2] }),
-      ShaderObject({ &shaderSources[3], &shaderSources[4] }),
-      ShaderObject({ &shaderSources[3], &shaderSources[5] }),
+    const ShaderObject vertObjects[] {
+      ShaderObject({ &onuxVertHeader, &vertSources[0] }),
+      ShaderObject({ &onuxVertHeader, &vertSources[1] }),
+    };
+
+    const ShaderObject fragObjects[] {
+      ShaderObject({ &onuxFragHeader, &fragSources[0] }),
+      ShaderObject({ &onuxFragHeader, &fragSources[1] }),
     };
 
     const ShaderProgram shaderPrograms[] {
-      ShaderProgram({ &shaderObjects[0], &shaderObjects[2] }),
-      ShaderProgram({ &shaderObjects[1], &shaderObjects[3] }),
+      ShaderProgram({ &vertObjects[0], &fragObjects[0] }),
+      ShaderProgram({ &vertObjects[1], &fragObjects[1] }),
     };
 
     shaderPrograms[0].use();
@@ -217,10 +214,9 @@ void sampleEngine() {
       &renderables[1],
     };
 
-    // Engine loop
-    cout << "Running engine...\n";
     checkGLError(glGetError());
 
+    // Engine loop
     float frameStart = glfwGetTime();
 
     while (!window.shouldClose()) {
