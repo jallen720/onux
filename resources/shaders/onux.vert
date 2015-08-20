@@ -7,4 +7,8 @@ layout (location = 2) in vec2 texCoord;
 out vec4 vertColor;
 out vec2 vertTexCoord;
 
-uniform vec3 objectPosition;
+uniform mat4 transform;
+
+vec4 vertexPosition() {
+  return transform * vec4(position, 1);
+}

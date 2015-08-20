@@ -1,5 +1,5 @@
 void main() {
-  gl_Position = vec4(position + objectPosition, 1);
+  gl_Position = vertexPosition();
   vertColor = color;
   vertTexCoord = texCoord;
 }

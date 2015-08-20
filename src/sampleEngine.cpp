@@ -13,6 +13,7 @@
 #include "extensions.hpp"
 #include "ShaderSource.hpp"
 #include "Image.hpp"
+#include "Transform.hpp"
 #include "onux_gl/helpers.hpp"
 #include "onux_gl/ShaderObject.hpp"
 #include "onux_gl/ShaderProgram.hpp"
@@ -47,6 +48,7 @@ private:
   const VertexArray& vertexArray;
   const ShaderProgram& shaderProgram;
   Textures textures;
+  Transform transform;
 
   void bindTextures() const {
     for (unsigned int i = 0; i < textures.size(); i++)
@@ -65,11 +67,16 @@ public:
   void enable() const {
     vertexArray.bind();
     shaderProgram.use();
+    shaderProgram.setUniform("transform", transform.getMatrix(), GL_FALSE);
     bindTextures();
   }
 
   const ShaderProgram& getShaderProgram() const {
     return shaderProgram;
+  }
+
+  Transform& getTransform() {
+    return transform;
   }
 };
 
@@ -92,10 +99,11 @@ static void drawElements() {
   glDrawElements(MODE, COUNT, TYPE, FIRST);
 }
 
-static void draw(const vector<const Renderable*>& renderables) {
+static void draw(const vector<Renderable*>& renderables) {
   glClear(GL_COLOR_BUFFER_BIT);
 
   for (auto renderable : renderables) {
+    renderable->getTransform().translate(vec3(0.001f, 0, 0));
     renderable->enable();
     drawElements();
   }
@@ -204,12 +212,12 @@ void sampleEngine() {
     };
 
     // Renderable data
-    const Renderable renderables[] {
+    Renderable renderables[] {
       Renderable(vertexArrays[0], shaderPrograms[0], { &textures[1], &textures[0] }),
       Renderable(vertexArrays[1], shaderPrograms[1], { &textures[0] }),
     };
 
-    const vector<const Renderable*> drawables {
+    const vector<Renderable*> drawables {
       &renderables[0],
       &renderables[1],
     };
