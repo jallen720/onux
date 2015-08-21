@@ -99,11 +99,19 @@ static void drawElements() {
   glDrawElements(MODE, COUNT, TYPE, FIRST);
 }
 
+static const float modVal() {
+  return sin(glfwGetTime());
+}
+
+static void modifyTransform(Transform& transform) {
+  transform.rotate(modVal(), vec3(0, 0, 1));
+}
+
 static void draw(const vector<Renderable*>& renderables) {
   glClear(GL_COLOR_BUFFER_BIT);
 
   for (auto renderable : renderables) {
-    renderable->getTransform().translate(vec3(0.001f, 0, 0));
+    modifyTransform(renderable->getTransform());
     renderable->enable();
     drawElements();
   }
@@ -128,7 +136,7 @@ static const vec4 WHITE = vec4(1, 1, 1, 1);
 void sampleEngine() {
   try {
     // Environment creation
-    Window window(1280, 720, "Onux");
+    Window window(720, 720, "Onux");
     loadExtensions();
     glClearColor(1, 1, 1, 1);
 
@@ -137,15 +145,15 @@ void sampleEngine() {
 
     const Vertex vertexData[][VERTEXES_PER_ARRAY] {
       {
-        Vertex({-0.7f,-0.9f, 0 }, WHITE, { 0, 0 }), // Bottom left
-        Vertex({-0.9f, 0.9f, 0 }, WHITE, { 0, 1 }), // Top left
-        Vertex({-0.1f, 0.3f, 0 }, WHITE, { 1, 1 }), // Top right
-        Vertex({-0.1f,-0.9f, 0 }, WHITE, { 1, 0 }), // Bottom right
+        Vertex({-0.2f,-0.9f, 0 }, WHITE, { 0, 0 }), // Bottom left
+        Vertex({-0.4f, 0.9f, 0 }, WHITE, { 0, 1 }), // Top left
+        Vertex({ 0.3f, 0.3f, 0 }, WHITE, { 1, 1 }), // Top right
+        Vertex({ 0.3f,-0.9f, 0 }, WHITE, { 1, 0 }), // Bottom right
       }, {
-        Vertex({ 0.1f,-0.8f, 0 }, WHITE, { 0, 0 }), // Bottom left
-        Vertex({ 0.1f, 0.9f, 0 }, WHITE, { 0, 1 }), // Top left
-        Vertex({ 0.4f, 0.9f, 0 }, WHITE, { 1, 1 }), // Top right
-        Vertex({ 0.9f,-0.9f, 0 }, WHITE, { 1, 0 }), // Bottom right
+        Vertex({-0.4f,-0.8f, 0 }, WHITE, { 0, 0 }), // Bottom left
+        Vertex({-0.4f, 0.9f, 0 }, WHITE, { 0, 1 }), // Top left
+        Vertex({-0.1f, 0.9f, 0 }, WHITE, { 1, 1 }), // Top right
+        Vertex({ 0.4f,-0.9f, 0 }, WHITE, { 1, 0 }), // Bottom right
       },
     };
 
