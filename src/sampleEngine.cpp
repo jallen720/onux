@@ -9,6 +9,9 @@
 #include <chrono>
 #include <glm/glm.hpp>
 
+// TEMP
+#include <glm/gtc/matrix_transform.hpp>
+
 #include "Window.hpp"
 #include "extensions.hpp"
 #include "ShaderSource.hpp"
@@ -55,6 +58,16 @@ private:
       textures[i]->bind(i);
   }
 
+  void setUniforms() const {
+    mat4 model      = transform.getMatrix();
+    mat4 view       = glm::translate(mat4(), vec3(0, 0, -3));
+    mat4 projection = glm::perspective(glm::radians(45.f), 1280.f / 720.f, 1.f, 100.f);
+
+    shaderProgram.setUniform("model"     , model      , GL_FALSE);
+    shaderProgram.setUniform("view"      , view       , GL_FALSE);
+    shaderProgram.setUniform("projection", projection , GL_FALSE);
+  }
+
 public:
   Renderable(
     const VertexArray& vertexArray,
@@ -67,7 +80,7 @@ public:
   void enable() const {
     vertexArray.bind();
     shaderProgram.use();
-    shaderProgram.setUniform("transform", transform.getMatrix(), GL_FALSE);
+    setUniforms();
     bindTextures();
   }
 
@@ -92,19 +105,15 @@ static const string imagePath(const string& name) {
 }
 
 static void drawElements() {
-  static const GLenum  MODE  = GL_TRIANGLE_STRIP;
-  static const GLsizei COUNT = 6;
+  static const GLenum  MODE  = GL_TRIANGLES;
+  static const GLsizei COUNT = 36;
   static const GLenum  TYPE  = GL_UNSIGNED_INT;
   static const GLvoid* FIRST = 0;
   glDrawElements(MODE, COUNT, TYPE, FIRST);
 }
 
-static const float modVal() {
-  return sin(glfwGetTime());
-}
-
 static void modifyTransform(Transform& transform) {
-  transform.rotate(modVal(), vec3(0, 0, 1));
+  transform.rotate(1, vec3(1, 1, 1));
 }
 
 static void draw(const vector<Renderable*>& renderables) {
@@ -131,35 +140,72 @@ static void frameWait(float frameStart) {
   sleep_for(milliseconds(wait));
 }
 
+static void configOpenGL() {
+  glClearColor(1, 1, 1, 1);
+  glFrontFace(GL_CW);
+  glCullFace(GL_BACK);
+  glEnable(GL_CULL_FACE);
+}
+
 static const vec4 WHITE = vec4(1, 1, 1, 1);
 
 void sampleEngine() {
   try {
     // Environment creation
-    Window window(720, 720, "Onux");
+    Window window(1280, 720, "Onux");
     loadExtensions();
-    glClearColor(1, 1, 1, 1);
+    configOpenGL();
 
     // Vertex data
-    const GLuint VERTEXES_PER_ARRAY = 4;
+    const GLuint VERTEXES_PER_ARRAY = 24;
 
     const Vertex vertexData[][VERTEXES_PER_ARRAY] {
       {
-        Vertex({-0.2f,-0.9f, 0 }, WHITE, { 0, 0 }), // Bottom left
-        Vertex({-0.4f, 0.9f, 0 }, WHITE, { 0, 1 }), // Top left
-        Vertex({ 0.3f, 0.3f, 0 }, WHITE, { 1, 1 }), // Top right
-        Vertex({ 0.3f,-0.9f, 0 }, WHITE, { 1, 0 }), // Bottom right
-      }, {
+        // Front
+        Vertex({-0.5f,-0.5f,-0.5f }, WHITE, { 0, 0 }),
+        Vertex({-0.5f, 0.5f,-0.5f }, WHITE, { 0, 1 }),
+        Vertex({ 0.5f, 0.5f,-0.5f }, WHITE, { 1, 1 }),
+        Vertex({ 0.5f,-0.5f,-0.5f }, WHITE, { 1, 0 }),
+        // Right
+        Vertex({ 0.5f,-0.5f,-0.5f }, WHITE, { 0, 0 }),
+        Vertex({ 0.5f, 0.5f,-0.5f }, WHITE, { 0, 1 }),
+        Vertex({ 0.5f, 0.5f, 0.5f }, WHITE, { 1, 1 }),
+        Vertex({ 0.5f,-0.5f, 0.5f }, WHITE, { 1, 0 }),
+        // Back
+        Vertex({ 0.5f,-0.5f, 0.5f }, WHITE, { 0, 0 }),
+        Vertex({ 0.5f, 0.5f, 0.5f }, WHITE, { 0, 1 }),
+        Vertex({-0.5f, 0.5f, 0.5f }, WHITE, { 1, 1 }),
+        Vertex({-0.5f,-0.5f, 0.5f }, WHITE, { 1, 0 }),
+        // Left
+        Vertex({-0.5f,-0.5f, 0.5f }, WHITE, { 0, 0 }),
+        Vertex({-0.5f, 0.5f, 0.5f }, WHITE, { 0, 1 }),
+        Vertex({-0.5f, 0.5f,-0.5f }, WHITE, { 1, 1 }),
+        Vertex({-0.5f,-0.5f,-0.5f }, WHITE, { 1, 0 }),
+        // Top
+        Vertex({-0.5f, 0.5f,-0.5f }, WHITE, { 0, 0 }),
+        Vertex({-0.5f, 0.5f,-0.5f }, WHITE, { 0, 1 }),
+        Vertex({ 0.5f, 0.5f, 0.5f }, WHITE, { 1, 1 }),
+        Vertex({ 0.5f, 0.5f, 0.5f }, WHITE, { 1, 0 }),
+        // Bottom
+        Vertex({-0.5f,-0.5f,-0.5f }, WHITE, { 0, 0 }),
+        Vertex({-0.5f,-0.5f,-0.5f }, WHITE, { 0, 1 }),
+        Vertex({ 0.5f,-0.5f, 0.5f }, WHITE, { 1, 1 }),
+        Vertex({ 0.5f,-0.5f, 0.5f }, WHITE, { 1, 0 }),
+      }, /*{
         Vertex({-0.4f,-0.8f, 0 }, WHITE, { 0, 0 }), // Bottom left
         Vertex({-0.4f, 0.9f, 0 }, WHITE, { 0, 1 }), // Top left
         Vertex({-0.1f, 0.9f, 0 }, WHITE, { 1, 1 }), // Top right
         Vertex({ 0.4f,-0.9f, 0 }, WHITE, { 1, 0 }), // Bottom right
-      },
+      },*/
     };
 
     const GLuint indexData[] {
-      0, 1, 2,
-      0, 2, 3,
+      0 , 1 , 2 , 0 , 2 , 3 , // Front
+      4 , 5 , 6 , 4 , 6 , 7 , // Right
+      8 , 9 , 10, 8 , 10, 11, // Back
+      12, 13, 14, 12, 14, 15, // Left
+      16, 17, 18, 16, 18, 19, // Top
+      20, 21, 22, 20, 22, 23, // Bottom
     };
 
     const IndexBuffer indexBuffers[] {
@@ -168,12 +214,12 @@ void sampleEngine() {
 
     const VertexBuffer vertexBuffers[] {
       VertexBuffer(sizeof(vertexData[0]), vertexData[0], GL_STATIC_DRAW),
-      VertexBuffer(sizeof(vertexData[1]), vertexData[1], GL_STATIC_DRAW),
+      // VertexBuffer(sizeof(vertexData[1]), vertexData[1], GL_STATIC_DRAW),
     };
 
     const VertexArray vertexArrays[] {
       VertexArray(vertexBuffers[0], indexBuffers[0]),
-      VertexArray(vertexBuffers[1], indexBuffers[0]),
+      // VertexArray(vertexBuffers[1], indexBuffers[0]),
     };
 
     // Shaders
@@ -222,12 +268,12 @@ void sampleEngine() {
     // Renderable data
     Renderable renderables[] {
       Renderable(vertexArrays[0], shaderPrograms[0], { &textures[1], &textures[0] }),
-      Renderable(vertexArrays[1], shaderPrograms[1], { &textures[0] }),
+      // Renderable(vertexArrays[1], shaderPrograms[1], { &textures[0] }),
     };
 
     const vector<Renderable*> drawables {
       &renderables[0],
-      &renderables[1],
+      // &renderables[1],
     };
 
     checkGLError(glGetError());

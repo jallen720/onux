@@ -7,8 +7,10 @@ layout (location = 2) in vec2 texCoord;
 out vec4 vertColor;
 out vec2 vertTexCoord;
 
-uniform mat4 transform;
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
 
 vec4 vertexPosition() {
-  return transform * vec4(position, 1);
+  return projection * view * model * vec4(position, 1);
 }
