@@ -17,6 +17,8 @@
 #include "ShaderSource.hpp"
 #include "Image.hpp"
 #include "Transform.hpp"
+#include "Scene.hpp"
+#include "Mesh.hpp"
 #include "onux_gl/helpers.hpp"
 #include "onux_gl/ShaderObject.hpp"
 #include "onux_gl/ShaderProgram.hpp"
@@ -32,6 +34,7 @@ using std::runtime_error;
 using std::vector;
 using std::this_thread::sleep_for;
 using std::chrono::milliseconds;
+using glm::vec2;
 using glm::vec3;
 using glm::vec4;
 using onux_gl::getErrorMsg;
@@ -42,6 +45,12 @@ using onux_gl::VertexBuffer;
 using onux_gl::IndexBuffer;
 using onux_gl::VertexArray;
 using onux_gl::Texture;
+
+static const string SCENE_DIRECTORY = "resources/models/";
+
+static const string scenePath(const string& name) {
+  return SCENE_DIRECTORY + name;
+}
 
 class Renderable {
 public:
@@ -60,12 +69,12 @@ private:
 
   void setUniforms() const {
     mat4 model      = transform.getMatrix();
-    mat4 view       = glm::translate(mat4(), vec3(0, 0, -3));
-    mat4 projection = glm::perspective(glm::radians(45.f), 1280.f / 720.f, 1.f, 100.f);
+    mat4 view       = glm::translate(mat4(), vec3(0, 0, -200));
+    mat4 projection = glm::perspective(glm::radians(45.f), 1280.f / 720.f, 1.f, 500.f);
 
-    shaderProgram.setUniform("model"     , model      , GL_FALSE);
-    shaderProgram.setUniform("view"      , view       , GL_FALSE);
-    shaderProgram.setUniform("projection", projection , GL_FALSE);
+    shaderProgram.setUniform("model"     , model     , GL_FALSE);
+    shaderProgram.setUniform("view"      , view      , GL_FALSE);
+    shaderProgram.setUniform("projection", projection, GL_FALSE);
   }
 
 public:
@@ -106,18 +115,18 @@ static const string imagePath(const string& name) {
 
 static void drawElements() {
   static const GLenum  MODE  = GL_TRIANGLES;
-  static const GLsizei COUNT = 36;
+  static const GLsizei COUNT = 7671;
   static const GLenum  TYPE  = GL_UNSIGNED_INT;
   static const GLvoid* FIRST = 0;
   glDrawElements(MODE, COUNT, TYPE, FIRST);
 }
 
 static void modifyTransform(Transform& transform) {
-  transform.rotate(1, vec3(1, 1, 1));
+  transform.rotate(0.5, vec3(0, 1, 0));
 }
 
 static void draw(const vector<Renderable*>& renderables) {
-  glClear(GL_COLOR_BUFFER_BIT);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   for (auto renderable : renderables) {
     modifyTransform(renderable->getTransform());
@@ -142,9 +151,9 @@ static void frameWait(float frameStart) {
 
 static void configOpenGL() {
   glClearColor(1, 1, 1, 1);
-  glFrontFace(GL_CW);
   glCullFace(GL_BACK);
   glEnable(GL_CULL_FACE);
+  glEnable(GL_DEPTH_TEST);
 }
 
 static const vec4 WHITE = vec4(1, 1, 1, 1);
@@ -156,99 +165,33 @@ void sampleEngine() {
     loadExtensions();
     configOpenGL();
 
-    // Vertex data
-    const GLuint VERTEXES_PER_ARRAY = 24;
-
-    const Vertex vertexData[][VERTEXES_PER_ARRAY] {
-      {
-        // Front
-        Vertex({-0.5f,-0.5f,-0.5f }, WHITE, { 0, 0 }),
-        Vertex({-0.5f, 0.5f,-0.5f }, WHITE, { 0, 1 }),
-        Vertex({ 0.5f, 0.5f,-0.5f }, WHITE, { 1, 1 }),
-        Vertex({ 0.5f,-0.5f,-0.5f }, WHITE, { 1, 0 }),
-        // Right
-        Vertex({ 0.5f,-0.5f,-0.5f }, WHITE, { 0, 0 }),
-        Vertex({ 0.5f, 0.5f,-0.5f }, WHITE, { 0, 1 }),
-        Vertex({ 0.5f, 0.5f, 0.5f }, WHITE, { 1, 1 }),
-        Vertex({ 0.5f,-0.5f, 0.5f }, WHITE, { 1, 0 }),
-        // Back
-        Vertex({ 0.5f,-0.5f, 0.5f }, WHITE, { 0, 0 }),
-        Vertex({ 0.5f, 0.5f, 0.5f }, WHITE, { 0, 1 }),
-        Vertex({-0.5f, 0.5f, 0.5f }, WHITE, { 1, 1 }),
-        Vertex({-0.5f,-0.5f, 0.5f }, WHITE, { 1, 0 }),
-        // Left
-        Vertex({-0.5f,-0.5f, 0.5f }, WHITE, { 0, 0 }),
-        Vertex({-0.5f, 0.5f, 0.5f }, WHITE, { 0, 1 }),
-        Vertex({-0.5f, 0.5f,-0.5f }, WHITE, { 1, 1 }),
-        Vertex({-0.5f,-0.5f,-0.5f }, WHITE, { 1, 0 }),
-        // Top
-        Vertex({-0.5f, 0.5f,-0.5f }, WHITE, { 0, 0 }),
-        Vertex({-0.5f, 0.5f,-0.5f }, WHITE, { 0, 1 }),
-        Vertex({ 0.5f, 0.5f, 0.5f }, WHITE, { 1, 1 }),
-        Vertex({ 0.5f, 0.5f, 0.5f }, WHITE, { 1, 0 }),
-        // Bottom
-        Vertex({-0.5f,-0.5f,-0.5f }, WHITE, { 0, 0 }),
-        Vertex({-0.5f,-0.5f,-0.5f }, WHITE, { 0, 1 }),
-        Vertex({ 0.5f,-0.5f, 0.5f }, WHITE, { 1, 1 }),
-        Vertex({ 0.5f,-0.5f, 0.5f }, WHITE, { 1, 0 }),
-      }, /*{
-        Vertex({-0.4f,-0.8f, 0 }, WHITE, { 0, 0 }), // Bottom left
-        Vertex({-0.4f, 0.9f, 0 }, WHITE, { 0, 1 }), // Top left
-        Vertex({-0.1f, 0.9f, 0 }, WHITE, { 1, 1 }), // Top right
-        Vertex({ 0.4f,-0.9f, 0 }, WHITE, { 1, 0 }), // Bottom right
-      },*/
-    };
-
-    const GLuint indexData[] {
-      0 , 1 , 2 , 0 , 2 , 3 , // Front
-      4 , 5 , 6 , 4 , 6 , 7 , // Right
-      8 , 9 , 10, 8 , 10, 11, // Back
-      12, 13, 14, 12, 14, 15, // Left
-      16, 17, 18, 16, 18, 19, // Top
-      20, 21, 22, 20, 22, 23, // Bottom
-    };
-
-    const IndexBuffer indexBuffers[] {
-      IndexBuffer(sizeof(indexData), indexData, GL_STATIC_DRAW),
-    };
-
-    const VertexBuffer vertexBuffers[] {
-      VertexBuffer(sizeof(vertexData[0]), vertexData[0], GL_STATIC_DRAW),
-      // VertexBuffer(sizeof(vertexData[1]), vertexData[1], GL_STATIC_DRAW),
-    };
-
-    const VertexArray vertexArrays[] {
-      VertexArray(vertexBuffers[0], indexBuffers[0]),
-      // VertexArray(vertexBuffers[1], indexBuffers[0]),
-    };
-
     // Shaders
     const ShaderSource onuxVertHeader(shaderPath("onux.vert"));
     const ShaderSource onuxFragHeader(shaderPath("onux.frag"));
 
     const ShaderSource vertSources[] {
-      ShaderSource(shaderPath("sample0.vert")),
-      ShaderSource(shaderPath("sample1.vert")),
+      { shaderPath("sample0.vert") },
+      { shaderPath("sample1.vert") },
     };
 
     const ShaderSource fragSources[] {
-      ShaderSource(shaderPath("sample0.frag")),
-      ShaderSource(shaderPath("sample1.frag")),
+      { shaderPath("sample0.frag") },
+      { shaderPath("sample1.frag") },
     };
 
     const ShaderObject vertObjects[] {
-      ShaderObject({ &onuxVertHeader, &vertSources[0] }),
-      ShaderObject({ &onuxVertHeader, &vertSources[1] }),
+      { { &onuxVertHeader, &vertSources[0] } },
+      { { &onuxVertHeader, &vertSources[1] } },
     };
 
     const ShaderObject fragObjects[] {
-      ShaderObject({ &onuxFragHeader, &fragSources[0] }),
-      ShaderObject({ &onuxFragHeader, &fragSources[1] }),
+      { { &onuxFragHeader, &fragSources[0] } },
+      { { &onuxFragHeader, &fragSources[1] } },
     };
 
     const ShaderProgram shaderPrograms[] {
-      ShaderProgram({ &vertObjects[0], &fragObjects[0] }),
-      ShaderProgram({ &vertObjects[1], &fragObjects[1] }),
+      { { &vertObjects[0], &fragObjects[0] } },
+      { { &vertObjects[1], &fragObjects[1] } },
     };
 
     shaderPrograms[0].use();
@@ -256,25 +199,45 @@ void sampleEngine() {
 
     // Textures
     const Image images[] {
-      Image(imagePath("box.jpg")),
-      Image(imagePath("bricks.png")),
+      { imagePath("box.jpg") },
+      { imagePath("bricks.png") },
+      { imagePath("hheli.bmp") },
     };
 
     const Texture textures[] {
-      Texture(images[0]),
-      Texture(images[1]),
+      { images[0] },
+      { images[1] },
+      { images[2] },
+    };
+
+    // Renderable data
+    const Scene scene(scenePath("hheli.obj"));
+    auto meshes = scene.getMeshes();
+    auto vertexes = meshes[0].getVertexes();
+    auto indexes = meshes[0].getIndexes();
+
+    const VertexBuffer vertexBuffers[] {
+      { sizeof(Vertex) * vertexes.size(), &vertexes[0], GL_STATIC_DRAW },
+    };
+
+    const IndexBuffer indexBuffers[] {
+      { sizeof(GLuint) * indexes.size(), &indexes[0], GL_STATIC_DRAW },
+    };
+
+    const VertexArray vertexArrays[] {
+      { vertexBuffers[0], indexBuffers[0] },
     };
 
     // Renderable data
     Renderable renderables[] {
-      Renderable(vertexArrays[0], shaderPrograms[0], { &textures[1], &textures[0] }),
-      // Renderable(vertexArrays[1], shaderPrograms[1], { &textures[0] }),
+      { vertexArrays[0], shaderPrograms[1], { &textures[2] } },
     };
 
     const vector<Renderable*> drawables {
       &renderables[0],
-      // &renderables[1],
     };
+
+    drawables[0]->getTransform().translate(vec3(0, -50, 0));
 
     checkGLError(glGetError());
 

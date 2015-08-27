@@ -11,4 +11,11 @@ GTEST_LIBS  = -lgtest -lpthread
 GLEW_LIBS   = -lGLEW
 GLFW3_LIBS  = `pkg-config --static --libs glfw3`
 MAGICK_LIBS = `pkg-config --static --libs Magick++`
-LIBS        = $(APP_LIBS) $(GTEST_LIBS) $(GLEW_LIBS) $(GLFW3_LIBS) $(MAGICK_LIBS)
+ASSIMP_LIBS = `pkg-config --libs assimp`
+LIBS        = \
+	$(APP_LIBS) \
+	$(GTEST_LIBS) \
+	$(GLEW_LIBS) \
+	$(GLFW3_LIBS) \
+	$(MAGICK_LIBS) \
+	$(ASSIMP_LIBS)
