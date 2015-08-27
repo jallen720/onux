@@ -30,16 +30,16 @@ namespace onux_gl {
     }
   };
 
-  Vertex::Vertex(const vec3 position, const vec4 color, const vec2 texCoord)
+  Vertex::Vertex(const vec3 position, const vec3 normal, const vec2 uv)
     : position(position)
-    , color(color)
-    , texCoord(texCoord) {}
+    , normal(normal)
+    , uv(uv) {}
 
   void Vertex::attributePointers() {
     static const vector<Attribute> attributes {
       { 3, GL_FLOAT, GL_FALSE, (GLvoid*)offsetof(Vertex, position) },
-      { 4, GL_FLOAT, GL_TRUE , (GLvoid*)offsetof(Vertex, color)    },
-      { 2, GL_FLOAT, GL_TRUE , (GLvoid*)offsetof(Vertex, texCoord) },
+      { 3, GL_FLOAT, GL_FALSE, (GLvoid*)offsetof(Vertex, normal)   },
+      { 2, GL_FLOAT, GL_TRUE , (GLvoid*)offsetof(Vertex, uv)       },
     };
 
     for (GLuint i = 0; i < attributes.size(); i++)
