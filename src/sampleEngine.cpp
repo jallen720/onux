@@ -69,7 +69,7 @@ private:
 
   void setUniforms() const {
     mat4 model      = transform.getMatrix();
-    mat4 view       = glm::translate(mat4(), vec3(0, 0, -200));
+    mat4 view       = glm::translate(mat4(), vec3(0, 0, -3));
     mat4 projection = glm::perspective(glm::radians(45.f), 1280.f / 720.f, 1.f, 500.f);
 
     shaderProgram.setUniform("model"     , model     , GL_FALSE);
@@ -237,7 +237,8 @@ void sampleEngine() {
       &renderables[0],
     };
 
-    drawables[0]->getTransform().translate(vec3(0, -50, 0));
+    drawables[0]->getTransform().translate(vec3(0, -0.5, 0));
+    drawables[0]->getTransform().scale(vec3(0.0125, 0.0125, 0.0125));
 
     checkGLError(glGetError());
 
