@@ -70,7 +70,12 @@ private:
   void setUniforms() const {
     mat4 model      = transform.getMatrix();
     mat4 view       = glm::translate(mat4(), vec3(0, 0, -3));
-    mat4 projection = glm::perspective(glm::radians(45.f), 1280.f / 720.f, 1.f, 500.f);
+    mat4 projection = glm::perspective(
+      glm::radians(45.f),
+      1280.f / 720.f,
+      1.f,
+      500.f
+    );
 
     shaderProgram.setUniform("model"     , model     , GL_FALSE);
     shaderProgram.setUniform("view"      , view      , GL_FALSE);
@@ -156,8 +161,6 @@ static void configOpenGL() {
   glEnable(GL_DEPTH_TEST);
 }
 
-static const vec4 WHITE = vec4(1, 1, 1, 1);
-
 void sampleEngine() {
   try {
     // Environment creation
@@ -199,9 +202,9 @@ void sampleEngine() {
 
     // Textures
     const Image images[] {
-      { imagePath("box.jpg") },
+      { imagePath("box.jpg")    },
       { imagePath("bricks.png") },
-      { imagePath("hheli.bmp") },
+      { imagePath("hheli.bmp")  },
     };
 
     const Texture textures[] {
@@ -212,9 +215,9 @@ void sampleEngine() {
 
     // Renderable data
     const Scene scene(scenePath("hheli.obj"));
-    auto meshes = scene.getMeshes();
+    auto meshes   = scene.getMeshes();
     auto vertexes = meshes[0].getVertexes();
-    auto indexes = meshes[0].getIndexes();
+    auto indexes  = meshes[0].getIndexes();
 
     const VertexBuffer vertexBuffers[] {
       { sizeof(Vertex) * vertexes.size(), &vertexes[0], GL_STATIC_DRAW },
@@ -238,7 +241,7 @@ void sampleEngine() {
     };
 
     drawables[0]->getTransform().translate(vec3(0, -0.5, 0));
-    drawables[0]->getTransform().scale(vec3(0.0125, 0.0125, 0.0125));
+    drawables[0]->getTransform().scale(vec3(0.0125));
 
     checkGLError(glGetError());
 

@@ -73,7 +73,14 @@ namespace onux_gl {
 
   const string ShaderProgram::getInfoLog() const {
     vector<GLchar> infoLog(getInt(GL_INFO_LOG_LENGTH));
-    glGetProgramInfoLog(getID(), infoLog.size(), nullptr, &infoLog[0]);
+
+    glGetProgramInfoLog(
+      getID(),
+      infoLog.size(),
+      nullptr,
+      &infoLog[0]
+    );
+
     return string(infoLog.begin(), infoLog.end());
   }
 
@@ -105,11 +112,22 @@ namespace onux_gl {
   }
 
   void ShaderProgram::setUniform(const GLchar* name, const vec3& value) const {
-    glUniform3f(getUniformLocation(name), value.x, value.y, value.z);
+    glUniform3f(
+      getUniformLocation(name),
+      value.x,
+      value.y,
+      value.z
+    );
   }
 
   void ShaderProgram::setUniform(const GLchar* name, const vec4& value) const {
-    glUniform4f(getUniformLocation(name), value.x, value.y, value.z, value.w);
+    glUniform4f(
+      getUniformLocation(name),
+      value.x,
+      value.y,
+      value.z,
+      value.w
+    );
   }
 
   void ShaderProgram::setUniform(
