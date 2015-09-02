@@ -8,7 +8,7 @@
 
 using std::runtime_error;
 using Magick::ErrorMissingDelegate;
-using Magick::ErrorFileOpen;
+using Magick::ErrorBlob;
 
 TEST_F(ImageTest, validCreation) {
   expectNoThrow([] {
@@ -30,6 +30,6 @@ TEST_F(ImageTest, invalidFileExtension) {
 TEST_F(ImageTest, fileDoesNotExist) {
   EXPECT_THROW(
     Image("does_not_exist.png"),
-    ErrorFileOpen
+    ErrorBlob
   );
 }
