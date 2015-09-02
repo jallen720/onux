@@ -31,5 +31,4 @@ void getIDTest(
   const GLint, const GLObject&
 );
 void getIDTest(const GLObject&, const GLObject&);
-void magickErrorFinder(const function<void()>&);
 */
