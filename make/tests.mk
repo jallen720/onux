@@ -23,17 +23,19 @@ run-tests: tests
 	@$(CLEAR) && $(TESTS)
 
 $(TESTS_BUILD_DIRS):
-	$(MKDIR_P) $@
+	@$(MKDIR_P) $@
 
 # Link test & testable app objects then compile tests binary
 $(TESTS): $(TESTS_OBJS) $(TESTABLE_APP_OBJS)
-	$(LINK_OBJECTS)
+	@$(LINKING_MSG)
+	@$(LINK_OBJECTS)
 
 # Compile tests into objects
 $(TESTS_OBJS): $(OBJ_SRC_DEP)
-	$(COMPILE_SOURCE)
-	$(COMPILE_DEPENDENCIES)
-	$(FIX_DEPENDENCIES)
+	@$(COMPILING_MSG)
+	@$(COMPILE_SOURCE)
+	@$(COMPILE_DEPENDENCIES)
+	@$(FIX_DEPENDENCIES)
 
 # Include generated dependency targets
 -include $(TESTS_DEPS)
