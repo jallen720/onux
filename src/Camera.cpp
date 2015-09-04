@@ -3,7 +3,7 @@
 Camera::Camera(const mat4& projection)
   : projection(projection) {}
 
-Transform& Camera::getTransform() {
+ViewTransform& Camera::getViewTransform() {
   return viewTransform;
 }
 

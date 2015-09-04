@@ -11,6 +11,6 @@ class Camera {
 
 public:
   Camera(const mat4& projection);
-  Transform& getTransform();
+  ViewTransform& getViewTransform();
   const mat4& getProjection() const;
 };
