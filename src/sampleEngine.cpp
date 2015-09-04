@@ -28,6 +28,7 @@
 #include "onux_gl/VertexArray.hpp"
 #include "onux_gl/Texture.hpp"
 
+using std::cout;
 using std::cerr;
 using std::endl;
 using std::runtime_error;
@@ -46,7 +47,17 @@ using onux_gl::IndexBuffer;
 using onux_gl::VertexArray;
 using onux_gl::Texture;
 
+static const string SHADER_DIRECTORY = "resources/shaders/";
+static const string IMAGE_DIRECTORY = "resources/images/";
 static const string SCENE_DIRECTORY = "resources/models/";
+
+static const string shaderPath(const string& name) {
+  return SHADER_DIRECTORY + name;
+}
+
+static const string imagePath(const string& name) {
+  return IMAGE_DIRECTORY + name;
+}
 
 static const string scenePath(const string& name) {
   return SCENE_DIRECTORY + name;
@@ -69,7 +80,7 @@ private:
 
   void setUniforms() const {
     mat4 model      = transform.getMatrix();
-    mat4 view       = glm::translate(mat4(), vec3(0, 0, -3));
+    mat4 view       = glm::translate(mat4(), vec3(0, 0, 0));
     mat4 projection = glm::perspective(
       glm::radians(45.f),
       1280.f / 720.f,
@@ -107,34 +118,19 @@ public:
   }
 };
 
-static const string SHADER_DIRECTORY = "resources/shaders/";
-static const string IMAGE_DIRECTORY = "resources/images/";
-
-static const string shaderPath(const string& name) {
-  return SHADER_DIRECTORY + name;
-}
-
-static const string imagePath(const string& name) {
-  return IMAGE_DIRECTORY + name;
-}
+static GLsizei indexCount;
 
 static void drawElements() {
   static const GLenum  MODE  = GL_TRIANGLES;
-  static const GLsizei COUNT = 7671;
   static const GLenum  TYPE  = GL_UNSIGNED_INT;
   static const GLvoid* FIRST = 0;
-  glDrawElements(MODE, COUNT, TYPE, FIRST);
-}
-
-static void modifyTransform(Transform& transform) {
-  transform.rotate(0.5, vec3(0, 1, 0));
+  glDrawElements(MODE, indexCount, TYPE, FIRST);
 }
 
 static void draw(const vector<Renderable*>& renderables) {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   for (auto renderable : renderables) {
-    modifyTransform(renderable->getTransform());
     renderable->enable();
     drawElements();
   }
@@ -214,10 +210,12 @@ void sampleEngine() {
     };
 
     // Renderable data
-    const Scene scene(scenePath("hheli.obj"));
+    const Scene scene(scenePath("cube.obj"));
+    // const Scene scene(scenePath("hheli.obj"));
     auto meshes   = scene.getMeshes();
     auto vertexes = meshes[0].getVertexes();
     auto indexes  = meshes[0].getIndexes();
+    indexCount    = indexes.size();
 
     const VertexBuffer vertexBuffers[] {
       { sizeof(Vertex) * vertexes.size(), &vertexes[0], GL_STATIC_DRAW },
@@ -233,15 +231,14 @@ void sampleEngine() {
 
     // Renderable data
     Renderable renderables[] {
-      { vertexArrays[0], shaderPrograms[1], { &textures[2] } },
+      { vertexArrays[0], shaderPrograms[1], { &textures[0] } },
     };
 
     const vector<Renderable*> drawables {
       &renderables[0],
     };
 
-    drawables[0]->getTransform().translate(vec3(0, -0.5, 0));
-    drawables[0]->getTransform().scale(vec3(0.0125));
+    drawables[0]->getTransform().setPosition(vec3(0, 0, -4));
 
     checkGLError(glGetError());
 

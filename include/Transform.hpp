@@ -6,11 +6,20 @@ using glm::vec3;
 using glm::mat4;
 
 class Transform {
-  mat4 matrix;
+  vec3 position;
+  vec3 rotation;
+  vec3 m_scale;
 
 public:
+  Transform();
   void translate(const vec3& translation);
-  void rotate(const float degrees, const vec3& axis);
+  void rotate(const vec3& rotation);
   void scale(const vec3& scale);
-  const mat4& getMatrix() const;
+  void setPosition(const vec3& position);
+  void setRotation(const vec3& rotation);
+  void setScale(const vec3& scale);
+  const vec3& getPosition() const;
+  const vec3& getRotation() const;
+  const vec3& getScale() const;
+  const mat4 getMatrix() const;
 };
