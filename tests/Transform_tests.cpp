@@ -4,6 +4,9 @@
 
 #include "fixtures/TransformTest.hpp"
 
+using glm::translate;
+using glm::rotate;
+using glm::scale;
 using glm::radians;
 
 TEST_F(TransformTest, translate) {
@@ -40,21 +43,21 @@ TEST_F(TransformTest, scale) {
 }
 
 TEST_F(TransformTest, getMatrix) {
-  transform.scale(vec3(1, 3, 3));
+  transform.scale(vec3(1, 2, 3));
   transform.rotate(vec3(90, 80, 70));
   transform.translate(vec3(4, 5, 6));
 
   const auto correctMatrix =
-    glm::translate(glm::rotate(glm::rotate(glm::rotate(glm::scale(mat4()
-    , vec3(1, 3, 3))
+    translate(rotate(rotate(rotate(scale(mat4()
+    , vec3(1, 2, 3))
     , radians(90.f), vec3(1, 0, 0))
     , radians(80.f), vec3(0, 1, 0))
     , radians(70.f), vec3(0, 0, 1))
     , vec3(4, 5, 6));
 
   const auto incorrectMatrix =
-    glm::translate(glm::rotate(glm::rotate(glm::rotate(glm::scale(mat4()
-    , vec3(1, 3, 3))
+    translate(rotate(rotate(rotate(scale(mat4()
+    , vec3(1, 2, 3))
     , radians(90.f), vec3(1, 0, 0))
     , radians(81.f), vec3(0, 1, 0))
     , radians(70.f), vec3(0, 0, 1))

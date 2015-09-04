@@ -10,6 +10,13 @@ class Transform {
   vec3 rotation;
   vec3 m_scale;
 
+protected:
+  const virtual mat4 calculateMatrix(
+    const vec3& scale,
+    const vec3& rotation,
+    const vec3& position
+  ) const;
+
 public:
   Transform();
   void translate(const vec3& translation);

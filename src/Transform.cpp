@@ -43,11 +43,19 @@ const vec3& Transform::getScale() const {
   return m_scale;
 }
 
-const mat4 Transform::getMatrix() const {
+const mat4 Transform::calculateMatrix(
+  const vec3& scale,
+  const vec3& rotation,
+  const vec3& position
+) const {
   return glm::translate(glm::rotate(glm::rotate(glm::rotate(glm::scale(mat4()
-         , m_scale)
+         , scale)
          , radians(rotation.x), vec3(1, 0, 0))
          , radians(rotation.y), vec3(0, 1, 0))
          , radians(rotation.z), vec3(0, 0, 1))
          , position);
+}
+
+const mat4 Transform::getMatrix() const {
+  return calculateMatrix(m_scale, rotation, position);
 }
