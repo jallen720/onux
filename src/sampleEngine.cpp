@@ -8,8 +8,6 @@
 #include <thread>
 #include <chrono>
 #include <glm/glm.hpp>
-
-// TEMP
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "Window.hpp"
@@ -17,8 +15,10 @@
 #include "ShaderSource.hpp"
 #include "Image.hpp"
 #include "Transform.hpp"
+#include "ViewTransform.hpp"
 #include "Scene.hpp"
 #include "Mesh.hpp"
+#include "Camera.hpp"
 #include "onux_gl/helpers.hpp"
 #include "onux_gl/ShaderObject.hpp"
 #include "onux_gl/ShaderProgram.hpp"
@@ -38,6 +38,8 @@ using std::chrono::milliseconds;
 using glm::vec2;
 using glm::vec3;
 using glm::vec4;
+using glm::perspective;
+using glm::radians;
 using onux_gl::getErrorMsg;
 using onux_gl::ShaderObject;
 using onux_gl::ShaderProgram;
@@ -78,16 +80,11 @@ private:
       textures[i]->bind(i);
   }
 
-  void setUniforms() const {
-    mat4 model      = transform.getMatrix();
-    mat4 view       = glm::translate(mat4(), vec3(0, 0, 0));
-    mat4 projection = glm::perspective(
-      glm::radians(45.f),
-      1280.f / 720.f,
-      1.f,
-      500.f
-    );
-
+  void setUniforms(
+    const mat4& model,
+    const mat4& view,
+    const mat4& projection
+  ) const {
     shaderProgram.setUniform("model"     , model     , GL_FALSE);
     shaderProgram.setUniform("view"      , view      , GL_FALSE);
     shaderProgram.setUniform("projection", projection, GL_FALSE);
@@ -102,10 +99,16 @@ public:
     , shaderProgram(shaderProgram)
     , textures(textures) {}
 
-  void enable() const {
+  void enable(Camera& camera) const {
     vertexArray.bind();
     shaderProgram.use();
-    setUniforms();
+
+    setUniforms(
+      transform.getMatrix(),
+      camera.getTransform().getMatrix(),
+      camera.getProjection()
+    );
+
     bindTextures();
   }
 
@@ -127,11 +130,11 @@ static void drawElements() {
   glDrawElements(MODE, indexCount, TYPE, FIRST);
 }
 
-static void draw(const vector<Renderable*>& renderables) {
+static void draw(const vector<Renderable*>& drawables, Camera& camera) {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  for (auto renderable : renderables) {
-    renderable->enable();
+  for (auto drawable : drawables) {
+    drawable->enable(camera);
     drawElements();
   }
 }
@@ -240,6 +243,17 @@ void sampleEngine() {
 
     drawables[0]->getTransform().setPosition(vec3(0, 0, -4));
 
+    // Camera setup
+    static const float FOV        = radians(45.f);
+    static const float ASPECT     = 1280.f / 720.f;
+    static const float Z_NEAR     = 1.f;
+    static const float Z_FAR      = 500.f;
+    static const mat4  PROJECTION = perspective(FOV, ASPECT, Z_NEAR, Z_FAR);
+    Camera camera(PROJECTION);
+    camera.getTransform().setPosition(vec3(2, 0, 0));
+    camera.getTransform().setRotation(vec3(10, 0, 0));
+
+    // Check for gl errors generated during resource initialization.
     checkGLError(glGetError());
 
     // Engine loop
@@ -247,7 +261,7 @@ void sampleEngine() {
 
     while (!window.shouldClose()) {
       glfwPollEvents();
-      draw(drawables);
+      draw(drawables, camera);
       window.swapBuffers();
       checkGLError(glGetError());
       frameWait(frameStart);
