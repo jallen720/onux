@@ -6,7 +6,7 @@ MAGICK_INCS = `pkg-config --cflags Magick++`
 INCS        = $(APP_INCS) $(MAGICK_INCS)
 
 # Testing include directories
-ifneq ($(filter tests,$(MAKECMDGOALS)),)
+ifeq ($(findstring tests,$(MAKECMDGOALS)),tests)
 
 TESTS_INCS = -I$(TESTS_DIR)$(INCLUDE_DIR)
 INCS += $(TESTS_INCS)
