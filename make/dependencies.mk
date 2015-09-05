@@ -5,6 +5,15 @@ APP_INCS    = -I$(INCLUDE_DIR)
 MAGICK_INCS = `pkg-config --cflags Magick++`
 INCS        = $(APP_INCS) $(MAGICK_INCS)
 
+# Testing include directories
+ifneq ($(filter tests,$(MAKECMDGOALS)),)
+
+TESTS_INCS = -I$(TESTS_DIR)$(INCLUDE_DIR)
+INCS += $(TESTS_INCS)
+$(info Building tests, adding $(TESTS_INCS) to additional include directories.)
+
+endif
+
 # Libraries
 APP_LIBS    =
 GTEST_LIBS  = -lgtest -lpthread
