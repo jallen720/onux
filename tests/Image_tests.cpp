@@ -12,12 +12,15 @@ using Magick::ErrorBlob;
 
 TEST_F(ImageTest, validCreation) {
   expectNoThrow([] {
-    Image(testImagePath("valid.png"));
+    const Image image(testImagePath("valid.png"));
   });
 }
 
 TEST_F(ImageTest, emptyPath) {
-  EXPECT_THROW(Image(""), runtime_error);
+  EXPECT_THROW(
+    Image(""),
+    runtime_error
+  );
 }
 
 TEST_F(ImageTest, invalidFileExtension) {
