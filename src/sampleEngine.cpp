@@ -121,24 +121,6 @@ public:
   }
 };
 
-static GLsizei indexCount;
-
-static void drawElements() {
-  static const GLenum  MODE  = GL_TRIANGLES;
-  static const GLenum  TYPE  = GL_UNSIGNED_INT;
-  static const GLvoid* FIRST = 0;
-  glDrawElements(MODE, indexCount, TYPE, FIRST);
-}
-
-static void draw(const vector<Renderable*>& drawables, Camera& camera) {
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-  for (auto drawable : drawables) {
-    drawable->enable(camera);
-    drawElements();
-  }
-}
-
 static void checkGLError(const GLenum error) {
   if (error != GL_NO_ERROR)
     throw runtime_error(
@@ -159,6 +141,45 @@ static void configOpenGL() {
   glEnable(GL_CULL_FACE);
   glEnable(GL_DEPTH_TEST);
 }
+
+/*---------------- RENDERING ----------------*/
+typedef vector<const Renderable*> Drawables;
+
+static GLsizei indexCount;
+
+static void drawElements() {
+  static const GLenum  MODE  = GL_TRIANGLES;
+  static const GLenum  TYPE  = GL_UNSIGNED_INT;
+  static const GLvoid* FIRST = 0;
+  glDrawElements(MODE, indexCount, TYPE, FIRST);
+}
+
+static void draw(const Drawables& drawables, Camera& camera) {
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  for (auto drawable : drawables) {
+    drawable->enable(camera);
+    drawElements();
+  }
+}
+
+static void engineLoop(
+  const Window& window,
+  const Drawables& drawables,
+  Camera& camera
+) {
+  float frameStart = glfwGetTime();
+
+  while (!window.shouldClose()) {
+    glfwPollEvents();
+    draw(drawables, camera);
+    window.swapBuffers();
+    checkGLError(glGetError());
+    frameWait(frameStart);
+    frameStart = glfwGetTime();
+  }
+}
+/*---------------- RENDERING ----------------*/
 
 void sampleEngine() {
   try {
@@ -237,18 +258,23 @@ void sampleEngine() {
       { vertexArrays[0], shaderPrograms[1], { &textures[0] } },
     };
 
-    const vector<Renderable*> drawables {
+    const Drawables drawables {
       &renderables[0],
     };
 
-    drawables[0]->getTransform().setPosition(vec3(0, 0, -4));
+    renderables[0].getTransform().setPosition(vec3(0, 0, -4));
 
     // Camera setup
     static const float FOV        = radians(45.f);
-    static const float ASPECT     = window.getAspect();
     static const float Z_NEAR     = 1.f;
     static const float Z_FAR      = 500.f;
-    static const mat4  PROJECTION = perspective(FOV, ASPECT, Z_NEAR, Z_FAR);
+    static const mat4  PROJECTION = perspective(
+      FOV,
+      window.getAspect(),
+      Z_NEAR,
+      Z_FAR
+    );
+
     Camera camera(PROJECTION);
     camera.getViewTransform().setPosition(vec3(1.2, 0, 0));
     camera.getViewTransform().setRotation(vec3(10, 0, 0));
@@ -257,16 +283,7 @@ void sampleEngine() {
     checkGLError(glGetError());
 
     // Engine loop
-    float frameStart = glfwGetTime();
-
-    while (!window.shouldClose()) {
-      glfwPollEvents();
-      draw(drawables, camera);
-      window.swapBuffers();
-      checkGLError(glGetError());
-      frameWait(frameStart);
-      frameStart = glfwGetTime();
-    }
+    engineLoop(window, drawables, camera);
   } catch(const runtime_error& e) {
     cerr << e.what() << endl;
   } catch(...) {
