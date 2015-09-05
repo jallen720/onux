@@ -9,7 +9,7 @@ namespace onux_gl {
 
   struct IImage;
 
-  class Texture : OpenGLData {
+  class Texture : public OpenGLData {
   public:
     typedef map<const GLenum, const GLint> Options;
 
