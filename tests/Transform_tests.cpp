@@ -43,9 +43,9 @@ TEST_F(TransformTest, scale) {
 }
 
 TEST_F(TransformTest, getMatrix) {
-  transform.scale(vec3(1, 2, 3));
-  transform.rotate(vec3(90, 80, 70));
-  transform.translate(vec3(4, 5, 6));
+  transform.setScale(vec3(1, 2, 3));
+  transform.setRotation(vec3(90, 80, 70));
+  transform.setPosition(vec3(4, 5, 6));
 
   const auto correctMatrix =
     translate(rotate(rotate(rotate(scale(mat4()
