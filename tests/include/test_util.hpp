@@ -9,6 +9,7 @@ using std::function;
 
 const string testShaderPath(const string& name);
 const string testImagePath(const string& name);
+const string testModelPath(const string& name);
 void expectNoThrow(const function<void()>& block);
 void expectGLError(const GLenum error, const function<void()>& block);
 

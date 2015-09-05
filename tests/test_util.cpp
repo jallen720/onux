@@ -10,6 +10,7 @@ using std::exception;
 
 static const string TEST_SHADERS_DIRECTORY = "tests/resources/shaders/";
 static const string TEST_IMAGES_DIRECTORY = "tests/resources/images/";
+static const string TEST_MODELS_DIRECTORY = "tests/resources/models/";
 
 const string testShaderPath(const string& name) {
   return TEST_SHADERS_DIRECTORY + name;
@@ -17,6 +18,10 @@ const string testShaderPath(const string& name) {
 
 const string testImagePath(const string& name) {
   return TEST_IMAGES_DIRECTORY + name;
+}
+
+const string testModelPath(const string& name) {
+  return TEST_MODELS_DIRECTORY + name;
 }
 
 void expectNoThrow(const function<void()>& block) {
