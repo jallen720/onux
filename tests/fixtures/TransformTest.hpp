@@ -1,7 +1,9 @@
 #pragma once
 
-#include "OnuxTest.hpp"
+#include <gtest/gtest.h>
 
-struct TransformTest : OnuxTest {
+using testing::Test;
+
+struct TransformTest : Test {
   Transform transform;
 };

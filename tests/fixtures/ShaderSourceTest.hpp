@@ -1,5 +1,7 @@
 #pragma once
 
-#include "OnuxTest.hpp"
+#include <gtest/gtest.h>
 
-class ShaderSourceTest : public OnuxTest {};
+using testing::Test;
+
+struct ShaderSourceTest : Test {};

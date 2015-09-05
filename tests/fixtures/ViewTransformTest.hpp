@@ -1,7 +1,9 @@
 #pragma once
 
-#include "OnuxTest.hpp"
+#include <gtest/gtest.h>
 
-struct ViewTransformTest : OnuxTest {
+using testing::Test;
+
+struct ViewTransformTest : Test {
   ViewTransform viewTransform;
 };
