@@ -1,7 +1,9 @@
 #include "Window.hpp"
 
 Window::Window(const int width, const int height, const char* name)
-  : window(glfwCreateWindow(width, height, name, nullptr, nullptr)) {
+  : window(glfwCreateWindow(width, height, name, nullptr, nullptr))
+  , width(width)
+  , height(height) {
   makeContextCurrent();
 }
 
@@ -11,6 +13,10 @@ Window::~Window() {
 
 void Window::makeContextCurrent() const {
   glfwMakeContextCurrent(window);
+}
+
+const float Window::getAspect() const {
+  return (float)width / height;
 }
 
 const bool Window::shouldClose() const {

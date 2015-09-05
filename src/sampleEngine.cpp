@@ -245,12 +245,12 @@ void sampleEngine() {
 
     // Camera setup
     static const float FOV        = radians(45.f);
-    static const float ASPECT     = 1280.f / 720.f;
+    static const float ASPECT     = window.getAspect();
     static const float Z_NEAR     = 1.f;
     static const float Z_FAR      = 500.f;
     static const mat4  PROJECTION = perspective(FOV, ASPECT, Z_NEAR, Z_FAR);
     Camera camera(PROJECTION);
-    camera.getViewTransform().setPosition(vec3(2, 0, 0));
+    camera.getViewTransform().setPosition(vec3(1.2, 0, 0));
     camera.getViewTransform().setRotation(vec3(10, 0, 0));
 
     // Check for gl errors generated during resource initialization.
