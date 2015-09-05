@@ -1,4 +1,4 @@
-#include "GLFWEnvironment.hpp"
+#include "Environment.hpp"
 
 #include <sstream>
 #include <stdexcept>
@@ -15,11 +15,11 @@ static void setErrorCB() {
   });
 }
 
-GLFWEnvironment::GLFWEnvironment() {
+Environment::Environment() {
   setErrorCB();
   glfwInit();
 }
 
-GLFWEnvironment::~GLFWEnvironment() {
+Environment::~Environment() {
   glfwTerminate();
 }

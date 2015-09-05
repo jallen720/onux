@@ -21,8 +21,7 @@ static void checkUnhandledGLError() {
   }
 }
 
-OnuxTest::OnuxTest()
-  : window(1280, 720, "OnuxTest") {
+OnuxTest::OnuxTest() {
   loadExtensions();
 }
 

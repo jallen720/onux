@@ -1,18 +1,18 @@
 #include "Window.hpp"
 
 Window::Window(const int width, const int height, const char* name)
-  : window(glfwCreateWindow(width, height, name, nullptr, nullptr))
+  : glfwWindow(glfwCreateWindow(width, height, name, nullptr, nullptr))
   , width(width)
   , height(height) {
   makeContextCurrent();
 }
 
 Window::~Window() {
-  glfwDestroyWindow(window);
+  glfwDestroyWindow(glfwWindow);
 }
 
 void Window::makeContextCurrent() const {
-  glfwMakeContextCurrent(window);
+  glfwMakeContextCurrent(glfwWindow);
 }
 
 const float Window::getAspect() const {
@@ -20,9 +20,9 @@ const float Window::getAspect() const {
 }
 
 const bool Window::shouldClose() const {
-  return glfwWindowShouldClose(window);
+  return glfwWindowShouldClose(glfwWindow);
 }
 
 void Window::swapBuffers() const {
-  glfwSwapBuffers(window);
+  glfwSwapBuffers(glfwWindow);
 }

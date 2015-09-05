@@ -2,10 +2,8 @@
 
 #include <GLFW/glfw3.h>
 
-#include "GLFWEnvironment.hpp"
-
-class Window : GLFWEnvironment {
-  GLFWwindow* window;
+class Window {
+  GLFWwindow* glfwWindow;
   int width;
   int height;
 

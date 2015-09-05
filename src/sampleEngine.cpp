@@ -10,6 +10,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "Environment.hpp"
 #include "Window.hpp"
 #include "extensions.hpp"
 #include "ShaderSource.hpp"
@@ -184,6 +185,7 @@ static void engineLoop(
 void sampleEngine() {
   try {
     // Environment creation
+    Environment environment;
     Window window(1280, 720, "Onux");
     loadExtensions();
     configOpenGL();
