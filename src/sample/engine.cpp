@@ -4,11 +4,11 @@
 
 #include <iostream>
 #include <stdexcept>
-#include <vector>
+#include <string>
 #include <thread>
 #include <chrono>
-#include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <GLFW/glfw3.h>
 
 #include "Environment.hpp"
 #include "Window.hpp"
@@ -18,39 +18,30 @@
 #include "Transform.hpp"
 #include "ViewTransform.hpp"
 #include "Scene.hpp"
-#include "Mesh.hpp"
 #include "Camera.hpp"
 #include "onux_gl/helpers.hpp"
 #include "onux_gl/ShaderObject.hpp"
 #include "onux_gl/ShaderProgram.hpp"
-#include "onux_gl/Vertex.hpp"
 #include "onux_gl/VertexBuffer.hpp"
 #include "onux_gl/IndexBuffer.hpp"
 #include "onux_gl/VertexArray.hpp"
-#include "onux_gl/Texture.hpp"
 #include "sample/Renderable.hpp"
 #include "sample/RenderingEngine.hpp"
 
-using std::cout;
 using std::cerr;
 using std::endl;
 using std::runtime_error;
-using std::vector;
+using std::string;
 using std::this_thread::sleep_for;
 using std::chrono::milliseconds;
-using glm::vec2;
-using glm::vec3;
-using glm::vec4;
 using glm::perspective;
 using glm::radians;
 using onux_gl::getErrorMsg;
 using onux_gl::ShaderObject;
 using onux_gl::ShaderProgram;
-using onux_gl::Vertex;
 using onux_gl::VertexBuffer;
 using onux_gl::IndexBuffer;
 using onux_gl::VertexArray;
-using onux_gl::Texture;
 
 static const string SHADER_DIRECTORY = "resources/shaders/";
 static const string IMAGE_DIRECTORY = "resources/images/";
