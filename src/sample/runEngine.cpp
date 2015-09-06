@@ -113,48 +113,29 @@ void runEngine() {
       { images[2] },
     };
 
-    // Renderable data
+    // Mesh data
     const Scene scene(scenePath("cube.obj"));
-    // const Scene scene(scenePath("hheli.obj"));
-    auto meshes   = scene.getMeshes();
-    auto vertexes = meshes[0].getVertexes();
-    auto indexes  = meshes[0].getIndexes();
+    auto meshes = scene.getMeshes();
+    const VertexBuffer vertexBuffer(meshes[0].getVertexes());
+    const IndexBuffer indexBuffer(meshes[0].getIndexes());
+    const VertexArray vertexArray(vertexBuffer, indexBuffer);
 
-    const VertexBuffer vertexBuffers[] {
-      { sizeof(Vertex) * vertexes.size(), &vertexes[0], GL_STATIC_DRAW },
-    };
-
-    const IndexBuffer indexBuffers[] {
-      { sizeof(GLuint) * indexes.size(), &indexes[0], GL_STATIC_DRAW },
-    };
-
-    const VertexArray vertexArrays[] {
-      { vertexBuffers[0], indexBuffers[0] },
-    };
-
-    // Renderable data
-    Renderable renderables[] {
-      { vertexArrays[0], shaderPrograms[1], { &textures[0] } },
-    };
-
-    renderables[0].getTransform().setPosition(vec3(0, 0, -4));
-
-    const GraphicsEngine::Drawables drawables {
-      &renderables[0],
-    };
-
-    // Camera setup
-    static const float FOV        = radians(45.f);
-    static const float Z_NEAR     = 1.f;
-    static const float Z_FAR      = 500.f;
-    static const mat4  PROJECTION = perspective(
-      FOV,
-      window.getAspect(),
-      Z_NEAR,
-      Z_FAR
+    // Drawable data
+    Renderable renderable(
+      vertexArray,
+      shaderPrograms[1],
+      { &textures[0] }
     );
 
-    Camera camera(PROJECTION);
+    renderable.getTransform().setPosition(vec3(0, 0, -4));
+
+    const GraphicsEngine::Drawables drawables { &renderable };
+
+    // Camera setup
+    static const float FOV    = radians(45.f);
+    static const float Z_NEAR = 1.f;
+    static const float Z_FAR  = 500.f;
+    Camera camera(perspective(FOV, window.getAspect(), Z_NEAR, Z_FAR));
     camera.getViewTransform().setPosition(vec3(1.2, 0, 0));
     camera.getViewTransform().setRotation(vec3(10, 0, 0));
 

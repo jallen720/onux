@@ -1,17 +1,18 @@
 #pragma once
 
+#include <vector>
+
 #include "onux_gl/BufferObject.hpp"
 
 namespace onux_gl {
+  using std::vector;
+
   class Vertex;
 
   struct VertexBuffer : BufferObject {
-    VertexBuffer(
-      const GLsizei dataSize,
-      const Vertex* data,
-      const GLenum  usage
-    );
+    typedef const vector<Vertex>& Data;
 
+    VertexBuffer(Data data, const GLenum usage = GL_STATIC_DRAW);
     void loadData() const override;
   };
 }

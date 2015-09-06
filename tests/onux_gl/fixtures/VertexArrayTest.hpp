@@ -14,19 +14,8 @@ using onux_gl::IndexBuffer;
 class VertexArrayTest : public OnuxTest {
   const Scene scene { testModelPath("cube.obj") };
   const vector<Mesh> meshes = scene.getMeshes();
-  const vector<Vertex> vertexes = meshes[0].getVertexes();
-  const vector<GLuint> indexes = meshes[0].getIndexes();
 
 public:
-  const VertexBuffer validVertexBuffer {
-    sizeof(Vertex) * vertexes.size(),
-    &vertexes[0],
-    GL_STATIC_DRAW
-  };
-
-  const IndexBuffer validIndexBuffer {
-    sizeof(GLuint) * indexes.size(),
-    &indexes[0],
-    GL_STATIC_DRAW
-  };
+  const VertexBuffer validVertexBuffer { meshes[0].getVertexes() };
+  const IndexBuffer  validIndexBuffer  { meshes[0].getIndexes()  };
 };
