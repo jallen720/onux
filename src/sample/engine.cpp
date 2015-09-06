@@ -28,6 +28,7 @@
 #include "onux_gl/IndexBuffer.hpp"
 #include "onux_gl/VertexArray.hpp"
 #include "onux_gl/Texture.hpp"
+#include "sample/Renderable.hpp"
 
 using std::cout;
 using std::cerr;
@@ -65,62 +66,6 @@ static const string imagePath(const string& name) {
 static const string scenePath(const string& name) {
   return SCENE_DIRECTORY + name;
 }
-
-class Renderable {
-public:
-  typedef const vector<const Texture*> Textures;
-
-private:
-  const VertexArray& vertexArray;
-  const ShaderProgram& shaderProgram;
-  Textures textures;
-  Transform transform;
-
-  void bindTextures() const {
-    for (unsigned int i = 0; i < textures.size(); i++)
-      textures[i]->bind(i);
-  }
-
-  void setUniforms(
-    const mat4& model,
-    const mat4& view,
-    const mat4& projection
-  ) const {
-    shaderProgram.setUniform("model"     , model     , GL_FALSE);
-    shaderProgram.setUniform("view"      , view      , GL_FALSE);
-    shaderProgram.setUniform("projection", projection, GL_FALSE);
-  }
-
-public:
-  Renderable(
-    const VertexArray& vertexArray,
-    const ShaderProgram& shaderProgram,
-    Textures textures
-  ) : vertexArray(vertexArray)
-    , shaderProgram(shaderProgram)
-    , textures(textures) {}
-
-  void enable(Camera& camera) const {
-    vertexArray.bind();
-    shaderProgram.use();
-
-    setUniforms(
-      transform.getMatrix(),
-      camera.getViewTransform().getMatrix(),
-      camera.getProjection()
-    );
-
-    bindTextures();
-  }
-
-  const ShaderProgram& getShaderProgram() const {
-    return shaderProgram;
-  }
-
-  Transform& getTransform() {
-    return transform;
-  }
-};
 
 static void checkGLError(const GLenum error) {
   if (error != GL_NO_ERROR)
@@ -169,7 +114,7 @@ static void engineLoop(
   const Drawables& drawables,
   Camera& camera
 ) {
-  float frameStart = glfwGetTime();
+  auto frameStart = glfwGetTime();
 
   while (!window.shouldClose()) {
     glfwPollEvents();
