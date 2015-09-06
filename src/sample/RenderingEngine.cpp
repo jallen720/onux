@@ -13,20 +13,10 @@ static void drawElements() {
   glDrawElements(MODE, COUNT, TYPE, FIRST);
 }
 
-void RenderingEngine::renderDrawables() {
-  for (auto drawable : drawables) {
-    drawable->enable(camera);
-    drawElements();
-  }
-}
+RenderingEngine::RenderingEngine(const Drawables& drawables)
+  : drawables(drawables) {}
 
-RenderingEngine::RenderingEngine(
-  const Drawables& drawables,
-  Camera& camera
-) : drawables(drawables)
-  , camera(camera) {}
-
-static void clearBuffers() {
+void RenderingEngine::clearBuffers() const {
   static const GLbitfield MASKS =
     GL_COLOR_BUFFER_BIT |
     GL_DEPTH_BUFFER_BIT;
@@ -34,7 +24,9 @@ static void clearBuffers() {
   glClear(MASKS);
 }
 
-void RenderingEngine::render() {
-  clearBuffers();
-  renderDrawables();
+void RenderingEngine::render(Camera& camera) {
+  for (auto drawable : drawables) {
+    drawable->enable(camera);
+    drawElements();
+  }
 }

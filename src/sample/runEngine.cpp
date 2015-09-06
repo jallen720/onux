@@ -1,47 +1,41 @@
-#include "sample/engine.hpp"
+#include "sample/runEngine.hpp"
 
 #include <GL/glew.h> // Must include before any OpenGL headers.
 
 #include <iostream>
 #include <stdexcept>
 #include <string>
-#include <thread>
-#include <chrono>
 #include <glm/gtc/matrix_transform.hpp>
-#include <GLFW/glfw3.h>
 
 #include "Environment.hpp"
 #include "Window.hpp"
 #include "extensions.hpp"
 #include "ShaderSource.hpp"
 #include "Image.hpp"
-#include "Transform.hpp"
-#include "ViewTransform.hpp"
 #include "Scene.hpp"
 #include "Camera.hpp"
-#include "onux_gl/helpers.hpp"
 #include "onux_gl/ShaderObject.hpp"
 #include "onux_gl/ShaderProgram.hpp"
 #include "onux_gl/VertexBuffer.hpp"
 #include "onux_gl/IndexBuffer.hpp"
 #include "onux_gl/VertexArray.hpp"
+#include "onux_gl/Texture.hpp"
 #include "sample/Renderable.hpp"
 #include "sample/RenderingEngine.hpp"
+#include "sample/Engine.hpp"
 
 using std::cerr;
 using std::endl;
 using std::runtime_error;
 using std::string;
-using std::this_thread::sleep_for;
-using std::chrono::milliseconds;
 using glm::perspective;
 using glm::radians;
-using onux_gl::getErrorMsg;
 using onux_gl::ShaderObject;
 using onux_gl::ShaderProgram;
 using onux_gl::VertexBuffer;
 using onux_gl::IndexBuffer;
 using onux_gl::VertexArray;
+using onux_gl::Texture;
 
 static const string SHADER_DIRECTORY = "resources/shaders/";
 static const string IMAGE_DIRECTORY = "resources/images/";
@@ -59,38 +53,11 @@ static const string scenePath(const string& name) {
   return SCENE_DIRECTORY + name;
 }
 
-static void checkGLError(const GLenum error) {
-  if (error != GL_NO_ERROR)
-    throw runtime_error(
-      "Unhandled OpenGL error generated:\n"
-      "  " + getErrorMsg(error) + "\n\n"
-    );
-}
-
-static void frameWait(float frameStart) {
-  static const float FPS  = 60.f;
-  long wait = ((1.f / FPS) * 1000) - (glfwGetTime() - frameStart);
-  sleep_for(milliseconds(wait));
-}
-
 static void configOpenGL() {
   glClearColor(1, 1, 1, 1);
   glCullFace(GL_BACK);
   glEnable(GL_CULL_FACE);
   glEnable(GL_DEPTH_TEST);
-}
-
-static void engineLoop(const Window& window, RenderingEngine& renderingEngine) {
-  auto frameStart = glfwGetTime();
-
-  while (!window.shouldClose()) {
-    glfwPollEvents();
-    renderingEngine.render();
-    window.swapBuffers();
-    checkGLError(glGetError());
-    frameWait(frameStart);
-    frameStart = glfwGetTime();
-  }
 }
 
 void runEngine() {
@@ -176,6 +143,8 @@ void runEngine() {
       &renderables[0],
     };
 
+    RenderingEngine renderingEngine(drawables);
+
     // Camera setup
     static const float FOV        = radians(45.f);
     static const float Z_NEAR     = 1.f;
@@ -191,13 +160,10 @@ void runEngine() {
     camera.getViewTransform().setPosition(vec3(1.2, 0, 0));
     camera.getViewTransform().setRotation(vec3(10, 0, 0));
 
-    RenderingEngine renderingEngine(drawables, camera);
+    // Engine
+    Engine engine(window, camera, renderingEngine);
+    engine.run();
 
-    // Check for gl errors generated during resource initialization.
-    checkGLError(glGetError());
-
-    // Engine loop
-    engineLoop(window, renderingEngine);
   } catch(const runtime_error& e) {
     cerr << e.what() << endl;
   } catch(...) {
