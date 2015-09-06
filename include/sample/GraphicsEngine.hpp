@@ -7,7 +7,7 @@ using std::vector;
 class Renderable;
 class Camera;
 
-class RenderingEngine {
+class GraphicsEngine {
 public:
   typedef vector<const Renderable*> Drawables;
 
@@ -16,7 +16,7 @@ private:
   Camera& camera;
 
 public:
-  RenderingEngine(const Drawables& drawables, Camera& camera);
+  GraphicsEngine(const Drawables& drawables, Camera& camera);
   void clearBuffers() const;
   void render();
 };

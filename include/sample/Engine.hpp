@@ -1,17 +1,17 @@
 #pragma once
 
 class Window;
-class RenderingEngine;
+class GraphicsEngine;
 
 class Engine {
   const Window& window;
-  RenderingEngine& renderingEngine;
+  GraphicsEngine& graphicsEngine;
 
   void renderObjects();
   void processFrame();
 
 public:
-  Engine(const Window& window, RenderingEngine& renderingEngine);
+  Engine(const Window& window, GraphicsEngine& graphicsEngine);
 
   void run();
 };

@@ -1,4 +1,4 @@
-#include "sample/RenderingEngine.hpp"
+#include "sample/GraphicsEngine.hpp"
 
 #include <GL/glew.h>
 
@@ -13,11 +13,11 @@ static void drawElements() {
   glDrawElements(MODE, COUNT, TYPE, FIRST);
 }
 
-RenderingEngine::RenderingEngine(const Drawables& drawables, Camera& camera)
+GraphicsEngine::GraphicsEngine(const Drawables& drawables, Camera& camera)
   : drawables(drawables)
   , camera(camera) {}
 
-void RenderingEngine::clearBuffers() const {
+void GraphicsEngine::clearBuffers() const {
   static const GLbitfield MASKS =
     GL_COLOR_BUFFER_BIT |
     GL_DEPTH_BUFFER_BIT;
@@ -25,7 +25,7 @@ void RenderingEngine::clearBuffers() const {
   glClear(MASKS);
 }
 
-void RenderingEngine::render() {
+void GraphicsEngine::render() {
   for (auto drawable : drawables) {
     drawable->enable(camera);
     drawElements();

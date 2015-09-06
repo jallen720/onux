@@ -21,7 +21,7 @@
 #include "onux_gl/VertexArray.hpp"
 #include "onux_gl/Texture.hpp"
 #include "sample/Renderable.hpp"
-#include "sample/RenderingEngine.hpp"
+#include "sample/GraphicsEngine.hpp"
 #include "sample/Engine.hpp"
 
 using std::cerr;
@@ -139,7 +139,7 @@ void runEngine() {
 
     renderables[0].getTransform().setPosition(vec3(0, 0, -4));
 
-    const RenderingEngine::Drawables drawables {
+    const GraphicsEngine::Drawables drawables {
       &renderables[0],
     };
 
@@ -158,10 +158,10 @@ void runEngine() {
     camera.getViewTransform().setPosition(vec3(1.2, 0, 0));
     camera.getViewTransform().setRotation(vec3(10, 0, 0));
 
-    RenderingEngine renderingEngine(drawables, camera);
+    GraphicsEngine graphicsEngine(drawables, camera);
 
     // Engine
-    Engine engine(window, renderingEngine);
+    Engine engine(window, graphicsEngine);
     engine.run();
 
   } catch(const runtime_error& e) {

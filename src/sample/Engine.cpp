@@ -6,7 +6,7 @@
 #include <GL/glew.h>
 
 #include "Window.hpp"
-#include "sample/RenderingEngine.hpp"
+#include "sample/GraphicsEngine.hpp"
 #include "onux_gl/helpers.hpp"
 
 using std::runtime_error;
@@ -15,8 +15,8 @@ using std::chrono::milliseconds;
 using onux_gl::getErrorMsg;
 
 void Engine::renderObjects() {
-  renderingEngine.clearBuffers();
-  renderingEngine.render();
+  graphicsEngine.clearBuffers();
+  graphicsEngine.render();
   window.swapBuffers();
 }
 
@@ -34,9 +34,9 @@ void Engine::processFrame() {
   validateNoGLError(glGetError());
 }
 
-Engine::Engine(const Window& window, RenderingEngine& renderingEngine)
+Engine::Engine(const Window& window, GraphicsEngine& graphicsEngine)
   : window(window)
-  , renderingEngine(renderingEngine) {
+  , graphicsEngine(graphicsEngine) {
   validateNoGLError(glGetError());
 }
 
