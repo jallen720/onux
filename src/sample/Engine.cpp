@@ -24,7 +24,7 @@ static void validateNoGLError(const GLenum error) {
   if (error != GL_NO_ERROR)
     throw runtime_error(
       "Unhandled OpenGL error generated:\n"
-      "  " + getErrorMsg(error) + "\n\n"
+      "  " + getErrorMsg(error) + "\n"
     );
 }
 
