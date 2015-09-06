@@ -14,9 +14,9 @@ void Renderable::setUniforms(
   const mat4& view,
   const mat4& projection
 ) const {
-  shaderProgram.setUniform("model"     , model     , GL_FALSE);
-  shaderProgram.setUniform("view"      , view      , GL_FALSE);
-  shaderProgram.setUniform("projection", projection, GL_FALSE);
+  shaderProgram.setUniform("model", model);
+  shaderProgram.setUniform("view", view);
+  shaderProgram.setUniform("projection", projection);
 }
 
 Renderable::Renderable(

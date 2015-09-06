@@ -39,7 +39,7 @@ namespace onux_gl {
     void setUniform(
       const GLchar*   name,
       const mat4&     value,
-      const GLboolean transpose
+      const GLboolean transpose = GL_FALSE
     ) const;
   };
 }
