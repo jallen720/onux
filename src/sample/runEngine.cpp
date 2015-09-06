@@ -120,8 +120,16 @@ void runEngine() {
     };
 
     Renderable renderables[] {
-      { scenes[0].getMeshes()[0], shaderPrograms[1], { &textures[2] } },
-      { scenes[1].getMeshes()[0], shaderPrograms[1], { &textures[0] } },
+      Renderable(
+        scenes[0].getMeshes()[0],
+        shaderPrograms[1],
+        { &textures[2] }
+      ),
+      Renderable(
+        scenes[1].getMeshes()[0],
+        shaderPrograms[0],
+        { &textures[0], &textures[1] }
+      ),
     };
 
     renderables[1].getTransform().setPosition(vec3(0, 0, -5));
@@ -139,7 +147,7 @@ void runEngine() {
     static const float Z_NEAR = 1.f;
     static const float Z_FAR  = 500.f;
     Camera camera(perspective(FOV, window.getAspect(), Z_NEAR, Z_FAR));
-    camera.getViewTransform().setPosition(vec3(1.2, 0, 0));
+    camera.getViewTransform().setPosition(vec3(3, 0, 0));
 
     GraphicsEngine graphicsEngine(drawables, camera);
 
