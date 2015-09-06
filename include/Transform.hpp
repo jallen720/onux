@@ -12,9 +12,9 @@ class Transform {
 
 protected:
   const virtual mat4 calculateMatrix(
-    const vec3& scale,
+    const vec3& position,
     const vec3& rotation,
-    const vec3& position
+    const vec3& scale
   ) const;
 
 public:

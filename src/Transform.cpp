@@ -44,18 +44,18 @@ const vec3& Transform::getScale() const {
 }
 
 const mat4 Transform::calculateMatrix(
-  const vec3& scale,
+  const vec3& position,
   const vec3& rotation,
-  const vec3& position
+  const vec3& scale
 ) const {
-  return glm::translate(glm::rotate(glm::rotate(glm::rotate(glm::scale(mat4()
-         , scale)
+  return glm::scale(glm::rotate(glm::rotate(glm::rotate(glm::translate(mat4()
+         , position)
          , radians(rotation.x), vec3(1, 0, 0))
          , radians(rotation.y), vec3(0, 1, 0))
          , radians(rotation.z), vec3(0, 0, 1))
-         , position);
+         , scale);
 }
 
 const mat4 Transform::getMatrix() const {
-  return calculateMatrix(m_scale, rotation, position);
+  return calculateMatrix(position, rotation, m_scale);
 }
