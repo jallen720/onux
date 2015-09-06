@@ -13,11 +13,18 @@ using Assimp::Importer;
 struct aiScene;
 
 class Scene {
+public:
+  typedef const vector<const Mesh*> Meshes;
+
+private:
   Importer importer;
   const aiScene* scene;
-  const vector<Mesh> meshes;
+  Meshes meshes;
+
+  void deleteMeshes();
 
 public:
   Scene(const string& path);
-  const vector<Mesh>& getMeshes() const;
+  ~Scene();
+  Meshes& getMeshes() const;
 };

@@ -20,15 +20,15 @@ void Renderable::setUniforms(
 }
 
 Renderable::Renderable(
-  const VertexArray& vertexArray,
+  const Mesh* mesh,
   const ShaderProgram& shaderProgram,
   Textures textures
-) : vertexArray(vertexArray)
+) : mesh(mesh)
   , shaderProgram(shaderProgram)
   , textures(textures) {}
 
 void Renderable::enable(Camera& camera) const {
-  vertexArray.bind();
+  mesh->use();
   shaderProgram.use();
 
   setUniforms(

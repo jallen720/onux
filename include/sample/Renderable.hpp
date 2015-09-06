@@ -6,13 +6,12 @@
 #include "Transform.hpp"
 #include "onux_gl/Texture.hpp"
 #include "onux_gl/ShaderProgram.hpp"
-#include "onux_gl/VertexArray.hpp"
+#include "Mesh.hpp"
 
 using std::vector;
 using glm::mat4;
 using onux_gl::Texture;
 using onux_gl::ShaderProgram;
-using onux_gl::VertexArray;
 
 class Camera;
 
@@ -21,7 +20,7 @@ public:
   typedef const vector<const Texture*> Textures;
 
 private:
-  const VertexArray& vertexArray;
+  const Mesh* mesh;
   const ShaderProgram& shaderProgram;
   Textures textures;
   Transform transform;
@@ -36,7 +35,7 @@ private:
 
 public:
   Renderable(
-    const VertexArray& vertexArray,
+    const Mesh* mesh,
     const ShaderProgram& shaderProgram,
     Textures textures
   );

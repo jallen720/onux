@@ -55,6 +55,11 @@ using std::runtime_error;
 //   return Ret;
 // }
 
+void Scene::deleteMeshes() {
+  for (auto mesh : meshes)
+    delete mesh;
+}
+
 static const string assimpErrorMsg(const string& msg) {
   stringstream stream;
   stream << "ASSIMP ERROR: " << msg << "\n";
@@ -82,11 +87,11 @@ static const aiScene* loadScene(const string& path, Importer& importer) {
   return scene;
 }
 
-static const vector<Mesh> loadMeshes(const aiScene* scene) {
-  vector<Mesh> meshes;
+static Scene::Meshes loadMeshes(const aiScene* scene) {
+  vector<const Mesh*> meshes;
 
   for (auto i = 0u; i < scene->mNumMeshes; i++)
-    meshes.push_back({ scene->mMeshes[i] });
+    meshes.push_back(new Mesh(scene->mMeshes[i]));
 
   return meshes;
 }
@@ -97,6 +102,10 @@ Scene::Scene(const string& path)
 
 }
 
-const vector<Mesh>& Scene::getMeshes() const {
+Scene::~Scene() {
+  deleteMeshes();
+}
+
+Scene::Meshes& Scene::getMeshes() const {
   return meshes;
 }

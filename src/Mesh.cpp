@@ -59,7 +59,10 @@ static const vector<GLuint> loadIndexes(const aiMesh* mesh) {
 
 Mesh::Mesh(const aiMesh* mesh)
   : vertexes(loadVertexes(mesh))
-  , indexes(loadIndexes(mesh)) {}
+  , indexes(loadIndexes(mesh))
+  , vertexBuffer(vertexes)
+  , indexBuffer(indexes)
+  , vertexArray(vertexBuffer, indexBuffer) {}
 
 const vector<Vertex>& Mesh::getVertexes() const {
   return vertexes;
@@ -69,3 +72,6 @@ const vector<GLuint>& Mesh::getIndexes() const {
   return indexes;
 }
 
+void Mesh::use() const {
+  vertexArray.bind();
+}

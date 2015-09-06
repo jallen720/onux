@@ -113,16 +113,11 @@ void runEngine() {
       { images[2] },
     };
 
-    // Mesh data
-    const Scene scene(scenePath("cube.obj"));
-    auto meshes = scene.getMeshes();
-    const VertexBuffer vertexBuffer(meshes[0].getVertexes());
-    const IndexBuffer indexBuffer(meshes[0].getIndexes());
-    const VertexArray vertexArray(vertexBuffer, indexBuffer);
-
     // Drawable data
+    const Scene scene(scenePath("cube.obj"));
+
     Renderable renderable(
-      vertexArray,
+      scene.getMeshes()[0],
       shaderPrograms[1],
       { &textures[0] }
     );
