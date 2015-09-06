@@ -7,5 +7,5 @@ namespace onux_gl {
   using std::string;
 
   const GLint getInt(const GLenum parameter);
-  const string getErrorMsg(const GLenum errorCode);
+  const string getErrorMsg(const GLenum error);
 }

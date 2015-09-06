@@ -1,8 +1,8 @@
 #include "onux_gl/helpers.hpp"
 
 namespace onux_gl {
-  static const string errorString(const GLenum errorCode) {
-    switch (errorCode) {
+  static const string errorString(const GLenum error) {
+    switch (error) {
       case GL_NO_ERROR                      : return "No error";
       case GL_INVALID_ENUM                  : return "Invalid enum";
       case GL_INVALID_VALUE                 : return "Invalid value";
@@ -21,7 +21,7 @@ namespace onux_gl {
     return value;
   }
 
-  const string getErrorMsg(const GLenum errorCode) {
-    return "OPENGL ERROR: " + errorString(errorCode);
+  const string getErrorMsg(const GLenum error) {
+    return "OPENGL ERROR: " + errorString(error);
   }
 }
