@@ -43,12 +43,12 @@ TEST_F(TransformTest, scale) {
 }
 
 TEST_F(TransformTest, getMatrix) {
-  transform.setScale(vec3(1, 2, 3));
+  transform.setPosition(vec3(1, 2, 3));
   transform.setRotation(vec3(90, 80, 70));
-  transform.setPosition(vec3(4, 5, 6));
+  transform.setScale(vec3(4, 5, 6));
 
   const auto correctMatrix =
-    translate(rotate(rotate(rotate(scale(mat4()
+    scale(rotate(rotate(rotate(translate(mat4()
     , vec3(1, 2, 3))
     , radians(90.f), vec3(1, 0, 0))
     , radians(80.f), vec3(0, 1, 0))
@@ -56,7 +56,7 @@ TEST_F(TransformTest, getMatrix) {
     , vec3(4, 5, 6));
 
   const auto incorrectMatrix =
-    translate(rotate(rotate(rotate(scale(mat4()
+    scale(rotate(rotate(rotate(translate(mat4()
     , vec3(1, 2, 3))
     , radians(90.f), vec3(1, 0, 0))
     , radians(81.f), vec3(0, 1, 0))

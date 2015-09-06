@@ -114,17 +114,25 @@ void runEngine() {
     };
 
     // Drawable data
-    const Scene scene(scenePath("cube.obj"));
+    const Scene scenes[] {
+      { scenePath("hheli.obj") },
+      { scenePath("cube.obj")  },
+    };
 
-    Renderable renderable(
-      scene.getMeshes()[0],
-      shaderPrograms[1],
-      { &textures[0] }
-    );
+    Renderable renderables[] {
+      { scenes[0].getMeshes()[0], shaderPrograms[1], { &textures[2] } },
+      { scenes[1].getMeshes()[0], shaderPrograms[1], { &textures[0] } },
+    };
 
-    renderable.getTransform().setPosition(vec3(0, 0, -4));
+    renderables[1].getTransform().setPosition(vec3(0, 0, -5));
+    renderables[0].getTransform().setScale(vec3(0.025));
+    renderables[0].getTransform().setPosition(vec3(2, -1, -5));
+    renderables[0].getTransform().setRotation(vec3(0, 90, 0));
 
-    const GraphicsEngine::Drawables drawables { &renderable };
+    const GraphicsEngine::Drawables drawables {
+      &renderables[0],
+      &renderables[1],
+    };
 
     // Camera setup
     static const float FOV    = radians(45.f);
@@ -132,7 +140,6 @@ void runEngine() {
     static const float Z_FAR  = 500.f;
     Camera camera(perspective(FOV, window.getAspect(), Z_NEAR, Z_FAR));
     camera.getViewTransform().setPosition(vec3(1.2, 0, 0));
-    camera.getViewTransform().setRotation(vec3(10, 0, 0));
 
     GraphicsEngine graphicsEngine(drawables, camera);
 

@@ -40,6 +40,10 @@ void Renderable::enable(Camera& camera) const {
   bindTextures();
 }
 
+const Mesh* Renderable::getMesh() const {
+  return mesh;
+}
+
 const ShaderProgram& Renderable::getShaderProgram() const {
   return shaderProgram;
 }

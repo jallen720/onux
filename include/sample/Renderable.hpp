@@ -41,6 +41,7 @@ public:
   );
 
   void enable(Camera& camera) const;
+  const Mesh* getMesh() const;
   const ShaderProgram& getShaderProgram() const;
   Transform& getTransform();
 };

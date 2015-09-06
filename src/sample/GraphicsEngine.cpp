@@ -5,12 +5,11 @@
 #include "sample/Renderable.hpp"
 #include "Camera.hpp"
 
-static void drawElements() {
+static void drawElements(const GLsizei indexCount) {
   static const GLenum  MODE  = GL_TRIANGLES;
-  static const GLsizei COUNT = 32;
   static const GLenum  TYPE  = GL_UNSIGNED_INT;
   static const GLvoid* FIRST = 0;
-  glDrawElements(MODE, COUNT, TYPE, FIRST);
+  glDrawElements(MODE, indexCount, TYPE, FIRST);
 }
 
 GraphicsEngine::GraphicsEngine(const Drawables& drawables, Camera& camera)
@@ -28,6 +27,6 @@ void GraphicsEngine::clearBuffers() const {
 void GraphicsEngine::render() {
   for (auto drawable : drawables) {
     drawable->enable(camera);
-    drawElements();
+    drawElements(drawable->getMesh()->getIndexes().size());
   }
 }
