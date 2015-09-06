@@ -29,6 +29,7 @@
 #include "onux_gl/VertexArray.hpp"
 #include "onux_gl/Texture.hpp"
 #include "sample/Renderable.hpp"
+#include "sample/RenderingEngine.hpp"
 
 using std::cout;
 using std::cerr;
@@ -88,44 +89,18 @@ static void configOpenGL() {
   glEnable(GL_DEPTH_TEST);
 }
 
-/*---------------- RENDERING ----------------*/
-typedef vector<const Renderable*> Drawables;
-
-static GLsizei indexCount;
-
-static void drawElements() {
-  static const GLenum  MODE  = GL_TRIANGLES;
-  static const GLenum  TYPE  = GL_UNSIGNED_INT;
-  static const GLvoid* FIRST = 0;
-  glDrawElements(MODE, indexCount, TYPE, FIRST);
-}
-
-static void draw(const Drawables& drawables, Camera& camera) {
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-  for (auto drawable : drawables) {
-    drawable->enable(camera);
-    drawElements();
-  }
-}
-
-static void engineLoop(
-  const Window& window,
-  const Drawables& drawables,
-  Camera& camera
-) {
+static void engineLoop(const Window& window, RenderingEngine& renderingEngine) {
   auto frameStart = glfwGetTime();
 
   while (!window.shouldClose()) {
     glfwPollEvents();
-    draw(drawables, camera);
+    renderingEngine.render();
     window.swapBuffers();
     checkGLError(glGetError());
     frameWait(frameStart);
     frameStart = glfwGetTime();
   }
 }
-/*---------------- RENDERING ----------------*/
 
 void runEngine() {
   try {
@@ -186,7 +161,6 @@ void runEngine() {
     auto meshes   = scene.getMeshes();
     auto vertexes = meshes[0].getVertexes();
     auto indexes  = meshes[0].getIndexes();
-    indexCount    = indexes.size();
 
     const VertexBuffer vertexBuffers[] {
       { sizeof(Vertex) * vertexes.size(), &vertexes[0], GL_STATIC_DRAW },
@@ -205,11 +179,11 @@ void runEngine() {
       { vertexArrays[0], shaderPrograms[1], { &textures[0] } },
     };
 
-    const Drawables drawables {
+    renderables[0].getTransform().setPosition(vec3(0, 0, -4));
+
+    const RenderingEngine::Drawables drawables {
       &renderables[0],
     };
-
-    renderables[0].getTransform().setPosition(vec3(0, 0, -4));
 
     // Camera setup
     static const float FOV        = radians(45.f);
@@ -226,11 +200,13 @@ void runEngine() {
     camera.getViewTransform().setPosition(vec3(1.2, 0, 0));
     camera.getViewTransform().setRotation(vec3(10, 0, 0));
 
+    RenderingEngine renderingEngine(drawables, camera);
+
     // Check for gl errors generated during resource initialization.
     checkGLError(glGetError());
 
     // Engine loop
-    engineLoop(window, drawables, camera);
+    engineLoop(window, renderingEngine);
   } catch(const runtime_error& e) {
     cerr << e.what() << endl;
   } catch(...) {
