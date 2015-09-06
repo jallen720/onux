@@ -13,9 +13,10 @@ public:
 
 private:
   const Drawables& drawables;
+  Camera& camera;
 
 public:
-  RenderingEngine(const Drawables& drawables);
+  RenderingEngine(const Drawables& drawables, Camera& camera);
   void clearBuffers() const;
-  void render(Camera& camera);
+  void render();
 };

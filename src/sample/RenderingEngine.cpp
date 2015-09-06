@@ -13,8 +13,9 @@ static void drawElements() {
   glDrawElements(MODE, COUNT, TYPE, FIRST);
 }
 
-RenderingEngine::RenderingEngine(const Drawables& drawables)
-  : drawables(drawables) {}
+RenderingEngine::RenderingEngine(const Drawables& drawables, Camera& camera)
+  : drawables(drawables)
+  , camera(camera) {}
 
 void RenderingEngine::clearBuffers() const {
   static const GLbitfield MASKS =
@@ -24,7 +25,7 @@ void RenderingEngine::clearBuffers() const {
   glClear(MASKS);
 }
 
-void RenderingEngine::render(Camera& camera) {
+void RenderingEngine::render() {
   for (auto drawable : drawables) {
     drawable->enable(camera);
     drawElements();

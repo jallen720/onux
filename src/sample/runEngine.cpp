@@ -143,8 +143,6 @@ void runEngine() {
       &renderables[0],
     };
 
-    RenderingEngine renderingEngine(drawables);
-
     // Camera setup
     static const float FOV        = radians(45.f);
     static const float Z_NEAR     = 1.f;
@@ -160,8 +158,10 @@ void runEngine() {
     camera.getViewTransform().setPosition(vec3(1.2, 0, 0));
     camera.getViewTransform().setRotation(vec3(10, 0, 0));
 
+    RenderingEngine renderingEngine(drawables, camera);
+
     // Engine
-    Engine engine(window, camera, renderingEngine);
+    Engine engine(window, renderingEngine);
     engine.run();
 
   } catch(const runtime_error& e) {

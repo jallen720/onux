@@ -6,7 +6,6 @@
 #include <GL/glew.h>
 
 #include "Window.hpp"
-#include "Camera.hpp"
 #include "sample/RenderingEngine.hpp"
 #include "onux_gl/helpers.hpp"
 
@@ -17,7 +16,7 @@ using onux_gl::getErrorMsg;
 
 void Engine::renderObjects() {
   renderingEngine.clearBuffers();
-  renderingEngine.render(camera);
+  renderingEngine.render();
   window.swapBuffers();
 }
 
@@ -35,12 +34,8 @@ void Engine::processFrame() {
   validateNoGLError(glGetError());
 }
 
-Engine::Engine(
-  const Window& window,
-  Camera& camera,
-  RenderingEngine& renderingEngine
-) : window(window)
-  , camera(camera)
+Engine::Engine(const Window& window, RenderingEngine& renderingEngine)
+  : window(window)
   , renderingEngine(renderingEngine) {
   validateNoGLError(glGetError());
 }
