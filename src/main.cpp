@@ -1,6 +1,6 @@
-#include "sampleEngine.hpp"
+#include "sample/engine.hpp"
 
 int main(int argc, char* argv[]) {
-  sampleEngine();
+  runEngine();
   return 0;
 }

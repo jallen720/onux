@@ -1,4 +1,4 @@
-#include "sampleEngine.hpp"
+#include "sample/engine.hpp"
 
 #include <GL/glew.h> // Must include before any OpenGL headers.
 
@@ -182,7 +182,7 @@ static void engineLoop(
 }
 /*---------------- RENDERING ----------------*/
 
-void sampleEngine() {
+void runEngine() {
   try {
     // Environment creation
     Environment environment;
