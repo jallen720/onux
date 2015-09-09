@@ -12,6 +12,7 @@ namespace onux_gl {
     const vec2 uv;
 
   public:
+    Vertex();
     Vertex(const vec3 position, const vec3 normal, const vec2 uv);
     static void attributePointers();
   };

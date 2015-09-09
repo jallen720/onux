@@ -30,6 +30,8 @@ namespace onux_gl {
     }
   };
 
+  Vertex::Vertex() {}
+
   Vertex::Vertex(const vec3 position, const vec3 normal, const vec2 uv)
     : position(position)
     , normal(normal)
