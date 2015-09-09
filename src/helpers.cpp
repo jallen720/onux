@@ -16,16 +16,18 @@ const string readFile(const string& path) {
   ifstream file;
   file.open(path);
 
-  if (!file.is_open())
+  if (!file.is_open()) {
     throw runtime_error("Failed to open " + path);
+  }
 
   string contents;
   string line;
 
   // Write all lines in file including newline characters (or else shader will
   // not compile) to contents string.
-  while (getline(file, line, LINE_DELIMITER))
+  while (getline(file, line, LINE_DELIMITER)) {
     contents += line;
+  }
 
   file.close();
   return contents;

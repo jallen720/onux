@@ -56,8 +56,9 @@ using std::runtime_error;
 // }
 
 void Scene::deleteMeshes() {
-  for (auto mesh : meshes)
+  for (const Mesh* mesh : meshes) {
     delete mesh;
+  }
 }
 
 static const string assimpErrorMsg(const string& msg) {
@@ -70,8 +71,9 @@ static void validateScene(
   const aiScene* scene,
   const Importer& importer
 ) {
-  if (!scene)
+  if (!scene) {
     throw runtime_error(assimpErrorMsg(importer.GetErrorString()));
+  }
 }
 
 static const aiScene* loadScene(const string& path, Importer& importer) {
@@ -82,7 +84,7 @@ static const aiScene* loadScene(const string& path, Importer& importer) {
     aiProcess_JoinIdenticalVertices |
     aiProcess_SortByPType;
 
-  auto scene = importer.ReadFile(path, IMPORT_FLAGS);
+  const aiScene* scene = importer.ReadFile(path, IMPORT_FLAGS);
   validateScene(scene, importer);
   return scene;
 }
@@ -90,17 +92,16 @@ static const aiScene* loadScene(const string& path, Importer& importer) {
 static Scene::Meshes loadMeshes(const aiScene* scene) {
   vector<const Mesh*> meshes;
 
-  for (auto i = 0u; i < scene->mNumMeshes; i++)
+  for (auto i = 0u; i < scene->mNumMeshes; i++) {
     meshes.push_back(new Mesh(scene->mMeshes[i]));
+  }
 
   return meshes;
 }
 
 Scene::Scene(const string& path)
   : scene(loadScene(path, importer))
-  , meshes(loadMeshes(scene)) {
-
-}
+  , meshes(loadMeshes(scene)) {}
 
 Scene::~Scene() {
   deleteMeshes();

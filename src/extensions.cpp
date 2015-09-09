@@ -10,8 +10,9 @@ static void setExperimental() {
 }
 
 static void validateInit(const GLenum initResult) {
-  if (initResult != GLEW_OK)
+  if (initResult != GLEW_OK) {
     throw runtime_error("GLEW failed to initialize!");
+  }
 }
 
 void loadExtensions() {

@@ -20,10 +20,11 @@ static const bool isValidExtension(const string& extension) {
 }
 
 static void validateExtension(const string& extension) {
-  if (!isValidExtension(extension))
+  if (!isValidExtension(extension)) {
     throw runtime_error(
       "\"" + extension + "\" is not a valid ShaderSource file extension!"
     );
+  }
 }
 
 static const string loadExtension(const string& path) {

@@ -15,14 +15,17 @@ namespace onux_gl {
   }
 
   static void validateLocation(const GLint location, const string& name) {
-    if (!isValidLocation(location))
+    if (!isValidLocation(location)) {
       throw runtime_error("Failed to find location of uniform \"" + name + "\"!");
+    }
   }
 
   static const bool hasType(ShaderProgram::Objects objects, const GLenum type) {
-    for (auto object : objects)
-      if (object->getType() == type)
+    for (auto object : objects) {
+      if (object->getType() == type) {
         return true;
+      }
+    }
 
     return false;
   }
@@ -35,16 +38,18 @@ namespace onux_gl {
   }
 
   static void validateRequiredTypes(ShaderProgram::Objects objects) {
-    if (!hasRequiredTypes(objects))
+    if (!hasRequiredTypes(objects)) {
       throw runtime_error(
         "A ShaderProgram requires atleast a vertex shader object "
         "and a fragment shader object."
       );
+    }
   }
 
   void ShaderProgram::attach(Objects objects) const {
-    for (auto object : objects)
+    for (auto object : objects) {
       glAttachShader(getID(), object->getID());
+    }
   }
 
   void ShaderProgram::link() const {
@@ -52,13 +57,15 @@ namespace onux_gl {
   }
 
   void ShaderProgram::detach(Objects objects) const {
-    for (auto object : objects)
+    for (auto object : objects) {
       glDetachShader(getID(), object->getID());
+    }
   }
 
   void ShaderProgram::validateLinkStatus() const {
-    if (!linkingSucceeded())
+    if (!linkingSucceeded()) {
       throw runtime_error("ShaderProgram linking failed:\n" + getInfoLog());
+    }
   }
 
   const bool ShaderProgram::linkingSucceeded() const {

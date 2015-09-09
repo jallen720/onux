@@ -16,8 +16,9 @@ static void setErrorCB() {
 }
 
 static void validateInit(const int initResult) {
-  if (initResult == GL_FALSE)
+  if (initResult == GL_FALSE) {
     throw runtime_error("GLFW failed to initialize!");
+  }
 }
 
 Environment::Environment() {

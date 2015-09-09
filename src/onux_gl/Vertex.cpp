@@ -44,7 +44,8 @@ namespace onux_gl {
       { 2, GL_FLOAT, GL_TRUE , (GLvoid*)offsetof(Vertex, uv)       },
     };
 
-    for (GLuint i = 0; i < attributes.size(); i++)
+    for (GLuint i = 0; i < attributes.size(); i++) {
       attributes[i].definePointer(i);
+    }
   }
 }

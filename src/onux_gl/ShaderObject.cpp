@@ -7,12 +7,17 @@
 using std::runtime_error;
 
 namespace onux_gl {
-  static void validateSameType(const GLenum type, ShaderObject::Sources sources) {
-    for (auto source : sources)
-      if (source->getType() != type)
+  static void validateSameType(
+    const GLenum type,
+    ShaderObject::Sources sources
+  ) {
+    for (const IShaderSource* source : sources) {
+      if (source->getType() != type) {
         throw runtime_error(
           "All ShaderSource files for ShaderObject must have the same type!"
         );
+      }
+    }
   }
 
   static const bool isValidSourceCount(const size_t sourceCount) {
@@ -21,13 +26,14 @@ namespace onux_gl {
   }
 
   static void validateSourceCount(const size_t sourceCount) {
-    if (!isValidSourceCount(sourceCount))
+    if (!isValidSourceCount(sourceCount)) {
       throw runtime_error("ShaderObject requires atleast 1 ShaderSource!");
+    }
   }
 
   static const GLenum loadType(ShaderObject::Sources sources) {
     validateSourceCount(sources.size());
-    auto type = sources[0]->getType();
+    const GLenum type = sources[0]->getType();
     validateSameType(type, sources);
     return type;
   }
@@ -36,8 +42,9 @@ namespace onux_gl {
     const size_t sourceCount = sources.size();
     const GLchar* sourceCode[sourceCount];
 
-    for (size_t i = 0; i < sourceCount; i++)
+    for (size_t i = 0; i < sourceCount; i++) {
       sourceCode[i] = sources[i]->getCode();
+    }
 
     glShaderSource(getID(), sourceCount, sourceCode, nullptr);
   }

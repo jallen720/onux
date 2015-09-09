@@ -35,8 +35,9 @@ namespace onux_gl {
   }
 
   void Texture::loadOptions(const Options& options) const {
-    for (auto option : options)
+    for (auto option : options) {
       glTexParameteri(TARGET, option.first, option.second);
+    }
   }
 
   Texture::Texture(const IImage& image, const Options& options)

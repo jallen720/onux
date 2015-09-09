@@ -5,8 +5,9 @@
 using std::runtime_error;
 
 static void validatePath(const string& path) {
-  if (path.empty())
+  if (path.empty()) {
     throw runtime_error("Path to image file is empty!");
+  }
 }
 
 void Image::loadBlob(const string& path) {

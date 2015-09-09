@@ -32,7 +32,7 @@ static const aiVector3D getUV(
 static const vector<Vertex> loadVertexes(const aiMesh* mesh) {
   vector<Vertex> vertexes;
 
-  for (auto i = 0u; i < mesh->mNumVertices; i++)
+  for (auto i = 0u; i < mesh->mNumVertices; i++) {
     vertexes.push_back(
       newVertex(
         mesh->mVertices[i],
@@ -40,6 +40,7 @@ static const vector<Vertex> loadVertexes(const aiMesh* mesh) {
         getUV(mesh, i, 0)
       )
     );
+  }
 
   return vertexes;
 }
@@ -47,7 +48,7 @@ static const vector<Vertex> loadVertexes(const aiMesh* mesh) {
 static const vector<GLuint> loadIndexes(const aiMesh* mesh) {
   vector<GLuint> indexes;
 
-  for (auto i = 0u; i < mesh->mNumFaces ; i++) {
+  for (auto i = 0u; i < mesh->mNumFaces; i++) {
     const aiFace& face = mesh->mFaces[i];
     indexes.push_back(face.mIndices[0]);
     indexes.push_back(face.mIndices[1]);

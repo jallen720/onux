@@ -21,11 +21,12 @@ void Engine::renderObjects() {
 }
 
 static void validateNoGLError(const GLenum error) {
-  if (error != GL_NO_ERROR)
+  if (error != GL_NO_ERROR) {
     throw runtime_error(
       "Unhandled OpenGL error generated:\n"
       "  " + getErrorMsg(error) + "\n"
     );
+  }
 }
 
 void Engine::processFrame() {
@@ -41,8 +42,8 @@ Engine::Engine(const Window& window, GraphicsEngine& graphicsEngine)
 }
 
 static void frameWait(float frameStart) {
-  static const float FPS = 60.f;
-  long wait = ((1.f / FPS) * 1000) - (glfwGetTime() - frameStart);
+  static const float FPS = 60.0f;
+  long wait = ((1.0f / FPS) * 1000) - (glfwGetTime() - frameStart);
   sleep_for(milliseconds(wait));
 }
 

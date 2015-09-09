@@ -5,8 +5,9 @@
 #include "Camera.hpp"
 
 void Renderable::bindTextures() const {
-  for (auto i = 0u; i < textures.size(); i++)
+  for (auto i = 0u; i < textures.size(); i++) {
     textures[i]->bind(i);
+  }
 }
 
 void Renderable::setUniforms(
