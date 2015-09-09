@@ -10,38 +10,37 @@ using std::runtime_error;
 
 TEST_F(ShaderSourceTest, validCreation) {
   expectNoThrow([] {
-    ShaderSource(testShaderPath("valid.vert"));
+    const ShaderSource shaderSource(testShaderPath("valid.vert"));
   });
 }
 
 TEST_F(ShaderSourceTest, invalidFileExtensions) {
   EXPECT_THROW(
-    ShaderSource("invalid.ext"),
+    const ShaderSource shaderSource("invalid.ext"),
     runtime_error
   );
 
   EXPECT_THROW(
-    ShaderSource(""),
+    const ShaderSource shaderSource(""),
     runtime_error
   );
 }
 
+static GLenum shaderSourceType(const string& type) {
+  const ShaderSource shaderSource(testShaderPath("valid." + type));
+  return shaderSource.getType();
+}
+
 TEST_F(ShaderSourceTest, correctTypes) {
   for (auto type : ShaderSource::types) {
-    EXPECT_EQ(
-      type.second,
-      ShaderSource(testShaderPath("valid." + type.first)).getType()
-    );
+    EXPECT_EQ(type.second, shaderSourceType(type.first));
   }
 }
 
 TEST_F(ShaderSourceTest, correctSources) {
   const string shader = testShaderPath("valid.vert");
-
-  EXPECT_EQ(
-    readFile(shader),
-    ShaderSource(shader).getCode()
-  );
+  const ShaderSource shaderSource(shader);
+  EXPECT_EQ(readFile(shader), shaderSource.getCode());
 }
 
 

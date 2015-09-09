@@ -15,7 +15,7 @@ using onux_gl::getInt;
 
 TEST_F(ShaderProgramTest, validCreation) {
   expectNoThrow([&] {
-    ShaderProgram({
+    const ShaderProgram shaderProgram({
       &validObjects[0],
       &validObjects[1],
     });
@@ -26,7 +26,7 @@ TEST_F(ShaderProgramTest, notAllRequiredTypes) {
   // A ShaderProgram requires atleast a vertex shader object and a fragment
   // shader object.
   EXPECT_THROW(
-    ShaderProgram({
+    const ShaderProgram shaderProgram({
       &validObjects[0],
     }),
     runtime_error
@@ -38,7 +38,7 @@ TEST_F(ShaderProgramTest, missingMainFunctionInObject) {
   const ShaderObject noMainObject({ &noMainSource });
 
   EXPECT_THROW(
-    ShaderProgram({
+    const ShaderProgram shaderProgram({
       &noMainObject,
       &validObjects[1],
     }),

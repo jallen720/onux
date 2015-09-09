@@ -48,7 +48,7 @@ TEST_F(TransformTest, getMatrix) {
   transform.setScale(vec3(4, 5, 6));
 
   // Transform matrix is translated, rotated, then scaled.
-  const auto correctMatrix =
+  const mat4 correctMatrix =
     scale(rotate(rotate(rotate(translate(mat4()
     , vec3(1, 2, 3))
     , radians(90.f), vec3(1, 0, 0))
@@ -57,7 +57,7 @@ TEST_F(TransformTest, getMatrix) {
     , vec3(4, 5, 6));
 
   // Incorrect transformation order.
-  const auto incorrectMatrix =
+  const mat4 incorrectMatrix =
     translate(rotate(rotate(rotate(scale(mat4()
     , vec3(4, 5, 6))
     , radians(90.f), vec3(1, 0, 0))

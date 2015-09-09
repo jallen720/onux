@@ -18,21 +18,21 @@ TEST_F(ImageTest, validCreation) {
 
 TEST_F(ImageTest, emptyPath) {
   EXPECT_THROW(
-    Image(""),
+    const Image image(""),
     runtime_error
   );
 }
 
 TEST_F(ImageTest, invalidFileExtension) {
   EXPECT_THROW(
-    Image(testImagePath("invalid_format.pngg")),
+    const Image image(testImagePath("invalid_format.pngg")),
     ErrorMissingDelegate
   );
 }
 
 TEST_F(ImageTest, fileDoesNotExist) {
   EXPECT_THROW(
-    Image("does_not_exist.png"),
+    const Image image("does_not_exist.png"),
     ErrorBlob
   );
 }

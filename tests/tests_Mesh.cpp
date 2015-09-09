@@ -9,9 +9,16 @@ TEST_F(MeshTest, validCreation) {
 }
 
 TEST_F(MeshTest, validData) {
+  const unsigned int INDEXES_PER_FACE = 3;
   const Mesh mesh(cubeMesh);
 
-  // Cube mesh should have 24 vertexes & 36 indexes.
-  ASSERT_EQ(24, mesh.getVertexes().size());
-  ASSERT_EQ(36, mesh.getIndexes().size());
+  ASSERT_EQ(
+    cubeMesh->mNumVertices,
+    mesh.getVertexes().size()
+  );
+
+  ASSERT_EQ(
+    cubeMesh->mNumFaces * INDEXES_PER_FACE,
+    mesh.getIndexes().size()
+  );
 }

@@ -16,7 +16,7 @@ TEST_F(ViewTransformTest, getMatrix) {
 
   // ViewTransform matrix is scaled, rotated, then translated. Translation &
   // rotation are also inverted.
-  const auto correctMatrix =
+  const mat4 correctMatrix =
     translate(rotate(rotate(rotate(scale(mat4()
     , vec3(4, 5, 6))
     , -radians(90.f), vec3(1, 0, 0))
@@ -25,7 +25,7 @@ TEST_F(ViewTransformTest, getMatrix) {
     , -vec3(1, 2, 3));
 
   // Incorrect transformation order.
-  const auto incorrectMatrix =
+  const mat4 incorrectMatrix =
     scale(rotate(rotate(rotate(translate(mat4()
     , -vec3(1, 2, 3))
     , -radians(90.f), vec3(1, 0, 0))

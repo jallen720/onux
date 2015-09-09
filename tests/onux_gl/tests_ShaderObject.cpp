@@ -10,40 +10,48 @@ using std::runtime_error;
 using onux_gl::ShaderObject;
 
 TEST_F(ShaderObjectTest, validCreation) {
-  const ShaderSource source(testShaderPath("valid.vert"));
+  const ShaderSource validSource(testShaderPath("valid.vert"));
 
-  expectNoThrow([&source] {
-    ShaderObject({ &source });
+  expectNoThrow([&validSource] {
+    const ShaderObject shaderObject({
+      &validSource,
+    });
   });
 }
 
 TEST_F(ShaderObjectTest, invalidSourceCount) {
   EXPECT_THROW(
-    ShaderObject({}),
+    const ShaderObject shaderObject({}),
     runtime_error
   );
 }
 
 TEST_F(ShaderObjectTest, differentSourceTypes) {
-  const ShaderSource sources[] {
+  const ShaderSource invalidSources[] {
     { testShaderPath("valid.vert") },
     { testShaderPath("valid.frag") },
   };
 
   EXPECT_THROW(
-    ShaderObject({ &sources[0], &sources[1] }),
+    const ShaderObject shaderObject({
+      &invalidSources[0],
+      &invalidSources[1],
+    }),
     runtime_error
   );
 }
 
 TEST_F(ShaderObjectTest, compilationFailure) {
-  const ShaderSource sources[] {
+  const ShaderSource invalidSources[] {
     { testShaderPath("valid.vert")   },
     { testShaderPath("invalid.vert") },
   };
 
   EXPECT_THROW(
-    ShaderObject({ &sources[0], &sources[1] }),
+    const ShaderObject shaderObject({
+      &invalidSources[0],
+      &invalidSources[1],
+    }),
     runtime_error
   );
 }

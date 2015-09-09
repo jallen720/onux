@@ -1,21 +1,25 @@
 #pragma once
 
-#include <GL/glew.h>
-
 #include "OnuxTest.hpp"
-#include "Scene.hpp"
 #include "onux_gl/VertexBuffer.hpp"
 #include "onux_gl/IndexBuffer.hpp"
-#include "test_util.hpp"
+#include "onux_gl/Vertex.hpp"
 
+using std::vector;
 using onux_gl::VertexBuffer;
 using onux_gl::IndexBuffer;
+using onux_gl::Vertex;
 
 class VertexArrayTest : public OnuxTest {
-  const Scene scene { testModelPath("cube.obj") };
-  Scene::Meshes& meshes = scene.getMeshes();
+  const vector<Vertex> validVertexData {
+    Vertex(),
+    Vertex(),
+    Vertex(),
+  };
+
+  const vector<GLuint> validIndexData { 0, 1, 2 };
 
 public:
-  const VertexBuffer validVertexBuffer { meshes[0]->getVertexes() };
-  const IndexBuffer  validIndexBuffer  { meshes[0]->getIndexes()  };
+  const VertexBuffer validVertexBuffer { validVertexData };
+  const IndexBuffer  validIndexBuffer  { validIndexData  };
 };

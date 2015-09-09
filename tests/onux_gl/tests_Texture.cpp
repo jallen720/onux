@@ -16,9 +16,10 @@ TEST_F(TextureTest, validCreation) {
 
 TEST_F(TextureTest, invalidOptions) {
   expectGLError(GL_INVALID_ENUM, [&] {
+    const GLint INVALID_OPTION = 0;
     const Texture texture(validImage, {
-      { GL_TEXTURE_MIN_FILTER, GL_LINEAR },
-      { GL_TEXTURE_MAG_FILTER, 0         },
+      { GL_TEXTURE_MIN_FILTER, GL_LINEAR      },
+      { GL_TEXTURE_MAG_FILTER, INVALID_OPTION },
     });
   });
 }
