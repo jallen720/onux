@@ -50,7 +50,6 @@ void Engine::run() {
 }
 
 void Engine::renderObjects() {
-  graphicsEngine.clearBuffers();
   graphicsEngine.render();
   window.swapBuffers();
 }

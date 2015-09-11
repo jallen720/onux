@@ -61,10 +61,7 @@ static const Mesh::Indexes loadIndexes(const aiMesh* mesh) {
 
 Mesh::Mesh(const aiMesh* mesh)
   : vertexes(loadVertexes(mesh))
-  , indexes(loadIndexes(mesh))
-  , vertexBuffer(vertexes)
-  , indexBuffer(indexes)
-  , vertexArray(vertexBuffer, indexBuffer) {}
+  , indexes(loadIndexes(mesh)) {}
 
 const Mesh::Vertexes& Mesh::getVertexes() const {
   return vertexes;
@@ -72,8 +69,4 @@ const Mesh::Vertexes& Mesh::getVertexes() const {
 
 const Mesh::Indexes& Mesh::getIndexes() const {
   return indexes;
-}
-
-void Mesh::use() const {
-  vertexArray.bind();
 }

@@ -3,22 +3,19 @@
 #include <string>
 #include <vector>
 #include <assimp/Importer.hpp>
+#include "Mesh.hpp"
 
-class Mesh;
 struct aiScene;
 
 class Scene {
 public:
-  typedef std::vector<const Mesh*> Meshes;
+  typedef std::vector<Mesh> Meshes;
 
   Scene(const std::string& path);
-  ~Scene();
   const Meshes& getMeshes() const;
 
 private:
   Assimp::Importer importer;
   const aiScene* scene;
   const Meshes meshes;
-
-  void deleteMeshes();
 };

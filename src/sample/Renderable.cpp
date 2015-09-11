@@ -2,47 +2,47 @@
 
 #include <GL/glew.h>
 
+#include "Mesh.hpp"
 #include "Camera.hpp"
 
 using glm::mat4;
 using onux_gl::ShaderProgram;
 
 Renderable::Renderable(
-  const Mesh*          mesh,
+  const Mesh&          mesh,
   const ShaderProgram& shaderProgram,
   const Textures       textures
-) : mesh(mesh)
-  , shaderProgram(shaderProgram)
-  , textures(textures) {}
+) : m_mesh(mesh)
+  , m_shaderProgram(shaderProgram)
+  , m_textures(textures)
+  , m_meshRenderer(m_mesh) {}
 
 void Renderable::enable(Camera& camera) const {
-  mesh->use();
-  shaderProgram.use();
+  m_shaderProgram.use();
+  bindTextures();
 
   setUniforms(
-    transform.getMatrix(),
+    m_transform.getMatrix(),
     camera.getViewTransform().getMatrix(),
     camera.getProjection()
   );
-
-  bindTextures();
 }
 
-const Mesh* Renderable::getMesh() const {
-  return mesh;
+const MeshRenderer& Renderable::getMeshRenderer() const {
+  return m_meshRenderer;
 }
 
 const ShaderProgram& Renderable::getShaderProgram() const {
-  return shaderProgram;
+  return m_shaderProgram;
 }
 
 Transform& Renderable::getTransform() {
-  return transform;
+  return m_transform;
 }
 
 void Renderable::bindTextures() const {
-  for (auto i = 0u; i < textures.size(); i++) {
-    textures[i]->bind(i);
+  for (auto i = 0u; i < m_textures.size(); i++) {
+    m_textures[i]->bind(i);
   }
 }
 
@@ -51,7 +51,7 @@ void Renderable::setUniforms(
   const mat4& view,
   const mat4& projection
 ) const {
-  shaderProgram.setUniform("model", model);
-  shaderProgram.setUniform("view", view);
-  shaderProgram.setUniform("projection", projection);
+  m_shaderProgram.setUniform("model", model);
+  m_shaderProgram.setUniform("view", view);
+  m_shaderProgram.setUniform("projection", projection);
 }
