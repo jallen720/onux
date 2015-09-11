@@ -5,11 +5,11 @@
 #include "onux_gl/BufferObject.hpp"
 
 namespace onux_gl {
-  using std::vector;
 
-  struct IndexBuffer : BufferObject {
-    typedef const vector<GLuint>& Data;
+struct IndexBuffer : BufferObject {
+  typedef std::vector<GLuint> Data;
 
-    IndexBuffer(Data data, const GLenum usage = GL_STATIC_DRAW);
-  };
-}
+  IndexBuffer(const Data& data, const GLenum usage = GL_STATIC_DRAW);
+};
+
+} // namespace onux_gl

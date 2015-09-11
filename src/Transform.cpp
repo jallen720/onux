@@ -2,10 +2,12 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
+using glm::vec3;
+using glm::mat4;
 using glm::radians;
 
 Transform::Transform()
-  : m_scale(vec3(1)) {}
+  : scale(vec3(1)) {}
 
 void Transform::translate(const vec3& translation) {
   position += translation;
@@ -13,10 +15,6 @@ void Transform::translate(const vec3& translation) {
 
 void Transform::rotate(const vec3& rotation) {
   this->rotation += rotation;
-}
-
-void Transform::scale(const vec3& scale) {
-  m_scale *= scale;
 }
 
 void Transform::setPosition(const vec3& position) {
@@ -28,7 +26,7 @@ void Transform::setRotation(const vec3& rotation) {
 }
 
 void Transform::setScale(const vec3& scale) {
-  m_scale = scale;
+  this->scale = scale;
 }
 
 const vec3& Transform::getPosition() const {
@@ -40,7 +38,11 @@ const vec3& Transform::getRotation() const {
 }
 
 const vec3& Transform::getScale() const {
-  return m_scale;
+  return scale;
+}
+
+const mat4 Transform::getMatrix() const {
+  return calculateMatrix(position, rotation, scale);
 }
 
 const mat4 Transform::calculateMatrix(
@@ -54,8 +56,4 @@ const mat4 Transform::calculateMatrix(
          , radians(rotation.y), vec3(0, 1, 0))
          , radians(rotation.z), vec3(0, 0, 1))
          , scale);
-}
-
-const mat4 Transform::getMatrix() const {
-  return calculateMatrix(position, rotation, m_scale);
 }

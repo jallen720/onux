@@ -4,6 +4,8 @@
 
 #include "fixtures/TransformTest.hpp"
 
+using glm::vec3;
+using glm::mat4;
 using glm::translate;
 using glm::rotate;
 using glm::scale;
@@ -29,17 +31,6 @@ TEST_F(TransformTest, rotate) {
 
   transform.rotate(vec3(-30, 0, 90));
   ASSERT_EQ(vec3(60, 30, 90), transform.getRotation());
-}
-
-TEST_F(TransformTest, scale) {
-  transform.scale(vec3(2, 1, 1));
-  ASSERT_EQ(vec3(2, 1, 1), transform.getScale());
-
-  transform.scale(vec3(1, 30, 1));
-  ASSERT_EQ(vec3(2, 30, 1), transform.getScale());
-
-  transform.scale(vec3(4, 0.5, 0.5));
-  ASSERT_EQ(vec3(8, 15, 0.5), transform.getScale());
 }
 
 TEST_F(TransformTest, getMatrix) {

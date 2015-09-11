@@ -2,6 +2,8 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
+using glm::vec3;
+using glm::mat4;
 using glm::radians;
 
 const mat4 ViewTransform::calculateMatrix(

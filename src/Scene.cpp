@@ -5,8 +5,12 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
+#include "Mesh.hpp"
+
+using std::string;
 using std::stringstream;
 using std::runtime_error;
+using Assimp::Importer;
 
 // bool Model::initMaterials(const aiScene* scene, const string& path) {
 //   // Extract the directory part from the file name
@@ -55,12 +59,6 @@ using std::runtime_error;
 //   return Ret;
 // }
 
-void Scene::deleteMeshes() {
-  for (const Mesh* mesh : meshes) {
-    delete mesh;
-  }
-}
-
 static const string assimpErrorMsg(const string& msg) {
   stringstream stream;
   stream << "ASSIMP ERROR: " << msg << "\n";
@@ -68,7 +66,7 @@ static const string assimpErrorMsg(const string& msg) {
 }
 
 static void validateScene(
-  const aiScene* scene,
+  const aiScene*  scene,
   const Importer& importer
 ) {
   if (!scene) {
@@ -89,8 +87,8 @@ static const aiScene* loadScene(const string& path, Importer& importer) {
   return scene;
 }
 
-static Scene::Meshes loadMeshes(const aiScene* scene) {
-  vector<const Mesh*> meshes;
+static const Scene::Meshes loadMeshes(const aiScene* scene) {
+  Scene::Meshes meshes;
 
   for (auto i = 0u; i < scene->mNumMeshes; i++) {
     meshes.push_back(new Mesh(scene->mMeshes[i]));
@@ -107,6 +105,12 @@ Scene::~Scene() {
   deleteMeshes();
 }
 
-Scene::Meshes& Scene::getMeshes() const {
+const Scene::Meshes& Scene::getMeshes() const {
   return meshes;
+}
+
+void Scene::deleteMeshes() {
+  for (const Mesh* mesh : meshes) {
+    delete mesh;
+  }
 }

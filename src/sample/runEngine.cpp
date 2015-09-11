@@ -28,6 +28,7 @@ using std::cerr;
 using std::endl;
 using std::runtime_error;
 using std::string;
+using glm::vec3;
 using glm::perspective;
 using glm::radians;
 using onux_gl::ShaderObject;
@@ -38,8 +39,8 @@ using onux_gl::VertexArray;
 using onux_gl::Texture;
 
 static const string SHADER_DIRECTORY = "resources/shaders/";
-static const string IMAGE_DIRECTORY = "resources/images/";
-static const string SCENE_DIRECTORY = "resources/models/";
+static const string IMAGE_DIRECTORY  = "resources/images/";
+static const string SCENE_DIRECTORY  = "resources/models/";
 
 static const string shaderPath(const string& name) {
   return SHADER_DIRECTORY + name;
@@ -54,7 +55,7 @@ static const string scenePath(const string& name) {
 }
 
 static void configOpenGL() {
-  glClearColor(1, 1, 1, 1);
+  glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
   glCullFace(GL_BACK);
   glEnable(GL_CULL_FACE);
   glEnable(GL_DEPTH_TEST);
@@ -147,7 +148,6 @@ void runEngine() {
     static const float Z_NEAR = 1.f;
     static const float Z_FAR  = 500.f;
     Camera camera(perspective(FOV, window.getAspect(), Z_NEAR, Z_FAR));
-    camera.getViewTransform().setPosition(vec3(3, 0, 0));
 
     GraphicsEngine graphicsEngine(drawables, camera);
 

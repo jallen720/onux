@@ -23,8 +23,15 @@ void GraphicsEngine::clearBuffers() const {
 
   glClear(MASKS);
 }
-
+#include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+using glm::vec3;
 void GraphicsEngine::render() {
+  float mod = sin(glfwGetTime());
+  auto amt = 3u;
+  camera.getViewTransform().setRotation(vec3(0.0f, mod * (45.0f / amt), 0.0f));
+  camera.getViewTransform().setPosition(vec3(mod * amt, 0.0f, 0.0f));
+
   for (auto drawable : drawables) {
     drawable->enable(camera);
     drawElements(drawable->getMesh()->getIndexes().size());

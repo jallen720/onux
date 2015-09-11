@@ -5,21 +5,19 @@
 
 #include "onux_gl/IShaderSource.hpp"
 
-using std::string;
-using std::map;
-using onux_gl::IShaderSource;
-
-class ShaderSource : public IShaderSource {
-  const GLenum type;
-  const string code;
-
+class ShaderSource : public onux_gl::IShaderSource {
 public:
-  typedef const map<const string, const GLenum> Types;
-  static Types types;
+  typedef std::map<const std::string, const GLenum> Types;
 
-  ShaderSource(const string& path);
+  static const Types types;
 
-  // IShaderSource
+  ShaderSource(const std::string& path);
+
+  // onux_gl::IShaderSource
   const GLenum getType() const override;
   const GLchar* getCode() const override;
+
+private:
+  const GLenum type;
+  const std::string code;
 };

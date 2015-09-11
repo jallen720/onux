@@ -4,9 +4,10 @@
 
 #include "helpers.hpp"
 
+using std::string;
 using std::runtime_error;
 
-ShaderSource::Types ShaderSource::types {
+const ShaderSource::Types ShaderSource::types {
   { "vert", GL_VERTEX_SHADER          },
   { "tesc", GL_TESS_CONTROL_SHADER    },
   { "tese", GL_TESS_EVALUATION_SHADER },

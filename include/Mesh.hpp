@@ -8,24 +8,22 @@
 #include "onux_gl/IndexBuffer.hpp"
 #include "onux_gl/VertexArray.hpp"
 
-using std::vector;
-using onux_gl::Vertex;
-using onux_gl::VertexBuffer;
-using onux_gl::IndexBuffer;
-using onux_gl::VertexArray;
-
 struct aiMesh;
 
 class Mesh {
-  const vector<Vertex> vertexes;
-  const vector<GLuint> indexes;
-  const VertexBuffer   vertexBuffer;
-  const IndexBuffer    indexBuffer;
-  const VertexArray    vertexArray;
-
 public:
+  typedef std::vector<onux_gl::Vertex> Vertexes;
+  typedef std::vector<GLuint>          Indexes;
+
   Mesh(const aiMesh* mesh);
-  const vector<Vertex>& getVertexes() const;
-  const vector<GLuint>& getIndexes() const;
+  const Vertexes& getVertexes() const;
+  const Indexes& getIndexes() const;
   void use() const;
+
+private:
+  const Vertexes vertexes;
+  const Indexes  indexes;
+  const onux_gl::VertexBuffer vertexBuffer;
+  const onux_gl::IndexBuffer  indexBuffer;
+  const onux_gl::VertexArray  vertexArray;
 };

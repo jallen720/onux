@@ -7,39 +7,34 @@
 #include "onux_gl/OpenGLData.hpp"
 
 namespace onux_gl {
-  using std::vector;
-  using std::string;
-  using glm::vec3;
-  using glm::vec4;
-  using glm::mat4;
 
-  class ShaderObject;
+class ShaderObject;
 
-  class ShaderProgram : public OpenGLData {
-  public:
-    typedef const vector<const ShaderObject*>& Objects;
+class ShaderProgram : public OpenGLData {
+public:
+  typedef std::vector<const ShaderObject*> Objects;
 
-  private:
-    void attach(Objects objects) const;
-    void link() const;
-    void detach(Objects objects) const;
-    void validateLinkStatus() const;
-    const bool linkingSucceeded() const;
-    const GLint getInt(const GLenum parameter) const;
-    const string getInfoLog() const;
-    const GLint getUniformLocation(const GLchar* name) const;
+  ShaderProgram(const Objects& objects);
+  ~ShaderProgram();
+  void use() const;
+  void setUniform(const GLchar* name, const GLint value) const;
+  void setUniform(const GLchar* name, const glm::vec3& value) const;
+  void setUniform(const GLchar* name, const glm::vec4& value) const;
+  void setUniform(
+    const GLchar*    name,
+    const glm::mat4& value,
+    const GLboolean  transpose = GL_FALSE
+  ) const;
 
-  public:
-    ShaderProgram(Objects objects);
-    ~ShaderProgram();
-    void use() const;
-    void setUniform(const GLchar* name, const GLint value) const;
-    void setUniform(const GLchar* name, const vec3& value) const;
-    void setUniform(const GLchar* name, const vec4& value) const;
-    void setUniform(
-      const GLchar*   name,
-      const mat4&     value,
-      const GLboolean transpose = GL_FALSE
-    ) const;
-  };
-}
+private:
+  void attach(const Objects& objects) const;
+  void link() const;
+  void detach(const Objects& objects) const;
+  void validateLinkStatus() const;
+  const bool linkingSucceeded() const;
+  const GLint getInt(const GLenum parameter) const;
+  const std::string getInfoLog() const;
+  const GLint getUniformLocation(const GLchar* name) const;
+};
+
+} // namespace onux_gl

@@ -6,26 +6,24 @@
 #include "onux_gl/OpenGLData.hpp"
 
 namespace onux_gl {
-  using std::vector;
-  using std::string;
 
-  struct IShaderSource;
+struct IShaderSource;
 
-  class ShaderObject : public OpenGLData {
-  public:
-    typedef const vector<const IShaderSource*>& Sources;
+class ShaderObject : public OpenGLData {
+public:
+  typedef std::vector<const IShaderSource*> Sources;
 
-  private:
-    void loadSources(Sources sources) const;
-    void compile() const;
-    void validateCompileStatus() const;
-    const bool compilationSucceeded() const;
-    const GLint getInt(const GLenum parameter) const;
-    const string getInfoLog() const;
+  ShaderObject(const Sources& sources);
+  ~ShaderObject();
+  const GLenum getType() const;
 
-  public:
-    ShaderObject(Sources sources);
-    ~ShaderObject();
-    const GLenum getType() const;
-  };
-}
+private:
+  void loadSources(const Sources& sources) const;
+  void compile() const;
+  void validateCompileStatus() const;
+  const bool compilationSucceeded() const;
+  const GLint getInt(const GLenum parameter) const;
+  const std::string getInfoLog() const;
+};
+
+} // namespace onux_gl

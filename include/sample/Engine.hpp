@@ -4,14 +4,14 @@ class Window;
 class GraphicsEngine;
 
 class Engine {
+public:
+  Engine(const Window& window, GraphicsEngine& graphicsEngine);
+  void run();
+
+private:
   const Window& window;
   GraphicsEngine& graphicsEngine;
 
   void renderObjects();
   void processFrame();
-
-public:
-  Engine(const Window& window, GraphicsEngine& graphicsEngine);
-
-  void run();
 };

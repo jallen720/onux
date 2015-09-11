@@ -5,6 +5,8 @@
 #include <stdexcept>
 #include <Magick++.h>
 
+using std::string;
+using std::function;
 using std::cerr;
 using std::endl;
 using std::ifstream;

@@ -4,6 +4,8 @@
 
 #include "fixtures/ViewTransformTest.hpp"
 
+using glm::vec3;
+using glm::mat4;
 using glm::translate;
 using glm::rotate;
 using glm::scale;

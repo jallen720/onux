@@ -2,19 +2,13 @@
 
 #include <stdexcept>
 
+using std::string;
 using std::runtime_error;
 
 static void validatePath(const string& path) {
   if (path.empty()) {
     throw runtime_error("Path to image file is empty!");
   }
-}
-
-void Image::loadBlob(const string& path) {
-  static const string FORMAT = "RGBA";
-  image.read(path);
-  image.flip();
-  image.write(&blob, FORMAT);
 }
 
 Image::Image(const string& path) {
@@ -32,4 +26,11 @@ const GLsizei Image::getHeight() const {
 
 const GLvoid* Image::getData() const {
   return blob.data();
+}
+
+void Image::loadBlob(const string& path) {
+  static const string FORMAT = "RGBA";
+  image.read(path);
+  image.flip();
+  image.write(&blob, FORMAT);
 }

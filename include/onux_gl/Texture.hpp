@@ -5,25 +5,23 @@
 #include "onux_gl/OpenGLData.hpp"
 
 namespace onux_gl {
-  using std::map;
 
-  struct IImage;
+struct IImage;
 
-  class Texture : public OpenGLData {
-  public:
-    typedef map<const GLenum, const GLint> Options;
+class Texture : public OpenGLData {
+public:
+  typedef std::map<const GLenum, const GLint> Options;
 
-  private:
-    static const GLenum TARGET = GL_TEXTURE_2D;
-    static const Options DEFAULT_OPTIONS;
+  Texture(const IImage& image, const Options& options = DEFAULT_OPTIONS);
+  ~Texture();
+  void bind(const unsigned int unit) const;
 
-    void loadImage(const IImage& image) const;
-    void loadOptions(const Options& options) const;
+private:
+  static const GLenum TARGET;
+  static const Options DEFAULT_OPTIONS;
 
-  public:
-    Texture(const IImage& image, const Options& options = DEFAULT_OPTIONS);
-    ~Texture();
+  void loadImage(const IImage& image) const;
+  void loadOptions(const Options& options) const;
+};
 
-    void bind(const unsigned int unit) const;
-  };
-}
+} // namespace onux_gl

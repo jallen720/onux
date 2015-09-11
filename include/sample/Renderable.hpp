@@ -8,40 +8,32 @@
 #include "onux_gl/ShaderProgram.hpp"
 #include "Mesh.hpp"
 
-using std::vector;
-using glm::mat4;
-using onux_gl::Texture;
-using onux_gl::ShaderProgram;
-
 class Camera;
 
 class Renderable {
 public:
-  typedef const vector<const Texture*> Textures;
+  typedef std::vector<const onux_gl::Texture*> Textures;
+
+  Renderable(
+    const Mesh* mesh,
+    const onux_gl::ShaderProgram& shaderProgram,
+    const Textures textures
+  );
+  void enable(Camera& camera) const;
+  const Mesh* getMesh() const;
+  const onux_gl::ShaderProgram& getShaderProgram() const;
+  Transform& getTransform();
 
 private:
   const Mesh* mesh;
-  const ShaderProgram& shaderProgram;
-  Textures textures;
+  const onux_gl::ShaderProgram& shaderProgram;
+  const Textures textures;
   Transform transform;
 
   void bindTextures() const;
-
   void setUniforms(
-    const mat4& model,
-    const mat4& view,
-    const mat4& projection
+    const glm::mat4& model,
+    const glm::mat4& view,
+    const glm::mat4& projection
   ) const;
-
-public:
-  Renderable(
-    const Mesh* mesh,
-    const ShaderProgram& shaderProgram,
-    Textures textures
-  );
-
-  void enable(Camera& camera) const;
-  const Mesh* getMesh() const;
-  const ShaderProgram& getShaderProgram() const;
-  Transform& getTransform();
 };

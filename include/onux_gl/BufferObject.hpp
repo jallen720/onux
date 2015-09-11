@@ -3,24 +3,27 @@
 #include "onux_gl/OpenGLData.hpp"
 
 namespace onux_gl {
-  class BufferObject : OpenGLData {
-    const GLenum  target;
-    const GLsizei dataSize;
-    const GLvoid* data;
-    const GLenum  usage;
 
-    void bind() const;
+class BufferObject : OpenGLData {
+public:
+  virtual void loadData() const;
 
-  protected:
-    BufferObject(
-      const GLenum  target,
-      const GLsizei dataSize,
-      const GLvoid* data,
-      const GLenum  usage
-    );
+protected:
+  BufferObject(
+    const GLenum  target,
+    const GLsizei dataSize,
+    const GLvoid* data,
+    const GLenum  usage
+  );
+  ~BufferObject();
 
-  public:
-    ~BufferObject();
-    virtual void loadData() const;
-  };
-}
+private:
+  const GLenum  target;
+  const GLsizei dataSize;
+  const GLvoid* data;
+  const GLenum  usage;
+
+  void bind() const;
+};
+
+} // namespace onux_gl

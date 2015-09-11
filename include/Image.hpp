@@ -5,21 +5,18 @@
 
 #include "onux_gl/IImage.hpp"
 
-using std::string;
-using Magick::Blob;
-using onux_gl::IImage;
-
-class Image : public IImage {
-  Blob blob;
-  Magick::Image image;
-
-  void loadBlob(const string& path);
-
+class Image : public onux_gl::IImage {
 public:
-  Image(const string& path);
+  Image(const std::string& path);
 
-  // IImage
+  // onux_gl::IImage
   const GLsizei getWidth() const override;
   const GLsizei getHeight() const override;
   const GLvoid* getData() const override;
+
+private:
+  Magick::Blob blob;
+  Magick::Image image;
+
+  void loadBlob(const std::string& path);
 };

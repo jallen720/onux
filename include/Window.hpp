@@ -3,10 +3,6 @@
 #include <GLFW/glfw3.h>
 
 class Window {
-  GLFWwindow* glfwWindow;
-  int width;
-  int height;
-
 public:
   Window(const int width, const int height, const char* name);
   ~Window();
@@ -14,4 +10,9 @@ public:
   const float getAspect() const;
   const bool shouldClose() const;
   void swapBuffers() const;
+
+private:
+  GLFWwindow* glfwWindow;
+  int width;
+  int height;
 };

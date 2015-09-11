@@ -3,13 +3,16 @@
 #include <GL/glew.h>
 
 namespace onux_gl {
-  class OpenGLData {
-    const GLuint id;
 
-  protected:
-    OpenGLData(const GLuint id);
+class OpenGLData {
+public:
+  const GLuint& getID() const;
 
-  public:
-    const GLuint& getID() const;
-  };
-}
+protected:
+  OpenGLData(const GLuint id);
+
+private:
+  const GLuint id;
+};
+
+} // namespace onux_gl

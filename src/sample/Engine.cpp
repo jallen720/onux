@@ -14,12 +14,6 @@ using std::this_thread::sleep_for;
 using std::chrono::milliseconds;
 using onux_gl::getErrorMsg;
 
-void Engine::renderObjects() {
-  graphicsEngine.clearBuffers();
-  graphicsEngine.render();
-  window.swapBuffers();
-}
-
 static void validateNoGLError(const GLenum error) {
   if (error != GL_NO_ERROR) {
     throw runtime_error(
@@ -27,12 +21,6 @@ static void validateNoGLError(const GLenum error) {
       "  " + getErrorMsg(error) + "\n"
     );
   }
-}
-
-void Engine::processFrame() {
-  glfwPollEvents();
-  renderObjects();
-  validateNoGLError(glGetError());
 }
 
 Engine::Engine(const Window& window, GraphicsEngine& graphicsEngine)
@@ -59,4 +47,16 @@ void Engine::run() {
     processFrame();
     handleFrameTiming(frameStart);
   }
+}
+
+void Engine::renderObjects() {
+  graphicsEngine.clearBuffers();
+  graphicsEngine.render();
+  window.swapBuffers();
+}
+
+void Engine::processFrame() {
+  glfwPollEvents();
+  renderObjects();
+  validateNoGLError(glGetError());
 }

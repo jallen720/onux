@@ -3,9 +3,6 @@
 #include <string>
 #include <functional>
 
-using std::string;
-using std::function;
-
-const string readFile(const string& path);
-const string fileExtension(const string& path);
-void magickErrorFinder(const function<void()>&);
+const std::string readFile(const std::string& path);
+const std::string fileExtension(const std::string& path);
+void magickErrorFinder(const std::function<void()>&);

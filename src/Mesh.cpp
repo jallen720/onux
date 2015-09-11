@@ -5,6 +5,7 @@
 
 using glm::vec2;
 using glm::vec3;
+using onux_gl::Vertex;
 
 static const Vertex newVertex(
   const aiVector3D& position,
@@ -13,13 +14,13 @@ static const Vertex newVertex(
 ) {
   return Vertex(
     vec3(position.x, position.y, position.z),
-    vec3(normal.x, normal.y, normal.z),
-    vec2(uv.x, uv.y)
+    vec3(normal.x  , normal.y  , normal.z  ),
+    vec2(uv.x      , uv.y)
   );
 }
 
 static const aiVector3D getUV(
-  const aiMesh* mesh,
+  const aiMesh*      mesh,
   const unsigned int vertexIndex,
   const unsigned int uvIndex
 ) {
@@ -29,8 +30,8 @@ static const aiVector3D getUV(
          : VEC3_ZERO;
 }
 
-static const vector<Vertex> loadVertexes(const aiMesh* mesh) {
-  vector<Vertex> vertexes;
+static const Mesh::Vertexes loadVertexes(const aiMesh* mesh) {
+  Mesh::Vertexes vertexes;
 
   for (auto i = 0u; i < mesh->mNumVertices; i++) {
     vertexes.push_back(
@@ -45,8 +46,8 @@ static const vector<Vertex> loadVertexes(const aiMesh* mesh) {
   return vertexes;
 }
 
-static const vector<GLuint> loadIndexes(const aiMesh* mesh) {
-  vector<GLuint> indexes;
+static const Mesh::Indexes loadIndexes(const aiMesh* mesh) {
+  Mesh::Indexes indexes;
 
   for (auto i = 0u; i < mesh->mNumFaces; i++) {
     const aiFace& face = mesh->mFaces[i];
@@ -65,11 +66,11 @@ Mesh::Mesh(const aiMesh* mesh)
   , indexBuffer(indexes)
   , vertexArray(vertexBuffer, indexBuffer) {}
 
-const vector<Vertex>& Mesh::getVertexes() const {
+const Mesh::Vertexes& Mesh::getVertexes() const {
   return vertexes;
 }
 
-const vector<GLuint>& Mesh::getIndexes() const {
+const Mesh::Indexes& Mesh::getIndexes() const {
   return indexes;
 }
 
