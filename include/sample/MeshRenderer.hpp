@@ -1,8 +1,8 @@
 #pragma once
 
-#include "onux_gl/VertexBuffer.hpp"
-#include "onux_gl/IndexBuffer.hpp"
-#include "onux_gl/VertexArray.hpp"
+#include "gl/VertexBuffer.hpp"
+#include "gl/IndexBuffer.hpp"
+#include "gl/VertexArray.hpp"
 
 class Mesh;
 
@@ -13,7 +13,7 @@ public:
 
 private:
   const Mesh&                 m_mesh;
-  const onux_gl::VertexBuffer m_vertexBuffer;
-  const onux_gl::IndexBuffer  m_indexBuffer;
-  const onux_gl::VertexArray  m_vertexArray;
+  const onux::VertexBuffer m_vertexBuffer;
+  const onux::IndexBuffer  m_indexBuffer;
+  const onux::VertexArray  m_vertexArray;
 };

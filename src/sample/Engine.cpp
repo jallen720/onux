@@ -7,12 +7,12 @@
 
 #include "Window.hpp"
 #include "sample/GraphicsEngine.hpp"
-#include "onux_gl/helpers.hpp"
+#include "gl/helpers.hpp"
 
 using std::runtime_error;
 using std::this_thread::sleep_for;
 using std::chrono::milliseconds;
-using onux_gl::getErrorMsg;
+using onux::getErrorMsg;
 
 static void validateNoGLError(const GLenum error) {
   if (error != GL_NO_ERROR) {

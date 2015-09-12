@@ -14,12 +14,12 @@
 #include "Image.hpp"
 #include "Scene.hpp"
 #include "Camera.hpp"
-#include "onux_gl/ShaderObject.hpp"
-#include "onux_gl/ShaderProgram.hpp"
-#include "onux_gl/VertexBuffer.hpp"
-#include "onux_gl/IndexBuffer.hpp"
-#include "onux_gl/VertexArray.hpp"
-#include "onux_gl/Texture.hpp"
+#include "gl/ShaderObject.hpp"
+#include "gl/ShaderProgram.hpp"
+#include "gl/VertexBuffer.hpp"
+#include "gl/IndexBuffer.hpp"
+#include "gl/VertexArray.hpp"
+#include "gl/Texture.hpp"
 #include "sample/Renderable.hpp"
 #include "sample/GraphicsEngine.hpp"
 #include "sample/Engine.hpp"
@@ -31,12 +31,12 @@ using std::string;
 using glm::vec3;
 using glm::perspective;
 using glm::radians;
-using onux_gl::ShaderObject;
-using onux_gl::ShaderProgram;
-using onux_gl::VertexBuffer;
-using onux_gl::IndexBuffer;
-using onux_gl::VertexArray;
-using onux_gl::Texture;
+using onux::ShaderObject;
+using onux::ShaderProgram;
+using onux::VertexBuffer;
+using onux::IndexBuffer;
+using onux::VertexArray;
+using onux::Texture;
 
 static const string SHADER_DIRECTORY = "resources/shaders/";
 static const string IMAGE_DIRECTORY  = "resources/images/";

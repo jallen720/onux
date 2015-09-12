@@ -6,7 +6,7 @@
 #include "Camera.hpp"
 
 using glm::mat4;
-using onux_gl::ShaderProgram;
+using onux::ShaderProgram;
 
 Renderable::Renderable(
   const Mesh&          mesh,

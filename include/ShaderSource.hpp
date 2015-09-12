@@ -3,9 +3,9 @@
 #include <string>
 #include <map>
 
-#include "onux_gl/IShaderSource.hpp"
+#include "gl/IShaderSource.hpp"
 
-class ShaderSource : public onux_gl::IShaderSource {
+class ShaderSource : public onux::IShaderSource {
 public:
   typedef std::map<const std::string, const GLenum> Types;
 
@@ -13,7 +13,7 @@ public:
 
   ShaderSource(const std::string& path);
 
-  // onux_gl::IShaderSource
+  // onux::IShaderSource
   const GLenum getType() const override;
   const GLchar* getCode() const override;
 

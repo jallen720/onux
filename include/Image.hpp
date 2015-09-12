@@ -3,13 +3,13 @@
 #include <string>
 #include <Magick++.h>
 
-#include "onux_gl/IImage.hpp"
+#include "gl/IImage.hpp"
 
-class Image : public onux_gl::IImage {
+class Image : public onux::IImage {
 public:
   Image(const std::string& path);
 
-  // onux_gl::IImage
+  // onux::IImage
   const GLsizei getWidth() const override;
   const GLsizei getHeight() const override;
   const GLvoid* getData() const override;

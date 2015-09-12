@@ -5,7 +5,7 @@
 
 using glm::vec2;
 using glm::vec3;
-using onux_gl::Vertex;
+using onux::Vertex;
 
 static const Vertex newVertex(
   const aiVector3D& position,
