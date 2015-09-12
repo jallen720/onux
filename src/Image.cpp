@@ -5,6 +5,8 @@
 using std::string;
 using std::runtime_error;
 
+namespace onux {
+
 static void validatePath(const string& path) {
   if (path.empty()) {
     throw runtime_error("Path to image file is empty!");
@@ -34,3 +36,5 @@ void Image::loadBlob(const string& path) {
   m_image.flip();
   m_image.write(&m_blob, FORMAT);
 }
+
+} // namespace onux

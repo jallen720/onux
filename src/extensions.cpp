@@ -5,6 +5,8 @@
 
 using std::runtime_error;
 
+namespace onux {
+
 static void setExperimental() {
   glewExperimental = GL_TRUE;
 }
@@ -19,3 +21,5 @@ void loadExtensions() {
   setExperimental();
   validateInit(glewInit());
 }
+
+} // namespace onux

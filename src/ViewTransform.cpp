@@ -6,6 +6,8 @@ using glm::vec3;
 using glm::mat4;
 using glm::radians;
 
+namespace onux {
+
 const mat4 ViewTransform::calculateMatrix(
   const vec3& position,
   const vec3& rotation,
@@ -18,3 +20,5 @@ const mat4 ViewTransform::calculateMatrix(
          , -radians(rotation.z), vec3(0, 0, 1))
          , -position);
 }
+
+} // namespace onux

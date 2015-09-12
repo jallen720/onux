@@ -2,6 +2,8 @@
 
 #include <vector>
 
+namespace onux {
+
 class Renderable;
 class Camera;
 
@@ -18,3 +20,5 @@ private:
 
   void renderDrawables() const;
 };
+
+} // namespace onux

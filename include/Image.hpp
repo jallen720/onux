@@ -5,11 +5,13 @@
 
 #include "gl/IImage.hpp"
 
-class Image : public onux::IImage {
+namespace onux {
+
+class Image : public IImage {
 public:
   Image(const std::string& path);
 
-  // onux::IImage
+  // IImage
   const GLsizei getWidth() const override;
   const GLsizei getHeight() const override;
   const GLvoid* getData() const override;
@@ -20,3 +22,5 @@ private:
 
   void loadBlob(const std::string& path);
 };
+
+} // namespace onux

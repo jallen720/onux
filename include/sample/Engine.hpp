@@ -1,5 +1,7 @@
 #pragma once
 
+namespace onux {
+
 class Window;
 class GraphicsEngine;
 
@@ -15,3 +17,5 @@ private:
   void renderObjects();
   void processFrame();
 };
+
+} // namespace onux

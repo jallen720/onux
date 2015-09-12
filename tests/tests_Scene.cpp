@@ -3,6 +3,8 @@
 #include "fixtures/SceneTest.hpp"
 #include "test_util.hpp"
 
+using onux::Scene;
+
 TEST_F(SceneTest, validCreation) {
   expectNoThrow([] {
     const Scene scene(testModelPath("cube.obj"));

@@ -2,7 +2,9 @@
 
 #include <gtest/gtest.h>
 
+#include "Transform.hpp"
+
 struct TransformTest : testing::Test {
 protected:
-  Transform transform;
+  onux::Transform transform;
 };

@@ -1,5 +1,3 @@
-#include "ViewTransform.hpp"
-
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "fixtures/ViewTransformTest.hpp"

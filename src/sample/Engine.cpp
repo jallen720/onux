@@ -12,7 +12,8 @@
 using std::runtime_error;
 using std::this_thread::sleep_for;
 using std::chrono::milliseconds;
-using onux::getErrorMsg;
+
+namespace onux {
 
 static void validateNoGLError(const GLenum error) {
   if (error != GL_NO_ERROR) {
@@ -59,3 +60,5 @@ void Engine::processFrame() {
   renderObjects();
   validateNoGLError(glGetError());
 }
+
+} // namespace onux

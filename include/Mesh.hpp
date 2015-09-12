@@ -7,9 +7,11 @@
 
 struct aiMesh;
 
+namespace onux {
+
 class Mesh {
 public:
-  typedef std::vector<onux::Vertex> Vertexes;
+  typedef std::vector<Vertex> Vertexes;
   typedef std::vector<GLuint> Indexes;
 
   Mesh(const aiMesh* mesh);
@@ -20,3 +22,5 @@ private:
   const Vertexes m_vertexes;
   const Indexes  m_indexes;
 };
+
+} // namespace onux

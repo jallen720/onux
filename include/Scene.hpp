@@ -7,6 +7,8 @@
 
 struct aiScene;
 
+namespace onux {
+
 class Scene {
 public:
   typedef std::vector<Mesh> Meshes;
@@ -19,3 +21,5 @@ private:
   const aiScene*   m_scene;
   const Meshes     m_meshes;
 };
+
+} // namespace onux

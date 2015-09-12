@@ -2,6 +2,8 @@
 
 #include "fixtures/MeshTest.hpp"
 
+using onux::Mesh;
+
 TEST_F(MeshTest, validCreation) {
   expectNoThrow([&] {
     const Mesh mesh(cubeMesh);

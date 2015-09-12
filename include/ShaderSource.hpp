@@ -5,7 +5,9 @@
 
 #include "gl/IShaderSource.hpp"
 
-class ShaderSource : public onux::IShaderSource {
+namespace onux {
+
+class ShaderSource : public IShaderSource {
 public:
   typedef std::map<const std::string, const GLenum> Types;
 
@@ -21,3 +23,5 @@ private:
   const GLenum      m_type;
   const std::string m_code;
 };
+
+} // namespace onux

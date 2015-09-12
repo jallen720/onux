@@ -6,6 +6,8 @@ using glm::vec3;
 using glm::mat4;
 using glm::radians;
 
+namespace onux {
+
 Transform::Transform()
   : m_scale(vec3(1)) {}
 
@@ -61,3 +63,5 @@ const mat4 Transform::calculateMatrix(
          , radians(rotation.z), vec3(0, 0, 1))
          , scale);
 }
+
+} // namespace onux

@@ -7,7 +7,7 @@
 
 struct ShaderProgramTest : OnuxTest {
 private:
-  const ShaderSource validSources[2] {
+  const onux::ShaderSource validSources[2] {
     { testShaderPath("valid.vert") },
     { testShaderPath("valid.frag") },
   };

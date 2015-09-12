@@ -12,6 +12,8 @@ using std::endl;
 using std::ifstream;
 using std::runtime_error;
 
+namespace onux {
+
 static const char LINE_DELIMITER = '\r';
 
 const string readFile(const string& path) {
@@ -88,3 +90,5 @@ void magickErrorFinder(const function<void()>& block) {
     cerr << "Unknown error thrown" << endl;
   }
 }
+
+} // namespace onux

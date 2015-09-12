@@ -5,7 +5,8 @@
 
 using glm::vec2;
 using glm::vec3;
-using onux::Vertex;
+
+namespace onux {
 
 static const Vertex newVertex(
   const aiVector3D& position,
@@ -70,3 +71,5 @@ const Mesh::Vertexes& Mesh::getVertexes() const {
 const Mesh::Indexes& Mesh::getIndexes() const {
   return m_indexes;
 }
+
+} // namespace onux

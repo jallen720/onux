@@ -10,6 +10,8 @@ using std::stringstream;
 using std::runtime_error;
 using Assimp::Importer;
 
+namespace onux {
+
 static const string assimpErrorMsg(const string& msg) {
   stringstream stream;
   stream << "ASSIMP ERROR: " << msg << "\n";
@@ -55,3 +57,5 @@ Scene::Scene(const string& path)
 const Scene::Meshes& Scene::getMeshes() const {
   return m_meshes;
 }
+
+} // namespace onux

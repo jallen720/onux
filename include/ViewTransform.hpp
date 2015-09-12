@@ -2,6 +2,8 @@
 
 #include "Transform.hpp"
 
+namespace onux {
+
 class ViewTransform : public Transform {
 protected:
   const glm::mat4 calculateMatrix(
@@ -10,3 +12,5 @@ protected:
     const glm::vec3& scale
   ) const override;
 };
+
+} // namespace onux

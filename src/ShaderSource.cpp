@@ -7,6 +7,8 @@
 using std::string;
 using std::runtime_error;
 
+namespace onux {
+
 const ShaderSource::Types ShaderSource::TYPES {
   { "vert", GL_VERTEX_SHADER          },
   { "tesc", GL_TESS_CONTROL_SHADER    },
@@ -45,3 +47,5 @@ const GLenum ShaderSource::getType() const {
 const GLchar* ShaderSource::getCode() const {
   return m_code.c_str();
 }
+
+} // namespace onux

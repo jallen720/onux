@@ -9,6 +9,7 @@
 #include "test_util.hpp"
 
 using std::runtime_error;
+using onux::Window;
 
 TEST_F(WindowTest, validCreation) {
   expectNoThrow([] {

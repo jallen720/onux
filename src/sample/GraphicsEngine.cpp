@@ -5,6 +5,23 @@
 #include "sample/Renderable.hpp"
 #include "Camera.hpp"
 
+// Temp
+#include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+using glm::vec3;
+// Temp
+
+namespace onux {
+
+// Temp
+static void modCam(Camera& camera) {
+  float mod = sin(glfwGetTime());
+  auto amt = 3u;
+  camera.getViewTransform().setRotation(vec3(0.0f, mod * (45.0f / amt), 0.0f));
+  camera.getViewTransform().setPosition(vec3(mod * amt, 0.0f, 0.0f));
+}
+// Temp
+
 GraphicsEngine::GraphicsEngine(const Drawables& drawables, Camera& camera)
   : m_drawables(drawables)
   , m_camera(camera) {}
@@ -15,16 +32,6 @@ static void clearBuffers() {
     GL_DEPTH_BUFFER_BIT;
 
   glClear(MASKS);
-}
-
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-using glm::vec3;
-static void modCam(Camera& camera) {
-  float mod = sin(glfwGetTime());
-  auto amt = 3u;
-  camera.getViewTransform().setRotation(vec3(0.0f, mod * (45.0f / amt), 0.0f));
-  camera.getViewTransform().setPosition(vec3(mod * amt, 0.0f, 0.0f));
 }
 
 void GraphicsEngine::render() {
@@ -39,3 +46,5 @@ void GraphicsEngine::renderDrawables() const {
     drawable->getMeshRenderer().render();
   }
 }
+
+} // namespace onux

@@ -2,11 +2,14 @@
 
 #include <GL/glew.h>
 
+#include "gl/Texture.hpp"
+#include "gl/ShaderProgram.hpp"
 #include "Mesh.hpp"
 #include "Camera.hpp"
 
 using glm::mat4;
-using onux::ShaderProgram;
+
+namespace onux {
 
 Renderable::Renderable(
   const Mesh&          mesh,
@@ -55,3 +58,5 @@ void Renderable::setUniforms(
   m_shaderProgram.setUniform("view", view);
   m_shaderProgram.setUniform("projection", projection);
 }
+
+} // namespace onux

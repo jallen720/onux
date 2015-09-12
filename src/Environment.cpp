@@ -7,6 +7,8 @@
 using std::stringstream;
 using std::runtime_error;
 
+namespace onux {
+
 static void setErrorCB() {
   glfwSetErrorCallback([](const int code, const char* description) {
     stringstream errorMsg;
@@ -29,3 +31,5 @@ Environment::Environment() {
 Environment::~Environment() {
   glfwTerminate();
 }
+
+} // namespace onux

@@ -2,6 +2,8 @@
 
 #include "Mesh.hpp"
 
+namespace onux {
+
 MeshRenderer::MeshRenderer(const Mesh& mesh)
   : m_mesh(mesh)
   , m_vertexBuffer(m_mesh.getVertexes())
@@ -19,3 +21,5 @@ void MeshRenderer::render() const {
   m_vertexArray.bind();
   drawElements(m_mesh.getIndexes().size());
 }
+
+} // namespace onux

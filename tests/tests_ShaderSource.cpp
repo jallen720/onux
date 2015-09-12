@@ -8,6 +8,8 @@
 
 using std::runtime_error;
 using std::string;
+using onux::ShaderSource;
+using onux::readFile;
 
 TEST_F(ShaderSourceTest, validCreation) {
   expectNoThrow([] {

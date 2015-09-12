@@ -6,6 +6,7 @@
 #include "gl/helpers.hpp"
 
 using std::cerr;
+using onux::loadExtensions;
 using onux::getErrorMsg;
 
 static void printUnhandledGLError(const GLenum error) {

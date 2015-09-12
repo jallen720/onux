@@ -2,7 +2,9 @@
 
 #include <gtest/gtest.h>
 
+#include "ViewTransform.hpp"
+
 struct ViewTransformTest : testing::Test {
 protected:
-  ViewTransform viewTransform;
+  onux::ViewTransform viewTransform;
 };

@@ -9,8 +9,8 @@
 
 struct OnuxTest : testing::Test {
 private:
-  const Environment environment;
-  const Window window { 1280, 720, "OnuxTest" };
+  const onux::Environment environment;
+  const onux::Window window { 1280, 720, "OnuxTest" };
 
 protected:
   OnuxTest();

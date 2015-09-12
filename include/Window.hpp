@@ -2,6 +2,8 @@
 
 #include <GLFW/glfw3.h>
 
+namespace onux {
+
 class Window {
 public:
   Window(const int width, const int height, const char* name);
@@ -16,3 +18,5 @@ private:
   int         m_width;
   int         m_height;
 };
+
+} // namespace onux

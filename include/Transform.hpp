@@ -2,6 +2,8 @@
 
 #include <glm/glm.hpp>
 
+namespace onux {
+
 class Transform {
 public:
   Transform();
@@ -28,3 +30,5 @@ private:
   glm::vec3 m_rotation;
   glm::vec3 m_scale;
 };
+
+} // namespace onux

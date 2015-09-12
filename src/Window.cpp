@@ -1,5 +1,7 @@
 #include "Window.hpp"
 
+namespace onux {
+
 Window::Window(const int width, const int height, const char* name)
   : m_glfwWindow(glfwCreateWindow(width, height, name, nullptr, nullptr))
   , m_width(width)
@@ -26,3 +28,5 @@ const bool Window::shouldClose() const {
 void Window::swapBuffers() const {
   glfwSwapBuffers(m_glfwWindow);
 }
+
+} // namespace onux

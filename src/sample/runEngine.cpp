@@ -31,12 +31,23 @@ using std::string;
 using glm::vec3;
 using glm::perspective;
 using glm::radians;
+
+using onux::Environment;
+using onux::Window;
+using onux::loadExtensions;
+using onux::ShaderSource;
+using onux::Image;
+using onux::Scene;
+using onux::Camera;
 using onux::ShaderObject;
 using onux::ShaderProgram;
 using onux::VertexBuffer;
 using onux::IndexBuffer;
 using onux::VertexArray;
 using onux::Texture;
+using onux::Renderable;
+using onux::GraphicsEngine;
+using onux::Engine;
 
 static const string SHADER_DIRECTORY = "resources/shaders/";
 static const string IMAGE_DIRECTORY  = "resources/images/";

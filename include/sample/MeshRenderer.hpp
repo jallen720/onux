@@ -4,6 +4,8 @@
 #include "gl/IndexBuffer.hpp"
 #include "gl/VertexArray.hpp"
 
+namespace onux {
+
 class Mesh;
 
 class MeshRenderer {
@@ -12,8 +14,10 @@ public:
   void render() const;
 
 private:
-  const Mesh&                 m_mesh;
-  const onux::VertexBuffer m_vertexBuffer;
-  const onux::IndexBuffer  m_indexBuffer;
-  const onux::VertexArray  m_vertexArray;
+  const Mesh&        m_mesh;
+  const VertexBuffer m_vertexBuffer;
+  const IndexBuffer  m_indexBuffer;
+  const VertexArray  m_vertexArray;
 };
+
+} // namespace onux

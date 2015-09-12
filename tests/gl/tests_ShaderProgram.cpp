@@ -12,6 +12,7 @@ using glm::vec4;
 using glm::mat4;
 using onux::ShaderProgram;
 using onux::ShaderObject;
+using onux::ShaderSource;
 using onux::getInt;
 
 TEST_F(ShaderProgramTest, validCreation) {

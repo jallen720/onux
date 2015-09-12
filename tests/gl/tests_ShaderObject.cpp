@@ -7,6 +7,7 @@
 #include "ShaderSource.hpp"
 
 using std::runtime_error;
+using onux::ShaderSource;
 using onux::ShaderObject;
 
 TEST_F(ShaderObjectTest, validCreation) {

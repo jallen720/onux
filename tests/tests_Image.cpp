@@ -9,6 +9,7 @@
 using std::runtime_error;
 using Magick::ErrorMissingDelegate;
 using Magick::ErrorBlob;
+using onux::Image;
 
 TEST_F(ImageTest, validCreation) {
   expectNoThrow([] {
