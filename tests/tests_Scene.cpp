@@ -4,7 +4,7 @@
 #include "test_util.hpp"
 
 TEST_F(SceneTest, validCreation) {
-  expectNoThrow([&] {
+  expectNoThrow([] {
     const Scene scene(testModelPath("cube.obj"));
   });
 }

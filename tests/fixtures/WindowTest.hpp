@@ -4,8 +4,7 @@
 
 #include "Environment.hpp"
 
-using testing::Test;
-
-class WindowTest : public Test {
+struct WindowTest : testing::Test {
+protected:
   Environment environment;
 };

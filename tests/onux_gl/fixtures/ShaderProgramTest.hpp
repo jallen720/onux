@@ -5,17 +5,16 @@
 #include "onux_gl/ShaderObject.hpp"
 #include "test_util.hpp"
 
-using onux_gl::ShaderObject;
-
-class ShaderProgramTest : public OnuxTest {
+struct ShaderProgramTest : OnuxTest {
+private:
   const ShaderSource validSources[2] {
     { testShaderPath("valid.vert") },
     { testShaderPath("valid.frag") },
   };
 
-public:
-  const ShaderObject validObjects[2] {
-    {{ &validSources[0] }},
-    {{ &validSources[1] }},
+protected:
+  const onux_gl::ShaderObject validObjects[2] {
+    { { &validSources[0] } },
+    { { &validSources[1] } },
   };
 };

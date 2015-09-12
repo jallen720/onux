@@ -9,7 +9,7 @@ TEST_F(MeshTest, validCreation) {
 }
 
 TEST_F(MeshTest, validData) {
-  const unsigned int INDEXES_PER_FACE = 3;
+  const auto INDEXES_PER_FACE = 3u;
   const Mesh mesh(cubeMesh);
 
   ASSERT_EQ(

@@ -7,13 +7,12 @@
 #include "Environment.hpp"
 #include "Window.hpp"
 
-using testing::Test;
-
-class OnuxTest : public Test {
+struct OnuxTest : testing::Test {
+private:
   const Environment environment;
   const Window window { 1280, 720, "OnuxTest" };
 
-public:
+protected:
   OnuxTest();
   ~OnuxTest();
 };

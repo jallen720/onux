@@ -2,6 +2,4 @@
 
 #include <gtest/gtest.h>
 
-using testing::Test;
-
-struct EnvironmentTest : Test {};
+struct EnvironmentTest : testing::Test {};

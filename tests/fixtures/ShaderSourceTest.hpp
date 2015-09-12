@@ -2,6 +2,4 @@
 
 #include <gtest/gtest.h>
 
-using testing::Test;
-
-struct ShaderSourceTest : Test {};
+struct ShaderSourceTest : testing::Test {};

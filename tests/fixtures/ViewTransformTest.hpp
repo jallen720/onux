@@ -2,8 +2,7 @@
 
 #include <gtest/gtest.h>
 
-using testing::Test;
-
-struct ViewTransformTest : Test {
+struct ViewTransformTest : testing::Test {
+protected:
   ViewTransform viewTransform;
 };

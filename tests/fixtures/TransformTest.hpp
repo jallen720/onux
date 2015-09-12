@@ -2,8 +2,7 @@
 
 #include <gtest/gtest.h>
 
-using testing::Test;
-
-struct TransformTest : Test {
+struct TransformTest : testing::Test {
+protected:
   Transform transform;
 };

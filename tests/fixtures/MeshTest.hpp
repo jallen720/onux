@@ -7,13 +7,11 @@
 
 #include "test_util.hpp"
 
-using testing::Test;
-using Assimp::Importer;
+struct MeshTest : testing::Test {
+private:
+  Assimp::Importer importer;
 
-class MeshTest : public Test {
-  Importer importer;
-
-public:
+protected:
   const aiMesh* cubeMesh = importer.ReadFile(
     testModelPath("cube.obj"),
     aiProcess_GenSmoothNormals      |

@@ -5,21 +5,17 @@
 #include "onux_gl/IndexBuffer.hpp"
 #include "onux_gl/Vertex.hpp"
 
-using std::vector;
-using onux_gl::VertexBuffer;
-using onux_gl::IndexBuffer;
-using onux_gl::Vertex;
-
-class VertexArrayTest : public OnuxTest {
-  const vector<Vertex> validVertexData {
-    Vertex(),
-    Vertex(),
-    Vertex(),
+struct VertexArrayTest : OnuxTest {
+private:
+  const std::vector<onux_gl::Vertex> validVertexData {
+    onux_gl::Vertex(),
+    onux_gl::Vertex(),
+    onux_gl::Vertex(),
   };
 
-  const vector<GLuint> validIndexData { 0, 1, 2 };
+  const std::vector<GLuint> validIndexData { 0, 1, 2 };
 
-public:
-  const VertexBuffer validVertexBuffer { validVertexData };
-  const IndexBuffer  validIndexBuffer  { validIndexData  };
+protected:
+  const onux_gl::VertexBuffer validVertexBuffer { validVertexData };
+  const onux_gl::IndexBuffer  validIndexBuffer  { validIndexData  };
 };

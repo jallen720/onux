@@ -7,6 +7,7 @@
 #include "helpers.hpp"
 
 using std::runtime_error;
+using std::string;
 
 TEST_F(ShaderSourceTest, validCreation) {
   expectNoThrow([] {

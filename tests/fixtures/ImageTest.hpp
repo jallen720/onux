@@ -2,6 +2,4 @@
 
 #include <gtest/gtest.h>
 
-using testing::Test;
-
-struct ImageTest : Test {};
+struct ImageTest : testing::Test {};

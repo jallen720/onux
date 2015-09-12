@@ -11,6 +11,7 @@ using glm::vec3;
 using glm::vec4;
 using glm::mat4;
 using onux_gl::ShaderProgram;
+using onux_gl::ShaderObject;
 using onux_gl::getInt;
 
 TEST_F(ShaderProgramTest, validCreation) {
