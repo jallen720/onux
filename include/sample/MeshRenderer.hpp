@@ -12,8 +12,8 @@ public:
   void render() const;
 
 private:
-  const Mesh& mesh;
-  const onux_gl::VertexBuffer vertexBuffer;
-  const onux_gl::IndexBuffer indexBuffer;
-  const onux_gl::VertexArray vertexArray;
+  const Mesh&                 m_mesh;
+  const onux_gl::VertexBuffer m_vertexBuffer;
+  const onux_gl::IndexBuffer  m_indexBuffer;
+  const onux_gl::VertexArray  m_vertexArray;
 };

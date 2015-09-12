@@ -3,10 +3,10 @@
 #include "Mesh.hpp"
 
 MeshRenderer::MeshRenderer(const Mesh& mesh)
-  : mesh(mesh)
-  , vertexBuffer(mesh.getVertexes())
-  , indexBuffer(mesh.getIndexes())
-  , vertexArray(vertexBuffer, indexBuffer) {}
+  : m_mesh(mesh)
+  , m_vertexBuffer(m_mesh.getVertexes())
+  , m_indexBuffer(m_mesh.getIndexes())
+  , m_vertexArray(m_vertexBuffer, m_indexBuffer) {}
 
 static void drawElements(const GLsizei indexCount) {
   static const GLenum  MODE  = GL_TRIANGLES;
@@ -16,6 +16,6 @@ static void drawElements(const GLsizei indexCount) {
 }
 
 void MeshRenderer::render() const {
-  vertexArray.bind();
-  drawElements(mesh.getIndexes().size());
+  m_vertexArray.bind();
+  drawElements(m_mesh.getIndexes().size());
 }

@@ -9,8 +9,8 @@ public:
   void run();
 
 private:
-  const Window& window;
-  GraphicsEngine& graphicsEngine;
+  const Window&   m_window;
+  GraphicsEngine& m_graphicsEngine;
 
   void renderObjects();
   void processFrame();

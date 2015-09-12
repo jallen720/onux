@@ -15,8 +15,8 @@ public:
   const GLvoid* getData() const override;
 
 private:
-  Magick::Blob blob;
-  Magick::Image image;
+  Magick::Blob  m_blob;
+  Magick::Image m_image;
 
   void loadBlob(const std::string& path);
 };

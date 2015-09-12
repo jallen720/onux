@@ -13,8 +13,8 @@ public:
   void render();
 
 private:
-  const Drawables& drawables;
-  Camera& camera;
+  const Drawables& m_drawables;
+  Camera&          m_camera;
 
   void renderDrawables() const;
 };

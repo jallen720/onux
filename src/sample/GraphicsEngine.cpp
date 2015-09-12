@@ -6,8 +6,8 @@
 #include "Camera.hpp"
 
 GraphicsEngine::GraphicsEngine(const Drawables& drawables, Camera& camera)
-  : drawables(drawables)
-  , camera(camera) {}
+  : m_drawables(drawables)
+  , m_camera(camera) {}
 
 static void clearBuffers() {
   static const GLbitfield MASKS =
@@ -29,13 +29,13 @@ static void modCam(Camera& camera) {
 
 void GraphicsEngine::render() {
   clearBuffers();
-  modCam(camera);
+  modCam(m_camera);
   renderDrawables();
 }
 
 void GraphicsEngine::renderDrawables() const {
-  for (auto drawable : drawables) {
-    drawable->enable(camera);
+  for (auto drawable : m_drawables) {
+    drawable->enable(m_camera);
     drawable->getMeshRenderer().render();
   }
 }

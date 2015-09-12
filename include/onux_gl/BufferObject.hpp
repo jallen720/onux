@@ -18,10 +18,10 @@ protected:
   ~BufferObject();
 
 private:
-  const GLenum  target;
-  const GLsizei dataSize;
-  const GLvoid* data;
-  const GLenum  usage;
+  const GLenum  m_target;
+  const GLsizei m_dataSize;
+  const GLvoid* m_data;
+  const GLenum  m_usage;
 
   void bind() const;
 };

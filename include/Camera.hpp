@@ -10,6 +10,6 @@ public:
   const glm::mat4& getProjection() const;
 
 private:
-  ViewTransform viewTransform;
-  glm::mat4 projection;
+  ViewTransform m_viewTransform;
+  glm::mat4     m_projection;
 };

@@ -12,7 +12,7 @@ protected:
   OpenGLData(const GLuint id);
 
 private:
-  const GLuint id;
+  const GLuint m_id;
 };
 
 } // namespace onux_gl

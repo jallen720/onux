@@ -49,9 +49,9 @@ static const Scene::Meshes loadMeshes(const aiScene* scene) {
 }
 
 Scene::Scene(const string& path)
-  : scene(loadScene(path, importer))
-  , meshes(loadMeshes(scene)) {}
+  : m_scene(loadScene(path, m_importer))
+  , m_meshes(loadMeshes(m_scene)) {}
 
 const Scene::Meshes& Scene::getMeshes() const {
-  return meshes;
+  return m_meshes;
 }

@@ -33,6 +33,17 @@ TEST_F(TransformTest, rotate) {
   ASSERT_EQ(vec3(60, 30, 90), transform.getRotation());
 }
 
+TEST_F(TransformTest, scale) {
+  transform.scale(vec3(2, 1, 1));
+  ASSERT_EQ(vec3(2, 1, 1), transform.getScale());
+
+  transform.scale(vec3(1, 30, 1));
+  ASSERT_EQ(vec3(2, 30, 1), transform.getScale());
+
+  transform.scale(vec3(4, 0.5, 0.5));
+  ASSERT_EQ(vec3(8, 15, 0.5), transform.getScale());
+}
+
 TEST_F(TransformTest, getMatrix) {
   transform.setPosition(vec3(1, 2, 3));
   transform.setRotation(vec3(90, 80, 70));

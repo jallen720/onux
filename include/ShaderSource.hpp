@@ -9,7 +9,7 @@ class ShaderSource : public onux_gl::IShaderSource {
 public:
   typedef std::map<const std::string, const GLenum> Types;
 
-  static const Types types;
+  static const Types TYPES;
 
   ShaderSource(const std::string& path);
 
@@ -18,6 +18,6 @@ public:
   const GLchar* getCode() const override;
 
 private:
-  const GLenum type;
-  const std::string code;
+  const GLenum      m_type;
+  const std::string m_code;
 };

@@ -2,15 +2,23 @@
 
 namespace onux_gl {
 
+// BufferObject represents 1 buffer.
+static const GLsizei BUFFER_COUNT = 1;
+
 static GLuint newBufferObject() {
   GLuint id;
-  glGenBuffers(1, &id);
+  glGenBuffers(BUFFER_COUNT, &id);
   return id;
 }
 
 void BufferObject::loadData() const {
   bind();
-  glBufferData(target, dataSize, data, usage);
+  glBufferData(
+    m_target,
+    m_dataSize,
+    m_data,
+    m_usage
+  );
 }
 
 BufferObject::BufferObject(
@@ -19,17 +27,17 @@ BufferObject::BufferObject(
   const GLvoid* data,
   const GLenum  usage
 ) : OpenGLData(newBufferObject())
-  , target(target)
-  , dataSize(dataSize)
-  , data(data)
-  , usage(usage) {}
+  , m_target(target)
+  , m_dataSize(dataSize)
+  , m_data(data)
+  , m_usage(usage) {}
 
 BufferObject::~BufferObject() {
-  glDeleteBuffers(1, &getID());
+  glDeleteBuffers(BUFFER_COUNT, &getID());
 }
 
 void BufferObject::bind() const {
-  glBindBuffer(target, getID());
+  glBindBuffer(m_target, getID());
 }
 
 } // namespace onux_gl

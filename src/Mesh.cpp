@@ -60,13 +60,13 @@ static const Mesh::Indexes loadIndexes(const aiMesh* mesh) {
 }
 
 Mesh::Mesh(const aiMesh* mesh)
-  : vertexes(loadVertexes(mesh))
-  , indexes(loadIndexes(mesh)) {}
+  : m_vertexes(loadVertexes(mesh))
+  , m_indexes(loadIndexes(mesh)) {}
 
 const Mesh::Vertexes& Mesh::getVertexes() const {
-  return vertexes;
+  return m_vertexes;
 }
 
 const Mesh::Indexes& Mesh::getIndexes() const {
-  return indexes;
+  return m_indexes;
 }

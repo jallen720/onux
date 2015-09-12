@@ -33,7 +33,7 @@ static GLenum shaderSourceType(const string& type) {
 }
 
 TEST_F(ShaderSourceTest, correctTypes) {
-  for (auto type : ShaderSource::types) {
+  for (auto type : ShaderSource::TYPES) {
     EXPECT_EQ(type.second, shaderSourceType(type.first));
   }
 }

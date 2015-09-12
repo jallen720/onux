@@ -3,10 +3,10 @@
 namespace onux_gl {
 
 const GLuint& OpenGLData::getID() const {
-  return id;
+  return m_id;
 }
 
 OpenGLData::OpenGLData(const GLuint id)
-  : id(id) {}
+  : m_id(id) {}
 
 } // namespace onux_gl

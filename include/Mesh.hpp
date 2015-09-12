@@ -17,6 +17,6 @@ public:
   const Indexes& getIndexes() const;
 
 private:
-  const Vertexes vertexes;
-  const Indexes indexes;
+  const Vertexes m_vertexes;
+  const Indexes  m_indexes;
 };

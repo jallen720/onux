@@ -7,6 +7,7 @@ public:
   Transform();
   void translate(const glm::vec3& translation);
   void rotate(const glm::vec3& rotation);
+  void scale(const glm::vec3& scale);
   void setPosition(const glm::vec3& position);
   void setRotation(const glm::vec3& rotation);
   void setScale(const glm::vec3& scale);
@@ -23,7 +24,7 @@ protected:
   ) const;
 
 private:
-  glm::vec3 position;
-  glm::vec3 rotation;
-  glm::vec3 scale;
+  glm::vec3 m_position;
+  glm::vec3 m_rotation;
+  glm::vec3 m_scale;
 };

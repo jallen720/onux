@@ -24,8 +24,8 @@ static void validateNoGLError(const GLenum error) {
 }
 
 Engine::Engine(const Window& window, GraphicsEngine& graphicsEngine)
-  : window(window)
-  , graphicsEngine(graphicsEngine) {
+  : m_window(window)
+  , m_graphicsEngine(graphicsEngine) {
   validateNoGLError(glGetError());
 }
 
@@ -43,15 +43,15 @@ static void handleFrameTiming(float& frameStart) {
 void Engine::run() {
   float frameStart = glfwGetTime();
 
-  while (!window.shouldClose()) {
+  while (!m_window.shouldClose()) {
     processFrame();
     handleFrameTiming(frameStart);
   }
 }
 
 void Engine::renderObjects() {
-  graphicsEngine.render();
-  window.swapBuffers();
+  m_graphicsEngine.render();
+  m_window.swapBuffers();
 }
 
 void Engine::processFrame() {

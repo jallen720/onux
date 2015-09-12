@@ -15,7 +15,7 @@ public:
   const Meshes& getMeshes() const;
 
 private:
-  Assimp::Importer importer;
-  const aiScene* scene;
-  const Meshes meshes;
+  Assimp::Importer m_importer;
+  const aiScene*   m_scene;
+  const Meshes     m_meshes;
 };

@@ -7,7 +7,7 @@
 using std::string;
 using std::runtime_error;
 
-const ShaderSource::Types ShaderSource::types {
+const ShaderSource::Types ShaderSource::TYPES {
   { "vert", GL_VERTEX_SHADER          },
   { "tesc", GL_TESS_CONTROL_SHADER    },
   { "tese", GL_TESS_EVALUATION_SHADER },
@@ -17,7 +17,7 @@ const ShaderSource::Types ShaderSource::types {
 };
 
 static const bool isValidExtension(const string& extension) {
-  return ShaderSource::types.count(extension) > 0;
+  return ShaderSource::TYPES.count(extension) == 1;
 }
 
 static void validateExtension(const string& extension) {
@@ -35,13 +35,13 @@ static const string loadExtension(const string& path) {
 }
 
 ShaderSource::ShaderSource(const string& path)
-  : type(types.at(loadExtension(path)))
-  , code(readFile(path)) {}
+  : m_type(TYPES.at(loadExtension(path)))
+  , m_code(readFile(path)) {}
 
 const GLenum ShaderSource::getType() const {
-  return type;
+  return m_type;
 }
 
 const GLchar* ShaderSource::getCode() const {
-  return code.c_str();
+  return m_code.c_str();
 }

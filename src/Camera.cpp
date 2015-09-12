@@ -3,12 +3,12 @@
 using glm::mat4;
 
 Camera::Camera(const mat4& projection)
-  : projection(projection) {}
+  : m_projection(projection) {}
 
 ViewTransform& Camera::getViewTransform() {
-  return viewTransform;
+  return m_viewTransform;
 }
 
 const mat4& Camera::getProjection() const {
-  return projection;
+  return m_projection;
 }

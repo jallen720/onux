@@ -17,20 +17,20 @@ Image::Image(const string& path) {
 }
 
 const GLsizei Image::getWidth() const {
-  return image.columns();
+  return m_image.columns();
 }
 
 const GLsizei Image::getHeight() const {
-  return image.rows();
+  return m_image.rows();
 }
 
 const GLvoid* Image::getData() const {
-  return blob.data();
+  return m_blob.data();
 }
 
 void Image::loadBlob(const string& path) {
   static const string FORMAT = "RGBA";
-  image.read(path);
-  image.flip();
-  image.write(&blob, FORMAT);
+  m_image.read(path);
+  m_image.flip();
+  m_image.write(&m_blob, FORMAT);
 }

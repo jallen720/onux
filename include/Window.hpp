@@ -12,7 +12,7 @@ public:
   void swapBuffers() const;
 
 private:
-  GLFWwindow* glfwWindow;
-  int width;
-  int height;
+  GLFWwindow* m_glfwWindow;
+  int         m_width;
+  int         m_height;
 };
