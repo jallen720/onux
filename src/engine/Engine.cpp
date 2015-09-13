@@ -1,4 +1,4 @@
-#include "sample/Engine.hpp"
+#include "engine/Engine.hpp"
 
 #include <stdexcept>
 #include <thread>
@@ -6,7 +6,7 @@
 #include <GL/glew.h>
 
 #include "Window.hpp"
-#include "sample/GraphicsEngine.hpp"
+#include "engine/GraphicsEngine.hpp"
 #include "gl/helpers.hpp"
 
 using std::runtime_error;

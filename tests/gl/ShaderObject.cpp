@@ -4,7 +4,7 @@
 
 #include "fixtures/ShaderObjectTest.hpp"
 #include "test_util.hpp"
-#include "ShaderSource.hpp"
+#include "graphics/ShaderSource.hpp"
 
 using std::runtime_error;
 using onux::ShaderSource;

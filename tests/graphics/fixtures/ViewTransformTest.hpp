@@ -2,7 +2,7 @@
 
 #include <gtest/gtest.h>
 
-#include "ViewTransform.hpp"
+#include "graphics/ViewTransform.hpp"
 
 struct ViewTransformTest : testing::Test {
 protected:

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "OnuxTest.hpp"
-#include "Image.hpp"
+#include "graphics/Image.hpp"
 #include "test_util.hpp"
 
 struct TextureTest : OnuxTest {

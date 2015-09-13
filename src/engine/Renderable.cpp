@@ -1,11 +1,11 @@
-#include "sample/Renderable.hpp"
+#include "engine/Renderable.hpp"
 
 #include <GL/glew.h>
 
 #include "gl/Texture.hpp"
 #include "gl/ShaderProgram.hpp"
-#include "Mesh.hpp"
-#include "Camera.hpp"
+#include "graphics/Mesh.hpp"
+#include "graphics/Camera.hpp"
 
 using glm::mat4;
 

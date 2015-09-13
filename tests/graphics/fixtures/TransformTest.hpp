@@ -2,7 +2,7 @@
 
 #include <gtest/gtest.h>
 
-#include "Transform.hpp"
+#include "graphics/Transform.hpp"
 
 struct TransformTest : testing::Test {
 protected:

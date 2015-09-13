@@ -1,4 +1,4 @@
-#include "Camera.hpp"
+#include "graphics/Camera.hpp"
 
 using glm::mat4;
 

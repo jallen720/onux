@@ -1,4 +1,4 @@
-#include "sample/runEngine.hpp"
+#include "engine/runEngine.hpp"
 
 #include <GL/glew.h> // Must include before any OpenGL headers.
 
@@ -10,19 +10,19 @@
 #include "Environment.hpp"
 #include "Window.hpp"
 #include "extensions.hpp"
-#include "ShaderSource.hpp"
-#include "Image.hpp"
-#include "Scene.hpp"
-#include "Camera.hpp"
+#include "graphics/ShaderSource.hpp"
+#include "graphics/Image.hpp"
+#include "graphics/Scene.hpp"
+#include "graphics/Camera.hpp"
 #include "gl/ShaderObject.hpp"
 #include "gl/ShaderProgram.hpp"
 #include "gl/VertexBuffer.hpp"
 #include "gl/IndexBuffer.hpp"
 #include "gl/VertexArray.hpp"
 #include "gl/Texture.hpp"
-#include "sample/Renderable.hpp"
-#include "sample/GraphicsEngine.hpp"
-#include "sample/Engine.hpp"
+#include "engine/Renderable.hpp"
+#include "engine/GraphicsEngine.hpp"
+#include "engine/Engine.hpp"
 
 using std::cerr;
 using std::endl;

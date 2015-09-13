@@ -3,8 +3,8 @@
 #include <vector>
 #include <glm/glm.hpp>
 
-#include "Transform.hpp"
-#include "sample/MeshRenderer.hpp"
+#include "graphics/Transform.hpp"
+#include "engine/MeshRenderer.hpp"
 
 namespace onux {
 

@@ -1,4 +1,4 @@
-#include "Scene.hpp"
+#include "graphics/Scene.hpp"
 
 #include <sstream>
 #include <stdexcept>

@@ -1,4 +1,4 @@
-#include "Mesh.hpp"
+#include "graphics/Mesh.hpp"
 
 #include "fixtures/MeshTest.hpp"
 

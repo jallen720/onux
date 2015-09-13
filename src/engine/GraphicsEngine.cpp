@@ -1,9 +1,9 @@
-#include "sample/GraphicsEngine.hpp"
+#include "engine/GraphicsEngine.hpp"
 
 #include <GL/glew.h>
 
-#include "sample/Renderable.hpp"
-#include "Camera.hpp"
+#include "engine/Renderable.hpp"
+#include "graphics/Camera.hpp"
 
 // Temp
 #include <GLFW/glfw3.h>

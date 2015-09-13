@@ -1,6 +1,6 @@
-#include "sample/MeshRenderer.hpp"
+#include "engine/MeshRenderer.hpp"
 
-#include "Mesh.hpp"
+#include "graphics/Mesh.hpp"
 
 namespace onux {
 

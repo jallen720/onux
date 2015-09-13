@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 #include <assimp/Importer.hpp>
-#include "Mesh.hpp"
+#include "graphics/Mesh.hpp"
 
 struct aiScene;
 

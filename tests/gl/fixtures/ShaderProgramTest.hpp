@@ -1,7 +1,7 @@
 #pragma once
 
 #include "OnuxTest.hpp"
-#include "ShaderSource.hpp"
+#include "graphics/ShaderSource.hpp"
 #include "gl/ShaderObject.hpp"
 #include "test_util.hpp"
 

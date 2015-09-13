@@ -1,4 +1,4 @@
-#include "Scene.hpp"
+#include "graphics/Scene.hpp"
 
 #include "fixtures/SceneTest.hpp"
 #include "test_util.hpp"
