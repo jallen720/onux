@@ -1,6 +1,6 @@
 #pragma once
 
-#include "graphics/ViewTransform.hpp"
+#include "graphics/Transform.hpp"
 #include <glm/glm.hpp>
 
 namespace onux {
@@ -8,12 +8,12 @@ namespace onux {
 class Camera {
 public:
   Camera(const glm::mat4& projection);
-  ViewTransform& getViewTransform();
+  Transform& getTransform();
   const glm::mat4& getProjection() const;
 
 private:
-  ViewTransform m_viewTransform;
-  glm::mat4     m_projection;
+  Transform m_transform;
+  glm::mat4 m_projection;
 };
 
 } // namespace onux

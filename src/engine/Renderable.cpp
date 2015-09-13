@@ -25,8 +25,8 @@ void Renderable::enable(Camera& camera) const {
   bindTextures();
 
   setUniforms(
-    m_transform.getMatrix(),
-    camera.getViewTransform().getMatrix(),
+    m_transform.getLocalMatrix(),
+    camera.getTransform().getWorldMatrix(),
     camera.getProjection()
   );
 }

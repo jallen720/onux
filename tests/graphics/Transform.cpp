@@ -42,12 +42,12 @@ TEST_F(TransformTest, scale) {
   ASSERT_EQ(vec3(8, 15, 0.5), transform.getScale());
 }
 
-TEST_F(TransformTest, getMatrix) {
+TEST_F(TransformTest, getLocalMatrix) {
   transform.setPosition(vec3(1, 2, 3));
   transform.setRotation(vec3(90, 80, 70));
   transform.setScale(vec3(4, 5, 6));
 
-  // Transform matrix is translated, rotated, then scaled.
+  // Transform's local matrix is translated, rotated, then scaled.
   const mat4 correctMatrix =
     scale(rotate(rotate(rotate(translate(mat4()
     , vec3(1, 2, 3))
@@ -65,6 +65,34 @@ TEST_F(TransformTest, getMatrix) {
     , radians(70.f), vec3(0, 0, 1))
     , vec3(1, 2, 3));
 
-  ASSERT_EQ(correctMatrix, transform.getMatrix());
-  ASSERT_NE(incorrectMatrix, transform.getMatrix());
+  ASSERT_EQ(correctMatrix, transform.getLocalMatrix());
+  ASSERT_NE(incorrectMatrix, transform.getLocalMatrix());
+}
+
+TEST_F(TransformTest, getWorldMatrix) {
+  transform.setPosition(vec3(1, 2, 3));
+  transform.setRotation(vec3(90, 80, 70));
+  transform.setScale(vec3(4, 5, 6));
+
+  // Transform's world matrix is scaled, rotated, then translated. Translation &
+  // rotation are also inverted.
+  const mat4 correctMatrix =
+    translate(rotate(rotate(rotate(scale(mat4()
+    , vec3(4, 5, 6))
+    , -radians(90.f), vec3(1, 0, 0))
+    , -radians(80.f), vec3(0, 1, 0))
+    , -radians(70.f), vec3(0, 0, 1))
+    , -vec3(1, 2, 3));
+
+  // Incorrect transformation order.
+  const mat4 incorrectMatrix =
+    scale(rotate(rotate(rotate(translate(mat4()
+    , -vec3(1, 2, 3))
+    , -radians(90.f), vec3(1, 0, 0))
+    , -radians(80.f), vec3(0, 1, 0))
+    , -radians(70.f), vec3(0, 0, 1))
+    , vec3(4, 5, 6));
+
+  ASSERT_EQ(correctMatrix, transform.getWorldMatrix());
+  ASSERT_NE(incorrectMatrix, transform.getWorldMatrix());
 }

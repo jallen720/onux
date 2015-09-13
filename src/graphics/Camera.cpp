@@ -7,8 +7,8 @@ namespace onux {
 Camera::Camera(const mat4& projection)
   : m_projection(projection) {}
 
-ViewTransform& Camera::getViewTransform() {
-  return m_viewTransform;
+Transform& Camera::getTransform() {
+  return m_transform;
 }
 
 const mat4& Camera::getProjection() const {

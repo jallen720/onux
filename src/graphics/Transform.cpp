@@ -47,21 +47,22 @@ const vec3& Transform::getScale() const {
   return m_scale;
 }
 
-const mat4 Transform::getMatrix() const {
-  return calculateMatrix(m_position, m_rotation, m_scale);
+const mat4 Transform::getLocalMatrix() const {
+  return glm::scale(glm::rotate(glm::rotate(glm::rotate(glm::translate(mat4()
+         , m_position)
+         , radians(m_rotation.x), vec3(1, 0, 0))
+         , radians(m_rotation.y), vec3(0, 1, 0))
+         , radians(m_rotation.z), vec3(0, 0, 1))
+         , m_scale);
 }
 
-const mat4 Transform::calculateMatrix(
-  const vec3& position,
-  const vec3& rotation,
-  const vec3& scale
-) const {
-  return glm::scale(glm::rotate(glm::rotate(glm::rotate(glm::translate(mat4()
-         , position)
-         , radians(rotation.x), vec3(1, 0, 0))
-         , radians(rotation.y), vec3(0, 1, 0))
-         , radians(rotation.z), vec3(0, 0, 1))
-         , scale);
+const mat4 Transform::getWorldMatrix() const {
+  return glm::translate(glm::rotate(glm::rotate(glm::rotate(glm::scale(mat4()
+         , m_scale)
+         , -radians(m_rotation.x), vec3(1, 0, 0))
+         , -radians(m_rotation.y), vec3(0, 1, 0))
+         , -radians(m_rotation.z), vec3(0, 0, 1))
+         , -m_position);
 }
 
 } // namespace onux

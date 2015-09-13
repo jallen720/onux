@@ -17,8 +17,8 @@ namespace onux {
 static void modCam(Camera& camera) {
   float mod = sin(glfwGetTime());
   auto amt = 3u;
-  camera.getViewTransform().setRotation(vec3(0.0f, mod * (45.0f / amt), 0.0f));
-  camera.getViewTransform().setPosition(vec3(mod * amt, 0.0f, 0.0f));
+  camera.getTransform().setRotation(vec3(0.0f, mod * (45.0f / amt), 0.0f));
+  camera.getTransform().setPosition(vec3(mod * amt, 0.0f, 0.0f));
 }
 // Temp
 

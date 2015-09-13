@@ -16,14 +16,8 @@ public:
   const glm::vec3& getPosition() const;
   const glm::vec3& getRotation() const;
   const glm::vec3& getScale() const;
-  const glm::mat4 getMatrix() const;
-
-protected:
-  const virtual glm::mat4 calculateMatrix(
-    const glm::vec3& position,
-    const glm::vec3& rotation,
-    const glm::vec3& scale
-  ) const;
+  const glm::mat4 getLocalMatrix() const;
+  const glm::mat4 getWorldMatrix() const;
 
 private:
   glm::vec3 m_position;
