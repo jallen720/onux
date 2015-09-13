@@ -1,4 +1,4 @@
-#include "extensions.hpp"
+#include "environment/extensions.hpp"
 
 #include <stdexcept>
 #include <GL/glew.h>

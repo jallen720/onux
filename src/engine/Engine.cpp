@@ -5,7 +5,7 @@
 #include <chrono>
 #include <GL/glew.h>
 
-#include "Window.hpp"
+#include "environment/Window.hpp"
 #include "engine/GraphicsEngine.hpp"
 #include "gl/helpers.hpp"
 

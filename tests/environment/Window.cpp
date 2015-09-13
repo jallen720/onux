@@ -1,7 +1,7 @@
 // Must be included before other OpenGL headers.
 #include <GL/glew.h>
 
-#include "Window.hpp"
+#include "environment/Window.hpp"
 
 #include <stdexcept>
 

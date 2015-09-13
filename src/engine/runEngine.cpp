@@ -7,9 +7,9 @@
 #include <string>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "Environment.hpp"
-#include "Window.hpp"
-#include "extensions.hpp"
+#include "environment/Environment.hpp"
+#include "environment/Window.hpp"
+#include "environment/extensions.hpp"
 #include "graphics/ShaderSource.hpp"
 #include "graphics/Image.hpp"
 #include "graphics/Scene.hpp"

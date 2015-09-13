@@ -4,8 +4,8 @@
 
 #include <gtest/gtest.h>
 
-#include "Environment.hpp"
-#include "Window.hpp"
+#include "environment/Environment.hpp"
+#include "environment/Window.hpp"
 
 struct OnuxTest : testing::Test {
 private:

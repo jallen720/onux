@@ -2,7 +2,7 @@
 
 #include <gtest/gtest.h>
 
-#include "Environment.hpp"
+#include "environment/Environment.hpp"
 
 struct WindowTest : testing::Test {
 protected:

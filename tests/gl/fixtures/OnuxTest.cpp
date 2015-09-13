@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "extensions.hpp"
+#include "environment/extensions.hpp"
 #include "gl/helpers.hpp"
 
 using std::cerr;
