@@ -5,22 +5,7 @@
 #include "engine/Renderable.hpp"
 #include "graphics/Camera.hpp"
 
-// Temp
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-using glm::vec3;
-// Temp
-
 namespace onux {
-
-// Temp
-static void modCam(Camera& camera) {
-  float mod = sin(glfwGetTime());
-  auto amt = 3u;
-  camera.getTransform().setRotation(vec3(0.0f, mod * (45.0f / amt), 0.0f));
-  camera.getTransform().setPosition(vec3(mod * amt, 0.0f, 0.0f));
-}
-// Temp
 
 GraphicsEngine::GraphicsEngine(const Drawables& drawables, Camera& camera)
   : m_drawables(drawables)
@@ -36,7 +21,6 @@ static void clearBuffers() {
 
 void GraphicsEngine::render() {
   clearBuffers();
-  modCam(m_camera);
   renderDrawables();
 }
 

@@ -4,6 +4,7 @@
 #include <thread>
 #include <chrono>
 #include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
 #include "environment/Window.hpp"
 #include "engine/GraphicsEngine.hpp"

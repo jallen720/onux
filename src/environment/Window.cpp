@@ -1,9 +1,14 @@
 #include "environment/Window.hpp"
 
+#include <GLFW/glfw3.h>
+
 namespace onux {
 
-Window::Window(const int width, const int height, const char* name)
-  : m_glfwWindow(glfwCreateWindow(width, height, name, nullptr, nullptr))
+Window::Window(
+  const unsigned int width,
+  const unsigned int height,
+  const char* name
+) : m_glfwWindow(glfwCreateWindow(width, height, name, nullptr, nullptr))
   , m_width(width)
   , m_height(height) {
   makeContextCurrent();
