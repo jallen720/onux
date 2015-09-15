@@ -24,6 +24,8 @@
 #include "engine/GraphicsEngine.hpp"
 #include "engine/Engine.hpp"
 
+#include "sample/CameraControls.hpp"
+
 using std::cerr;
 using std::endl;
 using std::runtime_error;
@@ -161,6 +163,11 @@ void runEngine() {
     Camera camera(perspective(FOV, window.getAspect(), Z_NEAR, Z_FAR));
 
     GraphicsEngine graphicsEngine(drawables, camera);
+
+    CameraControls cameraControls(
+      camera.getTransform(),
+      window.getInput().getMouseMoveEvent()
+    );
 
     // Engine
     Engine engine(window, graphicsEngine);

@@ -9,6 +9,7 @@ Window::Window(
   const unsigned int height,
   const char* name
 ) : m_glfwWindow(glfwCreateWindow(width, height, name, nullptr, nullptr))
+  , m_input(m_glfwWindow)
   , m_width(width)
   , m_height(height) {
   makeContextCurrent();
@@ -32,6 +33,10 @@ const bool Window::shouldClose() const {
 
 void Window::swapBuffers() const {
   glfwSwapBuffers(m_glfwWindow);
+}
+
+Input& Window::getInput() {
+  return m_input;
 }
 
 } // namespace onux
