@@ -10,7 +10,7 @@ MKDIR_P = mkdir -p
 
 # Compiler options
 CC           = g++
-STD          = -std=c++11
+STD          = -std=c++14
 DEBUG        = -g
 ALL_WARNINGS = -Wall
 COMPILE_ONLY = -c
