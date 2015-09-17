@@ -40,7 +40,7 @@ public:
     removeAt(getPosition(callback));
   }
 
-  void trigger(Args... args) const{
+  void trigger(Args... args) const {
     for (const Callback* callback : m_callbacks) {
       (*callback)(args...);
     }
