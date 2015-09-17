@@ -3,8 +3,6 @@
 #include <map>
 #include <GLFW/glfw3.h>
 
-#include "environment/MouseMoveEvent.hpp"
-
 using std::map;
 
 namespace onux {

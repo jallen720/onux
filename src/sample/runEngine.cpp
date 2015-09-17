@@ -162,15 +162,11 @@ void runEngine() {
     static const float Z_FAR  = 500.0f;
     Camera camera(perspective(FOV, window.getAspect(), Z_NEAR, Z_FAR));
 
+    // Engine setup
     GraphicsEngine graphicsEngine(drawables, camera);
-
-    CameraControls cameraControls(
-      camera.getTransform(),
-      window.getInput().getMouseMoveEvent()
-    );
-
-    // Engine
+    CameraControls cameraControls(camera.getTransform(), window.getInput());
     Engine engine(window, graphicsEngine);
+
     engine.run();
   } catch(const runtime_error& e) {
     cerr << e.what() << endl;

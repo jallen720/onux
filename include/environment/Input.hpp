@@ -1,10 +1,10 @@
 #pragma once
 
+#include "environment/InputEvents.hpp"
+
 struct GLFWwindow;
 
 namespace onux {
-
-class MouseMoveEvent;
 
 class Input {
 public:
