@@ -67,7 +67,7 @@ static const string scenePath(const string& name) {
   return SCENE_DIRECTORY + name;
 }
 
-static void configOpenGL() {
+static void configureOpenGL() {
   glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
   glCullFace(GL_BACK);
   glEnable(GL_CULL_FACE);
@@ -80,7 +80,7 @@ void runEngine() {
     Environment environment;
     Window window(1280, 720, "Onux");
     loadExtensions();
-    configOpenGL();
+    configureOpenGL();
 
     // Shaders
     const ShaderSource onuxVertHeader(shaderPath("onux.vert"));
@@ -144,16 +144,25 @@ void runEngine() {
         shaderPrograms[0],
         { &textures[0], &textures[1] }
       ),
+      Renderable(
+        scenes[0].getMeshes()[0],
+        shaderPrograms[1],
+        { &textures[2] }
+      ),
     };
 
     renderables[1].getTransform().setPosition(vec3(0, 0, -5));
     renderables[0].getTransform().setScale(vec3(0.025f));
     renderables[0].getTransform().setPosition(vec3(2, -1, -5));
     renderables[0].getTransform().setRotation(vec3(0, 90, 0));
+    renderables[2].getTransform().setScale(vec3(0.025f));
+    renderables[2].getTransform().setPosition(vec3(-2, -1, -5));
+    renderables[2].getTransform().setRotation(vec3(0, 90, 0));
 
     const GraphicsEngine::Drawables drawables {
       &renderables[0],
       &renderables[1],
+      &renderables[2],
     };
 
     // Camera setup
@@ -163,8 +172,8 @@ void runEngine() {
     Camera camera(perspective(FOV, window.getAspect(), Z_NEAR, Z_FAR));
 
     // Engine setup
-    GraphicsEngine graphicsEngine(drawables, camera);
     CameraControls cameraControls(camera.getTransform(), window.getInput());
+    GraphicsEngine graphicsEngine(drawables, camera);
     Engine engine(window, graphicsEngine);
 
     engine.run();
