@@ -19,8 +19,9 @@ public:
 private:
   glm::dvec2 m_prevMousePos;
 
-  const bool prevMousePosIsSet() const;
   const glm::dvec2 getDelta(const glm::dvec2& currMousePos);
+  const bool prevMousePosIsSet() const;
+  void callListeners(const glm::dvec2& delta);
 };
 
 } // namespace onux

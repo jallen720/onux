@@ -1,5 +1,7 @@
 #pragma once
 
+#include <glm/glm.hpp>
+
 #include "environment/events/Event.hpp"
 #include "environment/listeners/IMouseMoveListener.hpp"
 
@@ -11,6 +13,9 @@ class MouseMoveEvent
 public:
   // Event
   void trigger(const double xPosition, const double yPosition) override;
+
+private:
+  void callListeners(const glm::dvec2& position);
 };
 
 } // namespace onux
