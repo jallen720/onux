@@ -14,12 +14,12 @@ static const bool hasMouseMoveEvent(const GLFWwindow* window) {
 }
 
 static void cursorPosCallback(
-  GLFWwindow* window,
-  const double x,
-  const double y
+  GLFWwindow*  window,
+  const double xPosition,
+  const double yPosition
 ) {
   if (hasMouseMoveEvent(window)) {
-    mouseMoveEvents[window].trigger(x, y);
+    mouseMoveEvents[window].trigger(xPosition, yPosition);
   }
 }
 

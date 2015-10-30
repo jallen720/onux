@@ -139,11 +139,13 @@ void runEngine() {
         shaderPrograms[1],
         { &textures[2] }
       ),
+
       Renderable(
         scenes[1].getMeshes()[0],
         shaderPrograms[0],
         { &textures[0], &textures[1] }
       ),
+
       Renderable(
         scenes[0].getMeshes()[0],
         shaderPrograms[1],
@@ -151,13 +153,26 @@ void runEngine() {
       ),
     };
 
-    renderables[1].getTransform().setPosition(vec3(0, 0, -5));
-    renderables[0].getTransform().setScale(vec3(0.025f));
-    renderables[0].getTransform().setPosition(vec3(2, -1, -5));
-    renderables[0].getTransform().setRotation(vec3(0, 90, 0));
-    renderables[2].getTransform().setScale(vec3(0.025f));
-    renderables[2].getTransform().setPosition(vec3(-2, -1, -5));
-    renderables[2].getTransform().setRotation(vec3(0, 90, 0));
+    renderables[1].getTransform()
+                  .setPosition(vec3(0, 0, -5));
+
+    renderables[0].getTransform()
+                  .setScale(vec3(0.025f));
+
+    renderables[0].getTransform()
+                  .setPosition(vec3(2, -1, -5));
+
+    renderables[0].getTransform()
+                  .setRotation(vec3(0, 90, 0));
+
+    renderables[2].getTransform()
+                  .setScale(vec3(0.025f));
+
+    renderables[2].getTransform()
+                  .setPosition(vec3(-2, -1, -5));
+
+    renderables[2].getTransform()
+                  .setRotation(vec3(0, 90, 0));
 
     const GraphicsEngine::Drawables drawables {
       &renderables[0],
@@ -172,11 +187,19 @@ void runEngine() {
     Camera camera(perspective(FOV, window.getAspect(), Z_NEAR, Z_FAR));
 
     // Engine setup
-    CameraControls cameraControls(camera.getTransform(), window.getInput());
+    CameraControls cameraControls(camera.getTransform());
     GraphicsEngine graphicsEngine(drawables, camera);
     Engine engine(window, graphicsEngine);
 
+    window.getInput()
+          .getMouseMoveEvent()
+          .add(&cameraControls);
+
     engine.run();
+
+    window.getInput()
+          .getMouseMoveEvent()
+          .remove(&cameraControls);
   } catch(const runtime_error& e) {
     cerr << e.what() << endl;
   } catch(...) {

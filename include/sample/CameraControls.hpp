@@ -1,25 +1,18 @@
 #pragma once
 
-#include <glm/glm.hpp>
-
 #include "graphics/Transform.hpp"
-#include "environment/InputEvents.hpp"
-#include "environment/Input.hpp"
+#include "environment/listeners/IMouseMoveListener.hpp"
 
-class CameraControls {
+class CameraControls : public onux::IMouseMoveListener {
 public:
-  CameraControls(onux::Transform& cameraTransform, onux::Input& input);
-  ~CameraControls();
+  CameraControls(onux::Transform& cameraTransform);
+
+  // IMouseMoveListener
+  void onMouseMove(const glm::dvec2& position) override;
 
 private:
-  typedef onux::MouseMoveEvent::Callback OnMouseMove;
+  onux::Transform& m_cameraTransform;
+  glm::dvec2       m_prevMousePos;
 
-  onux::Transform&  m_cameraTransform;
-  onux::Input&      m_input;
-  const OnMouseMove m_onMouseMove;
-  double            m_previousX;
-  double            m_previousY;
-
-  void onMouseMove(const double x, const double y);
-  const glm::vec3 getRotation(const double x, const double y) const;
+  const glm::vec3 getRotation(const glm::dvec2& currMousePos) const;
 };

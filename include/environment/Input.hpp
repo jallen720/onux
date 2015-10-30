@@ -1,6 +1,6 @@
 #pragma once
 
-#include "environment/InputEvents.hpp"
+#include "environment/events/MouseMoveEvent.hpp"
 
 struct GLFWwindow;
 

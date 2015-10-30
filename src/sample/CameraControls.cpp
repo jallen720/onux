@@ -1,37 +1,24 @@
 #include "sample/CameraControls.hpp"
 
-#include <GLFW/glfw3.h>
-
-using onux::Transform;
-using onux::Input;
 using glm::vec3;
+using glm::dvec2;
+using onux::Transform;
 
-CameraControls::CameraControls(Transform& cameraTransform, Input& input)
+CameraControls::CameraControls(Transform& cameraTransform)
   : m_cameraTransform(cameraTransform)
-  , m_input(input)
-  , m_onMouseMove([&](const double x, const double y) {
-      onMouseMove(x, y);
-    })
-  , m_previousX(-1.0)
-  , m_previousY(-1.0) {
-  m_input.getMouseMoveEvent().add(&m_onMouseMove);
-}
+  , m_prevMousePos(-1.0, -1.0) {}
 
-CameraControls::~CameraControls() {
-  m_input.getMouseMoveEvent().remove(&m_onMouseMove);
-}
-
-void CameraControls::onMouseMove(const double x, const double y) {
+void CameraControls::onMouseMove(const dvec2& position) {
   static const auto DAMPING = 12.0f;
 
-  if (m_previousX != -1.0) {
-    m_cameraTransform.rotate(getRotation(x, y) / DAMPING);
+  if (m_prevMousePos.x != -1.0) {
+    m_cameraTransform.rotate(getRotation(position) / DAMPING);
   }
 
-  m_previousX = x;
-  m_previousY = y;
+  m_prevMousePos = position;
 }
 
-const vec3 CameraControls::getRotation(const double x, const double y) const {
-  return vec3(m_previousY - y, m_previousX - x, 0.0f);
+const vec3 CameraControls::getRotation(const dvec2& currMousePos) const {
+  const dvec2 delta(m_prevMousePos - currMousePos);
+  return vec3(delta.y, delta.x, 0.0f);
 }
