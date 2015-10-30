@@ -1,6 +1,7 @@
 #pragma once
 
 #include "environment/events/MouseMoveEvent.hpp"
+#include "environment/events/MouseDeltaEvent.hpp"
 
 struct GLFWwindow;
 
@@ -10,9 +11,11 @@ class Input {
 public:
   Input(GLFWwindow* glfwWindow);
   MouseMoveEvent& getMouseMoveEvent();
+  MouseDeltaEvent& getMouseDeltaEvent();
 
 private:
-  MouseMoveEvent& m_mouseMoveEvent;
+  MouseMoveEvent&  m_mouseMoveEvent;
+  MouseDeltaEvent& m_mouseDeltaEvent;
 };
 
 } // namespace onux

@@ -10,16 +10,20 @@
 #include "environment/Environment.hpp"
 #include "environment/Window.hpp"
 #include "environment/extensions.hpp"
+#include "environment/events/MouseDeltaEvent.hpp"
+
 #include "graphics/ShaderSource.hpp"
 #include "graphics/Image.hpp"
 #include "graphics/Scene.hpp"
 #include "graphics/Camera.hpp"
+
 #include "gl/ShaderObject.hpp"
 #include "gl/ShaderProgram.hpp"
 #include "gl/VertexBuffer.hpp"
 #include "gl/IndexBuffer.hpp"
 #include "gl/VertexArray.hpp"
 #include "gl/Texture.hpp"
+
 #include "engine/Renderable.hpp"
 #include "engine/GraphicsEngine.hpp"
 #include "engine/Engine.hpp"
@@ -37,16 +41,20 @@ using glm::radians;
 using onux::Environment;
 using onux::Window;
 using onux::loadExtensions;
+using onux::MouseDeltaEvent;
+
 using onux::ShaderSource;
 using onux::Image;
 using onux::Scene;
 using onux::Camera;
+
 using onux::ShaderObject;
 using onux::ShaderProgram;
 using onux::VertexBuffer;
 using onux::IndexBuffer;
 using onux::VertexArray;
 using onux::Texture;
+
 using onux::Renderable;
 using onux::GraphicsEngine;
 using onux::Engine;
@@ -191,15 +199,13 @@ void runEngine() {
     GraphicsEngine graphicsEngine(drawables, camera);
     Engine engine(window, graphicsEngine);
 
-    window.getInput()
-          .getMouseMoveEvent()
-          .add(&cameraControls);
+    MouseDeltaEvent& mouseDeltaEvent =
+      window.getInput()
+            .getMouseDeltaEvent();
 
+    mouseDeltaEvent.add(&cameraControls);
     engine.run();
-
-    window.getInput()
-          .getMouseMoveEvent()
-          .remove(&cameraControls);
+    mouseDeltaEvent.remove(&cameraControls);
   } catch(const runtime_error& e) {
     cerr << e.what() << endl;
   } catch(...) {

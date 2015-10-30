@@ -1,18 +1,15 @@
 #pragma once
 
 #include "graphics/Transform.hpp"
-#include "environment/listeners/IMouseMoveListener.hpp"
+#include "environment/listeners/IMouseDeltaListener.hpp"
 
-class CameraControls : public onux::IMouseMoveListener {
+class CameraControls : public onux::IMouseDeltaListener {
 public:
   CameraControls(onux::Transform& cameraTransform);
 
-  // IMouseMoveListener
-  void onMouseMove(const glm::dvec2& position) override;
+  // IMouseDeltaListener
+  void onMouseDelta(const glm::dvec2& delta) override;
 
 private:
   onux::Transform& m_cameraTransform;
-  glm::dvec2       m_prevMousePos;
-
-  const glm::vec3 getRotation(const glm::dvec2& currMousePos) const;
 };

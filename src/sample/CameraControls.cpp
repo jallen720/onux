@@ -5,20 +5,13 @@ using glm::dvec2;
 using onux::Transform;
 
 CameraControls::CameraControls(Transform& cameraTransform)
-  : m_cameraTransform(cameraTransform)
-  , m_prevMousePos(-1.0, -1.0) {}
+  : m_cameraTransform(cameraTransform) {}
 
-void CameraControls::onMouseMove(const dvec2& position) {
-  static const auto DAMPING = 12.0f;
-
-  if (m_prevMousePos.x != -1.0) {
-    m_cameraTransform.rotate(getRotation(position) / DAMPING);
-  }
-
-  m_prevMousePos = position;
+static const vec3 getRotation(const dvec2& delta) {
+  return vec3(delta.y, delta.x, 0.0f);
 }
 
-const vec3 CameraControls::getRotation(const dvec2& currMousePos) const {
-  const dvec2 delta(m_prevMousePos - currMousePos);
-  return vec3(delta.y, delta.x, 0.0f);
+void CameraControls::onMouseDelta(const dvec2& delta) {
+  static const auto DAMPING = 12.0f;
+  m_cameraTransform.rotate(getRotation(delta) / DAMPING);
 }
