@@ -10,7 +10,6 @@
 #include "environment/Environment.hpp"
 #include "environment/Window.hpp"
 #include "environment/extensions.hpp"
-#include "environment/events/MouseDeltaEvent.hpp"
 
 #include "graphics/ShaderSource.hpp"
 #include "graphics/Image.hpp"
@@ -41,7 +40,6 @@ using glm::radians;
 using onux::Environment;
 using onux::Window;
 using onux::loadExtensions;
-using onux::MouseDeltaEvent;
 
 using onux::ShaderSource;
 using onux::Image;
@@ -195,17 +193,10 @@ void runEngine() {
     Camera camera(perspective(FOV, window.getAspect(), Z_NEAR, Z_FAR));
 
     // Engine setup
-    CameraControls cameraControls(camera.getTransform());
+    CameraControls cameraControls(camera.getTransform(), window.getInput());
     GraphicsEngine graphicsEngine(drawables, camera);
     Engine engine(window, graphicsEngine);
-
-    MouseDeltaEvent& mouseDeltaEvent =
-      window.getInput()
-            .getMouseDeltaEvent();
-
-    mouseDeltaEvent.add(&cameraControls);
     engine.run();
-    mouseDeltaEvent.remove(&cameraControls);
   } catch(const runtime_error& e) {
     cerr << e.what() << endl;
   } catch(...) {
