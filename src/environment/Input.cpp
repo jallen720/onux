@@ -8,16 +8,16 @@ namespace onux {
 
 Input::Input(GLFWwindow* window)
   : m_window(window) {
-  registerInput(window, this);
+  registerInput(this, window);
 }
 
 Input::~Input() {
   unregisterInput(m_window);
 }
 
-void Input::mousePositionEvent(const double xPosition, const double yPosition) {
-  m_mouseMoveEvent.trigger(xPosition, yPosition);
-  m_mouseDeltaEvent.trigger(xPosition, yPosition);
+void Input::cursorPosEvent(const double x, const double y) {
+  m_mouseMoveEvent.trigger(x, y);
+  m_mouseDeltaEvent.trigger(x, y);
 }
 
 MouseMoveEvent& Input::getMouseMoveEvent() {

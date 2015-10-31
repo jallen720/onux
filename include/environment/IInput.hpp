@@ -4,11 +4,7 @@ namespace onux {
 
 struct IInput {
   virtual ~IInput() {}
-
-  virtual void mousePositionEvent(
-    const double xPosition,
-    const double yPosition
-  ) = 0;
+  virtual void cursorPosEvent(const double x, const double y) = 0;
 };
 
 } // namespace onux

@@ -16,10 +16,7 @@ public:
   MouseDeltaEvent& getMouseDeltaEvent();
 
   // IInput
-  void mousePositionEvent(
-    const double xPosition,
-    const double yPosition
-  ) override;
+  void cursorPosEvent(const double x, const double y) override;
 
 private:
   const GLFWwindow* m_window;

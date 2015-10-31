@@ -6,7 +6,7 @@ namespace onux {
 
 struct IInput;
 
-void registerInput(GLFWwindow* window, IInput* input);
+void registerInput(IInput* input, GLFWwindow* window);
 void unregisterInput(const GLFWwindow*);
 
 } // namespace onux

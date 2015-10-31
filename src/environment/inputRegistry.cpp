@@ -17,15 +17,15 @@ static const bool hasInput(const GLFWwindow* window) {
 
 static void cursorPosCallback(
   GLFWwindow*  window,
-  const double xPosition,
-  const double yPosition
+  const double x,
+  const double y
 ) {
   if (hasInput(window)) {
-    inputs[window]->mousePositionEvent(xPosition, yPosition);
+    inputs[window]->cursorPosEvent(x, y);
   }
 }
 
-void registerInput(GLFWwindow* window, IInput* input) {
+void registerInput(IInput* input, GLFWwindow* window) {
   inputs[window] = input;
   glfwSetCursorPosCallback(window, cursorPosCallback);
 }
