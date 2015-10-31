@@ -2,7 +2,7 @@
 
 #include "OnuxTest.hpp"
 #include "graphics/Image.hpp"
-#include "test_util.hpp"
+#include "testUtil.hpp"
 
 struct TextureTest : OnuxTest {
 protected:

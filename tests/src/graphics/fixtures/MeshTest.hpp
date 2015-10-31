@@ -5,7 +5,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#include "test_util.hpp"
+#include "testUtil.hpp"
 
 struct MeshTest : testing::Test {
 private:

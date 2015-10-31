@@ -6,7 +6,7 @@
 #include <stdexcept>
 
 #include "fixtures/WindowTest.hpp"
-#include "test_util.hpp"
+#include "testUtil.hpp"
 
 using std::runtime_error;
 using onux::Window;
