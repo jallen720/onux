@@ -4,7 +4,7 @@
 
 #include "fixtures/ShaderSourceTest.hpp"
 #include "testUtil.hpp"
-#include "helpers.hpp"
+#include "utils/helpers.hpp"
 
 using std::runtime_error;
 using std::string;

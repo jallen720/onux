@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-#include "helpers.hpp"
+#include "utils/helpers.hpp"
 
 using std::string;
 using std::runtime_error;
