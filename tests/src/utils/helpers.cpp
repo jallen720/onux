@@ -9,24 +9,24 @@ using std::runtime_error;
 using onux::readFile;
 using onux::fileExtension;
 
-TEST(helpersTest, readValidFile) {
+TEST(utilsHelpersTest, readValidFile) {
   expectNoThrow([] {
     readFile(testShaderPath("valid.vert"));
   });
 }
 
-TEST(helpersTest, readInvalidFile) {
+TEST(utilsHelpersTest, readInvalidFile) {
   EXPECT_THROW(
     readFile(""),
     runtime_error
   );
 }
 
-TEST(helpersTest, validFileExtension) {
+TEST(utilsHelpersTest, validFileExtension) {
   EXPECT_EQ("cpp", fileExtension("valid.cpp"));
   EXPECT_EQ("js", fileExtension("valid.spec.js"));
 }
 
-TEST(helpersTest, noFileExtension) {
+TEST(utilsHelpersTest, noFileExtension) {
   EXPECT_EQ("", fileExtension("noExtension"));
 }

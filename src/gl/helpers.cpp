@@ -1,21 +1,25 @@
 #include "gl/helpers.hpp"
 
+#include <map>
+
 using std::string;
+using std::map;
 
 namespace onux {
 
-static const string errorString(const GLenum error) {
-  switch (error) {
-    case GL_NO_ERROR                     : return "No error";
-    case GL_INVALID_ENUM                 : return "Invalid enum";
-    case GL_INVALID_VALUE                : return "Invalid value";
-    case GL_INVALID_OPERATION            : return "Invalid operation";
-    case GL_INVALID_FRAMEBUFFER_OPERATION: return "Invalid framebuffer operation";
-    case GL_OUT_OF_MEMORY                : return "Out of memory";
-    case GL_STACK_UNDERFLOW              : return "Stack underflow";
-    case GL_STACK_OVERFLOW               : return "Stack overflow";
-    default                              : return "Unknown error";
+static const string& errorString(const GLenum error) {
+  static const map<const GLenum, const string> ERROR_STRINGS {
+    { GL_NO_ERROR                      , "No error"                      },
+    { GL_INVALID_ENUM                  , "Invalid enum"                  },
+    { GL_INVALID_VALUE                 , "Invalid value"                 },
+    { GL_INVALID_OPERATION             , "Invalid operation"             },
+    { GL_INVALID_FRAMEBUFFER_OPERATION , "Invalid framebuffer operation" },
+    { GL_OUT_OF_MEMORY                 , "Out of memory"                 },
+    { GL_STACK_UNDERFLOW               , "Stack underflow"               },
+    { GL_STACK_OVERFLOW                , "Stack overflow"                },
   };
+
+  return ERROR_STRINGS.at(error);
 }
 
 const GLint getInt(const GLenum parameter) {
