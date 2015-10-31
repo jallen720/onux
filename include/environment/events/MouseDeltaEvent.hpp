@@ -15,10 +15,10 @@ public:
   void trigger(const glm::dvec2& position) override;
 
 private:
-  glm::dvec2 m_prevMousePos;
+  glm::dvec2 m_previousPosition;
 
-  const glm::dvec2 getDelta(const glm::dvec2& currMousePos);
-  const bool prevMousePosIsSet() const;
+  const glm::dvec2 getDelta(const glm::dvec2& position);
+  const bool previousPositionIsSet() const;
   void callListeners(const glm::dvec2& delta);
 };
 

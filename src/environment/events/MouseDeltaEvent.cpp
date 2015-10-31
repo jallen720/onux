@@ -2,26 +2,26 @@
 
 using glm::dvec2;
 
-#define PREV_MOUSE_POS_UNSET -10000.0
+#define PREVIOUS_POSITION_UNSET -10000.0
 
 namespace onux {
 
 MouseDeltaEvent::MouseDeltaEvent()
-  : m_prevMousePos(PREV_MOUSE_POS_UNSET) {}
+  : m_previousPosition(PREVIOUS_POSITION_UNSET) {}
 
 void MouseDeltaEvent::trigger(const dvec2& position) {
   callListeners(getDelta(position));
-  m_prevMousePos = position;
+  m_previousPosition = position;
 }
 
-const dvec2 MouseDeltaEvent::getDelta(const dvec2& currMousePos) {
-  return prevMousePosIsSet()
-         ? m_prevMousePos - currMousePos
+const dvec2 MouseDeltaEvent::getDelta(const dvec2& position) {
+  return previousPositionIsSet()
+         ? m_previousPosition - position
          : dvec2();
 }
 
-const bool MouseDeltaEvent::prevMousePosIsSet() const {
-  return m_prevMousePos.x != PREV_MOUSE_POS_UNSET;
+const bool MouseDeltaEvent::previousPositionIsSet() const {
+  return m_previousPosition.x != PREVIOUS_POSITION_UNSET;
 }
 
 void MouseDeltaEvent::callListeners(const dvec2& delta) {
