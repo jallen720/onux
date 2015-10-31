@@ -7,15 +7,10 @@
 
 namespace onux {
 
-class MouseMoveEvent
-  : public Event<IMouseMoveListener, const double, const double> {
-
+class MouseMoveEvent : public Event<IMouseMoveListener, const glm::dvec2&> {
 public:
   // Event
-  void trigger(const double xPosition, const double yPosition) override;
-
-private:
-  void callListeners(const glm::dvec2& position);
+  void trigger(const glm::dvec2& position) override;
 };
 
 } // namespace onux

@@ -7,14 +7,12 @@
 
 namespace onux {
 
-class MouseDeltaEvent
-  : public Event<IMouseDeltaListener, const double, const double> {
-
+class MouseDeltaEvent : public Event<IMouseDeltaListener, const glm::dvec2&> {
 public:
   MouseDeltaEvent();
 
   // Event
-  void trigger(const double xPosition, const double yPosition) override;
+  void trigger(const glm::dvec2& position) override;
 
 private:
   glm::dvec2 m_prevMousePos;

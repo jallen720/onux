@@ -9,10 +9,9 @@ namespace onux {
 MouseDeltaEvent::MouseDeltaEvent()
   : m_prevMousePos(PREV_MOUSE_POS_UNSET) {}
 
-void MouseDeltaEvent::trigger(const double xPosition, const double yPosition) {
-  const dvec2 currMousePos(xPosition, yPosition);
-  callListeners(getDelta(currMousePos));
-  m_prevMousePos = currMousePos;
+void MouseDeltaEvent::trigger(const dvec2& position) {
+  callListeners(getDelta(position));
+  m_prevMousePos = position;
 }
 
 const dvec2 MouseDeltaEvent::getDelta(const dvec2& currMousePos) {

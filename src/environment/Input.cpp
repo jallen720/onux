@@ -2,10 +2,12 @@
 
 #include <stdexcept>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 
 #include "environment/inputRegistry.hpp"
 
 using std::runtime_error;
+using glm::dvec2;
 
 namespace onux {
 
@@ -26,8 +28,9 @@ Input::~Input() {
 }
 
 void Input::cursorPosEvent(const double x, const double y) {
-  m_mouseMoveEvent.trigger(x, y);
-  m_mouseDeltaEvent.trigger(x, y);
+  const dvec2 mousePosition(x, y);
+  m_mouseMoveEvent.trigger(mousePosition);
+  m_mouseDeltaEvent.trigger(mousePosition);
 }
 
 MouseMoveEvent& Input::getMouseMoveEvent() {
