@@ -2,9 +2,9 @@
 
 using glm::dvec2;
 
-#define PREVIOUS_POSITION_UNSET -10000.0
-
 namespace onux {
+
+static const double PREVIOUS_POSITION_UNSET = -10000.0;
 
 MouseDeltaEvent::MouseDeltaEvent()
   : m_previousPosition(PREVIOUS_POSITION_UNSET) {}
