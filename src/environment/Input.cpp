@@ -1,13 +1,23 @@
 #include "environment/Input.hpp"
 
+#include <stdexcept>
 #include <GLFW/glfw3.h>
 
 #include "environment/inputRegistry.hpp"
 
+using std::runtime_error;
+
 namespace onux {
+
+static void validateWindow(const GLFWwindow* window) {
+  if (window == nullptr) {
+    throw runtime_error("Cannot create input for null window!");
+  }
+}
 
 Input::Input(GLFWwindow* window)
   : m_window(window) {
+  validateWindow(window);
   registerInput(this, window);
 }
 
