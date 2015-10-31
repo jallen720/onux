@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include <gtest/gtest.h>
 
-#include "testUtil.hpp"
+#include "testHelpers.hpp"
 
 using std::runtime_error;
 using onux::readFile;

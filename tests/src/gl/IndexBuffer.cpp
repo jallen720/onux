@@ -1,7 +1,7 @@
 #include "gl/IndexBuffer.hpp"
 
 #include "fixtures/IndexBufferTest.hpp"
-#include "testUtil.hpp"
+#include "testHelpers.hpp"
 
 using onux::IndexBuffer;
 

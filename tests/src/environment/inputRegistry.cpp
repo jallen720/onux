@@ -5,7 +5,7 @@
 #include <GLFW/glfw3.h>
 
 #include "fixtures/inputRegistryTest.hpp"
-#include "testUtil.hpp"
+#include "testHelpers.hpp"
 
 using std::runtime_error;
 using onux::registerInput;

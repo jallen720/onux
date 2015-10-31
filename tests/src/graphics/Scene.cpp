@@ -1,7 +1,7 @@
 #include "graphics/Scene.hpp"
 
 #include "fixtures/SceneTest.hpp"
-#include "testUtil.hpp"
+#include "testHelpers.hpp"
 
 using onux::Scene;
 

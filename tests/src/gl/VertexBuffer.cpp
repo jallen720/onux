@@ -1,7 +1,7 @@
 #include "gl/VertexBuffer.hpp"
 
 #include "fixtures/VertexBufferTest.hpp"
-#include "testUtil.hpp"
+#include "testHelpers.hpp"
 
 using onux::VertexBuffer;
 

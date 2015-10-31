@@ -2,7 +2,7 @@
 
 #include "fixtures/VertexArrayTest.hpp"
 #include "gl/helpers.hpp"
-#include "testUtil.hpp"
+#include "testHelpers.hpp"
 
 using onux::VertexArray;
 using onux::getInt;

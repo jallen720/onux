@@ -3,7 +3,7 @@
 #include "OnuxTest.hpp"
 #include "graphics/ShaderSource.hpp"
 #include "gl/ShaderObject.hpp"
-#include "testUtil.hpp"
+#include "testHelpers.hpp"
 
 struct ShaderProgramTest : OnuxTest {
 private:

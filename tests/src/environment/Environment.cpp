@@ -1,7 +1,7 @@
 #include "environment/Environment.hpp"
 
 #include "fixtures/EnvironmentTest.hpp"
-#include "testUtil.hpp"
+#include "testHelpers.hpp"
 
 using onux::Environment;
 

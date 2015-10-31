@@ -3,7 +3,7 @@
 #include <stdexcept>
 
 #include "fixtures/ShaderSourceTest.hpp"
-#include "testUtil.hpp"
+#include "testHelpers.hpp"
 #include "utils/helpers.hpp"
 
 using std::runtime_error;

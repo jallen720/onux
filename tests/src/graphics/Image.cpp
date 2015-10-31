@@ -4,7 +4,7 @@
 #include <Magick++.h>
 
 #include "fixtures/ImageTest.hpp"
-#include "testUtil.hpp"
+#include "testHelpers.hpp"
 
 using std::runtime_error;
 using Magick::ErrorMissingDelegate;
