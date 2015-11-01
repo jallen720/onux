@@ -30,7 +30,6 @@
 #include "sample/CameraControls.hpp"
 
 using std::cerr;
-using std::endl;
 using std::runtime_error;
 using std::string;
 using glm::vec3;
@@ -198,7 +197,7 @@ void runEngine() {
     Engine engine(window, graphicsEngine);
     engine.run();
   } catch(const runtime_error& e) {
-    cerr << e.what() << endl;
+    cerr << e.what() << "\n";
   } catch(...) {
     cerr << "Unknown exception thrown!\n";
   }
