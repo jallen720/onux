@@ -27,6 +27,8 @@
 #include "engine/GraphicsEngine.hpp"
 #include "engine/Engine.hpp"
 
+#include "resources/ShaderSourceLoader.hpp"
+
 #include "sample/CameraControls.hpp"
 
 using std::cerr;
@@ -56,13 +58,10 @@ using onux::Renderable;
 using onux::GraphicsEngine;
 using onux::Engine;
 
-static const string SHADER_DIRECTORY = "resources/shaders/";
-static const string IMAGE_DIRECTORY  = "resources/images/";
-static const string SCENE_DIRECTORY  = "resources/models/";
+using onux::ShaderSourceLoader;
 
-static const string shaderPath(const string& name) {
-  return SHADER_DIRECTORY + name;
-}
+static const string IMAGE_DIRECTORY = "resources/images/";
+static const string SCENE_DIRECTORY = "resources/models/";
 
 static const string imagePath(const string& name) {
   return IMAGE_DIRECTORY + name;
@@ -89,27 +88,31 @@ void runEngine() {
     configureOpenGL();
 
     // Shaders
-    const ShaderSource onuxVertHeader(shaderPath("onux.vert"));
-    const ShaderSource onuxFragHeader(shaderPath("onux.frag"));
-
-    const ShaderSource vertSources[] {
-      { shaderPath("sample0.vert") },
-      { shaderPath("sample1.vert") },
-    };
-
-    const ShaderSource fragSources[] {
-      { shaderPath("sample0.frag") },
-      { shaderPath("sample1.frag") },
-    };
+    ShaderSourceLoader shaderSources;
+    shaderSources.load();
 
     const ShaderObject vertObjects[] {
-      { { &onuxVertHeader, &vertSources[0] } },
-      { { &onuxVertHeader, &vertSources[1] } },
+      ShaderObject({
+        shaderSources["onux.vert"],
+        shaderSources["sample0.vert"]
+      }),
+
+      ShaderObject({
+        shaderSources["onux.vert"],
+        shaderSources["sample1.vert"]
+      }),
     };
 
     const ShaderObject fragObjects[] {
-      { { &onuxFragHeader, &fragSources[0] } },
-      { { &onuxFragHeader, &fragSources[1] } },
+      ShaderObject({
+        shaderSources["onux.frag"],
+        shaderSources["sample0.frag"]
+      }),
+
+      ShaderObject({
+        shaderSources["onux.frag"],
+        shaderSources["sample1.frag"]
+      }),
     };
 
     const ShaderProgram shaderPrograms[] {

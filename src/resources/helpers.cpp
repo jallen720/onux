@@ -1,25 +1,26 @@
 #include "resources/helpers.hpp"
 
+#include <utility>
 #include <boost/filesystem.hpp>
+#include <boost/foreach.hpp>
 
 using std::string;
 using std::function;
+using std::make_pair;
 using boost::filesystem::recursive_directory_iterator;
 using boost::filesystem::path;
-using boost::filesystem::is_directory;
+using boost::filesystem::is_regular_file;
 
 namespace onux {
 
-void recursiveFileList(
-  const string& baseDir,
+void filesInDirectory(
+  const string& directory,
   const function<void(const string&)> callback
 ) {
-  typedef recursive_directory_iterator iterator;
+  recursive_directory_iterator it(directory), eod;
 
-  for (iterator end, currentDir(baseDir); currentDir != end; ++currentDir) {
-    const path& file = currentDir->path();
-
-    if (!is_directory(file)) {
+  BOOST_FOREACH(const path& file, make_pair(it, eod)) {
+    if (is_regular_file(file)) {
       callback(file.string());
     }
   }

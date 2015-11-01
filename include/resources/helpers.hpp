@@ -5,8 +5,8 @@
 
 namespace onux {
 
-void recursiveFileList(
-  const std::string& baseDir,
+void filesInDirectory(
+  const std::string& directory,
   const std::function<void(const std::string&)> callback
 );
 
