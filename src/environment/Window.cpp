@@ -7,13 +7,11 @@ namespace onux {
 Window::Window(
   const unsigned int width,
   const unsigned int height,
-  const char* name
+  const char*        name
 ) : m_glfwWindow(glfwCreateWindow(width, height, name, nullptr, nullptr))
   , m_input(m_glfwWindow)
   , m_width(width)
-  , m_height(height) {
-  makeContextCurrent();
-}
+  , m_height(height) {}
 
 Window::~Window() {
   glfwDestroyWindow(m_glfwWindow);

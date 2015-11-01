@@ -24,6 +24,7 @@ static void validateNoGLError(const GLenum error) {
 }
 
 OnuxTest::OnuxTest() {
+  window.makeContextCurrent();
   loadExtensions();
 }
 

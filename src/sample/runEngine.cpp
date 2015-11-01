@@ -84,6 +84,7 @@ void runEngine() {
     // Environment creation
     Environment environment;
     Window window(1280, 720, "Onux");
+    window.makeContextCurrent();
     loadExtensions();
     configureOpenGL();
 
