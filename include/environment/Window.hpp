@@ -11,8 +11,9 @@ public:
   Window(
     const unsigned int width,
     const unsigned int height,
-    const char* name
+    const char*        name
   );
+
   ~Window();
   void makeContextCurrent() const;
   const float getAspect() const;

@@ -10,8 +10,8 @@ using onux::loadExtensions;
 using onux::getErrorMsg;
 
 static void printUnhandledGLError(const GLenum error) {
-    cerr << "Unhandled OpenGL error generated:\n"
-         << "  " << getErrorMsg(error) << "\n\n";
+  cerr << "Unhandled OpenGL error generated:\n"
+       << "  " << getErrorMsg(error) << "\n\n";
 }
 
 static void validateNoGLError(const GLenum error) {
