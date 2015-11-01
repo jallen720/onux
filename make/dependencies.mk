@@ -21,10 +21,12 @@ GLEW_LIBS   = `pkg-config --libs glew`
 GLFW3_LIBS  = `pkg-config --static --libs glfw3`
 MAGICK_LIBS = `pkg-config --static --libs Magick++`
 ASSIMP_LIBS = `pkg-config --libs assimp`
+BOOST_LIBS  = -lboost_system -lboost_filesystem
 LIBS        = \
 	$(APP_LIBS) \
 	$(GTEST_LIBS) \
 	$(GLEW_LIBS) \
 	$(GLFW3_LIBS) \
 	$(MAGICK_LIBS) \
-	$(ASSIMP_LIBS)
+	$(ASSIMP_LIBS) \
+	$(BOOST_LIBS)
