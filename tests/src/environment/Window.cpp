@@ -1,5 +1,4 @@
-// Must be included before other OpenGL headers.
-#include <GL/glew.h>
+#include <GL/glew.h> // Required before other OpenGL headers
 
 #include "environment/Window.hpp"
 

@@ -1,7 +1,7 @@
 #include "environment/inputRegistry.hpp"
 
 #include <stdexcept>
-#include <GL/glew.h>
+#include <GL/glew.h> // Required before other OpenGL headers
 #include <GLFW/glfw3.h>
 
 #include "fixtures/inputRegistryTest.hpp"

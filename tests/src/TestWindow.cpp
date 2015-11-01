@@ -1,6 +1,6 @@
 #include "TestWindow.hpp"
 
-#include <GL/glew.h>
+#include <GL/glew.h> // Required before other OpenGL headers
 #include <GLFW/glfw3.h>
 
 TestWindow::TestWindow()

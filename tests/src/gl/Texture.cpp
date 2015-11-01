@@ -1,6 +1,6 @@
 #include "gl/Texture.hpp"
 
-#include <GL/glew.h>
+#include <GL/glew.h> // Required before other OpenGL headers
 
 #include "fixtures/TextureTest.hpp"
 #include "gl/helpers.hpp"

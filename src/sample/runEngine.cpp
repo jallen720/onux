@@ -1,6 +1,6 @@
 #include "sample/runEngine.hpp"
 
-#include <GL/glew.h> // Must include before any OpenGL headers.
+#include <GL/glew.h> // Required before other OpenGL headers
 
 #include <iostream>
 #include <stdexcept>
