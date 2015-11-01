@@ -15,7 +15,7 @@ public:
 
   ShaderSource(const std::string& path);
 
-  // onux::IShaderSource
+  // IShaderSource
   const GLenum getType() const override;
   const GLchar* getCode() const override;
 
