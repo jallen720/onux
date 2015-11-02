@@ -6,7 +6,8 @@
 
 namespace onux {
 
-struct IndexBuffer : BufferObject {
+class IndexBuffer : public BufferObject {
+public:
   typedef std::vector<GLuint> Data;
 
   IndexBuffer(const Data& data, const GLenum usage = GL_STATIC_DRAW);

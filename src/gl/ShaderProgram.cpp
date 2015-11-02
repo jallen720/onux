@@ -90,6 +90,7 @@ void ShaderProgram::setUniform(
   const GLboolean transpose
 ) const {
   static const GLsizei MATRIX_COUNT = 1;
+
   glUniformMatrix4fv(
     getUniformLocation(name),
     MATRIX_COUNT,

@@ -54,6 +54,7 @@ const string readFile(const string& path) {
 
 const string fileExtension(const string& path) {
   const size_t dotPosition = path.find_last_of(".");
+
   return dotPosition != string::npos
          ? path.substr(dotPosition + 1)
          : "";

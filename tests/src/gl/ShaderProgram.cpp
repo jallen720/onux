@@ -31,6 +31,7 @@ TEST_F(ShaderProgramTest, notAllRequiredTypes) {
     const ShaderProgram shaderProgram({
       &validObjects[0],
     }),
+
     runtime_error
   );
 }
@@ -44,6 +45,7 @@ TEST_F(ShaderProgramTest, missingMainFunctionInObject) {
       &noMainObject,
       &validObjects[1],
     }),
+
     runtime_error
   );
 }

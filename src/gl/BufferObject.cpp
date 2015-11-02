@@ -13,6 +13,7 @@ static GLuint newBufferObject() {
 
 void BufferObject::loadData() const {
   bind();
+
   glBufferData(
     m_target,
     m_dataSize,

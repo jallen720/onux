@@ -38,6 +38,7 @@ TEST_F(ShaderObjectTest, differentSourceTypes) {
       &invalidSources[0],
       &invalidSources[1],
     }),
+
     runtime_error
   );
 }
@@ -53,6 +54,7 @@ TEST_F(ShaderObjectTest, compilationFailure) {
       &invalidSources[0],
       &invalidSources[1],
     }),
+
     runtime_error
   );
 }

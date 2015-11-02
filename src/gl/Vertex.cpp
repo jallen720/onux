@@ -40,6 +40,7 @@ Vertex::Attribute::Attribute(
 void Vertex::Attribute::definePointer(const GLuint index) const {
   static const GLsizei STRIDE = sizeof(Vertex);
   glEnableVertexAttribArray(index);
+
   glVertexAttribPointer(
     index,
     m_size,

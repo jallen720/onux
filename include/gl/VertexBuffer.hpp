@@ -8,7 +8,8 @@ namespace onux {
 
 class Vertex;
 
-struct VertexBuffer : BufferObject {
+class VertexBuffer : public BufferObject {
+public:
   typedef std::vector<Vertex> Data;
 
   VertexBuffer(const Data& data, const GLenum usage = GL_STATIC_DRAW);

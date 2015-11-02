@@ -91,7 +91,6 @@ void runEngine() {
         shaderSources["onux.vert"],
         shaderSources["sample0.vert"],
       }),
-
       ShaderObject({
         shaderSources["onux.vert"],
         shaderSources["sample1.vert"],
@@ -103,7 +102,6 @@ void runEngine() {
         shaderSources["onux.frag"],
         shaderSources["sample0.frag"],
       }),
-
       ShaderObject({
         shaderSources["onux.frag"],
         shaderSources["sample1.frag"],
@@ -115,7 +113,6 @@ void runEngine() {
         &vertObjects[0],
         &fragObjects[0],
       }),
-
       ShaderProgram({
         &vertObjects[1],
         &fragObjects[1],
@@ -141,7 +138,6 @@ void runEngine() {
           &textures[2]
         }
       ),
-
       Renderable(
         models["cube.obj"]->getMeshes()[0],
         shaderPrograms[0],
@@ -150,7 +146,6 @@ void runEngine() {
           &textures[1],
         }
       ),
-
       Renderable(
         models["hheli.obj"]->getMeshes()[0],
         shaderPrograms[1],
@@ -160,26 +155,33 @@ void runEngine() {
       ),
     };
 
-    renderables[1].getTransform()
-                  .setPosition(vec3(0, 0, -5));
+    renderables[1]
+      .getTransform()
+      .setPosition(vec3(0, 0, -5));
 
-    renderables[0].getTransform()
-                  .setScale(vec3(0.025f));
+    renderables[0]
+      .getTransform()
+      .setScale(vec3(0.025f));
 
-    renderables[0].getTransform()
-                  .setPosition(vec3(2, -1, -5));
+    renderables[0]
+      .getTransform()
+      .setPosition(vec3(2, -1, -5));
 
-    renderables[0].getTransform()
-                  .setRotation(vec3(0, 90, 0));
+    renderables[0]
+      .getTransform()
+      .setRotation(vec3(0, 90, 0));
 
-    renderables[2].getTransform()
-                  .setScale(vec3(0.025f));
+    renderables[2]
+      .getTransform()
+      .setScale(vec3(0.025f));
 
-    renderables[2].getTransform()
-                  .setPosition(vec3(-2, -1, -5));
+    renderables[2]
+      .getTransform()
+      .setPosition(vec3(-2, -1, -5));
 
-    renderables[2].getTransform()
-                  .setRotation(vec3(0, 90, 0));
+    renderables[2]
+      .getTransform()
+      .setRotation(vec3(0, 90, 0));
 
     const GraphicsEngine::Drawables drawables {
       &renderables[0],

@@ -7,7 +7,8 @@ namespace onux {
 struct VertexBuffer;
 struct IndexBuffer;
 
-struct VertexArray : OpenGLData {
+class VertexArray : public OpenGLData {
+public:
   VertexArray(
     const VertexBuffer& vertexBuffer,
     const IndexBuffer&  indexBuffer

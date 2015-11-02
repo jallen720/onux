@@ -13,7 +13,6 @@ public:
     const unsigned int height,
     const char*        name
   );
-
   ~Window();
   void makeContextCurrent() const;
   const float getAspect() const;
