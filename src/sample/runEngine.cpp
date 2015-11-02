@@ -111,8 +111,15 @@ void runEngine() {
     };
 
     const ShaderProgram shaderPrograms[] {
-      { { &vertObjects[0], &fragObjects[0] } },
-      { { &vertObjects[1], &fragObjects[1] } },
+      ShaderProgram({
+        &vertObjects[0],
+        &fragObjects[0],
+      }),
+
+      ShaderProgram({
+        &vertObjects[1],
+        &fragObjects[1],
+      }),
     };
 
     shaderPrograms[0].use();
@@ -130,19 +137,26 @@ void runEngine() {
       Renderable(
         models["hheli.obj"]->getMeshes()[0],
         shaderPrograms[1],
-        { &textures[2] }
+        {
+          &textures[2]
+        }
       ),
 
       Renderable(
         models["cube.obj"]->getMeshes()[0],
         shaderPrograms[0],
-        { &textures[0], &textures[1] }
+        {
+          &textures[0],
+          &textures[1],
+        }
       ),
 
       Renderable(
         models["hheli.obj"]->getMeshes()[0],
         shaderPrograms[1],
-        { &textures[2] }
+        {
+          &textures[2],
+        }
       ),
     };
 
