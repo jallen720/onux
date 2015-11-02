@@ -28,6 +28,6 @@ private:
 
 } // namespace onux
 
-#include "ResourceLoader.ipp"
+#include "resources/loaders/ResourceLoader.ipp"
 
 

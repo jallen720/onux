@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-#include <algorithm>
 
 namespace onux {
 
@@ -13,25 +12,17 @@ protected:
 private:
   typedef std::vector<Listener> Listeners;
 
-  Listeners m_listeners;
-
 public:
-  void add(Listener listener) {
-    m_listeners.push_back(listener);
-  }
-
-  void remove(Listener listener) {
-    m_listeners.erase(
-      std::remove(m_listeners.begin(), m_listeners.end(), listener),
-      m_listeners.end()
-    );
-  }
-
-  Listeners& getListeners() {
-    return m_listeners;
-  }
-
+  virtual ~Event() {}
+  void add(Listener listener);
+  void remove(Listener listener);
+  Listeners& getListeners();
   virtual void trigger(Args... args) = 0;
+
+private:
+  Listeners m_listeners;
 };
 
 } // namespace onux
+
+#include "environment/events/Event.ipp"
