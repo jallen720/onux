@@ -15,7 +15,7 @@ using onux::IMouseMoveListener;
 
 TEST(InputTest, validCreation) {
   expectNoThrow([&] {
-    const Input input = { TestWindow() };
+    const Input input { TestWindow() };
   });
 }
 

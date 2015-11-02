@@ -8,5 +8,5 @@
 struct inputRegistryTest : testing::Test {
 protected:
   TestWindow window;
-  onux::Input input = { window };
+  onux::Input input { window };
 };
