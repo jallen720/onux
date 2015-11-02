@@ -1,11 +1,11 @@
 #include "sample/runEngine.hpp"
 
-#include <GL/glew.h> // Required before other OpenGL headers
-
 #include <iostream>
 #include <stdexcept>
 #include <string>
 #include <glm/gtc/matrix_transform.hpp>
+
+#include <GL/glew.h> // Required before other OpenGL headers
 
 #include "environment/Environment.hpp"
 #include "environment/Window.hpp"
