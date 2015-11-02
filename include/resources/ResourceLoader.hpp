@@ -1,34 +1,28 @@
 #pragma once
 
-#include <map>
 #include <string>
-#include <stdexcept>
-
-#include "resources/helpers.hpp"
+#include <functional>
 
 namespace onux {
 
 template<typename T>
 class ResourceLoader {
-protected:
+public:
   typedef const T* Resource;
 
+private:
+  typedef const std::function<void(const std::string&, Resource)>& loadCallback;
+
 public:
-  virtual ~ResourceLoader();
-  void load();
-  Resource operator [](const std::string& name) const;
+  const std::string getPath(const std::string& relativePath) const;
+  void loadAll(loadCallback callback) const;
 
 protected:
   virtual const std::string& getSubDirectory() const = 0;
-  virtual Resource loadResource(const std::string& path) const = 0;
+  virtual Resource load(const std::string& path) const = 0;
 
 private:
-  std::map<const std::string, Resource> m_resources;
-
   const std::string getDirectory() const;
-  void deleteResources();
-  void unload();
-  Resource getFromPath(const std::string& path) const;
 };
 
 } // namespace onux

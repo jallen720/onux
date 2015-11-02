@@ -9,7 +9,7 @@ class ShaderSourceLoader : public ResourceLoader<ShaderSource> {
 protected:
   // ResourceLoader
   const std::string& getSubDirectory() const override;
-  Resource loadResource(const std::string& path) const override;
+  Resource load(const std::string& path) const override;
 };
 
 } // namespace onux

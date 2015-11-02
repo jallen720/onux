@@ -27,6 +27,7 @@
 #include "engine/GraphicsEngine.hpp"
 #include "engine/Engine.hpp"
 
+#include "resources/Resources.hpp"
 #include "resources/ShaderSourceLoader.hpp"
 
 #include "sample/CameraControls.hpp"
@@ -58,6 +59,7 @@ using onux::Renderable;
 using onux::GraphicsEngine;
 using onux::Engine;
 
+using onux::Resources;
 using onux::ShaderSourceLoader;
 
 static const string IMAGE_DIRECTORY = "resources/images/";
@@ -87,10 +89,9 @@ void runEngine() {
     loadExtensions();
     configureOpenGL();
 
-    // Shaders
-    ShaderSourceLoader shaderSources;
-    shaderSources.load();
+    Resources<ShaderSource> shaderSources { ShaderSourceLoader() };
 
+    // Shaders
     const ShaderObject vertObjects[] {
       ShaderObject({
         shaderSources["onux.vert"],
