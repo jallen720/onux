@@ -11,7 +11,7 @@ public:
 protected:
   BufferObject(
     const GLenum  target,
-    const GLsizei dataSize,
+    const GLsizei size,
     const GLvoid* data,
     const GLenum  usage
   );
@@ -19,7 +19,7 @@ protected:
 
 private:
   const GLenum  m_target;
-  const GLsizei m_dataSize;
+  const GLsizei m_size;
   const GLvoid* m_data;
   const GLenum  m_usage;
 

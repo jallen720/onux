@@ -16,7 +16,7 @@ void BufferObject::loadData() const {
 
   glBufferData(
     m_target,
-    m_dataSize,
+    m_size,
     m_data,
     m_usage
   );
@@ -24,12 +24,12 @@ void BufferObject::loadData() const {
 
 BufferObject::BufferObject(
   const GLenum  target,
-  const GLsizei dataSize,
+  const GLsizei size,
   const GLvoid* data,
   const GLenum  usage
 ) : OpenGLData(newBufferObject())
   , m_target(target)
-  , m_dataSize(dataSize)
+  , m_size(size)
   , m_data(data)
   , m_usage(usage) {}
 
