@@ -14,6 +14,7 @@ private:
   typedef const std::function<void(const std::string&, Resource)>& loadCallback;
 
 public:
+  virtual ~ResourceLoader() {}
   const std::string getPath(const std::string& relativePath) const;
   void loadAll(loadCallback callback) const;
 

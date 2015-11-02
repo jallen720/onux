@@ -17,7 +17,7 @@ private:
   typedef std::map<const std::string, Resource> ResourceMap;
 
 public:
-  ~Resources();
+  virtual ~Resources();
   Resource operator [](const std::string& relativePath) const;
 
 protected:
