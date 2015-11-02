@@ -3,12 +3,6 @@
 namespace onux {
 
 template<typename T>
-Resources<T>::Resources(const Loader& loader)
-  : m_loader(loader) {
-  load();
-}
-
-template<typename T>
 Resources<T>::~Resources() {
   unload();
 }
@@ -16,12 +10,12 @@ Resources<T>::~Resources() {
 template<typename T>
 typename Resources<T>::Resource
 Resources<T>::operator [](const std::string& relativePath) const {
-  return atPath(m_loader.getPath(relativePath));
+  return atPath(getLoader().getPath(relativePath));
 }
 
 template<typename T>
 void Resources<T>::load() {
-  m_loader.loadAll([&](const std::string& path, Resource resource) {
+  getLoader().loadAll([&](const std::string& path, Resource resource) {
     m_resources[path] = resource;
   });
 }
