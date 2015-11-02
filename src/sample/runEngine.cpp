@@ -29,6 +29,7 @@
 
 #include "resources/containers/ShaderSources.hpp"
 #include "resources/containers/Images.hpp"
+#include "resources/containers/Models.hpp"
 
 #include "sample/CameraControls.hpp"
 
@@ -61,12 +62,7 @@ using onux::Engine;
 
 using onux::ShaderSources;
 using onux::Images;
-
-static const string SCENE_DIRECTORY = "resources/models/";
-
-static const string scenePath(const string& name) {
-  return SCENE_DIRECTORY + name;
-}
+using onux::Models;
 
 static void configureOpenGL() {
   glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -87,6 +83,7 @@ void runEngine() {
     // Resources
     ShaderSources shaderSources;
     Images images;
+    Models models;
 
     // Shaders
     const ShaderObject vertObjects[] {
@@ -129,26 +126,21 @@ void runEngine() {
     };
 
     // Drawable data
-    const Scene scenes[] {
-      { scenePath("hheli.obj") },
-      { scenePath("cube.obj")  },
-    };
-
     Renderable renderables[] {
       Renderable(
-        scenes[0].getMeshes()[0],
+        models["hheli.obj"]->getMeshes()[0],
         shaderPrograms[1],
         { &textures[2] }
       ),
 
       Renderable(
-        scenes[1].getMeshes()[0],
+        models["cube.obj"]->getMeshes()[0],
         shaderPrograms[0],
         { &textures[0], &textures[1] }
       ),
 
       Renderable(
-        scenes[0].getMeshes()[0],
+        models["hheli.obj"]->getMeshes()[0],
         shaderPrograms[1],
         { &textures[2] }
       ),
