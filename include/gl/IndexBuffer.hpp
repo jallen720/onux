@@ -1,16 +1,14 @@
 #pragma once
 
-#include <vector>
-
 #include "gl/BufferObject.hpp"
 
 namespace onux {
 
+struct IBufferData;
+
 class IndexBuffer : public BufferObject {
 public:
-  typedef std::vector<GLuint> Data;
-
-  IndexBuffer(const Data& data, const GLenum usage = GL_STATIC_DRAW);
+  IndexBuffer(const IBufferData& data, const GLenum usage = GL_STATIC_DRAW);
 };
 
 } // namespace onux

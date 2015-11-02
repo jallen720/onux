@@ -36,7 +36,7 @@ static const Mesh::Vertexes loadVertexes(const aiMesh* mesh) {
   Mesh::Vertexes vertexes;
 
   for (auto i = 0u; i < mesh->mNumVertices; i++) {
-    vertexes.push_back(
+    vertexes.add(
       newVertex(
         mesh->mVertices[i],
         mesh->mNormals[i],
@@ -53,9 +53,9 @@ static const Mesh::Indexes loadIndexes(const aiMesh* mesh) {
 
   for (auto i = 0u; i < mesh->mNumFaces; i++) {
     const aiFace& face = mesh->mFaces[i];
-    indexes.push_back(face.mIndices[0]);
-    indexes.push_back(face.mIndices[1]);
-    indexes.push_back(face.mIndices[2]);
+    indexes.add(face.mIndices[0]);
+    indexes.add(face.mIndices[1]);
+    indexes.add(face.mIndices[2]);
   }
 
   return indexes;

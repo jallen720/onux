@@ -19,7 +19,7 @@ static void drawElements(const GLsizei indexCount) {
 
 void MeshRenderer::render() const {
   m_vertexArray.bind();
-  drawElements(m_mesh.getIndexes().size());
+  drawElements(m_mesh.getIndexes().getCount());
 }
 
 } // namespace onux

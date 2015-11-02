@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 
 #include "gl/Vertex.hpp"
+#include "graphics/BufferData.hpp"
 
 struct aiMesh;
 
@@ -11,8 +12,8 @@ namespace onux {
 
 class Mesh {
 public:
-  typedef std::vector<Vertex> Vertexes;
-  typedef std::vector<GLuint> Indexes;
+  typedef BufferData<Vertex> Vertexes;
+  typedef BufferData<GLuint> Indexes;
 
   Mesh(const aiMesh* mesh);
   const Vertexes& getVertexes() const;
