@@ -27,8 +27,8 @@
 #include "engine/GraphicsEngine.hpp"
 #include "engine/Engine.hpp"
 
-#include "resources/Resources.hpp"
-#include "resources/ShaderSourceLoader.hpp"
+#include "resources/containers/Resources.hpp"
+#include "resources/loaders/ShaderSourceLoader.hpp"
 
 #include "sample/CameraControls.hpp"
 

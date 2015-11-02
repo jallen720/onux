@@ -3,7 +3,7 @@
 #include <map>
 #include <string>
 
-#include "resources/ResourceLoader.hpp"
+#include "resources/loaders/ResourceLoader.hpp"
 
 namespace onux {
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "resources/ResourceLoader.hpp"
+#include "resources/loaders/ResourceLoader.hpp"
 #include "graphics/ShaderSource.hpp"
 
 namespace onux {

@@ -1,4 +1,4 @@
-#include "resources/ShaderSourceLoader.hpp"
+#include "resources/loaders/ShaderSourceLoader.hpp"
 
 using std::string;
 
