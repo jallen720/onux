@@ -28,6 +28,7 @@
 #include "engine/Engine.hpp"
 
 #include "resources/containers/ShaderSources.hpp"
+#include "resources/containers/Images.hpp"
 
 #include "sample/CameraControls.hpp"
 
@@ -59,13 +60,9 @@ using onux::GraphicsEngine;
 using onux::Engine;
 
 using onux::ShaderSources;
+using onux::Images;
 
-static const string IMAGE_DIRECTORY = "resources/images/";
 static const string SCENE_DIRECTORY = "resources/models/";
-
-static const string imagePath(const string& name) {
-  return IMAGE_DIRECTORY + name;
-}
 
 static const string scenePath(const string& name) {
   return SCENE_DIRECTORY + name;
@@ -87,30 +84,32 @@ void runEngine() {
     loadExtensions();
     configureOpenGL();
 
+    // Resources
     ShaderSources shaderSources;
+    Images images;
 
     // Shaders
     const ShaderObject vertObjects[] {
       ShaderObject({
         shaderSources["onux.vert"],
-        shaderSources["sample0.vert"]
+        shaderSources["sample0.vert"],
       }),
 
       ShaderObject({
         shaderSources["onux.vert"],
-        shaderSources["sample1.vert"]
+        shaderSources["sample1.vert"],
       }),
     };
 
     const ShaderObject fragObjects[] {
       ShaderObject({
         shaderSources["onux.frag"],
-        shaderSources["sample0.frag"]
+        shaderSources["sample0.frag"],
       }),
 
       ShaderObject({
         shaderSources["onux.frag"],
-        shaderSources["sample1.frag"]
+        shaderSources["sample1.frag"],
       }),
     };
 
@@ -123,16 +122,10 @@ void runEngine() {
     shaderPrograms[0].setUniform("texture1", 1);
 
     // Textures
-    const Image images[] {
-      { imagePath("box.jpg")    },
-      { imagePath("bricks.png") },
-      { imagePath("hheli.bmp")  },
-    };
-
     const Texture textures[] {
-      { images[0] },
-      { images[1] },
-      { images[2] },
+      { images["box.jpg"]    },
+      { images["bricks.png"] },
+      { images["hheli.bmp"]  },
     };
 
     // Drawable data
