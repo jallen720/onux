@@ -10,8 +10,11 @@ namespace onux {
 
 Vertex::Vertex() {}
 
-Vertex::Vertex(const vec3 position, const vec3 normal, const vec2 uv)
-  : m_position(position)
+Vertex::Vertex(
+  const vec3 position,
+  const vec3 normal,
+  const vec2 uv
+) : m_position(position)
   , m_normal(normal)
   , m_uv(uv) {}
 

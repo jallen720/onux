@@ -3,8 +3,7 @@
 namespace onux {
 
 template<typename T>
-const std::string
-ResourceLoader<T>::getPath(const std::string& relativePath) const {
+const std::string ResourceLoader<T>::getPath(const std::string& relativePath) const {
   return getDirectory() + relativePath;
 }
 

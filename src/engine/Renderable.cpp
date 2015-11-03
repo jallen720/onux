@@ -54,8 +54,8 @@ void Renderable::setUniforms(
   const mat4& view,
   const mat4& projection
 ) const {
-  m_shaderProgram.setUniform("model", model);
-  m_shaderProgram.setUniform("view", view);
+  m_shaderProgram.setUniform("model"     , model     );
+  m_shaderProgram.setUniform("view"      , view      );
   m_shaderProgram.setUniform("projection", projection);
 }
 

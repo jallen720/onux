@@ -35,5 +35,9 @@ TEST_F(WindowTest, invalidDimensions) {
 
 TEST_F(WindowTest, aspect) {
   const Window window(1280, 720, "Test Window");
-  EXPECT_EQ((float)1280 / 720, window.getAspect());
+
+  EXPECT_EQ(
+    (float)1280 / 720,
+    window.getAspect()
+  );
 }

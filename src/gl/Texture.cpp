@@ -55,7 +55,11 @@ void Texture::loadImage(const IImage* image) const {
 
 void Texture::loadOptions(const Options& options) const {
   for (auto option : options) {
-    glTexParameteri(TARGET, option.first, option.second);
+    glTexParameteri(
+      TARGET,
+      option.first,
+      option.second
+    );
   }
 }
 

@@ -12,7 +12,10 @@ class Texture : public OpenGLData {
 public:
   typedef std::map<const GLenum, const GLint> Options;
 
-  Texture(const IImage* image, const Options& options = DEFAULT_OPTIONS);
+  Texture(
+    const IImage*  image,
+    const Options& options = DEFAULT_OPTIONS
+  );
   ~Texture();
   void bind(const unsigned int unit) const;
 

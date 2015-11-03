@@ -8,8 +8,7 @@ Resources<T>::~Resources() {
 }
 
 template<typename T>
-typename Resources<T>::Resource
-Resources<T>::operator [](const std::string& relativePath) const {
+auto Resources<T>::operator [](const std::string& relativePath) const -> Resource {
   return atPath(getLoader().getPath(relativePath));
 }
 

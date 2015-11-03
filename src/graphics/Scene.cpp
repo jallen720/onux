@@ -18,10 +18,7 @@ static const string assimpErrorMsg(const string& msg) {
   return stream.str();
 }
 
-static void validateScene(
-  const aiScene*  scene,
-  const Importer& importer
-) {
+static void validateScene(const aiScene* scene, const Importer& importer) {
   if (!scene) {
     throw runtime_error(assimpErrorMsg(importer.GetErrorString()));
   }

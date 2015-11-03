@@ -19,20 +19,14 @@ static void validateFile(const ifstream& file, const string& path) {
   }
 }
 
-static void useFile(
-  const string& path,
-  const function<void(ifstream& file)>& callback
-) {
+static void useFile(const string& path, const function<void(ifstream& file)>& callback) {
   ifstream file(path);
   validateFile(file, path);
   callback(file);
   file.close();
 }
 
-static void readLines(
-  const string& path,
-  const function<void(const string& line)>& callback
-) {
+static void readLines(const string& path, const function<void(const string& line)>& callback) {
   useFile(path, [&](ifstream& file) {
     string line;
 

@@ -21,10 +21,7 @@ static void validateSourceCount(const size_t sourceCount) {
   }
 }
 
-static void validateSameType(
-  const ShaderObject::Sources& sources,
-  const GLenum type
-) {
+static void validateSameType(const ShaderObject::Sources& sources, const GLenum type) {
   for (auto source : sources) {
     if (source->getType() != type) {
       throw runtime_error(
@@ -90,7 +87,14 @@ const GLint ShaderObject::getInt(const GLenum parameter) const {
 
 const string ShaderObject::getInfoLog() const {
   vector<GLchar> infoLog(getInt(GL_INFO_LOG_LENGTH));
-  glGetShaderInfoLog(getID(), infoLog.size(), nullptr, &infoLog[0]);
+
+  glGetShaderInfoLog(
+    getID(),
+    infoLog.size(),
+    nullptr,
+    &infoLog[0]
+  );
+
   return string(infoLog.begin(), infoLog.end());
 }
 

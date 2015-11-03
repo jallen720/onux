@@ -8,7 +8,10 @@ struct IBufferData;
 
 class VertexBuffer : public BufferObject {
 public:
-  VertexBuffer(const IBufferData& data, const GLenum usage = GL_STATIC_DRAW);
+  VertexBuffer(
+    const IBufferData& data,
+    const GLenum       usage = GL_STATIC_DRAW
+  );
   void loadData() const override;
 };
 

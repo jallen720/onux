@@ -14,7 +14,11 @@ private:
 
 protected:
   const onux::ShaderObject validObjects[2] {
-    { { &validSources[0] } },
-    { { &validSources[1] } },
+    onux::ShaderObject({
+      &validSources[0]
+    }),
+    onux::ShaderObject({
+      &validSources[1]
+    }),
   };
 };
