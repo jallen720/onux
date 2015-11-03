@@ -1,13 +1,11 @@
 #pragma once
 
-#include <vector>
-
 #include "OnuxTest.hpp"
-#include "gl/Vertex.hpp"
+#include "graphics/Mesh.hpp"
 
 struct VertexBufferTest : OnuxTest {
 protected:
-  const std::vector<onux::Vertex> validData {
+  const onux::Mesh::Vertexes validData {
     onux::Vertex(),
     onux::Vertex(),
     onux::Vertex(),

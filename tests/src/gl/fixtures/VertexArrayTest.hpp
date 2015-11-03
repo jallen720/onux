@@ -3,17 +3,17 @@
 #include "OnuxTest.hpp"
 #include "gl/VertexBuffer.hpp"
 #include "gl/IndexBuffer.hpp"
-#include "gl/Vertex.hpp"
+#include "graphics/Mesh.hpp"
 
 struct VertexArrayTest : OnuxTest {
 private:
-  const std::vector<onux::Vertex> validVertexData {
+  const onux::Mesh::Vertexes validVertexData {
     onux::Vertex(),
     onux::Vertex(),
     onux::Vertex(),
   };
 
-  const std::vector<GLuint> validIndexData { 0, 1, 2 };
+  const onux::Mesh::Indexes validIndexData { 0, 1, 2 };
 
 protected:
   const onux::VertexBuffer validVertexBuffer { validVertexData };

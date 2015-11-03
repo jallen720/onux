@@ -16,11 +16,11 @@ TEST_F(MeshTest, validData) {
 
   ASSERT_EQ(
     cubeMesh->mNumVertices,
-    mesh.getVertexes().size()
+    mesh.getVertexes().getCount()
   );
 
   ASSERT_EQ(
     cubeMesh->mNumFaces * INDEXES_PER_FACE,
-    mesh.getIndexes().size()
+    mesh.getIndexes().getCount()
   );
 }

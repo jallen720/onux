@@ -1,8 +1,15 @@
 namespace onux {
 
 template<typename T>
-void BufferData<T>::add(T data) {
-  m_data.push_back(data);
+BufferData<T>::BufferData() {}
+
+template<typename T>
+BufferData<T>::BufferData(const std::initializer_list<T>& data)
+  : m_data(data) {}
+
+template<typename T>
+void BufferData<T>::add(T element) {
+  m_data.push_back(element);
 }
 
 template<typename T>
