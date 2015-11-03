@@ -19,7 +19,7 @@ Vertex::Vertex(
   , m_normal(normal)
   , m_uv(uv) {}
 
-void Vertex::attributePointers() {
+void Vertex::definePointers() {
   typedef struct {
     const GLint     size;
     const GLenum    type;

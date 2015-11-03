@@ -15,7 +15,7 @@ VertexBuffer::VertexBuffer(const IBufferData& data, const GLenum usage)
 
 void VertexBuffer::loadData() const {
   BufferObject::loadData();
-  Vertex::attributePointers();
+  Vertex::definePointers();
 }
 
 } // namespace onux

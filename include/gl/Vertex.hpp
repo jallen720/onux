@@ -12,7 +12,7 @@ public:
     const glm::vec3 normal,
     const glm::vec2 uv
   );
-  static void attributePointers();
+  static void definePointers();
 
 private:
   const glm::vec3 m_position;
