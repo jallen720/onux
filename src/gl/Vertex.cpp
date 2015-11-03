@@ -1,8 +1,7 @@
 #include "gl/Vertex.hpp"
 
 #include <vector>
-
-#include "gl/VertexAttribute.hpp"
+#include <GL/glew.h>
 
 using std::vector;
 using glm::vec2;
@@ -21,14 +20,35 @@ Vertex::Vertex(
   , m_uv(uv) {}
 
 void Vertex::attributePointers() {
-  static const vector<VertexAttribute> attributes {
+  typedef struct {
+    const GLint     size;
+    const GLenum    type;
+    const GLboolean normalized;
+    const GLvoid*   offset;
+
+    void definePointer(const GLuint index) const {
+      static const GLsizei STRIDE = sizeof(Vertex);
+      glEnableVertexAttribArray(index);
+
+      glVertexAttribPointer(
+        index,
+        size,
+        type,
+        normalized,
+        STRIDE,
+        offset
+      );
+    }
+  } Attribute;
+
+  static const vector<Attribute> ATTRIBUTES {
     { 3, GL_FLOAT, GL_FALSE, (GLvoid*)offsetof(Vertex, m_position) },
     { 3, GL_FLOAT, GL_FALSE, (GLvoid*)offsetof(Vertex, m_normal)   },
     { 2, GL_FLOAT, GL_TRUE , (GLvoid*)offsetof(Vertex, m_uv)       },
   };
 
-  for (GLuint i = 0; i < attributes.size(); i++) {
-    attributes[i].definePointer(i);
+  for (GLuint i = 0; i < ATTRIBUTES.size(); i++) {
+    ATTRIBUTES[i].definePointer(i);
   }
 }
 
