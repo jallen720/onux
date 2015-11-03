@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <stdexcept>
-#include <string>
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <GL/glew.h> // Required before other OpenGL headers
@@ -35,7 +34,6 @@
 
 using std::cerr;
 using std::runtime_error;
-using std::string;
 using glm::vec3;
 using glm::perspective;
 using glm::radians;
