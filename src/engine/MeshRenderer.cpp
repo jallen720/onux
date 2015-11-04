@@ -1,12 +1,13 @@
 #include "engine/MeshRenderer.hpp"
 
 #include "graphics/Mesh.hpp"
+#include "graphics/Vertex.hpp"
 
 namespace onux {
 
 MeshRenderer::MeshRenderer(const Mesh& mesh)
   : m_mesh(mesh)
-  , m_vertexBuffer(m_mesh.getVertexes())
+  , m_vertexBuffer(Vertex::LAYOUT, m_mesh.getVertexes())
   , m_indexBuffer(m_mesh.getIndexes())
   , m_vertexArray(m_vertexBuffer, m_indexBuffer) {}
 

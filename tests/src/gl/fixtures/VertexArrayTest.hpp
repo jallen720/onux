@@ -16,6 +16,10 @@ private:
   const onux::Mesh::Indexes validIndexData { 0, 1, 2 };
 
 protected:
-  const onux::VertexBuffer validVertexBuffer { validVertexData };
-  const onux::IndexBuffer  validIndexBuffer  { validIndexData  };
+  const onux::VertexBuffer validVertexBuffer {
+    onux::Vertex::LAYOUT,
+    validVertexData
+  };
+
+  const onux::IndexBuffer validIndexBuffer { validIndexData };
 };

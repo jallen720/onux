@@ -3,7 +3,7 @@
 #include <vector>
 #include <GL/glew.h>
 
-#include "gl/Vertex.hpp"
+#include "graphics/Vertex.hpp"
 #include "graphics/BufferData.hpp"
 
 struct aiMesh;

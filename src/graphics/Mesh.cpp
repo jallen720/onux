@@ -13,11 +13,11 @@ static const Vertex newVertex(
   const aiVector3D& normal,
   const aiVector3D& uv
 ) {
-  return Vertex(
+  return Vertex {
     vec3(position.x, position.y, position.z),
     vec3(normal.x  , normal.y  , normal.z  ),
     vec2(uv.x      , uv.y)
-  );
+  };
 }
 
 static const aiVector3D getUV(
