@@ -1,6 +1,6 @@
 #include "gl/Texture.hpp"
 
-#include "gl/IImage.hpp"
+#include "gl/interfaces/IImage.hpp"
 
 namespace onux {
 

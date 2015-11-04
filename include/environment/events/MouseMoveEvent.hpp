@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 
 #include "environment/events/Event.hpp"
-#include "environment/listeners/IMouseMoveListener.hpp"
+#include "environment/interfaces/IMouseMoveListener.hpp"
 
 namespace onux {
 

@@ -1,6 +1,6 @@
 #include "gl/IndexBuffer.hpp"
 
-#include "gl/IBufferData.hpp"
+#include "gl/interfaces/IBufferData.hpp"
 
 namespace onux {
 

@@ -3,7 +3,7 @@
 #include <string>
 #include <Magick++.h>
 
-#include "gl/IImage.hpp"
+#include "gl/interfaces/IImage.hpp"
 
 namespace onux {
 

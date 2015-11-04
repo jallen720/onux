@@ -3,7 +3,7 @@
 #include <string>
 #include <map>
 
-#include "gl/IShaderSource.hpp"
+#include "gl/interfaces/IShaderSource.hpp"
 
 namespace onux {
 

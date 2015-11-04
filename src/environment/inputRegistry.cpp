@@ -4,7 +4,7 @@
 #include <stdexcept>
 #include <GLFW/glfw3.h>
 
-#include "environment/IInput.hpp"
+#include "environment/interfaces/IInput.hpp"
 
 using std::map;
 using std::runtime_error;

@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 
 #include "environment/events/Event.hpp"
-#include "environment/listeners/IMouseDeltaListener.hpp"
+#include "environment/interfaces/IMouseDeltaListener.hpp"
 
 namespace onux {
 

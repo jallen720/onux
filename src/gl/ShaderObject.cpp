@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-#include "gl/IShaderSource.hpp"
+#include "gl/interfaces/IShaderSource.hpp"
 
 using std::vector;
 using std::string;

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "environment/IInput.hpp"
+#include "environment/interfaces/IInput.hpp"
 #include "environment/events/MouseMoveEvent.hpp"
 #include "environment/events/MouseDeltaEvent.hpp"
 

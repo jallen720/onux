@@ -6,7 +6,7 @@
 
 #include "TestWindow.hpp"
 #include "testHelpers.hpp"
-#include "environment/listeners/IMouseMoveListener.hpp"
+#include "environment/interfaces/IMouseMoveListener.hpp"
 
 using std::runtime_error;
 using glm::dvec2;

@@ -2,7 +2,7 @@
 
 #include "gl/interfaces/IVertexLayout.hpp"
 #include "gl/interfaces/IVertexAttribute.hpp"
-#include "gl/IBufferData.hpp"
+#include "gl/interfaces/IBufferData.hpp"
 
 namespace onux {
 

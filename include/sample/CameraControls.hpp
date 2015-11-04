@@ -2,7 +2,7 @@
 
 #include "graphics/Transform.hpp"
 #include "environment/Input.hpp"
-#include "environment/listeners/IMouseDeltaListener.hpp"
+#include "environment/interfaces/IMouseDeltaListener.hpp"
 
 class CameraControls : public onux::IMouseDeltaListener {
 public:

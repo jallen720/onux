@@ -3,7 +3,7 @@
 #include <vector>
 #include <initializer_list>
 
-#include "gl/IBufferData.hpp"
+#include "gl/interfaces/IBufferData.hpp"
 
 namespace onux {
 
