@@ -7,7 +7,7 @@
 
 namespace onux {
 
-GraphicsEngine::GraphicsEngine(const Drawables& drawables, Camera& camera)
+GraphicsEngine::GraphicsEngine(Drawables& drawables, Camera& camera)
   : m_drawables(drawables)
   , m_camera(camera) {}
 

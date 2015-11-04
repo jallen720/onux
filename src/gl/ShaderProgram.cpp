@@ -16,7 +16,7 @@ using glm::mat4;
 namespace onux {
 
 static const bool hasType(
-  const ShaderProgram::Objects& objects,
+  ShaderProgram::Objects objects,
   const GLenum type
 ) {
   for (auto object : objects) {
@@ -28,14 +28,14 @@ static const bool hasType(
   return false;
 }
 
-static const bool hasRequiredTypes(const ShaderProgram::Objects& objects) {
+static const bool hasRequiredTypes(ShaderProgram::Objects objects) {
   // The minimum requirements for a shader program to be created are a vertex
   // shader object and a fragment shader object.
   return hasType(objects, GL_VERTEX_SHADER) &&
          hasType(objects, GL_FRAGMENT_SHADER);
 }
 
-static void validateRequiredTypes(const ShaderProgram::Objects& objects) {
+static void validateRequiredTypes(ShaderProgram::Objects objects) {
   if (!hasRequiredTypes(objects)) {
     throw runtime_error(
       "A ShaderProgram requires atleast a vertex shader object "
@@ -44,7 +44,7 @@ static void validateRequiredTypes(const ShaderProgram::Objects& objects) {
   }
 }
 
-ShaderProgram::ShaderProgram(const Objects& objects)
+ShaderProgram::ShaderProgram(Objects objects)
   : OpenGLData(glCreateProgram()) {
   validateRequiredTypes(objects);
   attach(objects);
@@ -99,7 +99,7 @@ void ShaderProgram::setUniform(
   );
 }
 
-void ShaderProgram::attach(const Objects& objects) const {
+void ShaderProgram::attach(Objects objects) const {
   for (auto object : objects) {
     glAttachShader(getID(), object->getID());
   }
@@ -109,7 +109,7 @@ void ShaderProgram::link() const {
   glLinkProgram(getID());
 }
 
-void ShaderProgram::detach(const Objects& objects) const {
+void ShaderProgram::detach(Objects objects) const {
   for (auto object : objects) {
     glDetachShader(getID(), object->getID());
   }

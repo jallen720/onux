@@ -10,21 +10,23 @@ struct IImage;
 
 class Texture : public OpenGLData {
 public:
-  typedef std::map<const GLenum, const GLint> Options;
+  typedef const std::map<const GLenum, const GLint> Options;
 
+private:
+  static const GLenum TARGET;
+  static Options      DEFAULT_OPTIONS;
+
+public:
   Texture(
-    const IImage*  image,
-    const Options& options = DEFAULT_OPTIONS
+    const IImage* image,
+    Options&      options = DEFAULT_OPTIONS
   );
   ~Texture();
   void bind(const unsigned int unit) const;
 
 private:
-  static const GLenum TARGET;
-  static const Options DEFAULT_OPTIONS;
-
   void loadImage(const IImage* image) const;
-  void loadOptions(const Options& options) const;
+  void loadOptions(Options& options) const;
 };
 
 } // namespace onux

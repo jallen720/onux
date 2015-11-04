@@ -21,24 +21,22 @@ static void validateSourceCount(const size_t sourceCount) {
   }
 }
 
-static void validateSameType(const ShaderObject::Sources& sources, const GLenum type) {
+static void validateSameType(ShaderObject::Sources sources, const GLenum type) {
   for (auto source : sources) {
     if (source->getType() != type) {
-      throw runtime_error(
-        "All ShaderSource files for ShaderObject must have the same type!"
-      );
+      throw runtime_error("All ShaderSource files for ShaderObject must have the same type!");
     }
   }
 }
 
-static const GLenum loadType(const ShaderObject::Sources& sources) {
+static const GLenum loadType(ShaderObject::Sources sources) {
   validateSourceCount(sources.size());
   const GLenum type = sources[0]->getType();
   validateSameType(sources, type);
   return type;
 }
 
-ShaderObject::ShaderObject(const Sources& sources)
+ShaderObject::ShaderObject(Sources sources)
   : OpenGLData(glCreateShader(loadType(sources))) {
   loadSources(sources);
   compile();
@@ -53,7 +51,7 @@ const GLenum ShaderObject::getType() const {
   return getInt(GL_SHADER_TYPE);
 }
 
-void ShaderObject::loadSources(const Sources& sources) const {
+void ShaderObject::loadSources(Sources sources) const {
   const size_t sourceCount = sources.size();
   const GLchar* sourceCode[sourceCount];
 
@@ -61,7 +59,12 @@ void ShaderObject::loadSources(const Sources& sources) const {
     sourceCode[i] = sources[i]->getCode();
   }
 
-  glShaderSource(getID(), sourceCount, sourceCode, nullptr);
+  glShaderSource(
+    getID(),
+    sourceCount,
+    sourceCode,
+    nullptr
+  );
 }
 
 void ShaderObject::compile() const {

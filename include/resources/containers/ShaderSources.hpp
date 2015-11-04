@@ -12,7 +12,7 @@ public:
 
 protected:
   // Resources
-  const Loader& getLoader() const override;
+  Loader getLoader() const override;
 
 private:
   const ShaderSourceLoader m_loader;

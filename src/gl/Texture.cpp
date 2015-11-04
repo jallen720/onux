@@ -10,7 +10,7 @@ static GLuint newTexture() {
   return id;
 }
 
-Texture::Texture(const IImage* image, const Options& options)
+Texture::Texture(const IImage* image, Options& options)
   : OpenGLData(newTexture()) {
   bind(0);
   loadImage(image);
@@ -28,7 +28,7 @@ void Texture::bind(const unsigned int unit) const {
 
 const GLenum Texture::TARGET = GL_TEXTURE_2D;
 
-const Texture::Options Texture::DEFAULT_OPTIONS {
+Texture::Options Texture::DEFAULT_OPTIONS {
   { GL_TEXTURE_MIN_FILTER, GL_LINEAR },
   { GL_TEXTURE_MAG_FILTER, GL_LINEAR },
 };
@@ -53,7 +53,7 @@ void Texture::loadImage(const IImage* image) const {
   );
 }
 
-void Texture::loadOptions(const Options& options) const {
+void Texture::loadOptions(Options& options) const {
   for (auto option : options) {
     glTexParameteri(
       TARGET,

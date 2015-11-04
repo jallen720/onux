@@ -10,10 +10,10 @@ namespace onux {
 template<typename T>
 class Resources {
 protected:
-  typedef ResourceLoader<T> Loader;
+  typedef const ResourceLoader<T>& Loader;
 
 private:
-  typedef typename Loader::Resource Resource;
+  typedef typename ResourceLoader<T>::Resource Resource;
   typedef std::map<const std::string, Resource> ResourceMap;
 
 public:
@@ -22,7 +22,7 @@ public:
 
 protected:
   void load();
-  virtual const Loader& getLoader() const = 0;
+  virtual Loader getLoader() const = 0;
 
 private:
   ResourceMap m_resources;

@@ -15,12 +15,13 @@ class Camera;
 
 class Renderable {
 public:
-  typedef std::vector<const Texture*> Textures;
+  typedef const std::vector<const Texture*> Textures;
 
+public:
   Renderable(
     const Mesh&          mesh,
     const ShaderProgram& shaderProgram,
-    const Textures       textures
+    Textures             textures
   );
   void enable(Camera& camera) const;
   const MeshRenderer& getMeshRenderer() const;
@@ -30,7 +31,7 @@ public:
 private:
   const Mesh&          m_mesh;
   const ShaderProgram& m_shaderProgram;
-  const Textures       m_textures;
+  Textures             m_textures;
   Transform            m_transform;
   const MeshRenderer   m_meshRenderer;
 

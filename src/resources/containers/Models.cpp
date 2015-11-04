@@ -6,7 +6,7 @@ Models::Models() {
   load();
 }
 
-auto Models::getLoader() const -> const Loader& {
+auto Models::getLoader() const -> Loader {
   return m_loader;
 }
 

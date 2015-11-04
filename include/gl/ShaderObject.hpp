@@ -11,14 +11,15 @@ struct IShaderSource;
 
 class ShaderObject : public OpenGLData {
 public:
-  typedef std::vector<const IShaderSource*> Sources;
+  typedef const std::vector<const IShaderSource*>& Sources;
 
-  ShaderObject(const Sources& sources);
+public:
+  ShaderObject(Sources sources);
   ~ShaderObject();
   const GLenum getType() const;
 
 private:
-  void loadSources(const Sources& sources) const;
+  void loadSources(Sources sources) const;
   void compile() const;
   void validateCompileStatus() const;
   const bool compilationSucceeded() const;

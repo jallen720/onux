@@ -6,7 +6,7 @@ ShaderSources::ShaderSources() {
   load();
 }
 
-auto ShaderSources::getLoader() const -> const Loader& {
+auto ShaderSources::getLoader() const -> Loader {
   return m_loader;
 }
 

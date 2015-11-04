@@ -12,9 +12,10 @@ class ShaderObject;
 
 class ShaderProgram : public OpenGLData {
 public:
-  typedef std::vector<const ShaderObject*> Objects;
+  typedef const std::vector<const ShaderObject*>& Objects;
 
-  ShaderProgram(const Objects& objects);
+public:
+  ShaderProgram(Objects objects);
   ~ShaderProgram();
   void use() const;
   void setUniform(const GLchar* name, const GLint value) const;
@@ -27,9 +28,9 @@ public:
   ) const;
 
 private:
-  void attach(const Objects& objects) const;
+  void attach(Objects objects) const;
   void link() const;
-  void detach(const Objects& objects) const;
+  void detach(Objects objects) const;
   void validateLinkStatus() const;
   const bool linkingSucceeded() const;
   const GLint getInt(const GLenum parameter) const;

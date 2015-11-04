@@ -181,7 +181,7 @@ void runEngine() {
       .getTransform()
       .setRotation(vec3(0, 90, 0));
 
-    const GraphicsEngine::Drawables drawables {
+    GraphicsEngine::Drawables drawables {
       &renderables[0],
       &renderables[1],
       &renderables[2],

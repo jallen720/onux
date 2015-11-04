@@ -13,6 +13,7 @@ class Scene {
 public:
   typedef std::vector<Mesh> Meshes;
 
+public:
   Scene(const std::string& path);
   const Meshes& getMeshes() const;
 

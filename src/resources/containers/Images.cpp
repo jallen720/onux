@@ -6,7 +6,7 @@ Images::Images() {
   load();
 }
 
-auto Images::getLoader() const -> const Loader& {
+auto Images::getLoader() const -> Loader {
   return m_loader;
 }
 

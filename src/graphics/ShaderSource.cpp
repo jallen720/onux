@@ -9,7 +9,7 @@ using std::runtime_error;
 
 namespace onux {
 
-const ShaderSource::Types ShaderSource::TYPES {
+ShaderSource::Types ShaderSource::TYPES {
   { "vert", GL_VERTEX_SHADER          },
   { "tesc", GL_TESS_CONTROL_SHADER    },
   { "tese", GL_TESS_EVALUATION_SHADER },
