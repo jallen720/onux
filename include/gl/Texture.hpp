@@ -22,7 +22,7 @@ public:
     Options&      options = DEFAULT_OPTIONS
   );
   ~Texture();
-  void bind(const unsigned int unit) const;
+  void bind(const GLuint unit) const;
 
 private:
   void loadImage(const IImage* image) const;

@@ -4,9 +4,12 @@
 
 namespace onux {
 
+// Texture represents 1 texture.
+static const GLsizei TEXTURE_COUNT = 1;
+
 static GLuint newTexture() {
   GLuint id;
-  glGenTextures(1, &id);
+  glGenTextures(TEXTURE_COUNT, &id);
   return id;
 }
 
@@ -18,10 +21,10 @@ Texture::Texture(const IImage* image, Options& options)
 }
 
 Texture::~Texture() {
-  glDeleteTextures(1, &getID());
+  glDeleteTextures(TEXTURE_COUNT, &getID());
 }
 
-void Texture::bind(const unsigned int unit) const {
+void Texture::bind(const GLuint unit) const {
   glActiveTexture(GL_TEXTURE0 + unit);
   glBindTexture(TARGET, getID());
 }

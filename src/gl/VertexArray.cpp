@@ -5,9 +5,12 @@
 
 namespace onux {
 
+// VertexArray represents 1 vertex array.
+static const GLsizei VERTEX_ARRAY_COUNT = 1;
+
 static GLuint newVertexArray() {
   GLuint id;
-  glGenVertexArrays(1, &id);
+  glGenVertexArrays(VERTEX_ARRAY_COUNT, &id);
   return id;
 }
 
@@ -21,7 +24,7 @@ VertexArray::VertexArray(
 }
 
 VertexArray::~VertexArray() {
-  glDeleteVertexArrays(1, &getID());
+  glDeleteVertexArrays(VERTEX_ARRAY_COUNT, &getID());
 }
 
 void VertexArray::bind() const {
