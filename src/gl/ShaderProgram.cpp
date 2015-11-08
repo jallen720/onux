@@ -15,10 +15,7 @@ using glm::mat4;
 
 namespace onux {
 
-static const bool hasType(
-  ShaderProgram::Objects objects,
-  const GLenum type
-) {
+static const bool hasType(ShaderProgram::Objects objects, const GLenum type) {
   for (auto object : objects) {
     if (object->getType() == type) {
       return true;
@@ -29,8 +26,8 @@ static const bool hasType(
 }
 
 static const bool hasRequiredTypes(ShaderProgram::Objects objects) {
-  // The minimum requirements for a shader program to be created are a vertex
-  // shader object and a fragment shader object.
+  // The minimum requirements for a shader program to be created are a vertex shader object and a
+  // fragment shader object.
   return hasType(objects, GL_VERTEX_SHADER) &&
          hasType(objects, GL_FRAGMENT_SHADER);
 }
@@ -38,8 +35,7 @@ static const bool hasRequiredTypes(ShaderProgram::Objects objects) {
 static void validateRequiredTypes(ShaderProgram::Objects objects) {
   if (!hasRequiredTypes(objects)) {
     throw runtime_error(
-      "A ShaderProgram requires atleast a vertex shader object "
-      "and a fragment shader object."
+      "A ShaderProgram requires atleast a vertex shader object and a fragment shader object."
     );
   }
 }
