@@ -7,10 +7,10 @@
 
 namespace onux {
 
-class Models : public Resources<const Scene> {
+class Scenes : public Resources<const Scene> {
 public:
-  Models();
-  ~Models();
+  Scenes();
+  ~Scenes();
 
 protected:
   // Resources

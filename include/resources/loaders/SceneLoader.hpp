@@ -5,7 +5,7 @@
 
 namespace onux {
 
-class ModelLoader : public ResourceLoader<const Scene> {
+class SceneLoader : public ResourceLoader<const Scene> {
 protected:
   // ResourceLoader
   const std::string& getSubDirectory() const override;

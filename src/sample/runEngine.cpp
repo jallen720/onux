@@ -28,7 +28,7 @@
 
 #include "resources/containers/ShaderSources.hpp"
 #include "resources/containers/Images.hpp"
-#include "resources/containers/Models.hpp"
+#include "resources/containers/Scenes.hpp"
 
 #include "sample/CameraControls.hpp"
 
@@ -60,7 +60,7 @@ using onux::Engine;
 
 using onux::ShaderSources;
 using onux::Images;
-using onux::Models;
+using onux::Scenes;
 
 static void configureOpenGL() {
   glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -81,7 +81,7 @@ void runEngine() {
     // Resources
     ShaderSources shaderSources;
     Images images;
-    Models models;
+    Scenes scenes;
 
     // Shaders
     const ShaderObject vertObjects[] {
@@ -130,14 +130,14 @@ void runEngine() {
     // Drawable data
     Renderable renderables[] {
       Renderable(
-        models["hheli.obj"]->getMeshes()[0],
+        scenes["hheli.obj"]->getMeshes()[0],
         shaderPrograms[1],
         {
           &textures[2]
         }
       ),
       Renderable(
-        models["cube.obj"]->getMeshes()[0],
+        scenes["cube.obj"]->getMeshes()[0],
         shaderPrograms[0],
         {
           &textures[0],
@@ -145,7 +145,7 @@ void runEngine() {
         }
       ),
       Renderable(
-        models["hheli.obj"]->getMeshes()[0],
+        scenes["hheli.obj"]->getMeshes()[0],
         shaderPrograms[1],
         {
           &textures[2],
