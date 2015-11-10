@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <string>
 #include <functional>
 
@@ -8,7 +9,7 @@ namespace onux {
 template<typename T>
 class ResourceLoader {
 public:
-  typedef const T* Resource;
+  typedef std::unique_ptr<T> Resource;
 
 private:
   typedef const std::function<void(const std::string&, Resource)>& loadCallback;

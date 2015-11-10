@@ -10,7 +10,7 @@ const string& ImageLoader::getSubDirectory() const {
 }
 
 auto ImageLoader::load(const string& path) const -> Resource {
-  return new Image(path);
+  return Resource(new Image(path));
 }
 
 } // namespace onux

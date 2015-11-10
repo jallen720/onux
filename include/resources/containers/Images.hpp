@@ -7,7 +7,7 @@
 
 namespace onux {
 
-class Images : public Resources<Image> {
+class Images : public Resources<const Image> {
 public:
   Images();
   ~Images();

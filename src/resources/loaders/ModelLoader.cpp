@@ -10,7 +10,7 @@ const string& ModelLoader::getSubDirectory() const {
 }
 
 auto ModelLoader::load(const string& path) const -> Resource {
-  return new Scene(path);
+  return Resource(new Scene(path));
 }
 
 } // namespace onux

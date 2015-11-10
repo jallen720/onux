@@ -5,7 +5,7 @@
 
 namespace onux {
 
-class ImageLoader : public ResourceLoader<Image> {
+class ImageLoader : public ResourceLoader<const Image> {
 protected:
   // ResourceLoader
   const std::string& getSubDirectory() const override;

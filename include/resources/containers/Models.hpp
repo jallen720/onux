@@ -7,7 +7,7 @@
 
 namespace onux {
 
-class Models : public Resources<Scene> {
+class Models : public Resources<const Scene> {
 public:
   Models();
   ~Models();

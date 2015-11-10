@@ -7,7 +7,7 @@
 
 namespace onux {
 
-class ShaderSources : public Resources<ShaderSource> {
+class ShaderSources : public Resources<const ShaderSource> {
 public:
   ShaderSources();
   ~ShaderSources();

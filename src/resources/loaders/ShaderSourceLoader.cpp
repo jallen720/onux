@@ -10,7 +10,7 @@ const string& ShaderSourceLoader::getSubDirectory() const {
 }
 
 auto ShaderSourceLoader::load(const string& path) const -> Resource {
-  return new ShaderSource(path);
+  return Resource(new ShaderSource(path));
 }
 
 } // namespace onux

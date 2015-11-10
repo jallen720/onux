@@ -5,7 +5,7 @@
 
 namespace onux {
 
-class ShaderSourceLoader : public ResourceLoader<ShaderSource> {
+class ShaderSourceLoader : public ResourceLoader<const ShaderSource> {
 protected:
   // ResourceLoader
   const std::string& getSubDirectory() const override;

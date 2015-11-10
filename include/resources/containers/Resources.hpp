@@ -18,7 +18,7 @@ private:
 
 public:
   virtual ~Resources();
-  Resource operator [](const std::string& relativePath) const;
+  T* operator [](const std::string& relativePath) const;
 
 protected:
   void load();
@@ -27,9 +27,7 @@ protected:
 private:
   ResourceMap m_resources;
 
-  void deleteResources();
-  void unload();
-  Resource atPath(const std::string& path) const;
+  T* atPath(const std::string& path) const;
 };
 
 } // namespace onux
