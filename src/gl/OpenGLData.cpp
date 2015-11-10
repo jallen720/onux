@@ -2,11 +2,22 @@
 
 namespace onux {
 
+struct OpenGLData::Impl {
+  const GLuint id;
+
+  Impl(const GLuint id);
+};
+
 const GLuint& OpenGLData::getID() const {
-  return m_id;
+  return impl->id;
 }
 
 OpenGLData::OpenGLData(const GLuint id)
-  : m_id(id) {}
+  : impl(new Impl(id)) {}
+
+// Implementation
+
+OpenGLData::Impl::Impl(const GLuint id)
+  : id(id) {}
 
 } // namespace onux

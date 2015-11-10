@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "gl/OpenGLData.hpp"
 
 namespace onux {
@@ -18,12 +20,8 @@ protected:
   ~BufferObject();
 
 private:
-  const GLenum  m_target;
-  const GLsizei m_size;
-  const GLvoid* m_data;
-  const GLenum  m_usage;
-
-  void bind() const;
+  struct Impl;
+  std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux

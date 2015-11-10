@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <GL/glew.h>
 
 namespace onux {
@@ -12,7 +13,8 @@ protected:
   OpenGLData(const GLuint id);
 
 private:
-  const GLuint m_id;
+  struct Impl;
+  std::shared_ptr<Impl> impl;
 };
 
 } // namespace onux

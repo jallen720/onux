@@ -1,8 +1,8 @@
 #pragma once
 
+#include <memory>
 #include <string>
 #include <vector>
-#include <assimp/Importer.hpp>
 #include "graphics/Mesh.hpp"
 
 struct aiScene;
@@ -15,12 +15,12 @@ public:
 
 public:
   Scene(const std::string& path);
+  ~Scene();
   const Meshes& getMeshes() const;
 
 private:
-  Assimp::Importer m_importer;
-  const aiScene*   m_scene;
-  const Meshes     m_meshes;
+  struct Impl;
+  std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux

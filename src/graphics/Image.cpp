@@ -1,11 +1,19 @@
 #include "graphics/Image.hpp"
 
 #include <stdexcept>
+#include <Magick++.h>
 
 using std::string;
 using std::runtime_error;
 
 namespace onux {
+
+struct Image::Impl {
+  Magick::Blob  blob;
+  Magick::Image image;
+
+  void loadBlob(const string& path);
+};
 
 static void validatePath(const string& path) {
   if (path.empty()) {
@@ -13,28 +21,33 @@ static void validatePath(const string& path) {
   }
 }
 
-Image::Image(const string& path) {
+Image::Image(const string& path)
+  : impl(new Impl()) {
   validatePath(path);
-  loadBlob(path);
+  impl->loadBlob(path);
 }
 
+Image::~Image() {}
+
 const GLsizei Image::getWidth() const {
-  return m_image.columns();
+  return impl->image.columns();
 }
 
 const GLsizei Image::getHeight() const {
-  return m_image.rows();
+  return impl->image.rows();
 }
 
 const GLvoid* Image::getData() const {
-  return m_blob.data();
+  return impl->blob.data();
 }
 
-void Image::loadBlob(const string& path) {
+// Implementation
+
+void Image::Impl::loadBlob(const string& path) {
   static const string FORMAT = "RGBA";
-  m_image.read(path);
-  m_image.flip();
-  m_image.write(&m_blob, FORMAT);
+  image.read(path);
+  image.flip();
+  image.write(&blob, FORMAT);
 }
 
 } // namespace onux

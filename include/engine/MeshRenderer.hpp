@@ -1,8 +1,6 @@
 #pragma once
 
-#include "gl/VertexBuffer.hpp"
-#include "gl/IndexBuffer.hpp"
-#include "gl/VertexArray.hpp"
+#include <memory>
 
 namespace onux {
 
@@ -11,13 +9,12 @@ class Mesh;
 class MeshRenderer {
 public:
   MeshRenderer(const Mesh& mesh);
+  ~MeshRenderer();
   void render() const;
 
 private:
-  const Mesh&        m_mesh;
-  const VertexBuffer m_vertexBuffer;
-  const IndexBuffer  m_indexBuffer;
-  const VertexArray  m_vertexArray;
+  struct Impl;
+  std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux

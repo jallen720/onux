@@ -5,11 +5,21 @@
 #include <glm/glm.hpp>
 
 #include "environment/inputRegistry.hpp"
+#include "environment/events/MouseMoveEvent.hpp"
+#include "environment/events/MouseDeltaEvent.hpp"
 
 using std::runtime_error;
 using glm::dvec2;
 
 namespace onux {
+
+struct Input::Impl {
+  const GLFWwindow* window;
+  MouseMoveEvent    mouseMoveEvent;
+  MouseDeltaEvent   mouseDeltaEvent;
+
+  Impl(const GLFWwindow* window);
+};
 
 static void validateWindow(const GLFWwindow* window) {
   if (window == nullptr) {
@@ -18,27 +28,32 @@ static void validateWindow(const GLFWwindow* window) {
 }
 
 Input::Input(GLFWwindow* window)
-  : m_window(window) {
+  : impl(new Impl(window)) {
   validateWindow(window);
   registerInput(this, window);
 }
 
 Input::~Input() {
-  unregisterInput(m_window);
+  unregisterInput(impl->window);
 }
 
 void Input::cursorPosEvent(const double x, const double y) {
   const dvec2 mousePosition(x, y);
-  m_mouseMoveEvent.trigger(mousePosition);
-  m_mouseDeltaEvent.trigger(mousePosition);
+  impl->mouseMoveEvent.trigger(mousePosition);
+  impl->mouseDeltaEvent.trigger(mousePosition);
 }
 
 MouseMoveEvent& Input::getMouseMoveEvent() {
-  return m_mouseMoveEvent;
+  return impl->mouseMoveEvent;
 }
 
 MouseDeltaEvent& Input::getMouseDeltaEvent() {
-  return m_mouseDeltaEvent;
+  return impl->mouseDeltaEvent;
 }
+
+// Implementation
+
+Input::Impl::Impl(const GLFWwindow* window)
+  : window(window) {}
 
 } // namespace onux

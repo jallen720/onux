@@ -1,7 +1,8 @@
 #pragma once
 
+#include <memory>
+
 #include "resources/containers/Resources.hpp"
-#include "resources/loaders/ImageLoader.hpp"
 #include "graphics/Image.hpp"
 
 namespace onux {
@@ -9,13 +10,15 @@ namespace onux {
 class Images : public Resources<Image> {
 public:
   Images();
+  ~Images();
 
 protected:
   // Resources
   Loader getLoader() const override;
 
 private:
-  const ImageLoader m_loader;
+  struct Impl;
+  std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux

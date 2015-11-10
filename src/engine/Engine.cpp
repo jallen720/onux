@@ -16,6 +16,15 @@ using std::chrono::milliseconds;
 
 namespace onux {
 
+struct Engine::Impl {
+  const Window&   window;
+  GraphicsEngine& graphicsEngine;
+
+  Impl(const Window& window, GraphicsEngine& graphicsEngine);
+  void renderObjects();
+  void processFrame();
+};
+
 static void validateNoGLError(const GLenum error) {
   if (error != GL_NO_ERROR) {
     throw runtime_error(
@@ -26,10 +35,11 @@ static void validateNoGLError(const GLenum error) {
 }
 
 Engine::Engine(const Window& window, GraphicsEngine& graphicsEngine)
-  : m_window(window)
-  , m_graphicsEngine(graphicsEngine) {
+  : impl(new Impl(window, graphicsEngine)) {
   validateNoGLError(glGetError());
 }
+
+Engine::~Engine() {}
 
 static void frameWait(float frameStart) {
   static const float FPS = 60.0f;
@@ -45,18 +55,24 @@ static void handleFrameTiming(float& frameStart) {
 void Engine::run() {
   float frameStart = glfwGetTime();
 
-  while (!m_window.shouldClose()) {
-    processFrame();
+  while (!impl->window.shouldClose()) {
+    impl->processFrame();
     handleFrameTiming(frameStart);
   }
 }
 
-void Engine::renderObjects() {
-  m_graphicsEngine.render();
-  m_window.swapBuffers();
+// Implementation
+
+Engine::Impl::Impl(const Window& window, GraphicsEngine& graphicsEngine)
+  : window(window)
+  , graphicsEngine(graphicsEngine) {}
+
+void Engine::Impl::renderObjects() {
+  graphicsEngine.render();
+  window.swapBuffers();
 }
 
-void Engine::processFrame() {
+void Engine::Impl::processFrame() {
   glfwPollEvents();
   renderObjects();
   validateNoGLError(glGetError());

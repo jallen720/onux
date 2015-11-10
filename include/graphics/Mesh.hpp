@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <memory>
 #include <GL/glew.h>
 
 #include "graphics/Vertex.hpp"
@@ -21,8 +21,8 @@ public:
   const Indexes& getIndexes() const;
 
 private:
-  const Vertexes m_vertexes;
-  const Indexes  m_indexes;
+  struct Impl;
+  std::shared_ptr<Impl> impl;
 };
 
 } // namespace onux

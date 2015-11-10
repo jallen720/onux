@@ -1,25 +1,25 @@
 #pragma once
 
+#include <memory>
 #include <glm/glm.hpp>
 
 #include "environment/events/Event.hpp"
-#include "environment/interfaces/IMouseDeltaListener.hpp"
 
 namespace onux {
+
+struct IMouseDeltaListener;
 
 class MouseDeltaEvent : public Event<IMouseDeltaListener, const glm::dvec2&> {
 public:
   MouseDeltaEvent();
+  ~MouseDeltaEvent();
 
   // Event
   void trigger(const glm::dvec2& position) override;
 
 private:
-  glm::dvec2 m_previousPosition;
-
-  const glm::dvec2 getDelta(const glm::dvec2& position);
-  const bool previousPositionIsSet() const;
-  void callListeners(const glm::dvec2& delta);
+  struct Impl;
+  std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux

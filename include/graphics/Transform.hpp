@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <glm/glm.hpp>
 
 namespace onux {
@@ -7,6 +8,7 @@ namespace onux {
 class Transform {
 public:
   Transform();
+  ~Transform();
   void translate(const glm::vec3& translation);
   void rotate(const glm::vec3& rotation);
   void scale(const glm::vec3& scale);
@@ -20,9 +22,8 @@ public:
   const glm::mat4 getWorldMatrix() const;
 
 private:
-  glm::vec3 m_position;
-  glm::vec3 m_rotation;
-  glm::vec3 m_scale;
+  struct Impl;
+  std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux

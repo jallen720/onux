@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <map>
 
 #include "gl/OpenGLData.hpp"
@@ -13,8 +14,7 @@ public:
   typedef const std::map<const GLenum, const GLint> Options;
 
 private:
-  static const GLenum TARGET;
-  static Options      DEFAULT_OPTIONS;
+  static Options DEFAULT_OPTIONS;
 
 public:
   Texture(
@@ -25,8 +25,8 @@ public:
   void bind(const GLuint unit) const;
 
 private:
-  void loadImage(const IImage* image) const;
-  void loadOptions(Options& options) const;
+  struct Impl;
+  std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux

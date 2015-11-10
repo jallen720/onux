@@ -1,18 +1,34 @@
 #include "graphics/Camera.hpp"
 
+#include "graphics/Transform.hpp"
+
 using glm::mat4;
 
 namespace onux {
 
+struct Camera::Impl {
+  Transform transform;
+  mat4      projection;
+
+  Impl(const mat4& projection);
+};
+
 Camera::Camera(const mat4& projection)
-  : m_projection(projection) {}
+  : impl(new Impl(projection)) {}
+
+Camera::~Camera() {}
 
 Transform& Camera::getTransform() {
-  return m_transform;
+  return impl->transform;
 }
 
 const mat4& Camera::getProjection() const {
-  return m_projection;
+  return impl->projection;
 }
+
+// Implementation
+
+Camera::Impl::Impl(const mat4& projection)
+  : projection(projection) {}
 
 } // namespace onux

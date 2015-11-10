@@ -2,9 +2,6 @@
 
 #include "graphics/VertexAttribute.hpp"
 
-using glm::vec2;
-using glm::vec3;
-
 #define VERTEX_ATTRIBUTE(NAME, ELEMENT_COUNT, TYPE, IS_NORMALIZED) \
   const VertexAttribute<glm::vec ## ELEMENT_COUNT> NAME { \
     ELEMENT_COUNT, \

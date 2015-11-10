@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <string>
 #include <map>
 
@@ -22,8 +23,8 @@ public:
   const GLchar* getCode() const override;
 
 private:
-  const GLenum      m_type;
-  const std::string m_code;
+  struct Impl;
+  std::shared_ptr<Impl> impl;
 };
 
 } // namespace onux

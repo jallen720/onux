@@ -1,13 +1,22 @@
 #include "resources/containers/ShaderSources.hpp"
 
+#include "resources/loaders/ShaderSourceLoader.hpp"
+
 namespace onux {
 
-ShaderSources::ShaderSources() {
+struct ShaderSources::Impl {
+  const ShaderSourceLoader loader;
+};
+
+ShaderSources::ShaderSources()
+  : impl(new Impl()) {
   load();
 }
 
+ShaderSources::~ShaderSources() {}
+
 auto ShaderSources::getLoader() const -> Loader {
-  return m_loader;
+  return impl->loader;
 }
 
 } // namespace onux

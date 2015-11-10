@@ -2,39 +2,62 @@
 
 #include <GLFW/glfw3.h>
 
+#include "environment/Input.hpp"
+
 namespace onux {
+
+struct Window::Impl {
+  GLFWwindow*  glfwWindow;
+  Input        input;
+  unsigned int width;
+  unsigned int height;
+
+  Impl(
+    const unsigned int width,
+    const unsigned int height,
+    const char*        name
+  );
+};
 
 Window::Window(
   const unsigned int width,
   const unsigned int height,
   const char*        name
-) : m_glfwWindow(glfwCreateWindow(width, height, name, nullptr, nullptr))
-  , m_input(m_glfwWindow)
-  , m_width(width)
-  , m_height(height) {}
+) : impl(new Impl(width, height, name)) {}
 
 Window::~Window() {
-  glfwDestroyWindow(m_glfwWindow);
+  glfwDestroyWindow(impl->glfwWindow);
 }
 
 void Window::makeContextCurrent() const {
-  glfwMakeContextCurrent(m_glfwWindow);
+  glfwMakeContextCurrent(impl->glfwWindow);
 }
 
 const float Window::getAspect() const {
-  return (float)m_width / m_height;
+  return (float)impl->width / impl->height;
 }
 
 const bool Window::shouldClose() const {
-  return glfwWindowShouldClose(m_glfwWindow);
+  return glfwWindowShouldClose(impl->glfwWindow);
 }
 
 void Window::swapBuffers() const {
-  glfwSwapBuffers(m_glfwWindow);
+  glfwSwapBuffers(impl->glfwWindow);
 }
 
 Input& Window::getInput() {
-  return m_input;
+  return impl->input;
 }
+
+// Implementation
+
+Window::Impl::Impl(
+  const unsigned int width,
+  const unsigned int height,
+  const char*        name
+) : glfwWindow(glfwCreateWindow(width, height, name, nullptr, nullptr))
+  , input(glfwWindow)
+  , width(width)
+  , height(height) {}
 
 } // namespace onux

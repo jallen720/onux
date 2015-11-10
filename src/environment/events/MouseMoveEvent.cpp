@@ -1,5 +1,7 @@
 #include "environment/events/MouseMoveEvent.hpp"
 
+#include "environment/interfaces/IMouseMoveListener.hpp"
+
 using glm::dvec2;
 
 namespace onux {

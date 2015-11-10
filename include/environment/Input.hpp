@@ -1,12 +1,15 @@
 #pragma once
 
+#include <memory>
+
 #include "environment/interfaces/IInput.hpp"
-#include "environment/events/MouseMoveEvent.hpp"
-#include "environment/events/MouseDeltaEvent.hpp"
 
 struct GLFWwindow;
 
 namespace onux {
+
+struct MouseMoveEvent;
+struct MouseDeltaEvent;
 
 class Input : public IInput {
 public:
@@ -19,9 +22,8 @@ public:
   void cursorPosEvent(const double x, const double y) override;
 
 private:
-  const GLFWwindow* m_window;
-  MouseMoveEvent    m_mouseMoveEvent;
-  MouseDeltaEvent   m_mouseDeltaEvent;
+  struct Impl;
+  std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux

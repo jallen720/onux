@@ -4,6 +4,28 @@
 
 namespace onux {
 
+struct VertexLayout::Impl {
+  Attributes    attributes;
+  const GLsizei stride;
+
+  Impl(Attributes& attributes);
+};
+
+VertexLayout::VertexLayout(Attributes& attributes)
+  : impl(new Impl(attributes)) {}
+
+VertexLayout::~VertexLayout() {}
+
+auto VertexLayout::getAttributes() const -> Attributes& {
+  return impl->attributes;
+}
+
+const GLsizei VertexLayout::getStride() const {
+  return impl->stride;
+}
+
+// Implementation
+
 static const GLsizei calculateStride(IVertexLayout::Attributes& attributes) {
   GLsizei stride = 0;
 
@@ -14,16 +36,8 @@ static const GLsizei calculateStride(IVertexLayout::Attributes& attributes) {
   return stride;
 }
 
-VertexLayout::VertexLayout(Attributes& attributes)
-  : m_attributes(attributes)
-  , m_stride(calculateStride(m_attributes)) {}
-
-auto VertexLayout::getAttributes() const -> Attributes& {
-  return m_attributes;
-}
-
-const GLsizei VertexLayout::getStride() const {
-  return m_stride;
-}
+VertexLayout::Impl::Impl(Attributes& attributes)
+  : attributes(attributes)
+  , stride(calculateStride(this->attributes)) {}
 
 } // namespace onux

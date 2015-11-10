@@ -1,5 +1,6 @@
 #include "gl/ShaderObject.hpp"
 
+#include <string>
 #include <stdexcept>
 
 #include "gl/interfaces/IShaderSource.hpp"
@@ -9,6 +10,18 @@ using std::string;
 using std::runtime_error;
 
 namespace onux {
+
+struct ShaderObject::Impl {
+  const ShaderObject* self;
+
+  Impl(const ShaderObject* self);
+  void loadSources(Sources sources) const;
+  void compile() const;
+  void validateCompileStatus() const;
+  const bool compilationSucceeded() const;
+  const GLint getInt(const GLenum parameter) const;
+  const string getInfoLog() const;
+};
 
 static const bool isValidSourceCount(const size_t sourceCount) {
   static const size_t MIN_SOURCE_COUNT = 1;
@@ -37,10 +50,11 @@ static const GLenum loadType(ShaderObject::Sources sources) {
 }
 
 ShaderObject::ShaderObject(Sources sources)
-  : OpenGLData(glCreateShader(loadType(sources))) {
-  loadSources(sources);
-  compile();
-  validateCompileStatus();
+  : OpenGLData(glCreateShader(loadType(sources)))
+  , impl(new Impl(this)) {
+  impl->loadSources(sources);
+  impl->compile();
+  impl->validateCompileStatus();
 }
 
 ShaderObject::~ShaderObject() {
@@ -48,10 +62,15 @@ ShaderObject::~ShaderObject() {
 }
 
 const GLenum ShaderObject::getType() const {
-  return getInt(GL_SHADER_TYPE);
+  return impl->getInt(GL_SHADER_TYPE);
 }
 
-void ShaderObject::loadSources(Sources sources) const {
+// Implementation
+
+ShaderObject::Impl::Impl(const ShaderObject* self)
+  : self(self) {}
+
+void ShaderObject::Impl::loadSources(Sources sources) const {
   const size_t sourceCount = sources.size();
   const GLchar* sourceCode[sourceCount];
 
@@ -60,39 +79,39 @@ void ShaderObject::loadSources(Sources sources) const {
   }
 
   glShaderSource(
-    getID(),
+    self->getID(),
     sourceCount,
     sourceCode,
     nullptr
   );
 }
 
-void ShaderObject::compile() const {
-  glCompileShader(getID());
+void ShaderObject::Impl::compile() const {
+  glCompileShader(self->getID());
 }
 
-void ShaderObject::validateCompileStatus() const {
+void ShaderObject::Impl::validateCompileStatus() const {
   if (!compilationSucceeded()) {
     // TODO: Destroy shader here
     throw runtime_error("ShaderObject compilation failed:\n" + getInfoLog());
   }
 }
 
-const bool ShaderObject::compilationSucceeded() const {
+const bool ShaderObject::Impl::compilationSucceeded() const {
   return getInt(GL_COMPILE_STATUS) == GL_TRUE;
 }
 
-const GLint ShaderObject::getInt(const GLenum parameter) const {
+const GLint ShaderObject::Impl::getInt(const GLenum parameter) const {
   GLint value;
-  glGetShaderiv(getID(), parameter, &value);
+  glGetShaderiv(self->getID(), parameter, &value);
   return value;
 }
 
-const string ShaderObject::getInfoLog() const {
+const string ShaderObject::Impl::getInfoLog() const {
   vector<GLchar> infoLog(getInt(GL_INFO_LOG_LENGTH));
 
   glGetShaderInfoLog(
-    getID(),
+    self->getID(),
     infoLog.size(),
     nullptr,
     &infoLog[0]

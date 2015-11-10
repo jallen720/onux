@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+#include <assimp/Importer.hpp>
 
 using std::string;
 using std::stringstream;
@@ -11,6 +12,25 @@ using std::runtime_error;
 using Assimp::Importer;
 
 namespace onux {
+
+struct Scene::Impl {
+  Importer       importer;
+  const aiScene* scene;
+  const Meshes   meshes;
+
+  Impl(const string& path);
+};
+
+Scene::Scene(const string& path)
+  : impl(new Impl(path)) {}
+
+Scene::~Scene() {}
+
+const Scene::Meshes& Scene::getMeshes() const {
+  return impl->meshes;
+}
+
+// Implementation
 
 static const string assimpErrorMsg(const string& msg) {
   stringstream stream;
@@ -47,12 +67,8 @@ static const Scene::Meshes loadMeshes(const aiScene* scene) {
   return meshes;
 }
 
-Scene::Scene(const string& path)
-  : m_scene(loadScene(path, m_importer))
-  , m_meshes(loadMeshes(m_scene)) {}
-
-const Scene::Meshes& Scene::getMeshes() const {
-  return m_meshes;
-}
+Scene::Impl::Impl(const string& path)
+  : scene(loadScene(path, importer))
+  , meshes(loadMeshes(scene)) {}
 
 } // namespace onux

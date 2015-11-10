@@ -1,31 +1,51 @@
 #include "environment/events/MouseDeltaEvent.hpp"
 
+#include "environment/interfaces/IMouseDeltaListener.hpp"
+
 using glm::dvec2;
 
 namespace onux {
 
-static const double PREVIOUS_POSITION_UNSET = -10000.0;
+struct MouseDeltaEvent::Impl {
+  MouseDeltaEvent* self;
+  dvec2 previousPosition;
+
+  Impl(MouseDeltaEvent* self);
+  const dvec2 getDelta(const dvec2& position);
+  const bool previousPositionIsSet() const;
+  void callListeners(const dvec2& delta);
+};
 
 MouseDeltaEvent::MouseDeltaEvent()
-  : m_previousPosition(PREVIOUS_POSITION_UNSET) {}
+  : impl(new Impl(this)) {}
+
+MouseDeltaEvent::~MouseDeltaEvent() {}
 
 void MouseDeltaEvent::trigger(const dvec2& position) {
-  callListeners(getDelta(position));
-  m_previousPosition = position;
+  impl->callListeners(impl->getDelta(position));
+  impl->previousPosition = position;
 }
 
-const dvec2 MouseDeltaEvent::getDelta(const dvec2& position) {
+// Implementation
+
+static const double PREVIOUS_POSITION_UNSET = -10000.0;
+
+MouseDeltaEvent::Impl::Impl(MouseDeltaEvent* self)
+  : self(self)
+  , previousPosition(PREVIOUS_POSITION_UNSET) {}
+
+const dvec2 MouseDeltaEvent::Impl::getDelta(const dvec2& position) {
   return previousPositionIsSet()
-         ? m_previousPosition - position
+         ? previousPosition - position
          : dvec2();
 }
 
-const bool MouseDeltaEvent::previousPositionIsSet() const {
-  return m_previousPosition.x != PREVIOUS_POSITION_UNSET;
+const bool MouseDeltaEvent::Impl::previousPositionIsSet() const {
+  return previousPosition.x != PREVIOUS_POSITION_UNSET;
 }
 
-void MouseDeltaEvent::callListeners(const dvec2& delta) {
-  for (Listener listener : getListeners()) {
+void MouseDeltaEvent::Impl::callListeners(const dvec2& delta) {
+  for (Listener listener : self->getListeners()) {
     listener->onMouseDelta(delta);
   }
 }

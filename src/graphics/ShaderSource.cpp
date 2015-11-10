@@ -9,6 +9,13 @@ using std::runtime_error;
 
 namespace onux {
 
+struct ShaderSource::Impl {
+  const GLenum type;
+  const string code;
+
+  Impl(const string& path);
+};
+
 ShaderSource::Types ShaderSource::TYPES {
   { "vert", GL_VERTEX_SHADER          },
   { "tesc", GL_TESS_CONTROL_SHADER    },
@@ -17,6 +24,19 @@ ShaderSource::Types ShaderSource::TYPES {
   { "frag", GL_FRAGMENT_SHADER        },
   { "comp", GL_COMPUTE_SHADER         },
 };
+
+ShaderSource::ShaderSource(const string& path)
+  : impl(new Impl(path)) {}
+
+const GLenum ShaderSource::getType() const {
+  return impl->type;
+}
+
+const GLchar* ShaderSource::getCode() const {
+  return impl->code.c_str();
+}
+
+// Implementation
 
 static const bool isValidExtension(const string& extension) {
   return ShaderSource::TYPES.count(extension) == 1;
@@ -36,16 +56,8 @@ static const string loadExtension(const string& path) {
   return extension;
 }
 
-ShaderSource::ShaderSource(const string& path)
-  : m_type(TYPES.at(loadExtension(path)))
-  , m_code(readFile(path)) {}
-
-const GLenum ShaderSource::getType() const {
-  return m_type;
-}
-
-const GLchar* ShaderSource::getCode() const {
-  return m_code.c_str();
-}
+ShaderSource::Impl::Impl(const string& path)
+  : type(TYPES.at(loadExtension(path)))
+  , code(readFile(path)) {}
 
 } // namespace onux

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <vector>
 
 namespace onux {
@@ -13,13 +14,12 @@ public:
 
 public:
   GraphicsEngine(Drawables& drawables, Camera& camera);
+  ~GraphicsEngine();
   void render();
 
 private:
-  Drawables& m_drawables;
-  Camera&    m_camera;
-
-  void renderDrawables() const;
+  struct Impl;
+  std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux

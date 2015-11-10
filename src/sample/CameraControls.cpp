@@ -1,5 +1,7 @@
 #include "sample/CameraControls.hpp"
 
+#include "environment/events/MouseDeltaEvent.hpp"
+
 using glm::vec3;
 using glm::dvec2;
 using onux::Transform;

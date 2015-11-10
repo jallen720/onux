@@ -8,61 +8,76 @@ using glm::radians;
 
 namespace onux {
 
+struct Transform::Impl {
+  vec3 position;
+  vec3 rotation;
+  vec3 scale;
+
+  Impl();
+};
+
 Transform::Transform()
-  : m_scale(vec3(1)) {}
+  : impl(new Impl()) {}
+
+Transform::~Transform() {}
 
 void Transform::translate(const vec3& translation) {
-  m_position += translation;
+  impl->position += translation;
 }
 
 void Transform::rotate(const vec3& rotation) {
-  m_rotation += rotation;
+  impl->rotation += rotation;
 }
 
 void Transform::scale(const vec3& scale) {
-  m_scale *= scale;
+  impl->scale *= scale;
 }
 
 void Transform::setPosition(const vec3& position) {
-  m_position = position;
+  impl->position = position;
 }
 
 void Transform::setRotation(const vec3& rotation) {
-  m_rotation = rotation;
+  impl->rotation = rotation;
 }
 
 void Transform::setScale(const vec3& scale) {
-  m_scale = scale;
+  impl->scale = scale;
 }
 
 const vec3& Transform::getPosition() const {
-  return m_position;
+  return impl->position;
 }
 
 const vec3& Transform::getRotation() const {
-  return m_rotation;
+  return impl->rotation;
 }
 
 const vec3& Transform::getScale() const {
-  return m_scale;
+  return impl->scale;
 }
 
 const mat4 Transform::getLocalMatrix() const {
   return glm::scale(glm::rotate(glm::rotate(glm::rotate(glm::translate(mat4()
-         , m_position)
-         , radians(m_rotation.x), vec3(1, 0, 0))
-         , radians(m_rotation.y), vec3(0, 1, 0))
-         , radians(m_rotation.z), vec3(0, 0, 1))
-         , m_scale);
+         , impl->position)
+         , radians(impl->rotation.x), vec3(1, 0, 0))
+         , radians(impl->rotation.y), vec3(0, 1, 0))
+         , radians(impl->rotation.z), vec3(0, 0, 1))
+         , impl->scale);
 }
 
 const mat4 Transform::getWorldMatrix() const {
   return glm::translate(glm::rotate(glm::rotate(glm::rotate(glm::scale(mat4()
-         , m_scale)
-         , -radians(m_rotation.x), vec3(1, 0, 0))
-         , -radians(m_rotation.y), vec3(0, 1, 0))
-         , -radians(m_rotation.z), vec3(0, 0, 1))
-         , -m_position);
+         , impl->scale)
+         , -radians(impl->rotation.x), vec3(1, 0, 0))
+         , -radians(impl->rotation.y), vec3(0, 1, 0))
+         , -radians(impl->rotation.z), vec3(0, 0, 1))
+         , -impl->position);
 }
+
+// Implementation
+
+Transform::Impl::Impl()
+  : scale(vec3(1)) {}
 
 } // namespace onux

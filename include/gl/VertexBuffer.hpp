@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "gl/BufferObject.hpp"
 
 namespace onux {
@@ -14,12 +16,12 @@ public:
     const IBufferData&   data,
     const GLenum         usage = GL_STATIC_DRAW
   );
+  ~VertexBuffer();
   void loadData() const override;
 
 private:
-  const IVertexLayout& m_layout;
-
-  void defineLayout() const;
+  struct Impl;
+  std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux

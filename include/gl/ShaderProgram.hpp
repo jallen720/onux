@@ -1,7 +1,7 @@
 #pragma once
 
+#include <memory>
 #include <vector>
-#include <string>
 #include <glm/glm.hpp>
 
 #include "gl/OpenGLData.hpp"
@@ -28,14 +28,8 @@ public:
   ) const;
 
 private:
-  void attach(Objects objects) const;
-  void link() const;
-  void detach(Objects objects) const;
-  void validateLinkStatus() const;
-  const bool linkingSucceeded() const;
-  const GLint getInt(const GLenum parameter) const;
-  const std::string getInfoLog() const;
-  const GLint getUniformLocation(const GLchar* name) const;
+  struct Impl;
+  std::shared_ptr<Impl> impl;
 };
 
 } // namespace onux

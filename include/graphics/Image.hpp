@@ -1,7 +1,7 @@
 #pragma once
 
+#include <memory>
 #include <string>
-#include <Magick++.h>
 
 #include "gl/interfaces/IImage.hpp"
 
@@ -10,6 +10,7 @@ namespace onux {
 class Image : public IImage {
 public:
   Image(const std::string& path);
+  ~Image();
 
   // IImage
   const GLsizei getWidth() const override;
@@ -17,10 +18,8 @@ public:
   const GLvoid* getData() const override;
 
 private:
-  Magick::Blob  m_blob;
-  Magick::Image m_image;
-
-  void loadBlob(const std::string& path);
+  struct Impl;
+  std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux

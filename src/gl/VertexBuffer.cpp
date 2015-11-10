@@ -6,6 +6,13 @@
 
 namespace onux {
 
+struct VertexBuffer::Impl {
+  const IVertexLayout& layout;
+
+  Impl(const IVertexLayout& layout);
+  void defineLayout() const;
+};
+
 VertexBuffer::VertexBuffer(
   const IVertexLayout& layout,
   const IBufferData&   data,
@@ -16,12 +23,16 @@ VertexBuffer::VertexBuffer(
       data.getPointer(),
       usage
     )
-  , m_layout(layout) {}
+  , impl(new Impl(layout)) {}
+
+VertexBuffer::~VertexBuffer() {}
 
 void VertexBuffer::loadData() const {
   BufferObject::loadData();
-  defineLayout();
+  impl->defineLayout();
 }
+
+// Implementation
 
 static void setAttributePointer(
   const IVertexAttribute* attribute,
@@ -50,10 +61,13 @@ static void setAttributePointers(const GLsizei stride, IVertexLayout::Attributes
   }
 }
 
-void VertexBuffer::defineLayout() const {
+VertexBuffer::Impl::Impl(const IVertexLayout& layout)
+  : layout(layout) {}
+
+void VertexBuffer::Impl::defineLayout() const {
   setAttributePointers(
-    m_layout.getStride(),
-    m_layout.getAttributes()
+    layout.getStride(),
+    layout.getAttributes()
   );
 }
 

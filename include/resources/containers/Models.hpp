@@ -1,7 +1,8 @@
 #pragma once
 
+#include <memory>
+
 #include "resources/containers/Resources.hpp"
-#include "resources/loaders/ModelLoader.hpp"
 #include "graphics/Scene.hpp"
 
 namespace onux {
@@ -9,13 +10,15 @@ namespace onux {
 class Models : public Resources<Scene> {
 public:
   Models();
+  ~Models();
 
 protected:
   // Resources
   Loader getLoader() const override;
 
 private:
-  const ModelLoader m_loader;
+  struct Impl;
+  std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux

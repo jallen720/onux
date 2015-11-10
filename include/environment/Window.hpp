@@ -1,10 +1,12 @@
 #pragma once
 
-#include "environment/Input.hpp"
+#include <memory>
 
 struct GLFWwindow;
 
 namespace onux {
+
+class Input;
 
 class Window {
 public:
@@ -21,10 +23,8 @@ public:
   Input& getInput();
 
 private:
-  GLFWwindow*  m_glfwWindow;
-  Input        m_input;
-  unsigned int m_width;
-  unsigned int m_height;
+  struct Impl;
+  std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux

@@ -3,13 +3,23 @@
 #include <GL/glew.h>
 
 #include "engine/Renderable.hpp"
+#include "engine/MeshRenderer.hpp"
 #include "graphics/Camera.hpp"
 
 namespace onux {
 
+struct GraphicsEngine::Impl {
+  Drawables& drawables;
+  Camera&    camera;
+
+  Impl(Drawables& drawables, Camera& camera);
+  void renderDrawables() const;
+};
+
 GraphicsEngine::GraphicsEngine(Drawables& drawables, Camera& camera)
-  : m_drawables(drawables)
-  , m_camera(camera) {}
+  : impl(new Impl(drawables, camera)) {}
+
+GraphicsEngine::~GraphicsEngine() {}
 
 static void clearBuffers() {
   static const GLbitfield MASKS =
@@ -21,12 +31,18 @@ static void clearBuffers() {
 
 void GraphicsEngine::render() {
   clearBuffers();
-  renderDrawables();
+  impl->renderDrawables();
 }
 
-void GraphicsEngine::renderDrawables() const {
-  for (auto drawable : m_drawables) {
-    drawable->enable(m_camera);
+// Implementation
+
+GraphicsEngine::Impl::Impl(Drawables& drawables, Camera& camera)
+  : drawables(drawables)
+  , camera(camera) {}
+
+void GraphicsEngine::Impl::renderDrawables() const {
+  for (auto drawable : drawables) {
+    drawable->enable(camera);
     drawable->getMeshRenderer().render();
   }
 }

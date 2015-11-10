@@ -1,13 +1,22 @@
 #include "resources/containers/Images.hpp"
 
+#include "resources/loaders/ImageLoader.hpp"
+
 namespace onux {
 
-Images::Images() {
+struct Images::Impl {
+  const ImageLoader loader;
+};
+
+Images::Images()
+  : impl(new Impl()) {
   load();
 }
 
+Images::~Images() {}
+
 auto Images::getLoader() const -> Loader {
-  return m_loader;
+  return impl->loader;
 }
 
 } // namespace onux

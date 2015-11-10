@@ -2,6 +2,23 @@
 
 namespace onux {
 
+struct BufferObject::Impl {
+  const GLenum        target;
+  const GLsizei       size;
+  const GLvoid*       data;
+  const GLenum        usage;
+  const BufferObject* self;
+
+  Impl(
+    const GLenum        target,
+    const GLsizei       size,
+    const GLvoid*       data,
+    const GLenum        usage,
+    const BufferObject* self
+  );
+  void bind() const;
+};
+
 // BufferObject represents 1 buffer.
 static const GLsizei BUFFER_COUNT = 1;
 
@@ -12,13 +29,13 @@ static GLuint newBufferObject() {
 }
 
 void BufferObject::loadData() const {
-  bind();
+  impl->bind();
 
   glBufferData(
-    m_target,
-    m_size,
-    m_data,
-    m_usage
+    impl->target,
+    impl->size,
+    impl->data,
+    impl->usage
   );
 }
 
@@ -28,17 +45,28 @@ BufferObject::BufferObject(
   const GLvoid* data,
   const GLenum  usage
 ) : OpenGLData(newBufferObject())
-  , m_target(target)
-  , m_size(size)
-  , m_data(data)
-  , m_usage(usage) {}
+  , impl(new Impl(target, size, data, usage, this)) {}
 
 BufferObject::~BufferObject() {
   glDeleteBuffers(BUFFER_COUNT, &getID());
 }
 
-void BufferObject::bind() const {
-  glBindBuffer(m_target, getID());
+// Implementation
+
+BufferObject::Impl::Impl(
+  const GLenum        target,
+  const GLsizei       size,
+  const GLvoid*       data,
+  const GLenum        usage,
+  const BufferObject* self
+) : target(target)
+  , size(size)
+  , data(data)
+  , usage(usage)
+  , self(self) {}
+
+void BufferObject::Impl::bind() const {
+  glBindBuffer(target, self->getID());
 }
 
 } // namespace onux

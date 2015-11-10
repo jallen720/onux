@@ -6,11 +6,9 @@
 
 namespace onux {
 
-class Vertex {
-public:
+struct Vertex {
   static const VertexLayout LAYOUT;
 
-public:
   const glm::vec3 POSITION;
   const glm::vec3 NORMAL;
   const glm::vec2 UV;

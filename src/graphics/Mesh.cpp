@@ -8,6 +8,26 @@ using glm::vec3;
 
 namespace onux {
 
+struct Mesh::Impl {
+  const Vertexes vertexes;
+  const Indexes  indexes;
+
+  Impl(const aiMesh* mesh);
+};
+
+Mesh::Mesh(const aiMesh* mesh)
+  : impl(new Impl(mesh)) {}
+
+const Mesh::Vertexes& Mesh::getVertexes() const {
+  return impl->vertexes;
+}
+
+const Mesh::Indexes& Mesh::getIndexes() const {
+  return impl->indexes;
+}
+
+// Implementation
+
 static const Vertex newVertex(
   const aiVector3D& position,
   const aiVector3D& normal,
@@ -61,16 +81,8 @@ static const Mesh::Indexes loadIndexes(const aiMesh* mesh) {
   return indexes;
 }
 
-Mesh::Mesh(const aiMesh* mesh)
-  : m_vertexes(loadVertexes(mesh))
-  , m_indexes(loadIndexes(mesh)) {}
-
-const Mesh::Vertexes& Mesh::getVertexes() const {
-  return m_vertexes;
-}
-
-const Mesh::Indexes& Mesh::getIndexes() const {
-  return m_indexes;
-}
+Mesh::Impl::Impl(const aiMesh* mesh)
+  : vertexes(loadVertexes(mesh))
+  , indexes(loadIndexes(mesh)) {}
 
 } // namespace onux

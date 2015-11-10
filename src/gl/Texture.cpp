@@ -4,6 +4,11 @@
 
 namespace onux {
 
+struct Texture::Impl {
+  void loadImage(const IImage* image) const;
+  void loadOptions(Options& options) const;
+};
+
 // Texture represents 1 texture.
 static const GLsizei TEXTURE_COUNT = 1;
 
@@ -14,29 +19,32 @@ static GLuint newTexture() {
 }
 
 Texture::Texture(const IImage* image, Options& options)
-  : OpenGLData(newTexture()) {
+  : OpenGLData(newTexture())
+  , impl(new Impl()) {
   bind(0);
-  loadImage(image);
-  loadOptions(options);
+  impl->loadImage(image);
+  impl->loadOptions(options);
 }
 
 Texture::~Texture() {
   glDeleteTextures(TEXTURE_COUNT, &getID());
 }
 
+static const GLenum TARGET = GL_TEXTURE_2D;
+
 void Texture::bind(const GLuint unit) const {
   glActiveTexture(GL_TEXTURE0 + unit);
   glBindTexture(TARGET, getID());
 }
-
-const GLenum Texture::TARGET = GL_TEXTURE_2D;
 
 Texture::Options Texture::DEFAULT_OPTIONS {
   { GL_TEXTURE_MIN_FILTER, GL_LINEAR },
   { GL_TEXTURE_MAG_FILTER, GL_LINEAR },
 };
 
-void Texture::loadImage(const IImage* image) const {
+// Implementation
+
+void Texture::Impl::loadImage(const IImage* image) const {
   static const GLint  LEVEL_OF_DETAIL = 0; // 0 is base image LOD
   static const GLint  INTERNAL_FORMAT = GL_RGBA;
   static const GLint  BORDER_WIDTH    = 0; // Must be 0 apparently?
@@ -56,7 +64,7 @@ void Texture::loadImage(const IImage* image) const {
   );
 }
 
-void Texture::loadOptions(Options& options) const {
+void Texture::Impl::loadOptions(Options& options) const {
   for (auto option : options) {
     glTexParameteri(
       TARGET,

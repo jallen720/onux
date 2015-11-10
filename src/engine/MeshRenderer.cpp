@@ -2,14 +2,25 @@
 
 #include "graphics/Mesh.hpp"
 #include "graphics/Vertex.hpp"
+#include "gl/VertexBuffer.hpp"
+#include "gl/IndexBuffer.hpp"
+#include "gl/VertexArray.hpp"
 
 namespace onux {
 
+struct MeshRenderer::Impl {
+  const Mesh&        mesh;
+  const VertexBuffer vertexBuffer;
+  const IndexBuffer  indexBuffer;
+  const VertexArray  vertexArray;
+
+  Impl(const Mesh& mesh);
+};
+
 MeshRenderer::MeshRenderer(const Mesh& mesh)
-  : m_mesh(mesh)
-  , m_vertexBuffer(Vertex::LAYOUT, m_mesh.getVertexes())
-  , m_indexBuffer(m_mesh.getIndexes())
-  , m_vertexArray(m_vertexBuffer, m_indexBuffer) {}
+  : impl(new Impl(mesh)) {}
+
+MeshRenderer::~MeshRenderer() {}
 
 static void drawElements(const GLsizei indexCount) {
   static const GLenum  MODE  = GL_TRIANGLES;
@@ -19,8 +30,16 @@ static void drawElements(const GLsizei indexCount) {
 }
 
 void MeshRenderer::render() const {
-  m_vertexArray.bind();
-  drawElements(m_mesh.getIndexes().getCount());
+  impl->vertexArray.bind();
+  drawElements(impl->mesh.getIndexes().getCount());
 }
+
+// Implementation
+
+MeshRenderer::Impl::Impl(const Mesh& mesh)
+  : mesh(mesh)
+  , vertexBuffer(Vertex::LAYOUT, this->mesh.getVertexes())
+  , indexBuffer(this->mesh.getIndexes())
+  , vertexArray(vertexBuffer, this->indexBuffer) {}
 
 } // namespace onux

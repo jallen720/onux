@@ -1,7 +1,7 @@
 #pragma once
 
+#include <memory>
 #include <vector>
-#include <string>
 
 #include "gl/OpenGLData.hpp"
 
@@ -19,12 +19,8 @@ public:
   const GLenum getType() const;
 
 private:
-  void loadSources(Sources sources) const;
-  void compile() const;
-  void validateCompileStatus() const;
-  const bool compilationSucceeded() const;
-  const GLint getInt(const GLenum parameter) const;
-  const std::string getInfoLog() const;
+  struct Impl;
+  std::shared_ptr<Impl> impl;
 };
 
 } // namespace onux

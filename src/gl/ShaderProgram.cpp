@@ -1,5 +1,6 @@
 #include "gl/ShaderProgram.hpp"
 
+#include <string>
 #include <stdexcept>
 #include <glm/gtc/type_ptr.hpp>
 
@@ -14,6 +15,20 @@ using glm::vec4;
 using glm::mat4;
 
 namespace onux {
+
+struct ShaderProgram::Impl {
+  const ShaderProgram* self;
+
+  Impl(const ShaderProgram* self);
+  void attach(Objects objects) const;
+  void link() const;
+  void detach(Objects objects) const;
+  void validateLinkStatus() const;
+  const bool linkingSucceeded() const;
+  const GLint getInt(const GLenum parameter) const;
+  const string getInfoLog() const;
+  const GLint getUniformLocation(const GLchar* name) const;
+};
 
 static const bool hasType(ShaderProgram::Objects objects, const GLenum type) {
   for (auto object : objects) {
@@ -41,12 +56,13 @@ static void validateRequiredTypes(ShaderProgram::Objects objects) {
 }
 
 ShaderProgram::ShaderProgram(Objects objects)
-  : OpenGLData(glCreateProgram()) {
+  : OpenGLData(glCreateProgram())
+  , impl(new Impl(this)) {
   validateRequiredTypes(objects);
-  attach(objects);
-  link();
-  detach(objects);
-  validateLinkStatus();
+  impl->attach(objects);
+  impl->link();
+  impl->detach(objects);
+  impl->validateLinkStatus();
 }
 
 ShaderProgram::~ShaderProgram() {
@@ -58,12 +74,12 @@ void ShaderProgram::use() const {
 }
 
 void ShaderProgram::setUniform(const GLchar* name, const GLint value) const {
-  glUniform1i(getUniformLocation(name), value);
+  glUniform1i(impl->getUniformLocation(name), value);
 }
 
 void ShaderProgram::setUniform(const GLchar* name, const vec3& value) const {
   glUniform3f(
-    getUniformLocation(name),
+    impl->getUniformLocation(name),
     value.x,
     value.y,
     value.z
@@ -72,7 +88,7 @@ void ShaderProgram::setUniform(const GLchar* name, const vec3& value) const {
 
 void ShaderProgram::setUniform(const GLchar* name, const vec4& value) const {
   glUniform4f(
-    getUniformLocation(name),
+    impl->getUniformLocation(name),
     value.x,
     value.y,
     value.z,
@@ -88,50 +104,55 @@ void ShaderProgram::setUniform(
   static const GLsizei MATRIX_COUNT = 1;
 
   glUniformMatrix4fv(
-    getUniformLocation(name),
+    impl->getUniformLocation(name),
     MATRIX_COUNT,
     transpose,
     value_ptr(value)
   );
 }
 
-void ShaderProgram::attach(Objects objects) const {
+// Implementation
+
+ShaderProgram::Impl::Impl(const ShaderProgram* self)
+  : self(self) {}
+
+void ShaderProgram::Impl::attach(Objects objects) const {
   for (auto object : objects) {
-    glAttachShader(getID(), object->getID());
+    glAttachShader(self->getID(), object->getID());
   }
 }
 
-void ShaderProgram::link() const {
-  glLinkProgram(getID());
+void ShaderProgram::Impl::link() const {
+  glLinkProgram(self->getID());
 }
 
-void ShaderProgram::detach(Objects objects) const {
+void ShaderProgram::Impl::detach(Objects objects) const {
   for (auto object : objects) {
-    glDetachShader(getID(), object->getID());
+    glDetachShader(self->getID(), object->getID());
   }
 }
 
-void ShaderProgram::validateLinkStatus() const {
+void ShaderProgram::Impl::validateLinkStatus() const {
   if (!linkingSucceeded()) {
     throw runtime_error("ShaderProgram linking failed:\n" + getInfoLog());
   }
 }
 
-const bool ShaderProgram::linkingSucceeded() const {
+const bool ShaderProgram::Impl::linkingSucceeded() const {
   return getInt(GL_LINK_STATUS) == GL_TRUE;
 }
 
-const GLint ShaderProgram::getInt(const GLenum parameter) const {
+const GLint ShaderProgram::Impl::getInt(const GLenum parameter) const {
   GLint value;
-  glGetProgramiv(getID(), parameter, &value);
+  glGetProgramiv(self->getID(), parameter, &value);
   return value;
 }
 
-const string ShaderProgram::getInfoLog() const {
+const string ShaderProgram::Impl::getInfoLog() const {
   vector<GLchar> infoLog(getInt(GL_INFO_LOG_LENGTH));
 
   glGetProgramInfoLog(
-    getID(),
+    self->getID(),
     infoLog.size(),
     nullptr,
     &infoLog[0]
@@ -151,8 +172,8 @@ static void validateLocation(const GLint location, const string& name) {
   }
 }
 
-const GLint ShaderProgram::getUniformLocation(const GLchar* name) const {
-  const GLint location = glGetUniformLocation(getID(), name);
+const GLint ShaderProgram::Impl::getUniformLocation(const GLchar* name) const {
+  const GLint location = glGetUniformLocation(self->getID(), name);
   validateLocation(location, name);
   return location;
 }
