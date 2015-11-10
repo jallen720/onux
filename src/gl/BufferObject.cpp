@@ -3,18 +3,20 @@
 namespace onux {
 
 struct BufferObject::Impl {
-  const GLenum        target;
-  const GLsizei       size;
-  const GLvoid*       data;
-  const GLenum        usage;
-  const BufferObject* self;
+  typedef const BufferObject* Self;
+
+  const GLenum  target;
+  const GLsizei size;
+  const GLvoid* data;
+  const GLenum  usage;
+  Self          self;
 
   Impl(
-    const GLenum        target,
-    const GLsizei       size,
-    const GLvoid*       data,
-    const GLenum        usage,
-    const BufferObject* self
+    const GLenum  target,
+    const GLsizei size,
+    const GLvoid* data,
+    const GLenum  usage,
+    Self          self
   );
   void bind() const;
 };
@@ -54,11 +56,11 @@ BufferObject::~BufferObject() {
 // Implementation
 
 BufferObject::Impl::Impl(
-  const GLenum        target,
-  const GLsizei       size,
-  const GLvoid*       data,
-  const GLenum        usage,
-  const BufferObject* self
+  const GLenum  target,
+  const GLsizei size,
+  const GLvoid* data,
+  const GLenum  usage,
+  Self          self
 ) : target(target)
   , size(size)
   , data(data)
