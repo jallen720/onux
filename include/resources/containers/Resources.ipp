@@ -23,7 +23,7 @@ T* Resources<T>::atPath(const std::string& path) const {
   try {
     return m_resources.at(path).get();
   } catch (...) {
-    throw std::runtime_error("No resource found for \"" + path + "\"!");
+    throw std::runtime_error("No resource found at \"" + path + "\"!");
   }
 }
 

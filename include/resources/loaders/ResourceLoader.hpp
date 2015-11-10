@@ -12,12 +12,12 @@ public:
   typedef std::unique_ptr<T> Resource;
 
 private:
-  typedef const std::function<void(const std::string&, Resource)>& loadCallback;
+  typedef const std::function<void(const std::string&, Resource)>& LoadCallback;
 
 public:
   virtual ~ResourceLoader() {}
   const std::string getPath(const std::string& relativePath) const;
-  void loadAll(loadCallback callback) const;
+  void loadAll(LoadCallback loadCallback) const;
 
 protected:
   virtual const std::string& getSubDirectory() const = 0;

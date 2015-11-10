@@ -8,9 +8,9 @@ const std::string ResourceLoader<T>::getPath(const std::string& relativePath) co
 }
 
 template<typename T>
-void ResourceLoader<T>::loadAll(loadCallback callback) const {
+void ResourceLoader<T>::loadAll(LoadCallback loadCallback) const {
   filesInDirectory(getDirectory(), [&](const std::string& path) {
-    callback(path, std::move(load(path)));
+    loadCallback(path, std::move(load(path)));
   });
 }
 
