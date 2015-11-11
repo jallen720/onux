@@ -12,20 +12,12 @@ struct Image::Impl {
   Magick::Blob  blob;
   Magick::Image image;
 
+  Impl(const string& path);
   void loadBlob(const string& path);
 };
 
-static void validatePath(const string& path) {
-  if (path.empty()) {
-    throw runtime_error("Path to image file is empty!");
-  }
-}
-
 Image::Image(const string& path)
-  : impl(new Impl()) {
-  validatePath(path);
-  impl->loadBlob(path);
-}
+  : impl(new Impl(path)) {}
 
 Image::~Image() {}
 
@@ -42,6 +34,17 @@ const GLvoid* Image::getData() const {
 }
 
 // Implementation
+
+static void validatePath(const string& path) {
+  if (path.empty()) {
+    throw runtime_error("Path to image file is empty!");
+  }
+}
+
+Image::Impl::Impl(const string& path) {
+  validatePath(path);
+  loadBlob(path);
+}
 
 void Image::Impl::loadBlob(const string& path) {
   static const string FORMAT = "RGBA";
