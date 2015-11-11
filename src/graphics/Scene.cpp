@@ -39,7 +39,7 @@ static const string assimpErrorMsg(const string& msg) {
 }
 
 static void validateScene(const aiScene* scene, const Importer& importer) {
-  if (!scene) {
+  if (scene == nullptr) {
     throw runtime_error(assimpErrorMsg(importer.GetErrorString()));
   }
 }
