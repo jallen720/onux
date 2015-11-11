@@ -42,15 +42,18 @@ static void validateSameType(ShaderObject::Sources sources, const GLenum type) {
   }
 }
 
-static const GLenum loadType(ShaderObject::Sources sources) {
-  validateSourceCount(sources.size());
-  const GLenum type = sources[0]->getType();
+static const GLenum loadType(ShaderObject::Sources sources, const GLenum type) {
   validateSameType(sources, type);
   return type;
 }
 
+static const GLuint loadShaderObject(ShaderObject::Sources sources) {
+  validateSourceCount(sources.size());
+  return glCreateShader(loadType(sources, sources[0]->getType()));
+}
+
 ShaderObject::ShaderObject(Sources sources)
-  : OpenGLData(glCreateShader(loadType(sources)))
+  : OpenGLData(loadShaderObject(sources))
   , impl(new Impl(this)) {
   impl->loadSources(sources);
   impl->compile();
