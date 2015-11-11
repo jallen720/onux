@@ -12,10 +12,10 @@ public:
 
 protected:
   BufferObject(
-    const GLenum  target,
-    const GLsizei size,
-    const GLvoid* data,
-    const GLenum  usage
+    const GLenum     target,
+    const GLsizeiptr size,
+    const GLvoid*    data,
+    const GLenum     usage
   );
   ~BufferObject();
 
