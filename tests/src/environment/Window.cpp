@@ -16,6 +16,18 @@ TEST_F(WindowTest, validCreation) {
   });
 }
 
+TEST_F(WindowTest, invalidName) {
+  EXPECT_THROW(
+    const Window window(1280, 720, nullptr),
+    runtime_error
+  );
+
+  EXPECT_THROW(
+    const Window window(1280, 720, ""),
+    runtime_error
+  );
+}
+
 TEST_F(WindowTest, invalidDimensions) {
   EXPECT_THROW(
     const Window window(1280, 0, "Test Window"),
