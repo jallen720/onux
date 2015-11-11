@@ -1,10 +1,12 @@
 #include "gl/Texture.hpp"
 
+#include <stdexcept>
 #include <GL/glew.h> // Required before other OpenGL headers
 
 #include "fixtures/TextureTest.hpp"
 #include "gl/helpers.hpp"
 
+using std::runtime_error;
 using onux::Texture;
 using onux::getInt;
 
@@ -14,15 +16,46 @@ TEST_F(TextureTest, validCreation) {
   });
 }
 
-TEST_F(TextureTest, invalidOptions) {
-  expectGLError(GL_INVALID_ENUM, [&] {
-    const GLint INVALID_OPTION = 0;
+TEST_F(TextureTest, invalidCreation) {
+  EXPECT_THROW(
+    const Texture texture(nullptr),
+    runtime_error
+  );
+}
 
+TEST_F(TextureTest, invalidOptionKey) {
+  const GLint INVALID_KEY = 0;
+
+  EXPECT_THROW(
     const Texture texture(&validImage, {
-      { GL_TEXTURE_MIN_FILTER, GL_LINEAR      },
-      { GL_TEXTURE_MAG_FILTER, INVALID_OPTION },
-    });
-  });
+      { INVALID_KEY, GL_LINEAR },
+    }),
+
+    runtime_error
+  );
+}
+
+TEST_F(TextureTest, invalidOptionValue) {
+  const GLint INVALID_VALUE = 0;
+
+  EXPECT_THROW(
+    const Texture texture(&validImage, {
+      { GL_TEXTURE_MAG_FILTER, INVALID_VALUE },
+    }),
+
+    runtime_error
+  );
+}
+
+TEST_F(TextureTest, invalidOptionValueForKey) {
+  // GL_LINEAR_MIPMAP_LINEAR is only valid for GL_TEXTURE_MIN_FILTER.
+  EXPECT_THROW(
+    const Texture texture(&validImage, {
+      { GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR },
+    }),
+
+    runtime_error
+  );
 }
 
 TEST_F(TextureTest, bind) {
