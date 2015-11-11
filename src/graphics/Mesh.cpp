@@ -28,7 +28,7 @@ const Mesh::Indexes& Mesh::getIndexes() const {
 
 // Implementation
 
-static const Vertex newVertex(
+static const Vertex createVertex(
   const aiVector3D& position,
   const aiVector3D& normal,
   const aiVector3D& uv
@@ -57,7 +57,7 @@ static const Mesh::Vertexes loadVertexes(const aiMesh* mesh) {
 
   for (auto i = 0u; i < mesh->mNumVertices; i++) {
     vertexes.add(
-      newVertex(
+      createVertex(
         mesh->mVertices[i],
         mesh->mNormals[i],
         getUV(mesh, i, 0)

@@ -8,7 +8,7 @@ namespace onux {
 // VertexArray represents 1 vertex array.
 static const GLsizei VERTEX_ARRAY_COUNT = 1;
 
-static GLuint newVertexArray() {
+static GLuint createVertexArray() {
   GLuint id;
   glGenVertexArrays(VERTEX_ARRAY_COUNT, &id);
   return id;
@@ -17,7 +17,7 @@ static GLuint newVertexArray() {
 VertexArray::VertexArray(
   const VertexBuffer& vertexBuffer,
   const IndexBuffer&  indexBuffer
-) : OpenGLData(newVertexArray()) {
+) : OpenGLData(createVertexArray()) {
   bind();
   vertexBuffer.loadData();
   indexBuffer.loadData();
