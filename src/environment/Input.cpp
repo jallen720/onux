@@ -13,23 +13,18 @@ using glm::dvec2;
 
 namespace onux {
 
+typedef const GLFWwindow* Window;
+
 struct Input::Impl {
-  const GLFWwindow* window;
-  MouseMoveEvent    mouseMoveEvent;
-  MouseDeltaEvent   mouseDeltaEvent;
+  Window          window;
+  MouseMoveEvent  mouseMoveEvent;
+  MouseDeltaEvent mouseDeltaEvent;
 
-  Impl(const GLFWwindow* window);
+  Impl(Window window);
 };
-
-static void validateWindow(const GLFWwindow* window) {
-  if (window == nullptr) {
-    throw runtime_error("Cannot create input for null window!");
-  }
-}
 
 Input::Input(GLFWwindow* window)
   : impl(new Impl(window)) {
-  validateWindow(window);
   registerInput(this, window);
 }
 
@@ -53,7 +48,18 @@ MouseDeltaEvent& Input::getMouseDeltaEvent() {
 
 // Implementation
 
-Input::Impl::Impl(const GLFWwindow* window)
-  : window(window) {}
+static void validateWindow(Window window) {
+  if (window == nullptr) {
+    throw runtime_error("Cannot create input for null window!");
+  }
+}
+
+static Window loadWindow(Window window) {
+  validateWindow(window);
+  return window;
+}
+
+Input::Impl::Impl(Window window)
+  : window(loadWindow(window)) {}
 
 } // namespace onux
