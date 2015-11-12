@@ -3,23 +3,28 @@
 #include <iostream>
 
 #include "environment/extensions.hpp"
-#include "gl/helpers.hpp"
+#include "exceptions/OpenGlError.hpp"
 
 using std::cerr;
 using onux::loadExtensions;
-using onux::getErrorMsg;
+using onux::OpenGlError;
 
-static void printUnhandledGLError(const GLenum error) {
-  cerr <<
-    "Unhandled OpenGL error generated:\n"
-    "  " << getErrorMsg(error) << "\n\n";
+static void validateNoOpenGlError(const GLenum error) {
+  // Validate no error was generated during test. This is required for all tests that use OpenGL
+  // functions.
+  if (error != GL_NO_ERROR) {
+    throw OpenGlError(error);
+  }
 }
 
-static void validateNoGLError(const GLenum error) {
-  // Validate no error was generated during test. This is required for all tests
-  // that use OpenGL functions.
-  if (error != GL_NO_ERROR) {
-    printUnhandledGLError(error);
+static void checkUnhandledOpenGlError() {
+  try {
+    validateNoOpenGlError(glGetError());
+  } catch(const OpenGlError& e) {
+    cerr <<
+      "Unhandled OpenGL error generated in test:\n"
+      "  " << e.what() << "\n\n";
+
     FAIL();
   }
 }
@@ -30,5 +35,5 @@ OnuxTest::OnuxTest() {
 }
 
 OnuxTest::~OnuxTest() {
-  validateNoGLError(glGetError());
+  checkUnhandledOpenGlError();
 }

@@ -1,6 +1,5 @@
 #include "engine/Engine.hpp"
 
-#include <stdexcept>
 #include <thread>
 #include <chrono>
 #include <GL/glew.h> // Required before other OpenGL headers
@@ -8,9 +7,8 @@
 
 #include "environment/Window.hpp"
 #include "engine/GraphicsEngine.hpp"
-#include "gl/helpers.hpp"
+#include "exceptions/OpenGlError.hpp"
 
-using std::runtime_error;
 using std::this_thread::sleep_for;
 using std::chrono::milliseconds;
 
@@ -25,18 +23,15 @@ struct Engine::Impl {
   void processFrame();
 };
 
-static void validateNoGLError(const GLenum error) {
+static void validateNoOpenGlError(const GLenum error) {
   if (error != GL_NO_ERROR) {
-    throw runtime_error(
-      "Unhandled OpenGL error generated:\n"
-      "  " + getErrorMsg(error) + "\n"
-    );
+    throw OpenGlError(error);
   }
 }
 
 Engine::Engine(const Window& window, GraphicsEngine& graphicsEngine)
   : impl(new Impl(window, graphicsEngine)) {
-  validateNoGLError(glGetError());
+  validateNoOpenGlError(glGetError());
 }
 
 Engine::~Engine() {}
@@ -75,7 +70,7 @@ void Engine::Impl::renderObjects() {
 void Engine::Impl::processFrame() {
   glfwPollEvents();
   renderObjects();
-  validateNoGLError(glGetError());
+  validateNoOpenGlError(glGetError());
 }
 
 } // namespace onux

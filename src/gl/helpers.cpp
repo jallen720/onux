@@ -7,8 +7,14 @@ using std::map;
 
 namespace onux {
 
-static const string& errorString(const GLenum error) {
-  static const map<const GLenum, const string> ERROR_STRINGS {
+const GLint getInt(const GLenum parameter) {
+  GLint value;
+  glGetIntegerv(parameter, &value);
+  return value;
+}
+
+const string getErrorMsg(const GLenum error) {
+  static const map<const GLenum, const string> ERROR_MESSAGES {
     { GL_NO_ERROR                      , "No error"                      },
     { GL_INVALID_ENUM                  , "Invalid enum"                  },
     { GL_INVALID_VALUE                 , "Invalid value"                 },
@@ -19,17 +25,7 @@ static const string& errorString(const GLenum error) {
     { GL_STACK_OVERFLOW                , "Stack overflow"                },
   };
 
-  return ERROR_STRINGS.at(error);
-}
-
-const GLint getInt(const GLenum parameter) {
-  GLint value;
-  glGetIntegerv(parameter, &value);
-  return value;
-}
-
-const string getErrorMsg(const GLenum error) {
-  return "OPENGL ERROR: " + errorString(error);
+  return ERROR_MESSAGES.at(error);
 }
 
 } // namespace onux
