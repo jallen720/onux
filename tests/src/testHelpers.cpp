@@ -55,7 +55,7 @@ void magickErrorFinder(const function<void()>& block) {
 
   try {
     block();
-    cerr << "No Magick++ error thrown" << "\n";
+    cerr << "No Magick++ error thrown\n";
   } catch (const ErrorUndefined& e) {
     cerr << "ErrorUndefined thrown: " << e.what() << "\n";
   } catch (const ErrorBlob& e) {
@@ -95,6 +95,6 @@ void magickErrorFinder(const function<void()>& block) {
   } catch (const ErrorXServer& e) {
     cerr << "ErrorXServer thrown: " << e.what() << "\n";
   } catch(...) {
-    cerr << "Unknown error thrown" << "\n";
+    cerr << "Unknown error thrown\n";
   }
 }
