@@ -1,9 +1,8 @@
 #include "environment/extensions.hpp"
 
-#include <stdexcept>
 #include <GL/glew.h>
 
-using std::runtime_error;
+#include "exceptions/GlewError.hpp"
 
 namespace onux {
 
@@ -13,7 +12,7 @@ static void setExperimental() {
 
 static void validateInit(const GLenum initResult) {
   if (initResult != GLEW_OK) {
-    throw runtime_error("GLEW failed to initialize!");
+    throw GlewError("Failed to initialize!");
   }
 }
 
