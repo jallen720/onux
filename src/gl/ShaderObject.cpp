@@ -4,6 +4,7 @@
 #include <stdexcept>
 
 #include "gl/interfaces/IShaderSource.hpp"
+#include "utils/existsIn.hpp"
 
 using std::vector;
 using std::string;
@@ -34,11 +35,15 @@ static void validateSourceCount(const size_t sourceCount) {
   }
 }
 
+static bool areSameType(ShaderObject::Sources sources, const GLenum type) {
+  return !existsIn(sources, [&](auto source) {
+    return source->getType() != type;
+  });
+}
+
 static void validateSameType(ShaderObject::Sources sources, const GLenum type) {
-  for (auto source : sources) {
-    if (source->getType() != type) {
-      throw runtime_error("All ShaderSource files for ShaderObject must have the same type!");
-    }
+  if (!areSameType(sources, type)) {
+    throw runtime_error("All ShaderSource files for ShaderObject must have the same type!");
   }
 }
 

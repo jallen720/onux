@@ -3,16 +3,13 @@
 #include <map>
 #include <vector>
 #include <stdexcept>
-#include <algorithm>
 
 #include "gl/interfaces/IImage.hpp"
+#include "utils/contains.hpp"
 
 using std::map;
 using std::vector;
 using std::runtime_error;
-using std::find;
-using std::begin;
-using std::end;
 
 namespace onux {
 
@@ -37,18 +34,14 @@ static void validateImage(const IImage* image) {
 }
 
 static bool isValidOptionKey(const GLenum optionKey) {
-  static const GLenum VALID_OPTION_KEYS[] {
+  static const vector<GLenum> VALID_OPTION_KEYS {
     GL_TEXTURE_MIN_FILTER,
     GL_TEXTURE_MAG_FILTER,
     GL_TEXTURE_WRAP_S,
     GL_TEXTURE_WRAP_T,
   };
 
-  return find(
-    begin(VALID_OPTION_KEYS),
-    end(VALID_OPTION_KEYS),
-    optionKey
-  ) != end(VALID_OPTION_KEYS);
+  return contains(VALID_OPTION_KEYS, optionKey);
 }
 
 static void validateOptionKey(const GLenum optionKey) {
@@ -65,29 +58,29 @@ static bool isValidOptionValue(const GLenum optionKey, const GLint optionValue) 
   };
 
   static const map<const GLenum, vector<GLint>> VALID_OPTION_VALUES {
-    { GL_TEXTURE_MIN_FILTER, {
-      GL_NEAREST,
-      GL_LINEAR,
-      GL_NEAREST_MIPMAP_NEAREST,
-      GL_LINEAR_MIPMAP_NEAREST,
-      GL_NEAREST_MIPMAP_LINEAR,
-      GL_LINEAR_MIPMAP_LINEAR,
-    }},
-    { GL_TEXTURE_MAG_FILTER, {
-      GL_NEAREST,
-      GL_LINEAR,
-    }},
+    {
+      GL_TEXTURE_MIN_FILTER,
+      {
+        GL_NEAREST,
+        GL_LINEAR,
+        GL_NEAREST_MIPMAP_NEAREST,
+        GL_LINEAR_MIPMAP_NEAREST,
+        GL_NEAREST_MIPMAP_LINEAR,
+        GL_LINEAR_MIPMAP_LINEAR,
+      }
+    },
+    {
+      GL_TEXTURE_MAG_FILTER,
+      {
+        GL_NEAREST,
+        GL_LINEAR,
+      }
+    },
     { GL_TEXTURE_WRAP_S, VALID_WRAP_VALUES },
     { GL_TEXTURE_WRAP_T, VALID_WRAP_VALUES },
   };
 
-  const auto& values = VALID_OPTION_VALUES.at(optionKey);
-
-  return find(
-    values.begin(),
-    values.end(),
-    optionValue
-  ) != values.end();
+  return contains(VALID_OPTION_VALUES.at(optionKey), optionValue);
 }
 
 static void validateOptionValue(const GLenum optionKey, const GLint optionValue) {

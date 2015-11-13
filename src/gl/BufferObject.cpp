@@ -1,12 +1,12 @@
 #include "gl/BufferObject.hpp"
 
 #include <stdexcept>
-#include <algorithm>
+#include <vector>
+
+#include "utils/contains.hpp"
 
 using std::runtime_error;
-using std::find;
-using std::begin;
-using std::end;
+using std::vector;
 
 namespace onux {
 
@@ -41,7 +41,7 @@ void BufferObject::loadData() const {
 }
 
 static bool isValidTarget(const GLenum target) {
-  static const GLenum VALID_TARGETS[] {
+  static const vector<GLenum> VALID_TARGETS {
     GL_ARRAY_BUFFER,
     GL_COPY_READ_BUFFER,
     GL_COPY_WRITE_BUFFER,
@@ -53,11 +53,7 @@ static bool isValidTarget(const GLenum target) {
     GL_UNIFORM_BUFFER,
   };
 
-  return find(
-    begin(VALID_TARGETS),
-    end(VALID_TARGETS),
-    target
-  ) != end(VALID_TARGETS);
+  return contains(VALID_TARGETS, target);
 }
 
 static void validateTarget(const GLenum target) {
@@ -73,7 +69,7 @@ static void validateSize(const GLsizeiptr size) {
 }
 
 static bool isValidUsage(const GLenum usage) {
-  static const GLenum VALID_USAGES[] {
+  static const vector<GLenum> VALID_USAGES {
     GL_STREAM_DRAW,
     GL_STREAM_READ,
     GL_STREAM_COPY,
@@ -85,11 +81,7 @@ static bool isValidUsage(const GLenum usage) {
     GL_DYNAMIC_COPY,
   };
 
-  return find(
-    begin(VALID_USAGES),
-    end(VALID_USAGES),
-    usage
-  ) != end(VALID_USAGES);
+  return contains(VALID_USAGES, usage);
 }
 
 static void validateUsage(const GLenum usage) {

@@ -5,6 +5,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "gl/ShaderObject.hpp"
+#include "utils/existsIn.hpp"
 
 using std::vector;
 using std::string;
@@ -31,13 +32,9 @@ struct ShaderProgram::Impl {
 };
 
 static const bool hasType(ShaderProgram::Objects objects, const GLenum type) {
-  for (auto object : objects) {
-    if (object->getType() == type) {
-      return true;
-    }
-  }
-
-  return false;
+  return existsIn(objects, [&](auto object) {
+    return object->getType() == type;
+  });
 }
 
 static const bool hasRequiredTypes(ShaderProgram::Objects objects) {
