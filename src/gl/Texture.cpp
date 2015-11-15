@@ -57,27 +57,25 @@ static bool isValidOptionValue(const GLenum optionKey, const GLint optionValue) 
     GL_REPEAT,
   };
 
+  static const vector<GLint> VALID_MIN_FILTER_VALUES {
+    GL_NEAREST,
+    GL_LINEAR,
+    GL_NEAREST_MIPMAP_NEAREST,
+    GL_LINEAR_MIPMAP_NEAREST,
+    GL_NEAREST_MIPMAP_LINEAR,
+    GL_LINEAR_MIPMAP_LINEAR,
+  };
+
+  static const vector<GLint> VALID_MAG_FILTER_VALUES {
+    GL_NEAREST,
+    GL_LINEAR,
+  };
+
   static const map<const GLenum, vector<GLint>> VALID_OPTION_VALUES {
-    {
-      GL_TEXTURE_MIN_FILTER,
-      {
-        GL_NEAREST,
-        GL_LINEAR,
-        GL_NEAREST_MIPMAP_NEAREST,
-        GL_LINEAR_MIPMAP_NEAREST,
-        GL_NEAREST_MIPMAP_LINEAR,
-        GL_LINEAR_MIPMAP_LINEAR,
-      }
-    },
-    {
-      GL_TEXTURE_MAG_FILTER,
-      {
-        GL_NEAREST,
-        GL_LINEAR,
-      }
-    },
-    { GL_TEXTURE_WRAP_S, VALID_WRAP_VALUES },
-    { GL_TEXTURE_WRAP_T, VALID_WRAP_VALUES },
+    { GL_TEXTURE_WRAP_S    , VALID_WRAP_VALUES       },
+    { GL_TEXTURE_WRAP_T    , VALID_WRAP_VALUES       },
+    { GL_TEXTURE_MIN_FILTER, VALID_MIN_FILTER_VALUES },
+    { GL_TEXTURE_MAG_FILTER, VALID_MAG_FILTER_VALUES },
   };
 
   return contains(VALID_OPTION_VALUES.at(optionKey), optionValue);
