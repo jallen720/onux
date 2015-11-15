@@ -5,7 +5,6 @@ APP_NAME = onux
 
 # Utility commands
 RM      = rm -fr
-CLEAR   = clear
 MKDIR_P = mkdir -p
 
 # Compiler options

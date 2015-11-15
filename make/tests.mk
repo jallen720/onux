@@ -18,10 +18,6 @@ TESTS = $(BIN_DIR)tests
 # Build tests
 tests: $(TESTS_BUILD_DIRS) $(APP_BUILD_DIRS) $(TESTS)
 
-# Build and run tests
-run-tests: tests
-	@$(CLEAR) && $(TESTS)
-
 $(TESTS_BUILD_DIRS):
 	@$(MKDIR_P) $@
 

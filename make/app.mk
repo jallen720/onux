@@ -14,10 +14,6 @@ APP = $(BIN_DIR)$(APP_NAME)
 # Build app
 $(APP_NAME): $(APP_BUILD_DIRS) $(APP)
 
-# Build and run app
-run-$(APP_NAME): $(APP_NAME)
-	@$(CLEAR) && $(APP)
-
 $(APP_BUILD_DIRS):
 	@$(MKDIR_P) $@
 
