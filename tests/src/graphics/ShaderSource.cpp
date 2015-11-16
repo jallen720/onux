@@ -5,11 +5,15 @@
 #include "fixtures/ShaderSourceTest.hpp"
 #include "testHelpers.hpp"
 #include "utils/helpers.hpp"
+#include "exceptions/InvalidArgProperty.hpp"
+#include "exceptions/InvalidArg.hpp"
 
 using std::runtime_error;
 using std::string;
 using onux::ShaderSource;
 using onux::readFile;
+using onux::InvalidArgProperty;
+using onux::InvalidArg;
 
 TEST_F(ShaderSourceTest, validCreation) {
   expectNoThrow([] {
@@ -17,21 +21,22 @@ TEST_F(ShaderSourceTest, validCreation) {
   });
 }
 
-TEST_F(ShaderSourceTest, invalidFileExtensions) {
+TEST_F(ShaderSourceTest, invalidFileExtension) {
   EXPECT_THROW(
     const ShaderSource shaderSource("invalid.ext"),
-    runtime_error
+    InvalidArgProperty
   );
+}
 
+TEST_F(ShaderSourceTest, emptyPath) {
   EXPECT_THROW(
     const ShaderSource shaderSource(""),
-    runtime_error
+    InvalidArg
   );
 }
 
 static GLenum shaderSourceType(const string& type) {
-  const ShaderSource shaderSource(testShaderPath("valid." + type));
-  return shaderSource.getType();
+  return ShaderSource(testShaderPath("valid." + type)).getType();
 }
 
 TEST_F(ShaderSourceTest, correctTypes) {
@@ -41,9 +46,9 @@ TEST_F(ShaderSourceTest, correctTypes) {
 }
 
 TEST_F(ShaderSourceTest, correctSources) {
-  const string shader = testShaderPath("valid.vert");
-  const ShaderSource shaderSource(shader);
-  EXPECT_EQ(readFile(shader), shaderSource.getCode());
+  const string shaderPath = testShaderPath("valid.vert");
+  const ShaderSource shaderSource(shaderPath);
+  EXPECT_EQ(readFile(shaderPath), shaderSource.getCode());
 }
 
 

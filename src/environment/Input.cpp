@@ -1,14 +1,13 @@
 #include "environment/Input.hpp"
 
-#include <stdexcept>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
 #include "environment/inputRegistry.hpp"
 #include "environment/events/MouseMoveEvent.hpp"
 #include "environment/events/MouseDeltaEvent.hpp"
+#include "exceptions/NullArg.hpp"
 
-using std::runtime_error;
 using glm::dvec2;
 
 namespace onux {
@@ -50,7 +49,7 @@ MouseDeltaEvent& Input::getMouseDeltaEvent() {
 
 static void validateWindow(Window window) {
   if (window == nullptr) {
-    throw runtime_error("Cannot create input for null window!");
+    throw NullArg("window", "Input");
   }
 }
 

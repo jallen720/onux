@@ -5,6 +5,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "gl/ShaderObject.hpp"
+#include "exceptions/ArgFailedRequirement.hpp"
 #include "utils/existsIn.hpp"
 
 using std::vector;
@@ -46,8 +47,10 @@ static const bool hasRequiredTypes(ShaderProgram::Objects objects) {
 
 static void validateRequiredTypes(ShaderProgram::Objects objects) {
   if (!hasRequiredTypes(objects)) {
-    throw runtime_error(
-      "A ShaderProgram requires atleast a vertex shader object and a fragment shader object."
+    throw ArgFailedRequirement(
+      "objects",
+      "ShaderProgram",
+      "Must contain atleast 1 vertex & 1 fragment object."
     );
   }
 }

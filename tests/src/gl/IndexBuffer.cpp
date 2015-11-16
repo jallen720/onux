@@ -1,10 +1,9 @@
 #include "gl/IndexBuffer.hpp"
 
-#include <stdexcept>
-
+#include "exceptions/InvalidArg.hpp"
 #include "fixtures/IndexBufferTest.hpp"
 
-using std::runtime_error;
+using onux::InvalidArg;
 using onux::IndexBuffer;
 
 TEST_F(IndexBufferTest, invalidUsage) {
@@ -12,6 +11,6 @@ TEST_F(IndexBufferTest, invalidUsage) {
 
   EXPECT_THROW(
     const IndexBuffer indexBuffer(validData, INVALID_USAGE),
-    runtime_error
+    InvalidArg
   );
 }

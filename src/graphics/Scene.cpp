@@ -1,14 +1,15 @@
 #include "graphics/Scene.hpp"
 
 #include <sstream>
-#include <stdexcept>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include <assimp/Importer.hpp>
 
+#include "exceptions/AssimpError.hpp"
+#include "exceptions/InvalidArg.hpp"
+
 using std::string;
 using std::stringstream;
-using std::runtime_error;
 using Assimp::Importer;
 
 namespace onux {
@@ -32,15 +33,20 @@ const Scene::Meshes& Scene::getMeshes() const {
 
 // Implementation
 
-static const string assimpErrorMsg(const string& msg) {
-  stringstream stream;
-  stream << "ASSIMP ERROR: " << msg << "\n";
-  return stream.str();
+static void validatePath(const string& path) {
+  if (path.empty()) {
+    throw InvalidArg(
+      "path",
+      "Scene",
+      "\"\"",
+      "non-empty"
+    );
+  }
 }
 
 static void validateScene(const aiScene* scene, const Importer& importer) {
   if (scene == nullptr) {
-    throw runtime_error(assimpErrorMsg(importer.GetErrorString()));
+    throw AssimpError(importer.GetErrorString());
   }
 }
 
@@ -52,6 +58,7 @@ static const aiScene* loadScene(const string& path, Importer& importer) {
     aiProcess_JoinIdenticalVertices |
     aiProcess_SortByPType;
 
+  validatePath(path);
   const aiScene* scene = importer.ReadFile(path, IMPORT_FLAGS);
   validateScene(scene, importer);
   return scene;

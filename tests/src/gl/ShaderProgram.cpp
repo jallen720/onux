@@ -5,6 +5,7 @@
 
 #include "fixtures/ShaderProgramTest.hpp"
 #include "gl/helpers.hpp"
+#include "exceptions/ArgFailedRequirement.hpp"
 
 using std::runtime_error;
 using glm::vec3;
@@ -14,6 +15,7 @@ using onux::ShaderProgram;
 using onux::ShaderObject;
 using onux::ShaderSource;
 using onux::getInt;
+using onux::ArgFailedRequirement;
 
 TEST_F(ShaderProgramTest, validCreation) {
   expectNoThrow([&] {
@@ -32,7 +34,7 @@ TEST_F(ShaderProgramTest, notAllRequiredTypes) {
       &validObjects[0],
     }),
 
-    runtime_error
+    ArgFailedRequirement
   );
 }
 

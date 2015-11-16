@@ -5,10 +5,12 @@
 #include "fixtures/ShaderObjectTest.hpp"
 #include "testHelpers.hpp"
 #include "graphics/ShaderSource.hpp"
+#include "exceptions/ArgFailedRequirement.hpp"
 
 using std::runtime_error;
 using onux::ShaderSource;
 using onux::ShaderObject;
+using onux::ArgFailedRequirement;
 
 TEST_F(ShaderObjectTest, validCreation) {
   const ShaderSource validSource(testShaderPath("valid.vert"));
@@ -20,10 +22,10 @@ TEST_F(ShaderObjectTest, validCreation) {
   });
 }
 
-TEST_F(ShaderObjectTest, invalidSourceCount) {
+TEST_F(ShaderObjectTest, noSources) {
   EXPECT_THROW(
     const ShaderObject shaderObject({}),
-    runtime_error
+    ArgFailedRequirement
   );
 }
 
@@ -39,7 +41,7 @@ TEST_F(ShaderObjectTest, differentSourceTypes) {
       &invalidSources[1],
     }),
 
-    runtime_error
+    ArgFailedRequirement
   );
 }
 

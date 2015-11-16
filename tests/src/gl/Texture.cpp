@@ -5,10 +5,16 @@
 
 #include "fixtures/TextureTest.hpp"
 #include "gl/helpers.hpp"
+#include "exceptions/NullArg.hpp"
+#include "exceptions/InvalidMapKey.hpp"
+#include "exceptions/InvalidMapValue.hpp"
 
 using std::runtime_error;
 using onux::Texture;
 using onux::getInt;
+using onux::NullArg;
+using onux::InvalidMapKey;
+using onux::InvalidMapValue;
 
 TEST_F(TextureTest, validCreation) {
   expectNoThrow([&] {
@@ -16,10 +22,10 @@ TEST_F(TextureTest, validCreation) {
   });
 }
 
-TEST_F(TextureTest, invalidCreation) {
+TEST_F(TextureTest, invalidImage) {
   EXPECT_THROW(
     const Texture texture(nullptr),
-    runtime_error
+    NullArg
   );
 }
 
@@ -31,7 +37,7 @@ TEST_F(TextureTest, invalidOptionKey) {
       { INVALID_KEY, GL_LINEAR },
     }),
 
-    runtime_error
+    InvalidMapKey
   );
 }
 
@@ -43,7 +49,7 @@ TEST_F(TextureTest, invalidOptionValue) {
       { GL_TEXTURE_MAG_FILTER, INVALID_VALUE },
     }),
 
-    runtime_error
+    InvalidMapValue
   );
 }
 
@@ -54,7 +60,7 @@ TEST_F(TextureTest, invalidOptionValueForKey) {
       { GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR },
     }),
 
-    runtime_error
+    InvalidMapValue
   );
 }
 

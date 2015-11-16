@@ -1,13 +1,19 @@
 #include "gl/Texture.hpp"
 
 #include <map>
+#include <string>
 #include <vector>
 #include <stdexcept>
 
 #include "gl/interfaces/IImage.hpp"
 #include "utils/contains.hpp"
+#include "exceptions/NullArg.hpp"
+#include "exceptions/InvalidMapKey.hpp"
+#include "exceptions/InvalidMapValue.hpp"
+#include "utils/map.hpp"
+#include "gl/utils/getEnumName.hpp"
 
-using std::map;
+using std::string;
 using std::vector;
 using std::runtime_error;
 
@@ -29,61 +35,64 @@ static GLuint createTexture() {
 
 static void validateImage(const IImage* image) {
   if (image == nullptr) {
-    throw runtime_error("'image' parameter passed to Texture is null!");
+    throw NullArg("image", "Texture");
   }
 }
 
-static bool isValidOptionKey(const GLenum optionKey) {
-  static const vector<GLenum> VALID_OPTION_KEYS {
-    GL_TEXTURE_MIN_FILTER,
-    GL_TEXTURE_MAG_FILTER,
-    GL_TEXTURE_WRAP_S,
-    GL_TEXTURE_WRAP_T,
-  };
-
-  return contains(VALID_OPTION_KEYS, optionKey);
-}
+static const vector<GLenum> VALID_OPTION_KEYS {
+  GL_TEXTURE_MIN_FILTER,
+  GL_TEXTURE_MAG_FILTER,
+  GL_TEXTURE_WRAP_S,
+  GL_TEXTURE_WRAP_T,
+};
 
 static void validateOptionKey(const GLenum optionKey) {
-  if (!isValidOptionKey(optionKey)) {
-    throw runtime_error("Invalid option key passed to Texture!");
+  if (!contains(VALID_OPTION_KEYS, optionKey)) {
+    throw InvalidMapKey(
+      "options",
+      "Texture",
+      getEnumName(optionKey),
+      map<string>(VALID_OPTION_KEYS, getEnumName)
+    );
   }
 }
 
-static bool isValidOptionValue(const GLenum optionKey, const GLint optionValue) {
-  static const vector<GLint> VALID_WRAP_VALUES {
-    GL_CLAMP_TO_EDGE,
-    GL_MIRRORED_REPEAT,
-    GL_REPEAT,
-  };
+static const vector<GLint> VALID_WRAP_VALUES {
+  GL_CLAMP_TO_EDGE,
+  GL_MIRRORED_REPEAT,
+  GL_REPEAT,
+};
 
-  static const vector<GLint> VALID_MIN_FILTER_VALUES {
-    GL_NEAREST,
-    GL_LINEAR,
-    GL_NEAREST_MIPMAP_NEAREST,
-    GL_LINEAR_MIPMAP_NEAREST,
-    GL_NEAREST_MIPMAP_LINEAR,
-    GL_LINEAR_MIPMAP_LINEAR,
-  };
+static const vector<GLint> VALID_MIN_FILTER_VALUES {
+  GL_NEAREST,
+  GL_LINEAR,
+  GL_NEAREST_MIPMAP_NEAREST,
+  GL_LINEAR_MIPMAP_NEAREST,
+  GL_NEAREST_MIPMAP_LINEAR,
+  GL_LINEAR_MIPMAP_LINEAR,
+};
 
-  static const vector<GLint> VALID_MAG_FILTER_VALUES {
-    GL_NEAREST,
-    GL_LINEAR,
-  };
+static const vector<GLint> VALID_MAG_FILTER_VALUES {
+  GL_NEAREST,
+  GL_LINEAR,
+};
 
-  static const map<const GLenum, vector<GLint>> VALID_OPTION_VALUES {
-    { GL_TEXTURE_WRAP_S    , VALID_WRAP_VALUES       },
-    { GL_TEXTURE_WRAP_T    , VALID_WRAP_VALUES       },
-    { GL_TEXTURE_MIN_FILTER, VALID_MIN_FILTER_VALUES },
-    { GL_TEXTURE_MAG_FILTER, VALID_MAG_FILTER_VALUES },
-  };
-
-  return contains(VALID_OPTION_VALUES.at(optionKey), optionValue);
-}
+static const std::map<const GLenum, vector<GLint>> VALID_OPTION_VALUES {
+  { GL_TEXTURE_WRAP_S    , VALID_WRAP_VALUES       },
+  { GL_TEXTURE_WRAP_T    , VALID_WRAP_VALUES       },
+  { GL_TEXTURE_MIN_FILTER, VALID_MIN_FILTER_VALUES },
+  { GL_TEXTURE_MAG_FILTER, VALID_MAG_FILTER_VALUES },
+};
 
 static void validateOptionValue(const GLenum optionKey, const GLint optionValue) {
-  if (!isValidOptionValue(optionKey, optionValue)) {
-    throw runtime_error("Invalid option value passed to Texture!");
+  if (!contains(VALID_OPTION_VALUES.at(optionKey), optionValue)) {
+    throw InvalidMapValue(
+      "options",
+      "Texture",
+      getEnumName(optionKey),
+      getEnumName(optionValue),
+      map<string>(VALID_OPTION_VALUES.at(optionKey), getEnumName)
+    );
   }
 }
 

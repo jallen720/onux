@@ -1,6 +1,5 @@
 #include "environment/Input.hpp"
 
-#include <stdexcept>
 #include <gtest/gtest.h>
 #include <glm/glm.hpp>
 
@@ -8,11 +7,12 @@
 #include "testHelpers.hpp"
 #include "environment/interfaces/IMouseMoveListener.hpp"
 #include "environment/events/MouseMoveEvent.hpp"
+#include "exceptions/NullArg.hpp"
 
-using std::runtime_error;
 using glm::dvec2;
 using onux::Input;
 using onux::IMouseMoveListener;
+using onux::NullArg;
 
 TEST(InputTest, validCreation) {
   expectNoThrow([&] {
@@ -20,10 +20,10 @@ TEST(InputTest, validCreation) {
   });
 }
 
-TEST(InputTest, invalidCreation) {
+TEST(InputTest, invalidWindow) {
   EXPECT_THROW(
     const Input input(nullptr),
-    runtime_error
+    NullArg
   );
 }
 

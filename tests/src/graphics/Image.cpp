@@ -5,11 +5,13 @@
 
 #include "fixtures/ImageTest.hpp"
 #include "testHelpers.hpp"
+#include "exceptions/InvalidArg.hpp"
 
 using std::runtime_error;
 using Magick::ErrorMissingDelegate;
 using Magick::ErrorBlob;
 using onux::Image;
+using onux::InvalidArg;
 
 TEST_F(ImageTest, validCreation) {
   expectNoThrow([] {
@@ -20,7 +22,7 @@ TEST_F(ImageTest, validCreation) {
 TEST_F(ImageTest, emptyPath) {
   EXPECT_THROW(
     const Image image(""),
-    runtime_error
+    InvalidArg
   );
 }
 

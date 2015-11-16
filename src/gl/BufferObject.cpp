@@ -1,12 +1,16 @@
 #include "gl/BufferObject.hpp"
 
-#include <stdexcept>
 #include <vector>
+#include <string>
 
+#include "exceptions/InvalidArg.hpp"
 #include "utils/contains.hpp"
+#include "utils/map.hpp"
+#include "gl/utils/getEnumName.hpp"
 
-using std::runtime_error;
 using std::vector;
+using std::string;
+using std::to_string;
 
 namespace onux {
 
@@ -40,53 +44,60 @@ void BufferObject::loadData() const {
   );
 }
 
-static bool isValidTarget(const GLenum target) {
-  static const vector<GLenum> VALID_TARGETS {
-    GL_ARRAY_BUFFER,
-    GL_COPY_READ_BUFFER,
-    GL_COPY_WRITE_BUFFER,
-    GL_ELEMENT_ARRAY_BUFFER,
-    GL_PIXEL_PACK_BUFFER,
-    GL_PIXEL_UNPACK_BUFFER,
-    GL_TEXTURE_BUFFER,
-    GL_TRANSFORM_FEEDBACK_BUFFER,
-    GL_UNIFORM_BUFFER,
-  };
-
-  return contains(VALID_TARGETS, target);
-}
+static const vector<GLenum> VALID_TARGETS {
+  GL_ARRAY_BUFFER,
+  GL_COPY_READ_BUFFER,
+  GL_COPY_WRITE_BUFFER,
+  GL_ELEMENT_ARRAY_BUFFER,
+  GL_PIXEL_PACK_BUFFER,
+  GL_PIXEL_UNPACK_BUFFER,
+  GL_TEXTURE_BUFFER,
+  GL_TRANSFORM_FEEDBACK_BUFFER,
+  GL_UNIFORM_BUFFER,
+};
 
 static void validateTarget(const GLenum target) {
-  if (!isValidTarget(target)) {
-    throw runtime_error("Invalid target parameter passed to BufferObject!");
+  if (!contains(VALID_TARGETS, target)) {
+    throw InvalidArg(
+      "target",
+      "BufferObject",
+      getEnumName(target),
+      map<string>(VALID_TARGETS, getEnumName)
+    );
   }
 }
 
 static void validateSize(const GLsizeiptr size) {
   if (size < 0) {
-    throw runtime_error("Size parameter passed to BufferObject cannot be negative!");
+    throw InvalidArg(
+      "size",
+      "BufferObject",
+      to_string(size),
+      ">= 0"
+    );
   }
 }
 
-static bool isValidUsage(const GLenum usage) {
-  static const vector<GLenum> VALID_USAGES {
-    GL_STREAM_DRAW,
-    GL_STREAM_READ,
-    GL_STREAM_COPY,
-    GL_STATIC_DRAW,
-    GL_STATIC_READ,
-    GL_STATIC_COPY,
-    GL_DYNAMIC_DRAW,
-    GL_DYNAMIC_READ,
-    GL_DYNAMIC_COPY,
-  };
-
-  return contains(VALID_USAGES, usage);
-}
+static const vector<GLenum> VALID_USAGES {
+  GL_STREAM_DRAW,
+  GL_STREAM_READ,
+  GL_STREAM_COPY,
+  GL_STATIC_DRAW,
+  GL_STATIC_READ,
+  GL_STATIC_COPY,
+  GL_DYNAMIC_DRAW,
+  GL_DYNAMIC_READ,
+  GL_DYNAMIC_COPY,
+};
 
 static void validateUsage(const GLenum usage) {
-  if (!isValidUsage(usage)) {
-    throw runtime_error("Invalid usage parameter passed to BufferObject!");
+  if (!contains(VALID_USAGES, usage)) {
+    throw InvalidArg(
+      "usage",
+      "BufferObject",
+      getEnumName(usage),
+      map<string>(VALID_USAGES, getEnumName)
+    );
   }
 }
 

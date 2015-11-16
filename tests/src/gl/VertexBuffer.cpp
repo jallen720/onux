@@ -1,10 +1,9 @@
 #include "gl/VertexBuffer.hpp"
 
-#include <stdexcept>
-
+#include "exceptions/InvalidArg.hpp"
 #include "fixtures/VertexBufferTest.hpp"
 
-using std::runtime_error;
+using onux::InvalidArg;
 using onux::VertexBuffer;
 using onux::Vertex;
 
@@ -18,6 +17,6 @@ TEST_F(VertexBufferTest, invalidUsage) {
       INVALID_USAGE
     ),
 
-    runtime_error
+    InvalidArg
   );
 }

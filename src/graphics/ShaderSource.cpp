@@ -1,11 +1,11 @@
 #include "graphics/ShaderSource.hpp"
 
-#include <stdexcept>
-
 #include "utils/helpers.hpp"
+#include "exceptions/InvalidArgProperty.hpp"
+#include "exceptions/InvalidArg.hpp"
+#include "utils/keys.hpp"
 
 using std::string;
-using std::runtime_error;
 
 namespace onux {
 
@@ -25,8 +25,24 @@ ShaderSource::Types ShaderSource::TYPES {
   { "comp", GL_COMPUTE_SHADER         },
 };
 
+static void validatePath(const string& path) {
+  if (path.empty()) {
+    throw InvalidArg(
+      "path",
+      "ShaderSource",
+      "\"\"",
+      "non-empty"
+    );
+  }
+}
+
+static const string& loadPath(const string& path) {
+  validatePath(path);
+  return path;
+}
+
 ShaderSource::ShaderSource(const string& path)
-  : impl(new Impl(path)) {}
+  : impl(new Impl(loadPath(path))) {}
 
 const GLenum ShaderSource::getType() const {
   return impl->type;
@@ -44,20 +60,23 @@ static const bool isValidExtension(const string& extension) {
 
 static void validateExtension(const string& extension) {
   if (!isValidExtension(extension)) {
-    throw runtime_error(
-      "\"" + extension + "\" is not a valid ShaderSource file extension!"
+    throw InvalidArgProperty(
+      "path",
+      "ShaderSource",
+      "extension",
+      extension,
+      keys(ShaderSource::TYPES)
     );
   }
 }
 
-static const string loadExtension(const string& path) {
-  const string extension = fileExtension(path);
+static const string& loadExtension(const string& extension) {
   validateExtension(extension);
   return extension;
 }
 
 ShaderSource::Impl::Impl(const string& path)
-  : type(TYPES.at(loadExtension(path)))
+  : type(TYPES.at(loadExtension(fileExtension(path))))
   , code(readFile(path)) {}
 
 } // namespace onux

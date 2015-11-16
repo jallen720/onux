@@ -1,13 +1,22 @@
 #include "graphics/Mesh.hpp"
 
 #include "fixtures/MeshTest.hpp"
+#include "exceptions/NullArg.hpp"
 
 using onux::Mesh;
+using onux::NullArg;
 
 TEST_F(MeshTest, validCreation) {
   expectNoThrow([&] {
     const Mesh mesh(cubeMesh);
   });
+}
+
+TEST_F(MeshTest, invalidMesh) {
+  EXPECT_THROW(
+    const Mesh mesh(nullptr),
+    NullArg
+  );
 }
 
 TEST_F(MeshTest, validData) {

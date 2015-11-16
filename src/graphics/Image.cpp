@@ -1,10 +1,10 @@
 #include "graphics/Image.hpp"
 
-#include <stdexcept>
 #include <Magick++.h>
 
+#include "exceptions/InvalidArg.hpp"
+
 using std::string;
-using std::runtime_error;
 
 namespace onux {
 
@@ -37,7 +37,12 @@ const GLvoid* Image::getData() const {
 
 static void validatePath(const string& path) {
   if (path.empty()) {
-    throw runtime_error("Path to image file is empty!");
+    throw InvalidArg(
+      "path",
+      "Image",
+      "\"\"",
+      "non-empty"
+    );
   }
 }
 

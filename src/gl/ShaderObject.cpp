@@ -5,6 +5,7 @@
 
 #include "gl/interfaces/IShaderSource.hpp"
 #include "utils/existsIn.hpp"
+#include "exceptions/ArgFailedRequirement.hpp"
 
 using std::vector;
 using std::string;
@@ -31,7 +32,11 @@ static const bool isValidSourceCount(const size_t sourceCount) {
 
 static void validateSourceCount(const size_t sourceCount) {
   if (!isValidSourceCount(sourceCount)) {
-    throw runtime_error("ShaderObject requires atleast 1 ShaderSource!");
+    throw ArgFailedRequirement(
+      "sources",
+      "ShaderObject",
+      "Must have atleast 1 source"
+    );
   }
 }
 
@@ -43,7 +48,11 @@ static bool areSameType(ShaderObject::Sources sources, const GLenum type) {
 
 static void validateSameType(ShaderObject::Sources sources, const GLenum type) {
   if (!areSameType(sources, type)) {
-    throw runtime_error("All ShaderSource files for ShaderObject must have the same type!");
+    throw ArgFailedRequirement(
+      "sources",
+      "ShaderObject",
+      "All sources must be the same type"
+    );
   }
 }
 

@@ -1,14 +1,14 @@
 #include <GL/glew.h> // Required before other OpenGL headers
 
 #include "environment/Window.hpp"
-
-#include <stdexcept>
-
+#include "exceptions/InvalidArg.hpp"
+#include "exceptions/NullArg.hpp"
 #include "fixtures/WindowTest.hpp"
 #include "testHelpers.hpp"
 
-using std::runtime_error;
 using onux::Window;
+using onux::InvalidArg;
+using onux::NullArg;
 
 TEST_F(WindowTest, validCreation) {
   expectNoThrow([] {
@@ -19,29 +19,29 @@ TEST_F(WindowTest, validCreation) {
 TEST_F(WindowTest, invalidName) {
   EXPECT_THROW(
     const Window window(1280, 720, nullptr),
-    runtime_error
+    NullArg
   );
 
   EXPECT_THROW(
     const Window window(1280, 720, ""),
-    runtime_error
+    InvalidArg
   );
 }
 
 TEST_F(WindowTest, invalidDimensions) {
   EXPECT_THROW(
     const Window window(1280, 0, "Test Window"),
-    runtime_error
+    InvalidArg
   );
 
   EXPECT_THROW(
     const Window window(0, 720, "Test Window"),
-    runtime_error
+    InvalidArg
   );
 
   EXPECT_THROW(
     const Window window(0, 0, "Test Window"),
-    runtime_error
+    InvalidArg
   );
 }
 

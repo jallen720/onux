@@ -2,13 +2,14 @@
 
 #include <cstring>
 #include <string>
-#include <stdexcept>
 #include <GLFW/glfw3.h>
 
 #include "environment/Input.hpp"
+#include "exceptions/InvalidArg.hpp"
+#include "exceptions/NullArg.hpp"
 
 using std::string;
-using std::runtime_error;
+using std::to_string;
 
 namespace onux {
 
@@ -62,20 +63,31 @@ static bool isValidDimension(const unsigned int dimension) {
   return dimension >= MIN_DIMENSION_SIZE;
 }
 
-static void validateDimesion(const unsigned int dimension, const string name) {
+static void validateDimesion(const unsigned int dimension, const string dimensionName) {
   if (!isValidDimension(dimension)) {
-    throw runtime_error("Window " + name + " must be greater than 0!");
+    throw InvalidArg(
+      dimensionName,
+      "Window",
+      to_string(dimension),
+      "> 0"
+    );
   }
 }
 
-static bool isValidName(const char* name) {
-  return name != nullptr &&
-         strcmp(name, "") != 0;
+static bool isEmpty(const char* name) {
+  return strcmp(name, "") == 0;
 }
 
 static void validateName(const char* name) {
-  if (!isValidName(name)) {
-    throw runtime_error("Invalid name parameter passed to Window!");
+  if (name == nullptr) {
+    throw NullArg("name", "Window");
+  } else if (isEmpty(name)) {
+    throw InvalidArg(
+      "name",
+      "Window",
+      "\"\"",
+      "non-empty"
+    );
   }
 }
 

@@ -4,9 +4,13 @@
 
 #include "fixtures/SceneTest.hpp"
 #include "testHelpers.hpp"
+#include "exceptions/AssimpError.hpp"
+#include "exceptions/InvalidArg.hpp"
 
 using std::runtime_error;
 using onux::Scene;
+using onux::AssimpError;
+using onux::InvalidArg;
 
 TEST_F(SceneTest, validCreation) {
   expectNoThrow([] {
@@ -21,9 +25,16 @@ TEST_F(SceneTest, validData) {
   ASSERT_EQ(1, scene.getMeshes().size());
 }
 
-TEST_F(SceneTest, invalidPath) {
+TEST_F(SceneTest, emptyPath) {
   EXPECT_THROW(
     const Scene scene(""),
-    runtime_error
+    InvalidArg
+  );
+}
+
+TEST_F(SceneTest, invalidPath) {
+  EXPECT_THROW(
+    const Scene scene("invalid/path"),
+    AssimpError
   );
 }
