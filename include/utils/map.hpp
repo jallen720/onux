@@ -5,8 +5,11 @@
 
 namespace onux {
 
-template<typename R, typename T, typename Function>
-const std::vector<R> map(const std::vector<T>& container, const Function& function) {
+template<typename R, typename Container, typename Function>
+const std::vector<R> map(
+  const Container& container,
+  const Function&  function
+) {
   std::vector<R> result(container.size());
 
   std::transform(
