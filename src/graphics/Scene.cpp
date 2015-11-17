@@ -50,7 +50,7 @@ static void validateScene(const aiScene* scene, const Importer& importer) {
   }
 }
 
-static const aiScene* loadScene(const string& path, Importer& importer) {
+static const aiScene* getValidScene(const string& path, Importer& importer) {
   static const unsigned int IMPORT_FLAGS =
     aiProcess_GenSmoothNormals      |
     aiProcess_CalcTangentSpace      |
@@ -74,7 +74,7 @@ static const Scene::Meshes loadMeshes(const aiScene* scene) {
 }
 
 Scene::Impl::Impl(const string& path)
-  : scene(loadScene(path, importer))
+  : scene(getValidScene(path, importer))
   , meshes(loadMeshes(scene)) {}
 
 } // namespace onux

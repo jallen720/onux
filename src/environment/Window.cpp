@@ -84,7 +84,7 @@ static void validateName(const char* name) {
   }
 }
 
-static GLFWwindow* loadWindow(
+static GLFWwindow* getValidWindow(
   const unsigned int width,
   const unsigned int height,
   const char*        name
@@ -99,7 +99,7 @@ Window::Impl::Impl(
   const unsigned int width,
   const unsigned int height,
   const char*        name
-) : glfwWindow(loadWindow(width, height, name))
+) : glfwWindow(getValidWindow(width, height, name))
   , input(glfwWindow)
   , width(width)
   , height(height) {}

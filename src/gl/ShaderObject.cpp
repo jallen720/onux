@@ -57,7 +57,7 @@ static void validateSameType(ShaderObject::Sources sources, const GLenum type) {
   }
 }
 
-static const GLuint loadShaderObject(ShaderObject::Sources sources) {
+static const GLuint getValidShaderObject(ShaderObject::Sources sources) {
   validateSourceCount(sources.size());
   const GLenum type = sources[0]->getType();
   validateSameType(sources, type);
@@ -65,7 +65,7 @@ static const GLuint loadShaderObject(ShaderObject::Sources sources) {
 }
 
 ShaderObject::ShaderObject(Sources sources)
-  : OpenGLData(loadShaderObject(sources))
+  : OpenGLData(getValidShaderObject(sources))
   , impl(new Impl(this)) {
   impl->loadSources(sources);
   impl->compile();

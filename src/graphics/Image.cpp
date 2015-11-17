@@ -16,8 +16,19 @@ struct Image::Impl {
   void loadBlob(const string& path);
 };
 
+static void validatePath(const string& path) {
+  if (path.empty()) {
+    throw InvalidArg("path", "Image", "\"\"", "non-empty");
+  }
+}
+
+static const string& getValidPath(const string& path) {
+  validatePath(path);
+  return path;
+}
+
 Image::Image(const string& path)
-  : impl(new Impl(path)) {}
+  : impl(new Impl(getValidPath(path))) {}
 
 Image::~Image() {}
 
@@ -35,19 +46,7 @@ const GLvoid* Image::getData() const {
 
 // Implementation
 
-static void validatePath(const string& path) {
-  if (path.empty()) {
-    throw InvalidArg(
-      "path",
-      "Image",
-      "\"\"",
-      "non-empty"
-    );
-  }
-}
-
 Image::Impl::Impl(const string& path) {
-  validatePath(path);
   loadBlob(path);
 }
 

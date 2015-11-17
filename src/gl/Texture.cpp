@@ -99,14 +99,14 @@ static void validateOptions(Texture::Options& options) {
   }
 }
 
-static GLuint loadTexture(const IImage* image, Texture::Options& options) {
+static GLuint getValidTexture(const IImage* image, Texture::Options& options) {
   validateImage(image);
   validateOptions(options);
   return createTexture();
 }
 
 Texture::Texture(const IImage* image, Options& options)
-  : OpenGLData(loadTexture(image, options))
+  : OpenGLData(getValidTexture(image, options))
   , impl(new Impl()) {
   bind(0);
   impl->loadImage(image);

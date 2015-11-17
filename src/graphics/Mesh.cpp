@@ -23,13 +23,13 @@ static void validateMesh(const aiMesh* mesh) {
   }
 }
 
-static const aiMesh* loadMesh(const aiMesh* mesh) {
+static const aiMesh* getValidMesh(const aiMesh* mesh) {
   validateMesh(mesh);
   return mesh;
 }
 
 Mesh::Mesh(const aiMesh* mesh)
-  : impl(new Impl(loadMesh(mesh))) {}
+  : impl(new Impl(getValidMesh(mesh))) {}
 
 const Mesh::Vertexes& Mesh::getVertexes() const {
   return impl->vertexes;

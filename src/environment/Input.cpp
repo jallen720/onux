@@ -53,12 +53,12 @@ static void validateWindow(Window window) {
   }
 }
 
-static Window loadWindow(Window window) {
+static Window getValidWindow(Window window) {
   validateWindow(window);
   return window;
 }
 
 Input::Impl::Impl(Window window)
-  : window(loadWindow(window)) {}
+  : window(getValidWindow(window)) {}
 
 } // namespace onux

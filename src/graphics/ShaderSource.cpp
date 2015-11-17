@@ -31,13 +31,13 @@ static void validatePath(const string& path) {
   }
 }
 
-static const string& loadPath(const string& path) {
+static const string& getValidPath(const string& path) {
   validatePath(path);
   return path;
 }
 
 ShaderSource::ShaderSource(const string& path)
-  : impl(new Impl(loadPath(path))) {}
+  : impl(new Impl(getValidPath(path))) {}
 
 const GLenum ShaderSource::getType() const {
   return impl->type;
@@ -65,14 +65,14 @@ static void validateExtension(const string& extension) {
   }
 }
 
-static const GLenum loadType(const string& path) {
+static const GLenum getValidType(const string& path) {
   const string extension = fileExtension(path);
   validateExtension(extension);
   return ShaderSource::TYPES.at(extension);
 }
 
 ShaderSource::Impl::Impl(const string& path)
-  : type(loadType(path))
+  : type(getValidType(path))
   , code(readFile(path)) {}
 
 } // namespace onux

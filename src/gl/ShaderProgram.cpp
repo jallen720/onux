@@ -61,13 +61,13 @@ static void validateRequiredTypes(ShaderProgram::Objects objects) {
   }
 }
 
-static GLuint loadShaderProgram(ShaderProgram::Objects objects) {
+static GLuint getValidShaderProgram(ShaderProgram::Objects objects) {
   validateRequiredTypes(objects);
   return glCreateProgram();
 }
 
 ShaderProgram::ShaderProgram(Objects objects)
-  : OpenGLData(loadShaderProgram(objects))
+  : OpenGLData(getValidShaderProgram(objects))
   , impl(new Impl(this)) {
   impl->attach(objects);
   impl->link();

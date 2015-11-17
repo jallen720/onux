@@ -112,7 +112,7 @@ static GLuint createBufferObject() {
   return id;
 }
 
-static GLuint loadBufferObject(
+static GLuint getValidBufferObject(
   const GLenum     target,
   const GLsizeiptr size,
   const GLenum     usage
@@ -128,7 +128,7 @@ BufferObject::BufferObject(
   const GLsizeiptr size,
   const GLvoid*    data,
   const GLenum     usage
-) : OpenGLData(loadBufferObject(target, size, usage))
+) : OpenGLData(getValidBufferObject(target, size, usage))
   , impl(new Impl(target, size, data, usage, this)) {}
 
 BufferObject::~BufferObject() {
