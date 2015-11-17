@@ -6,9 +6,11 @@
 #include "gl/interfaces/IShaderSource.hpp"
 #include "utils/existsIn.hpp"
 #include "exceptions/ArgFailedRequirement.hpp"
+#include "exceptions/InvalidArgProperty.hpp"
 
 using std::vector;
 using std::string;
+using std::to_string;
 using std::runtime_error;
 
 namespace onux {
@@ -25,17 +27,16 @@ struct ShaderObject::Impl {
   const string getInfoLog() const;
 };
 
-static const bool isValidSourceCount(const size_t sourceCount) {
-  static const size_t MIN_SOURCE_COUNT = 1;
-  return sourceCount >= MIN_SOURCE_COUNT;
-}
-
 static void validateSourceCount(const size_t sourceCount) {
-  if (!isValidSourceCount(sourceCount)) {
-    throw ArgFailedRequirement(
+  static const size_t MIN_SOURCE_COUNT = 1;
+
+  if (sourceCount < MIN_SOURCE_COUNT) {
+    throw InvalidArgProperty(
       "sources",
       "ShaderObject",
-      "Must have atleast 1 source"
+      "count",
+      to_string(sourceCount),
+      ">= " + to_string(MIN_SOURCE_COUNT)
     );
   }
 }

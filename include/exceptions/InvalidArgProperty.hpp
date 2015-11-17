@@ -9,6 +9,13 @@ namespace onux {
 class InvalidArgProperty : public Exception {
 public:
   InvalidArgProperty(
+    const std::string& parameterName,
+    const std::string& objectName,
+    const std::string& propertyName,
+    const std::string& property,
+    const std::string& validProperty
+  );
+  InvalidArgProperty(
     const std::string&              parameterName,
     const std::string&              objectName,
     const std::string&              propertyName,

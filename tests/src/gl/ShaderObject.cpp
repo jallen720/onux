@@ -6,11 +6,13 @@
 #include "testHelpers.hpp"
 #include "graphics/ShaderSource.hpp"
 #include "exceptions/ArgFailedRequirement.hpp"
+#include "exceptions/InvalidArgProperty.hpp"
 
 using std::runtime_error;
 using onux::ShaderSource;
 using onux::ShaderObject;
 using onux::ArgFailedRequirement;
+using onux::InvalidArgProperty;
 
 TEST_F(ShaderObjectTest, validCreation) {
   const ShaderSource validSource(testShaderPath("valid.vert"));
@@ -25,7 +27,7 @@ TEST_F(ShaderObjectTest, validCreation) {
 TEST_F(ShaderObjectTest, noSources) {
   EXPECT_THROW(
     const ShaderObject shaderObject({}),
-    ArgFailedRequirement
+    InvalidArgProperty
   );
 }
 

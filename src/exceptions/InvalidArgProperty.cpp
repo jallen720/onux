@@ -29,6 +29,20 @@ static const string getMustBe(const vector<string>& validProperties) {
 }
 
 InvalidArgProperty::InvalidArgProperty(
+  const string& parameterName,
+  const string& objectName,
+  const string& propertyName,
+  const string& property,
+  const string& validProperty
+) : Exception(createWhat(
+      parameterName,
+      objectName,
+      propertyName,
+      property,
+      validProperty
+    )) {}
+
+InvalidArgProperty::InvalidArgProperty(
   const string&         parameterName,
   const string&         objectName,
   const string&         propertyName,
