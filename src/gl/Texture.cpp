@@ -11,6 +11,7 @@
 #include "exceptions/InvalidMapKey.hpp"
 #include "exceptions/InvalidMapValue.hpp"
 #include "utils/map.hpp"
+#include "utils/keys.hpp"
 #include "gl/utils/getEnumName.hpp"
 
 using std::string;
@@ -39,24 +40,6 @@ static void validateImage(const IImage* image) {
   }
 }
 
-static const vector<GLenum> VALID_OPTION_KEYS {
-  GL_TEXTURE_MIN_FILTER,
-  GL_TEXTURE_MAG_FILTER,
-  GL_TEXTURE_WRAP_S,
-  GL_TEXTURE_WRAP_T,
-};
-
-static void validateOptionKey(const GLenum optionKey) {
-  if (!contains(VALID_OPTION_KEYS, optionKey)) {
-    throw InvalidMapKey(
-      "options",
-      "Texture",
-      getEnumName(optionKey),
-      map<string>(VALID_OPTION_KEYS, getEnumName)
-    );
-  }
-}
-
 static const vector<GLint> VALID_WRAP_VALUES {
   GL_CLAMP_TO_EDGE,
   GL_MIRRORED_REPEAT,
@@ -77,12 +60,25 @@ static const vector<GLint> VALID_MAG_FILTER_VALUES {
   GL_LINEAR,
 };
 
-static const std::map<const GLenum, vector<GLint>> VALID_OPTION_VALUES {
+static const std::map<const GLenum, const vector<GLint>> VALID_OPTION_VALUES {
   { GL_TEXTURE_WRAP_S    , VALID_WRAP_VALUES       },
   { GL_TEXTURE_WRAP_T    , VALID_WRAP_VALUES       },
   { GL_TEXTURE_MIN_FILTER, VALID_MIN_FILTER_VALUES },
   { GL_TEXTURE_MAG_FILTER, VALID_MAG_FILTER_VALUES },
 };
+
+static void validateOptionKey(const GLenum optionKey) {
+  static const auto VALID_OPTION_KEYS = keys(VALID_OPTION_VALUES);
+
+  if (!contains(VALID_OPTION_KEYS, optionKey)) {
+    throw InvalidMapKey(
+      "options",
+      "Texture",
+      getEnumName(optionKey),
+      map<string>(VALID_OPTION_KEYS, getEnumName)
+    );
+  }
+}
 
 static void validateOptionValue(const GLenum optionKey, const GLint optionValue) {
   if (!contains(VALID_OPTION_VALUES.at(optionKey), optionValue)) {
