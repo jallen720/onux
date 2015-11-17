@@ -44,19 +44,19 @@ void BufferObject::loadData() const {
   );
 }
 
-static const vector<GLenum> VALID_TARGETS {
-  GL_ARRAY_BUFFER,
-  GL_COPY_READ_BUFFER,
-  GL_COPY_WRITE_BUFFER,
-  GL_ELEMENT_ARRAY_BUFFER,
-  GL_PIXEL_PACK_BUFFER,
-  GL_PIXEL_UNPACK_BUFFER,
-  GL_TEXTURE_BUFFER,
-  GL_TRANSFORM_FEEDBACK_BUFFER,
-  GL_UNIFORM_BUFFER,
-};
-
 static void validateTarget(const GLenum target) {
+  static const vector<GLenum> VALID_TARGETS {
+    GL_ARRAY_BUFFER,
+    GL_COPY_READ_BUFFER,
+    GL_COPY_WRITE_BUFFER,
+    GL_ELEMENT_ARRAY_BUFFER,
+    GL_PIXEL_PACK_BUFFER,
+    GL_PIXEL_UNPACK_BUFFER,
+    GL_TEXTURE_BUFFER,
+    GL_TRANSFORM_FEEDBACK_BUFFER,
+    GL_UNIFORM_BUFFER,
+  };
+
   if (!contains(VALID_TARGETS, target)) {
     throw InvalidArg(
       "target",
@@ -68,29 +68,31 @@ static void validateTarget(const GLenum target) {
 }
 
 static void validateSize(const GLsizeiptr size) {
-  if (size < 0) {
+  static const GLsizeiptr MIN_SIZE = 0;
+
+  if (size < MIN_SIZE) {
     throw InvalidArg(
       "size",
       "BufferObject",
       to_string(size),
-      ">= 0"
+      ">= " + to_string(MIN_SIZE)
     );
   }
 }
 
-static const vector<GLenum> VALID_USAGES {
-  GL_STREAM_DRAW,
-  GL_STREAM_READ,
-  GL_STREAM_COPY,
-  GL_STATIC_DRAW,
-  GL_STATIC_READ,
-  GL_STATIC_COPY,
-  GL_DYNAMIC_DRAW,
-  GL_DYNAMIC_READ,
-  GL_DYNAMIC_COPY,
-};
-
 static void validateUsage(const GLenum usage) {
+  static const vector<GLenum> VALID_USAGES {
+    GL_STREAM_DRAW,
+    GL_STREAM_READ,
+    GL_STREAM_COPY,
+    GL_STATIC_DRAW,
+    GL_STATIC_READ,
+    GL_STATIC_COPY,
+    GL_DYNAMIC_DRAW,
+    GL_DYNAMIC_READ,
+    GL_DYNAMIC_COPY,
+  };
+
   if (!contains(VALID_USAGES, usage)) {
     throw InvalidArg(
       "usage",
