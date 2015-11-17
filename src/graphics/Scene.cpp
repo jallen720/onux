@@ -22,8 +22,19 @@ struct Scene::Impl {
   Impl(const string& path);
 };
 
+static void validatePath(const string& path) {
+  if (path.empty()) {
+    throw InvalidArg("path", "Scene", "\"\"", "non-empty");
+  }
+}
+
+static const string getValidPath(const string& path) {
+  validatePath(path);
+  return path;
+}
+
 Scene::Scene(const string& path)
-  : impl(new Impl(path)) {}
+  : impl(new Impl(getValidPath(path))) {}
 
 Scene::~Scene() {}
 
@@ -32,17 +43,6 @@ const Scene::Meshes& Scene::getMeshes() const {
 }
 
 // Implementation
-
-static void validatePath(const string& path) {
-  if (path.empty()) {
-    throw InvalidArg(
-      "path",
-      "Scene",
-      "\"\"",
-      "non-empty"
-    );
-  }
-}
 
 static void validateScene(const aiScene* scene, const Importer& importer) {
   if (scene == nullptr) {
@@ -58,7 +58,6 @@ static const aiScene* loadScene(const string& path, Importer& importer) {
     aiProcess_JoinIdenticalVertices |
     aiProcess_SortByPType;
 
-  validatePath(path);
   const aiScene* scene = importer.ReadFile(path, IMPORT_FLAGS);
   validateScene(scene, importer);
   return scene;
