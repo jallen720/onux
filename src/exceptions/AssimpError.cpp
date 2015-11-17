@@ -9,6 +9,6 @@ static const string createWhat(const string& what) {
 }
 
 AssimpError::AssimpError(const string& what)
-  : Exception(createWhat(what)) {}
+  : Error(createWhat(what)) {}
 
 } // namespace onux

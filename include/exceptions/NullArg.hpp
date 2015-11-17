@@ -1,10 +1,10 @@
 #pragma once
 
-#include "exceptions/Exception.hpp"
+#include "exceptions/Error.hpp"
 
 namespace onux {
 
-class NullArg : public Exception {
+class NullArg : public Error {
 public:
   NullArg(
     const std::string& parameterName,

@@ -2,11 +2,11 @@
 
 #include <GL/glew.h>
 
-#include "exceptions/Exception.hpp"
+#include "exceptions/Error.hpp"
 
 namespace onux {
 
-class OpenGlError : public Exception {
+class OpenGlError : public Error {
 public:
   OpenGlError(const GLenum error);
 };

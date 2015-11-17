@@ -18,9 +18,9 @@ static const string createWhat(const string& what) {
 }
 
 GlfwError::GlfwError(const int code, const char* description)
-  : Exception(createWhat(code, description)) {}
+  : Error(createWhat(code, description)) {}
 
 GlfwError::GlfwError(const string& what)
-  : Exception(createWhat(what)) {}
+  : Error(createWhat(what)) {}
 
 } // namespace onux

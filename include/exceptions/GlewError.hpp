@@ -1,10 +1,10 @@
 #pragma once
 
-#include "exceptions/Exception.hpp"
+#include "exceptions/Error.hpp"
 
 namespace onux {
 
-class GlewError : public Exception {
+class GlewError : public Error {
 public:
   GlewError(const std::string& what);
 };

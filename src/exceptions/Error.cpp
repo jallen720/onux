@@ -1,4 +1,4 @@
-#include "exceptions/Exception.hpp"
+#include "exceptions/Error.hpp"
 
 using std::runtime_error;
 using std::string;
@@ -9,7 +9,7 @@ static const string createWhat(const string& what) {
   return "ONUX ERROR: " + what;
 }
 
-Exception::Exception(const string& what)
+Error::Error(const string& what)
   : runtime_error(createWhat(what)) {}
 
 } // namespace onux

@@ -16,6 +16,6 @@ static const string createWhat(
 EmptyStringArg::EmptyStringArg(
   const string& parameterName,
   const string& objectName
-) : Exception(createWhat(parameterName, objectName)) {}
+) : Error(createWhat(parameterName, objectName)) {}
 
 } // namespace onux

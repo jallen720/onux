@@ -11,6 +11,6 @@ static const string createWhat(const GLenum error) {
 }
 
 OpenGlError::OpenGlError(const GLenum error)
-  : Exception(createWhat(error)) {}
+  : Error(createWhat(error)) {}
 
 } // namespace onux

@@ -32,7 +32,7 @@ InvalidMapKey::InvalidMapKey(
   const string&         objectName,
   const string&         key,
   const vector<string>& validKeys
-) : Exception(createWhat(
+) : Error(createWhat(
       parameterName,
       objectName,
       key,

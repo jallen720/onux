@@ -2,11 +2,11 @@
 
 #include <vector>
 
-#include "exceptions/Exception.hpp"
+#include "exceptions/Error.hpp"
 
 namespace onux {
 
-class InvalidArg : public Exception {
+class InvalidArg : public Error {
 public:
   InvalidArg(
     const std::string& parameterName,

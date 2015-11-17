@@ -34,7 +34,7 @@ InvalidMapValue::InvalidMapValue(
   const string&         key,
   const string&         value,
   const vector<string>& validValues
-) : Exception(createWhat(
+) : Error(createWhat(
       parameterName,
       objectName,
       key,

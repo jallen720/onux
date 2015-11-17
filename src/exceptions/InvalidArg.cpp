@@ -32,7 +32,7 @@ InvalidArg::InvalidArg(
   const string& objectName,
   const string& argument,
   const string& validArgument
-) : Exception(createWhat(
+) : Error(createWhat(
       parameterName,
       objectName,
       argument,
@@ -44,7 +44,7 @@ InvalidArg::InvalidArg(
   const string&         objectName,
   const string&         argument,
   const vector<string>& validArguments
-) : Exception(createWhat(
+) : Error(createWhat(
       parameterName,
       objectName,
       argument,

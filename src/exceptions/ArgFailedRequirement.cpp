@@ -19,7 +19,7 @@ ArgFailedRequirement::ArgFailedRequirement(
   const string& parameterName,
   const string& objectName,
   const string& requirement
-) : Exception(createWhat(
+) : Error(createWhat(
       parameterName,
       objectName,
       requirement

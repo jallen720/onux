@@ -16,6 +16,6 @@ static const string createWhat(
 NullArg::NullArg(
   const string& parameterName,
   const string& objectName
-) : Exception(createWhat(parameterName, objectName)) {}
+) : Error(createWhat(parameterName, objectName)) {}
 
 } // namespace onux

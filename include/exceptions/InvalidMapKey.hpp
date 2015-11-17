@@ -2,11 +2,11 @@
 
 #include <vector>
 
-#include "exceptions/Exception.hpp"
+#include "exceptions/Error.hpp"
 
 namespace onux {
 
-class InvalidMapKey : public Exception {
+class InvalidMapKey : public Error {
 public:
   InvalidMapKey(
     const std::string&              parameterName,

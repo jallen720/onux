@@ -34,7 +34,7 @@ InvalidArgProperty::InvalidArgProperty(
   const string& propertyName,
   const string& property,
   const string& validProperty
-) : Exception(createWhat(
+) : Error(createWhat(
       parameterName,
       objectName,
       propertyName,
@@ -48,7 +48,7 @@ InvalidArgProperty::InvalidArgProperty(
   const string&         propertyName,
   const string&         property,
   const vector<string>& validProperties
-) : Exception(createWhat(
+) : Error(createWhat(
       parameterName,
       objectName,
       propertyName,

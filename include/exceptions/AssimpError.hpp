@@ -1,10 +1,10 @@
 #pragma once
 
-#include "exceptions/Exception.hpp"
+#include "exceptions/Error.hpp"
 
 namespace onux {
 
-class AssimpError : public Exception {
+class AssimpError : public Error {
 public:
   AssimpError(const std::string& what);
 };
