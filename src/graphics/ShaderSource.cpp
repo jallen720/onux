@@ -27,12 +27,7 @@ ShaderSource::Types ShaderSource::TYPES {
 
 static void validatePath(const string& path) {
   if (path.empty()) {
-    throw InvalidArg(
-      "path",
-      "ShaderSource",
-      "\"\"",
-      "non-empty"
-    );
+    throw InvalidArg("path", "ShaderSource", "\"\"", "non-empty");
   }
 }
 
@@ -70,13 +65,14 @@ static void validateExtension(const string& extension) {
   }
 }
 
-static const string& loadExtension(const string& extension) {
+static const GLenum loadType(const string& path) {
+  const string extension = fileExtension(path);
   validateExtension(extension);
-  return extension;
+  return ShaderSource::TYPES.at(extension);
 }
 
 ShaderSource::Impl::Impl(const string& path)
-  : type(TYPES.at(loadExtension(fileExtension(path))))
+  : type(loadType(path))
   , code(readFile(path)) {}
 
 } // namespace onux
