@@ -1,5 +1,6 @@
-#include <stdexcept>
 #include <memory>
+
+#include "exceptions/Error.hpp"
 
 namespace onux {
 
@@ -23,7 +24,7 @@ T* Resources<T>::atPath(const std::string& path) const {
   try {
     return m_resources.at(path).get();
   } catch (...) {
-    throw std::runtime_error("No resource found at \"" + path + "\"!");
+    throw Error("No resource found at \"" + path + "\"!");
   }
 }
 

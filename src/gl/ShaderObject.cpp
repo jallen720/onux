@@ -1,17 +1,16 @@
 #include "gl/ShaderObject.hpp"
 
 #include <string>
-#include <stdexcept>
 
 #include "gl/interfaces/IShaderSource.hpp"
 #include "utils/existsIn.hpp"
+#include "exceptions/Error.hpp"
 #include "exceptions/ArgFailedRequirement.hpp"
 #include "exceptions/InvalidArgProperty.hpp"
 
 using std::vector;
 using std::string;
 using std::to_string;
-using std::runtime_error;
 
 namespace onux {
 
@@ -108,7 +107,7 @@ void ShaderObject::Impl::compile() const {
 void ShaderObject::Impl::validateCompileStatus() const {
   if (!compilationSucceeded()) {
     // TODO: Destroy shader here
-    throw runtime_error("ShaderObject compilation failed:\n" + getInfoLog());
+    throw Error("ShaderObject compilation failed:\n" + getInfoLog());
   }
 }
 

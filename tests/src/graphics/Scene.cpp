@@ -1,13 +1,10 @@
 #include "graphics/Scene.hpp"
 
-#include <stdexcept>
-
 #include "fixtures/SceneTest.hpp"
 #include "testHelpers.hpp"
 #include "exceptions/AssimpError.hpp"
 #include "exceptions/EmptyStringArg.hpp"
 
-using std::runtime_error;
 using onux::Scene;
 using onux::AssimpError;
 using onux::EmptyStringArg;

@@ -1,16 +1,15 @@
 #include "gl/ShaderObject.hpp"
 
-#include <stdexcept>
-
 #include "fixtures/ShaderObjectTest.hpp"
 #include "testHelpers.hpp"
 #include "graphics/ShaderSource.hpp"
+#include "exceptions/Error.hpp"
 #include "exceptions/ArgFailedRequirement.hpp"
 #include "exceptions/InvalidArgProperty.hpp"
 
-using std::runtime_error;
-using onux::ShaderSource;
 using onux::ShaderObject;
+using onux::ShaderSource;
+using onux::Error;
 using onux::ArgFailedRequirement;
 using onux::InvalidArgProperty;
 
@@ -59,6 +58,6 @@ TEST_F(ShaderObjectTest, compilationFailure) {
       &invalidSources[1],
     }),
 
-    runtime_error
+    Error
   );
 }

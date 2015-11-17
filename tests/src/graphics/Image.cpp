@@ -1,13 +1,11 @@
 #include "graphics/Image.hpp"
 
-#include <stdexcept>
 #include <Magick++.h>
 
 #include "fixtures/ImageTest.hpp"
 #include "testHelpers.hpp"
 #include "exceptions/EmptyStringArg.hpp"
 
-using std::runtime_error;
 using Magick::ErrorMissingDelegate;
 using Magick::ErrorBlob;
 using onux::Image;

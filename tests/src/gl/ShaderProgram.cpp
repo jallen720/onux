@@ -1,13 +1,12 @@
 #include "gl/ShaderProgram.hpp"
 
-#include <stdexcept>
 #include <glm/glm.hpp>
 
 #include "fixtures/ShaderProgramTest.hpp"
 #include "gl/helpers.hpp"
+#include "exceptions/Error.hpp"
 #include "exceptions/ArgFailedRequirement.hpp"
 
-using std::runtime_error;
 using glm::vec3;
 using glm::vec4;
 using glm::mat4;
@@ -15,6 +14,7 @@ using onux::ShaderProgram;
 using onux::ShaderObject;
 using onux::ShaderSource;
 using onux::getInt;
+using onux::Error;
 using onux::ArgFailedRequirement;
 
 TEST_F(ShaderProgramTest, validCreation) {
@@ -48,7 +48,7 @@ TEST_F(ShaderProgramTest, missingMainFunctionInObject) {
       &validObjects[1],
     }),
 
-    runtime_error
+    Error
   );
 }
 
@@ -95,7 +95,7 @@ TEST_F(ShaderProgramTest, setUniformUnusedUniform) {
   // unused will fail, as the uniform won't exist.
   EXPECT_THROW(
     shaderProgram.setUniform("unusedVec3", vec3()),
-    runtime_error
+    Error
   );
 }
 

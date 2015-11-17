@@ -3,10 +3,10 @@
 #include <map>
 #include <string>
 #include <vector>
-#include <stdexcept>
 
 #include "gl/interfaces/IImage.hpp"
 #include "utils/contains.hpp"
+#include "exceptions/Error.hpp"
 #include "exceptions/NullArg.hpp"
 #include "exceptions/InvalidMapKey.hpp"
 #include "exceptions/InvalidMapValue.hpp"
@@ -16,7 +16,6 @@
 
 using std::string;
 using std::vector;
-using std::runtime_error;
 
 namespace onux {
 

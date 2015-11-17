@@ -1,13 +1,13 @@
 #include "utils/helpers.hpp"
 
-#include <stdexcept>
 #include <gtest/gtest.h>
 
 #include "testHelpers.hpp"
+#include "exceptions/Error.hpp"
 
-using std::runtime_error;
 using onux::readFile;
 using onux::fileExtension;
+using onux::Error;
 
 TEST(utilsHelpersTest, readValidFile) {
   expectNoThrow([] {
@@ -18,7 +18,7 @@ TEST(utilsHelpersTest, readValidFile) {
 TEST(utilsHelpersTest, readInvalidFile) {
   EXPECT_THROW(
     readFile(""),
-    runtime_error
+    Error
   );
 }
 

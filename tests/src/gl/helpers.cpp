@@ -1,7 +1,5 @@
 #include "gl/helpers.hpp"
 
-#include <stdexcept>
-
 #include "fixtures/glHelpersTest.hpp"
 #include "testHelpers.hpp"
 

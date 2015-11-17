@@ -1,12 +1,12 @@
 #include "utils/helpers.hpp"
 
 #include <fstream>
-#include <stdexcept>
 #include <functional>
+
+#include "exceptions/Error.hpp"
 
 using std::string;
 using std::ifstream;
-using std::runtime_error;
 using std::function;
 
 namespace onux {
@@ -15,7 +15,7 @@ static const char LINE_DELIMITER = '\r';
 
 static void validateFile(const ifstream& file, const string& path) {
   if (!file.is_open()) {
-    throw runtime_error("Failed to open " + path);
+    throw Error("Failed to open " + path);
   }
 }
 

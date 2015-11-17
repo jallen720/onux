@@ -1,14 +1,11 @@
 #include "graphics/ShaderSource.hpp"
 
-#include <stdexcept>
-
 #include "fixtures/ShaderSourceTest.hpp"
 #include "testHelpers.hpp"
 #include "utils/helpers.hpp"
 #include "exceptions/InvalidArgProperty.hpp"
 #include "exceptions/EmptyStringArg.hpp"
 
-using std::runtime_error;
 using std::string;
 using onux::ShaderSource;
 using onux::readFile;
@@ -50,5 +47,3 @@ TEST_F(ShaderSourceTest, correctSources) {
   const ShaderSource shaderSource(shaderPath);
   EXPECT_EQ(readFile(shaderPath), shaderSource.getCode());
 }
-
-

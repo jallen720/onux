@@ -1,16 +1,15 @@
 #include "gl/ShaderProgram.hpp"
 
 #include <string>
-#include <stdexcept>
 #include <glm/gtc/type_ptr.hpp>
 
 #include "gl/ShaderObject.hpp"
+#include "exceptions/Error.hpp"
 #include "exceptions/ArgFailedRequirement.hpp"
 #include "utils/existsIn.hpp"
 
 using std::vector;
 using std::string;
-using std::runtime_error;
 using glm::value_ptr;
 using glm::vec3;
 using glm::vec4;
@@ -147,7 +146,7 @@ void ShaderProgram::Impl::detach(Objects objects) const {
 
 void ShaderProgram::Impl::validateLinkStatus() const {
   if (!linkingSucceeded()) {
-    throw runtime_error("ShaderProgram linking failed:\n" + getInfoLog());
+    throw Error("ShaderProgram linking failed:\n" + getInfoLog());
   }
 }
 
@@ -184,7 +183,7 @@ static const void validateLocation(const GLint location, const string& name) {
   const static GLint UNKNOWN_LOCATION = -1;
 
   if (location == UNKNOWN_LOCATION) {
-    throw runtime_error("Failed to find location of uniform \"" + name + "\"!");
+    throw Error("Failed to find location of uniform \"" + name + "\"!");
   }
 }
 

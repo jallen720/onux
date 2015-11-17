@@ -1,14 +1,14 @@
 #include "environment/inputRegistry.hpp"
 
-#include <stdexcept>
 #include <GL/glew.h> // Required before other OpenGL headers
 #include <GLFW/glfw3.h>
 
 #include "fixtures/inputRegistryTest.hpp"
 #include "testHelpers.hpp"
+#include "exceptions/Error.hpp"
 
-using std::runtime_error;
 using onux::registerInput;
+using onux::Error;
 
 TEST_F(inputRegistryTest, validRegistry) {
   expectNoThrow([&] {
@@ -19,13 +19,13 @@ TEST_F(inputRegistryTest, validRegistry) {
 TEST_F(inputRegistryTest, nullInput) {
   EXPECT_THROW(
     registerInput(nullptr, window),
-    runtime_error
+    Error
   );
 }
 
 TEST_F(inputRegistryTest, nullWindow) {
   EXPECT_THROW(
     registerInput(&input, nullptr),
-    runtime_error
+    Error
   );
 }

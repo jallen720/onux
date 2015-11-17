@@ -1,7 +1,6 @@
 #include "sample/runEngine.hpp"
 
 #include <iostream>
-#include <stdexcept>
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <GL/glew.h> // Required before other OpenGL headers
@@ -30,10 +29,11 @@
 #include "resources/containers/Images.hpp"
 #include "resources/containers/Scenes.hpp"
 
+#include "exceptions/Error.hpp"
+
 #include "sample/CameraControls.hpp"
 
 using std::cerr;
-using std::runtime_error;
 using glm::vec3;
 using glm::perspective;
 using glm::radians;
@@ -61,6 +61,8 @@ using onux::Engine;
 using onux::ShaderSources;
 using onux::Images;
 using onux::Scenes;
+
+using onux::Error;
 
 static void configureOpenGL() {
   glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -198,7 +200,7 @@ void runEngine() {
     GraphicsEngine graphicsEngine(drawables, camera);
     Engine engine(window, graphicsEngine);
     engine.run();
-  } catch(const runtime_error& e) {
+  } catch(const Error& e) {
     cerr << e.what() << "\n";
   } catch(...) {
     cerr << "Unknown exception thrown!\n";

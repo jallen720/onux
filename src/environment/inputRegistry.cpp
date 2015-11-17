@@ -1,13 +1,12 @@
 #include "environment/inputRegistry.hpp"
 
 #include <map>
-#include <stdexcept>
 #include <GLFW/glfw3.h>
 
+#include "exceptions/Error.hpp"
 #include "environment/interfaces/IInput.hpp"
 
 using std::map;
-using std::runtime_error;
 
 namespace onux {
 
@@ -15,13 +14,13 @@ static map<const GLFWwindow*, IInput*> inputs;
 
 static void validateInput(const IInput* input) {
   if (input == nullptr) {
-    throw runtime_error("Cannot register null input!");
+    throw Error("Cannot register null input!");
   }
 }
 
 static void validateWindow(const GLFWwindow* window) {
   if (window == nullptr) {
-    throw runtime_error("Cannot register input for null window!");
+    throw Error("Cannot register input for null window!");
   }
 }
 

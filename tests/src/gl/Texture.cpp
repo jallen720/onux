@@ -1,6 +1,5 @@
 #include "gl/Texture.hpp"
 
-#include <stdexcept>
 #include <GL/glew.h> // Required before other OpenGL headers
 
 #include "fixtures/TextureTest.hpp"
@@ -9,7 +8,6 @@
 #include "exceptions/InvalidMapKey.hpp"
 #include "exceptions/InvalidMapValue.hpp"
 
-using std::runtime_error;
 using onux::Texture;
 using onux::getInt;
 using onux::NullArg;
