@@ -52,7 +52,7 @@ Image::Impl::Impl(const string& path) {
 }
 
 void Image::Impl::loadBlob(const string& path) {
-  static const string FORMAT = "RGBA";
+  static const auto FORMAT = "RGBA";
   image.read(path);
   image.flip();
   image.write(&blob, FORMAT);
