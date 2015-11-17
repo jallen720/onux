@@ -41,8 +41,14 @@ static const bool hasType(ShaderProgram::Objects objects, const GLenum type) {
 static const bool hasRequiredTypes(ShaderProgram::Objects objects) {
   // The minimum requirements for a shader program to be created are a vertex shader object and a
   // fragment shader object.
-  return hasType(objects, GL_VERTEX_SHADER) &&
-         hasType(objects, GL_FRAGMENT_SHADER);
+  static const vector<GLenum> REQUIRED_TYPES {
+    GL_VERTEX_SHADER,
+    GL_FRAGMENT_SHADER,
+  };
+
+  return !existsIn(REQUIRED_TYPES, [&](const auto requiredType) {
+    return !hasType(objects, requiredType);
+  });
 }
 
 static void validateRequiredTypes(ShaderProgram::Objects objects) {
@@ -78,7 +84,10 @@ void ShaderProgram::use() const {
 }
 
 void ShaderProgram::setUniform(const GLchar* name, const GLint value) const {
-  glUniform1i(impl->getUniformLocation(name), value);
+  glUniform1i(
+    impl->getUniformLocation(name),
+    value
+  );
 }
 
 void ShaderProgram::setUniform(const GLchar* name, const vec3& value) const {
@@ -148,7 +157,13 @@ const bool ShaderProgram::Impl::linkingSucceeded() const {
 
 const GLint ShaderProgram::Impl::getInt(const GLenum parameter) const {
   GLint value;
-  glGetProgramiv(self->getID(), parameter, &value);
+
+  glGetProgramiv(
+    self->getID(),
+    parameter,
+    &value
+  );
+
   return value;
 }
 
@@ -165,13 +180,10 @@ const string ShaderProgram::Impl::getInfoLog() const {
   return string(infoLog.begin(), infoLog.end());
 }
 
-static const bool isValidLocation(const GLint location) {
+static const void validateLocation(const GLint location, const string& name) {
   const static GLint UNKNOWN_LOCATION = -1;
-  return location != UNKNOWN_LOCATION;
-}
 
-static void validateLocation(const GLint location, const string& name) {
-  if (!isValidLocation(location)) {
+  if (location == UNKNOWN_LOCATION) {
     throw runtime_error("Failed to find location of uniform \"" + name + "\"!");
   }
 }
