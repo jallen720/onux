@@ -53,7 +53,7 @@ static const Vertex createVertex(
   };
 }
 
-static const aiVector3D getUV(
+static const aiVector3D& getUV(
   const aiMesh*      mesh,
   const unsigned int vertexIndex,
   const unsigned int uvIndex
