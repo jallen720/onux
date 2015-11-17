@@ -2,12 +2,14 @@
 
 #include "environment/Window.hpp"
 #include "exceptions/InvalidArg.hpp"
+#include "exceptions/EmptyStringArg.hpp"
 #include "exceptions/NullArg.hpp"
 #include "fixtures/WindowTest.hpp"
 #include "testHelpers.hpp"
 
 using onux::Window;
 using onux::InvalidArg;
+using onux::EmptyStringArg;
 using onux::NullArg;
 
 TEST_F(WindowTest, validCreation) {
@@ -24,7 +26,7 @@ TEST_F(WindowTest, invalidName) {
 
   EXPECT_THROW(
     const Window window(1280, 720, ""),
-    InvalidArg
+    EmptyStringArg
   );
 }
 

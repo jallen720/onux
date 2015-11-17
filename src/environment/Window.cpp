@@ -6,6 +6,7 @@
 
 #include "environment/Input.hpp"
 #include "exceptions/InvalidArg.hpp"
+#include "exceptions/EmptyStringArg.hpp"
 #include "exceptions/NullArg.hpp"
 
 using std::string;
@@ -80,7 +81,7 @@ static void validateName(const char* name) {
     throw NullArg("name", "Window");
   }
   else if (isEmpty(name)) {
-    throw InvalidArg("name", "Window", "\"\"", "non-empty");
+    throw EmptyStringArg("name", "Window");
   }
 }
 

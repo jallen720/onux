@@ -2,7 +2,7 @@
 
 #include <Magick++.h>
 
-#include "exceptions/InvalidArg.hpp"
+#include "exceptions/EmptyStringArg.hpp"
 
 using std::string;
 
@@ -18,7 +18,7 @@ struct Image::Impl {
 
 static void validatePath(const string& path) {
   if (path.empty()) {
-    throw InvalidArg("path", "Image", "\"\"", "non-empty");
+    throw EmptyStringArg("path", "Image");
   }
 }
 

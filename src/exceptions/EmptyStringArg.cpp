@@ -1,4 +1,4 @@
-#include "exceptions/NullArg.hpp"
+#include "exceptions/EmptyStringArg.hpp"
 
 using std::string;
 
@@ -8,12 +8,12 @@ static const string createWhat(
   const string& parameterName,
   const string& objectName
 ) {
-  return "Argument passed to \"" +
+  return "String argument passed to \"" +
          parameterName + "\" parameter for " +
-         objectName + " cannot be null!";
+         objectName + " cannot be empty!";
 }
 
-NullArg::NullArg(
+EmptyStringArg::EmptyStringArg(
   const string& parameterName,
   const string& objectName
 ) : Exception(createWhat(parameterName, objectName)) {}

@@ -6,7 +6,7 @@
 #include <assimp/Importer.hpp>
 
 #include "exceptions/AssimpError.hpp"
-#include "exceptions/InvalidArg.hpp"
+#include "exceptions/EmptyStringArg.hpp"
 
 using std::string;
 using std::stringstream;
@@ -24,7 +24,7 @@ struct Scene::Impl {
 
 static void validatePath(const string& path) {
   if (path.empty()) {
-    throw InvalidArg("path", "Scene", "\"\"", "non-empty");
+    throw EmptyStringArg("path", "Scene");
   }
 }
 

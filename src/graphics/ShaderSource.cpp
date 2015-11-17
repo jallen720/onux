@@ -2,7 +2,7 @@
 
 #include "utils/helpers.hpp"
 #include "exceptions/InvalidArgProperty.hpp"
-#include "exceptions/InvalidArg.hpp"
+#include "exceptions/EmptyStringArg.hpp"
 #include "utils/keys.hpp"
 
 using std::string;
@@ -27,7 +27,7 @@ ShaderSource::Types ShaderSource::TYPES {
 
 static void validatePath(const string& path) {
   if (path.empty()) {
-    throw InvalidArg("path", "ShaderSource", "\"\"", "non-empty");
+    throw EmptyStringArg("path", "ShaderSource");
   }
 }
 

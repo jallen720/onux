@@ -5,12 +5,12 @@
 #include "fixtures/SceneTest.hpp"
 #include "testHelpers.hpp"
 #include "exceptions/AssimpError.hpp"
-#include "exceptions/InvalidArg.hpp"
+#include "exceptions/EmptyStringArg.hpp"
 
 using std::runtime_error;
 using onux::Scene;
 using onux::AssimpError;
-using onux::InvalidArg;
+using onux::EmptyStringArg;
 
 TEST_F(SceneTest, validCreation) {
   expectNoThrow([] {
@@ -28,7 +28,7 @@ TEST_F(SceneTest, validData) {
 TEST_F(SceneTest, emptyPath) {
   EXPECT_THROW(
     const Scene scene(""),
-    InvalidArg
+    EmptyStringArg
   );
 }
 

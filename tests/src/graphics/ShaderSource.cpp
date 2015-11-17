@@ -6,14 +6,14 @@
 #include "testHelpers.hpp"
 #include "utils/helpers.hpp"
 #include "exceptions/InvalidArgProperty.hpp"
-#include "exceptions/InvalidArg.hpp"
+#include "exceptions/EmptyStringArg.hpp"
 
 using std::runtime_error;
 using std::string;
 using onux::ShaderSource;
 using onux::readFile;
 using onux::InvalidArgProperty;
-using onux::InvalidArg;
+using onux::EmptyStringArg;
 
 TEST_F(ShaderSourceTest, validCreation) {
   expectNoThrow([] {
@@ -31,7 +31,7 @@ TEST_F(ShaderSourceTest, invalidFileExtension) {
 TEST_F(ShaderSourceTest, emptyPath) {
   EXPECT_THROW(
     const ShaderSource shaderSource(""),
-    InvalidArg
+    EmptyStringArg
   );
 }
 
