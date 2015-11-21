@@ -1,18 +1,20 @@
 #include "exceptions/messageBuilders/buildMustBe.hpp"
 
+#include "utils/accumulate.hpp"
+
 using std::string;
 using std::vector;
 
 namespace onux {
 
 const string buildMustBe(const vector<string>& validArguments) {
-  string mustBe = "\n";
-
-  for (const string& validArgument : validArguments) {
-    mustBe += "      " + validArgument + ",\n";
-  }
-
-  return mustBe;
+  return accumulate<string>(
+    "\n",
+    validArguments,
+    [](const auto& mustBe, const auto& validArgument) {
+      return mustBe + "      " + validArgument + ",\n";
+    }
+  );
 }
 
 } // namespace onux
