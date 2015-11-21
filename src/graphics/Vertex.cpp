@@ -3,53 +3,37 @@
 #include "gl/interfaces/IVertexAttribute.hpp"
 
 #define VERTEX_ATTRIBUTE(NAME, ELEMENT_COUNT, TYPE, IS_NORMALIZED) \
-  const VertexAttribute<glm::vec ## ELEMENT_COUNT> NAME { \
+  const VertexAttribute NAME { \
     ELEMENT_COUNT, \
     GL_ ## TYPE, \
     GL_ ## IS_NORMALIZED, \
-    (GLvoid*)offsetof(Vertex, NAME) \
+    (GLvoid*)offsetof(Vertex, NAME), \
+    sizeof(glm::vec ## ELEMENT_COUNT) \
   }
 
 namespace onux {
 
-template<typename T>
 class VertexAttribute : public IVertexAttribute {
-private:
-  const GLint     m_elementCount;
-  const GLenum    m_type;
-  const GLboolean m_isNormalized;
-  const GLvoid*   m_offset;
-
 public:
   VertexAttribute(
     const GLint     elementCount,
     const GLenum    type,
     const GLboolean isNormalized,
-    const GLvoid*   offset
-  ) : m_elementCount(elementCount)
-    , m_type(type)
-    , m_isNormalized(isNormalized)
-    , m_offset(offset) {}
+    const GLvoid*   offset,
+    const GLsizei   size
+  );
+  const GLint getElementCount() const;
+  const GLenum getType() const;
+  const GLboolean getIsNormalized() const;
+  const GLvoid* getOffset() const;
+  const GLsizei getSize() const;
 
-  const GLint getElementCount() const {
-    return m_elementCount;
-  }
-
-  const GLenum getType() const {
-    return m_type;
-  }
-
-  const GLboolean getIsNormalized() const {
-    return m_isNormalized;
-  }
-
-  const GLvoid* getOffset() const {
-    return m_offset;
-  }
-
-  const GLsizei getSize() const {
-    return sizeof(T);
-  }
+private:
+  const GLint     m_elementCount;
+  const GLenum    m_type;
+  const GLboolean m_isNormalized;
+  const GLvoid*   m_offset;
+  const GLsizei   m_size;
 };
 
 static const struct {
@@ -63,5 +47,37 @@ const VertexLayout Vertex::LAYOUT({
   &ATTRIBUTES.NORMAL,
   &ATTRIBUTES.UV,
 });
+
+VertexAttribute::VertexAttribute(
+  const GLint     elementCount,
+  const GLenum    type,
+  const GLboolean isNormalized,
+  const GLvoid*   offset,
+  const GLsizei   size
+) : m_elementCount(elementCount)
+  , m_type(type)
+  , m_isNormalized(isNormalized)
+  , m_offset(offset)
+  , m_size(size) {}
+
+const GLint VertexAttribute::getElementCount() const {
+  return m_elementCount;
+}
+
+const GLenum VertexAttribute::getType() const {
+  return m_type;
+}
+
+const GLboolean VertexAttribute::getIsNormalized() const {
+  return m_isNormalized;
+}
+
+const GLvoid* VertexAttribute::getOffset() const {
+  return m_offset;
+}
+
+const GLsizei VertexAttribute::getSize() const {
+  return m_size;
+}
 
 } // namespace onux
