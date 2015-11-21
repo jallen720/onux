@@ -8,9 +8,9 @@
 #include "exceptions/argErrors/InvalidArg.hpp"
 #include "exceptions/argErrors/EmptyStringArg.hpp"
 #include "exceptions/argErrors/NullArg.hpp"
+#include "utils/toString.hpp"
 
 using std::string;
-using std::to_string;
 
 namespace onux {
 
@@ -66,8 +66,8 @@ static void validateDimension(const unsigned int dimension, const string& dimens
     throw InvalidArg(
       dimensionName,
       "Window",
-      to_string(dimension),
-      ">= " + to_string(MIN_DIMENSION_SIZE)
+      toString(dimension),
+      ">= " + toString(MIN_DIMENSION_SIZE)
     );
   }
 }

@@ -6,11 +6,11 @@
 #include "exceptions/argErrors/InvalidArg.hpp"
 #include "utils/contains.hpp"
 #include "utils/map.hpp"
+#include "utils/toString.hpp"
 #include "gl/utils/getEnumName.hpp"
 
 using std::vector;
 using std::string;
-using std::to_string;
 
 namespace onux {
 
@@ -74,8 +74,8 @@ static void validateSize(const GLsizeiptr size) {
     throw InvalidArg(
       "size",
       "BufferObject",
-      to_string(size),
-      ">= " + to_string(MIN_SIZE)
+      toString(size),
+      ">= " + toString(MIN_SIZE)
     );
   }
 }

@@ -4,13 +4,13 @@
 
 #include "gl/interfaces/IShaderSource.hpp"
 #include "utils/existsIn.hpp"
+#include "utils/toString.hpp"
 #include "exceptions/Error.hpp"
 #include "exceptions/argErrors/ArgFailedRequirement.hpp"
 #include "exceptions/argErrors/InvalidArgProperty.hpp"
 
 using std::vector;
 using std::string;
-using std::to_string;
 
 namespace onux {
 
@@ -34,8 +34,8 @@ static void validateSourceCount(const size_t sourceCount) {
       "sources",
       "ShaderObject",
       "count",
-      to_string(sourceCount),
-      ">= " + to_string(MIN_SOURCE_COUNT)
+      toString(sourceCount),
+      ">= " + toString(MIN_SOURCE_COUNT)
     );
   }
 }

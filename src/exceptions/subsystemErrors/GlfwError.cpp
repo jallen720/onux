@@ -1,9 +1,9 @@
 #include "exceptions/subsystemErrors/GlfwError.hpp"
 
 #include "exceptions/messageBuilders/buildSystemMessage.hpp"
+#include "utils/toString.hpp"
 
 using std::string;
-using std::to_string;
 
 namespace onux {
 
@@ -13,7 +13,7 @@ static const string buildGlfwMessage(const int code, const char* info) {
   return buildSystemMessage(
     SYSTEM_NAME,
     "\n"
-    "  code: " + to_string(code) + "\n"
+    "  code: " + toString(code) + "\n"
     "  info: " + info + "\n"
   );
 }
