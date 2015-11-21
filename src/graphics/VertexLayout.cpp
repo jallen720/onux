@@ -1,6 +1,7 @@
 #include "graphics/VertexLayout.hpp"
 
 #include "gl/interfaces/IVertexAttribute.hpp"
+#include "utils/accumulate.hpp"
 
 namespace onux {
 
@@ -27,13 +28,9 @@ const GLsizei VertexLayout::getStride() const {
 // Implementation
 
 static const GLsizei calculateStride(IVertexLayout::Attributes& attributes) {
-  GLsizei stride = 0;
-
-  for (auto attribute : attributes) {
-    stride += attribute->getSize();
-  }
-
-  return stride;
+  return accumulate<GLsizei>(0, attributes, [](auto stride, auto attribute) {
+    return stride + attribute->getSize();
+  });
 }
 
 VertexLayout::Impl::Impl(Attributes& attributes)
