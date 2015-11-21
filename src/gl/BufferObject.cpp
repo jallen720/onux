@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 
-#include "exceptions/InvalidArg.hpp"
+#include "exceptions/argErrors/InvalidArg.hpp"
 #include "utils/contains.hpp"
 #include "utils/map.hpp"
 #include "gl/utils/getEnumName.hpp"

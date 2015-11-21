@@ -4,9 +4,9 @@
 
 #include "fixtures/TextureTest.hpp"
 #include "gl/helpers.hpp"
-#include "exceptions/NullArg.hpp"
-#include "exceptions/InvalidMapKey.hpp"
-#include "exceptions/InvalidMapValue.hpp"
+#include "exceptions/argErrors/NullArg.hpp"
+#include "exceptions/argErrors/InvalidMapKey.hpp"
+#include "exceptions/argErrors/InvalidMapValue.hpp"
 
 using onux::Texture;
 using onux::getInt;

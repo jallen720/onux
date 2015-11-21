@@ -7,7 +7,7 @@
 #include "testHelpers.hpp"
 #include "environment/interfaces/IMouseMoveListener.hpp"
 #include "environment/events/MouseMoveEvent.hpp"
-#include "exceptions/NullArg.hpp"
+#include "exceptions/argErrors/NullArg.hpp"
 
 using glm::dvec2;
 using onux::Input;

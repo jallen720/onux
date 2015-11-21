@@ -7,7 +7,7 @@
 
 #include "environment/Window.hpp"
 #include "engine/GraphicsEngine.hpp"
-#include "exceptions/OpenGlError.hpp"
+#include "exceptions/subsystemErrors/OpenGlError.hpp"
 
 using std::this_thread::sleep_for;
 using std::chrono::milliseconds;

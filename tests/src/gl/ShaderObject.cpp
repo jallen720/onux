@@ -4,8 +4,8 @@
 #include "testHelpers.hpp"
 #include "graphics/ShaderSource.hpp"
 #include "exceptions/Error.hpp"
-#include "exceptions/ArgFailedRequirement.hpp"
-#include "exceptions/InvalidArgProperty.hpp"
+#include "exceptions/argErrors/ArgFailedRequirement.hpp"
+#include "exceptions/argErrors/InvalidArgProperty.hpp"
 
 using onux::ShaderObject;
 using onux::ShaderSource;

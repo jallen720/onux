@@ -5,7 +5,7 @@
 
 #include "gl/ShaderObject.hpp"
 #include "exceptions/Error.hpp"
-#include "exceptions/ArgFailedRequirement.hpp"
+#include "exceptions/argErrors/ArgFailedRequirement.hpp"
 #include "utils/existsIn.hpp"
 
 using std::vector;

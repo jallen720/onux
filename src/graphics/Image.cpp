@@ -2,7 +2,7 @@
 
 #include <Magick++.h>
 
-#include "exceptions/EmptyStringArg.hpp"
+#include "exceptions/argErrors/EmptyStringArg.hpp"
 
 using std::string;
 

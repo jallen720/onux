@@ -4,7 +4,7 @@
 
 #include "fixtures/ImageTest.hpp"
 #include "testHelpers.hpp"
-#include "exceptions/EmptyStringArg.hpp"
+#include "exceptions/argErrors/EmptyStringArg.hpp"
 
 using Magick::ErrorMissingDelegate;
 using Magick::ErrorBlob;

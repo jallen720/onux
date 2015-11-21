@@ -5,8 +5,8 @@
 #include "gl/interfaces/IShaderSource.hpp"
 #include "utils/existsIn.hpp"
 #include "exceptions/Error.hpp"
-#include "exceptions/ArgFailedRequirement.hpp"
-#include "exceptions/InvalidArgProperty.hpp"
+#include "exceptions/argErrors/ArgFailedRequirement.hpp"
+#include "exceptions/argErrors/InvalidArgProperty.hpp"
 
 using std::vector;
 using std::string;

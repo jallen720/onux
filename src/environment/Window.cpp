@@ -5,9 +5,9 @@
 #include <GLFW/glfw3.h>
 
 #include "environment/Input.hpp"
-#include "exceptions/InvalidArg.hpp"
-#include "exceptions/EmptyStringArg.hpp"
-#include "exceptions/NullArg.hpp"
+#include "exceptions/argErrors/InvalidArg.hpp"
+#include "exceptions/argErrors/EmptyStringArg.hpp"
+#include "exceptions/argErrors/NullArg.hpp"
 
 using std::string;
 using std::to_string;

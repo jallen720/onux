@@ -6,7 +6,7 @@
 #include "environment/inputRegistry.hpp"
 #include "environment/events/MouseMoveEvent.hpp"
 #include "environment/events/MouseDeltaEvent.hpp"
-#include "exceptions/NullArg.hpp"
+#include "exceptions/argErrors/NullArg.hpp"
 
 using glm::dvec2;
 

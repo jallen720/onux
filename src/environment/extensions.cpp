@@ -2,7 +2,7 @@
 
 #include <GL/glew.h>
 
-#include "exceptions/GlewError.hpp"
+#include "exceptions/subsystemErrors/GlewError.hpp"
 
 namespace onux {
 

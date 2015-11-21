@@ -1,31 +1,30 @@
-#include "exceptions/InvalidArgProperty.hpp"
+#include "exceptions/argErrors/InvalidArgProperty.hpp"
+
+#include "exceptions/messageBuilders/buildArgMessage.hpp"
+#include "exceptions/messageBuilders/buildArgInfo.hpp"
+#include "exceptions/messageBuilders/buildMustBe.hpp"
 
 using std::string;
 using std::vector;
 
 namespace onux {
 
-static const string createWhat(
+static const string buildArgPropertyMessage(
   const string& parameterName,
   const string& objectName,
   const string& propertyName,
   const string& property,
   const string& mustBe
 ) {
-  return "\n"
-         "  Property \"" + propertyName + "\" of argument passed to \"" + parameterName + "\" parameter for " + objectName + ":\n"
-         "    was: " + property + "\n"
-         "    must be: " + mustBe;
-}
-
-static const string getMustBe(const vector<string>& validProperties) {
-  string mustBe = "\n";
-
-  for (const string& validProperty : validProperties) {
-    mustBe += "      " + validProperty + ",\n";
-  }
-
-  return mustBe;
+  return buildArgMessage(
+    parameterName,
+    objectName,
+    buildArgInfo(
+      property,
+      mustBe
+    ),
+    "Property \"" + propertyName + "\" of argument"
+  );
 }
 
 InvalidArgProperty::InvalidArgProperty(
@@ -34,7 +33,7 @@ InvalidArgProperty::InvalidArgProperty(
   const string& propertyName,
   const string& property,
   const string& validProperty
-) : Error(createWhat(
+) : Error(buildArgPropertyMessage(
       parameterName,
       objectName,
       propertyName,
@@ -48,12 +47,12 @@ InvalidArgProperty::InvalidArgProperty(
   const string&         propertyName,
   const string&         property,
   const vector<string>& validProperties
-) : Error(createWhat(
+) : Error(buildArgPropertyMessage(
       parameterName,
       objectName,
       propertyName,
       property,
-      getMustBe(validProperties)
+      buildMustBe(validProperties)
     )) {}
 
 } // namespace onux

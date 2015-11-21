@@ -6,7 +6,7 @@ namespace onux {
 
 class GlewError : public Error {
 public:
-  GlewError(const std::string& what);
+  GlewError(const std::string& message);
 };
 
 } // namespace onux

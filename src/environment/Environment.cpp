@@ -2,7 +2,7 @@
 
 #include <GLFW/glfw3.h>
 
-#include "exceptions/GlfwError.hpp"
+#include "exceptions/subsystemErrors/GlfwError.hpp"
 
 namespace onux {
 

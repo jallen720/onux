@@ -5,8 +5,8 @@
 #include <assimp/postprocess.h>
 #include <assimp/Importer.hpp>
 
-#include "exceptions/AssimpError.hpp"
-#include "exceptions/EmptyStringArg.hpp"
+#include "exceptions/subsystemErrors/AssimpError.hpp"
+#include "exceptions/argErrors/EmptyStringArg.hpp"
 
 using std::string;
 using std::stringstream;

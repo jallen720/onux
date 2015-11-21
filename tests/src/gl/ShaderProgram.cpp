@@ -5,7 +5,7 @@
 #include "fixtures/ShaderProgramTest.hpp"
 #include "gl/helpers.hpp"
 #include "exceptions/Error.hpp"
-#include "exceptions/ArgFailedRequirement.hpp"
+#include "exceptions/argErrors/ArgFailedRequirement.hpp"
 
 using glm::vec3;
 using glm::vec4;

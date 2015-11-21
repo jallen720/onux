@@ -1,7 +1,7 @@
 #include "graphics/Mesh.hpp"
 
 #include "fixtures/MeshTest.hpp"
-#include "exceptions/NullArg.hpp"
+#include "exceptions/argErrors/NullArg.hpp"
 
 using onux::Mesh;
 using onux::NullArg;

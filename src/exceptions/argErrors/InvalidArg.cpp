@@ -1,30 +1,28 @@
-#include "exceptions/InvalidArg.hpp"
+#include "exceptions/argErrors/InvalidArg.hpp"
+
+#include "exceptions/messageBuilders/buildArgMessage.hpp"
+#include "exceptions/messageBuilders/buildArgInfo.hpp"
+#include "exceptions/messageBuilders/buildMustBe.hpp"
 
 using std::string;
 using std::vector;
 
 namespace onux {
 
-static const string createWhat(
+static const string buildInvalidArgMessage(
   const string& parameterName,
   const string& objectName,
   const string& argument,
   const string& mustBe
 ) {
-  return "\n"
-         "  Argument passed to \"" + parameterName + "\" parameter for " + objectName + ":\n"
-         "    was: " + argument + "\n"
-         "    must be: " + mustBe;
-}
-
-static const string getMustBe(const vector<string>& validArguments) {
-  string mustBe = "\n";
-
-  for (const string& validArgument : validArguments) {
-    mustBe += "      " + validArgument + ",\n";
-  }
-
-  return mustBe;
+  return buildArgMessage(
+    parameterName,
+    objectName,
+    buildArgInfo(
+      argument,
+      mustBe
+    )
+  );
 }
 
 InvalidArg::InvalidArg(
@@ -32,7 +30,7 @@ InvalidArg::InvalidArg(
   const string& objectName,
   const string& argument,
   const string& validArgument
-) : Error(createWhat(
+) : Error(buildInvalidArgMessage(
       parameterName,
       objectName,
       argument,
@@ -44,11 +42,11 @@ InvalidArg::InvalidArg(
   const string&         objectName,
   const string&         argument,
   const vector<string>& validArguments
-) : Error(createWhat(
+) : Error(buildInvalidArgMessage(
       parameterName,
       objectName,
       argument,
-      getMustBe(validArguments)
+      buildMustBe(validArguments)
     )) {}
 
 } // namespace onux

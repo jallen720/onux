@@ -3,7 +3,7 @@
 #include <iostream>
 
 #include "environment/extensions.hpp"
-#include "exceptions/OpenGlError.hpp"
+#include "exceptions/subsystemErrors/OpenGlError.hpp"
 
 using std::cerr;
 using onux::loadExtensions;

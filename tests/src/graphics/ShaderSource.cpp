@@ -3,8 +3,8 @@
 #include "fixtures/ShaderSourceTest.hpp"
 #include "testHelpers.hpp"
 #include "utils/helpers.hpp"
-#include "exceptions/InvalidArgProperty.hpp"
-#include "exceptions/EmptyStringArg.hpp"
+#include "exceptions/argErrors/InvalidArgProperty.hpp"
+#include "exceptions/argErrors/EmptyStringArg.hpp"
 
 using std::string;
 using onux::ShaderSource;

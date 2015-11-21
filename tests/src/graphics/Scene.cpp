@@ -2,8 +2,8 @@
 
 #include "fixtures/SceneTest.hpp"
 #include "testHelpers.hpp"
-#include "exceptions/AssimpError.hpp"
-#include "exceptions/EmptyStringArg.hpp"
+#include "exceptions/subsystemErrors/AssimpError.hpp"
+#include "exceptions/argErrors/EmptyStringArg.hpp"
 
 using onux::Scene;
 using onux::AssimpError;

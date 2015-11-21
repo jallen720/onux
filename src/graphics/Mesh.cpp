@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 #include <assimp/mesh.h>
 
-#include "exceptions/NullArg.hpp"
+#include "exceptions/argErrors/NullArg.hpp"
 
 using glm::vec2;
 using glm::vec3;

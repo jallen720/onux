@@ -1,9 +1,9 @@
 #include <GL/glew.h> // Required before other OpenGL headers
 
 #include "environment/Window.hpp"
-#include "exceptions/InvalidArg.hpp"
-#include "exceptions/EmptyStringArg.hpp"
-#include "exceptions/NullArg.hpp"
+#include "exceptions/argErrors/InvalidArg.hpp"
+#include "exceptions/argErrors/EmptyStringArg.hpp"
+#include "exceptions/argErrors/NullArg.hpp"
 #include "fixtures/WindowTest.hpp"
 #include "testHelpers.hpp"
 
