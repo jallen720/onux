@@ -2,16 +2,10 @@
 
 #include "gl/interfaces/IVertexAttribute.hpp"
 
-#define VERTEX_ATTRIBUTE(NAME, ELEMENT_COUNT, TYPE, IS_NORMALIZED) \
-  const VertexAttribute NAME { \
-    ELEMENT_COUNT, \
-    GL_ ## TYPE, \
-    GL_ ## IS_NORMALIZED, \
-    (GLvoid*)offsetof(Vertex, NAME), \
-    sizeof(glm::vec ## ELEMENT_COUNT) \
-  }
 
 namespace onux {
+
+// VertexAttribute definition
 
 class VertexAttribute : public IVertexAttribute {
 public:
@@ -36,6 +30,17 @@ private:
   const GLsizei   m_size;
 };
 
+// Vertex implementation
+
+#define VERTEX_ATTRIBUTE(NAME, ELEMENT_COUNT, TYPE, IS_NORMALIZED) \
+  const VertexAttribute NAME { \
+    ELEMENT_COUNT, \
+    GL_ ## TYPE, \
+    GL_ ## IS_NORMALIZED, \
+    (GLvoid*)offsetof(Vertex, NAME), \
+    sizeof(glm::vec ## ELEMENT_COUNT) \
+  }
+
 static const struct {
   VERTEX_ATTRIBUTE(POSITION, 3, FLOAT, FALSE);
   VERTEX_ATTRIBUTE(NORMAL  , 3, FLOAT, FALSE);
@@ -47,6 +52,8 @@ const VertexLayout Vertex::LAYOUT({
   &ATTRIBUTES.NORMAL,
   &ATTRIBUTES.UV,
 });
+
+// VertexAttribute implementation
 
 VertexAttribute::VertexAttribute(
   const GLint     elementCount,
