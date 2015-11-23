@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "gl/interfaces/IImage.hpp"
-#include "utils/ValidValues.hpp"
+#include "gl/utils/ValidValues.hpp"
 #include "exceptions/Error.hpp"
 #include "exceptions/argErrors/NullArg.hpp"
 #include "exceptions/argErrors/InvalidMapKey.hpp"

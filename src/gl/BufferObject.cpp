@@ -5,7 +5,7 @@
 
 #include "exceptions/argErrors/InvalidArg.hpp"
 #include "utils/toString.hpp"
-#include "utils/ValidValues.hpp"
+#include "gl/utils/ValidValues.hpp"
 
 using std::vector;
 using std::string;

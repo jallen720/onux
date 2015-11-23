@@ -7,7 +7,7 @@
 #include "utils/contains.hpp"
 #include "utils/map.hpp"
 #include "utils/toString.hpp"
-#include "utils/ValidValues.hpp"
+#include "gl/utils/ValidValues.hpp"
 #include "exceptions/argErrors/InvalidArg.hpp"
 
 using std::vector;
