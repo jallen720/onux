@@ -59,7 +59,6 @@ static void validateExtension(const string& extension) {
       "path",
       "ShaderSource",
       "extension",
-      extension,
       keys(ShaderSource::TYPES)
     );
   }

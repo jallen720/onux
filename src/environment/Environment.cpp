@@ -14,7 +14,7 @@ static void setErrorCB() {
 
 static void validateInit(const int initResult) {
   if (initResult == GL_FALSE) {
-    throw GlfwError("Failed to initialize!");
+    throw GlfwError("failed to initialize");
   }
 }
 

@@ -4,10 +4,8 @@
 #include <string>
 
 #include "exceptions/argErrors/InvalidArg.hpp"
-#include "utils/contains.hpp"
-#include "utils/map.hpp"
 #include "utils/toString.hpp"
-#include "gl/utils/getEnumName.hpp"
+#include "utils/ValidValues.hpp"
 
 using std::vector;
 using std::string;
@@ -45,25 +43,20 @@ void BufferObject::loadData() const {
 }
 
 static void validateTarget(const GLenum target) {
-  static const vector<GLenum> VALID_TARGETS {
-    GL_ARRAY_BUFFER,
-    GL_COPY_READ_BUFFER,
-    GL_COPY_WRITE_BUFFER,
-    GL_ELEMENT_ARRAY_BUFFER,
-    GL_PIXEL_PACK_BUFFER,
-    GL_PIXEL_UNPACK_BUFFER,
-    GL_TEXTURE_BUFFER,
-    GL_TRANSFORM_FEEDBACK_BUFFER,
-    GL_UNIFORM_BUFFER,
+  static const ValidValues VALID_TARGETS {
+    VALID_VALUE(GL_ARRAY_BUFFER),
+    VALID_VALUE(GL_COPY_READ_BUFFER),
+    VALID_VALUE(GL_COPY_WRITE_BUFFER),
+    VALID_VALUE(GL_ELEMENT_ARRAY_BUFFER),
+    VALID_VALUE(GL_PIXEL_PACK_BUFFER),
+    VALID_VALUE(GL_PIXEL_UNPACK_BUFFER),
+    VALID_VALUE(GL_TEXTURE_BUFFER),
+    VALID_VALUE(GL_TRANSFORM_FEEDBACK_BUFFER),
+    VALID_VALUE(GL_UNIFORM_BUFFER),
   };
 
-  if (!contains(VALID_TARGETS, target)) {
-    throw InvalidArg(
-      "target",
-      "BufferObject",
-      getEnumName(target),
-      map<string>(VALID_TARGETS, getEnumName)
-    );
+  if (!VALID_TARGETS.contains(target)) {
+    throw InvalidArg("target", "BufferObject", VALID_TARGETS.getNames());
   }
 }
 
@@ -71,35 +64,25 @@ static void validateSize(const GLsizeiptr size) {
   static const GLsizeiptr MIN_SIZE = 0;
 
   if (size < MIN_SIZE) {
-    throw InvalidArg(
-      "size",
-      "BufferObject",
-      toString(size),
-      ">= " + toString(MIN_SIZE)
-    );
+    throw InvalidArg("size", "BufferObject", ">= " + toString(MIN_SIZE));
   }
 }
 
 static void validateUsage(const GLenum usage) {
-  static const vector<GLenum> VALID_USAGES {
-    GL_STREAM_DRAW,
-    GL_STREAM_READ,
-    GL_STREAM_COPY,
-    GL_STATIC_DRAW,
-    GL_STATIC_READ,
-    GL_STATIC_COPY,
-    GL_DYNAMIC_DRAW,
-    GL_DYNAMIC_READ,
-    GL_DYNAMIC_COPY,
+  static const ValidValues VALID_USAGES {
+    VALID_VALUE(GL_STREAM_DRAW),
+    VALID_VALUE(GL_STREAM_READ),
+    VALID_VALUE(GL_STREAM_COPY),
+    VALID_VALUE(GL_STATIC_DRAW),
+    VALID_VALUE(GL_STATIC_READ),
+    VALID_VALUE(GL_STATIC_COPY),
+    VALID_VALUE(GL_DYNAMIC_DRAW),
+    VALID_VALUE(GL_DYNAMIC_READ),
+    VALID_VALUE(GL_DYNAMIC_COPY),
   };
 
-  if (!contains(VALID_USAGES, usage)) {
-    throw InvalidArg(
-      "usage",
-      "BufferObject",
-      getEnumName(usage),
-      map<string>(VALID_USAGES, getEnumName)
-    );
+  if (!VALID_USAGES.contains(usage)) {
+    throw InvalidArg("usage", "BufferObject", VALID_USAGES.getNames());
   }
 }
 

@@ -11,13 +11,11 @@ public:
   InvalidArg(
     const std::string& parameterName,
     const std::string& objectName,
-    const std::string& argument,
     const std::string& validArgument
   );
   InvalidArg(
     const std::string&              parameterName,
     const std::string&              objectName,
-    const std::string&              argument,
     const std::vector<std::string>& validArguments
   );
 };

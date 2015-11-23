@@ -12,7 +12,7 @@ static void setExperimental() {
 
 static void validateInit(const GLenum initResult) {
   if (initResult != GLEW_OK) {
-    throw GlewError("Failed to initialize!");
+    throw GlewError("failed to initialize");
   }
 }
 

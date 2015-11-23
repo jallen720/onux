@@ -13,17 +13,13 @@ static const string buildMapValueMessage(
   const string& parameterName,
   const string& objectName,
   const string& key,
-  const string& value,
   const string& mustBe
 ) {
   return buildArgMessage(
     parameterName,
     objectName,
-    buildArgInfo(
-      value,
-      mustBe
-    ),
-    "Map value for \"" + key + "\" key in argument"
+    buildArgInfo(mustBe),
+    "map value for \"" + key + "\" key in argument"
   );
 }
 
@@ -31,13 +27,11 @@ InvalidMapValue::InvalidMapValue(
   const string&         parameterName,
   const string&         objectName,
   const string&         key,
-  const string&         value,
   const vector<string>& validValues
 ) : Error(buildMapValueMessage(
       parameterName,
       objectName,
       key,
-      value,
       buildMustBe(validValues)
     )) {}
 

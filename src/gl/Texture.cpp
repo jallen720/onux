@@ -5,14 +5,11 @@
 #include <vector>
 
 #include "gl/interfaces/IImage.hpp"
-#include "utils/contains.hpp"
+#include "utils/ValidValues.hpp"
 #include "exceptions/Error.hpp"
 #include "exceptions/argErrors/NullArg.hpp"
 #include "exceptions/argErrors/InvalidMapKey.hpp"
 #include "exceptions/argErrors/InvalidMapValue.hpp"
-#include "utils/map.hpp"
-#include "utils/keys.hpp"
-#include "gl/utils/getEnumName.hpp"
 
 using std::string;
 using std::vector;
@@ -39,27 +36,34 @@ static void validateImage(const IImage* image) {
   }
 }
 
-static const vector<GLint> VALID_WRAP_VALUES {
-  GL_CLAMP_TO_EDGE,
-  GL_MIRRORED_REPEAT,
-  GL_REPEAT,
+static const ValidValues VALID_WRAP_VALUES {
+  VALID_VALUE(GL_CLAMP_TO_EDGE),
+  VALID_VALUE(GL_MIRRORED_REPEAT),
+  VALID_VALUE(GL_REPEAT),
 };
 
-static const vector<GLint> VALID_MIN_FILTER_VALUES {
-  GL_NEAREST,
-  GL_LINEAR,
-  GL_NEAREST_MIPMAP_NEAREST,
-  GL_LINEAR_MIPMAP_NEAREST,
-  GL_NEAREST_MIPMAP_LINEAR,
-  GL_LINEAR_MIPMAP_LINEAR,
+static const ValidValues VALID_MIN_FILTER_VALUES {
+  VALID_VALUE(GL_NEAREST),
+  VALID_VALUE(GL_LINEAR),
+  VALID_VALUE(GL_NEAREST_MIPMAP_NEAREST),
+  VALID_VALUE(GL_LINEAR_MIPMAP_NEAREST),
+  VALID_VALUE(GL_NEAREST_MIPMAP_LINEAR),
+  VALID_VALUE(GL_LINEAR_MIPMAP_LINEAR),
 };
 
-static const vector<GLint> VALID_MAG_FILTER_VALUES {
-  GL_NEAREST,
-  GL_LINEAR,
+static const ValidValues VALID_MAG_FILTER_VALUES {
+  VALID_VALUE(GL_NEAREST),
+  VALID_VALUE(GL_LINEAR),
 };
 
-static const std::map<const GLenum, const vector<GLint>> VALID_OPTION_VALUES {
+static const ValidValues VALID_OPTION_KEYS {
+  VALID_VALUE(GL_TEXTURE_WRAP_S),
+  VALID_VALUE(GL_TEXTURE_WRAP_T),
+  VALID_VALUE(GL_TEXTURE_MIN_FILTER),
+  VALID_VALUE(GL_TEXTURE_MAG_FILTER),
+};
+
+static const std::map<const GLenum, const ValidValues> VALID_OPTION_VALUES {
   { GL_TEXTURE_WRAP_S    , VALID_WRAP_VALUES       },
   { GL_TEXTURE_WRAP_T    , VALID_WRAP_VALUES       },
   { GL_TEXTURE_MIN_FILTER, VALID_MIN_FILTER_VALUES },
@@ -67,26 +71,18 @@ static const std::map<const GLenum, const vector<GLint>> VALID_OPTION_VALUES {
 };
 
 static void validateOptionKey(const GLenum optionKey) {
-  static const auto VALID_OPTION_KEYS = keys(VALID_OPTION_VALUES);
-
-  if (!contains(VALID_OPTION_KEYS, optionKey)) {
-    throw InvalidMapKey(
-      "options",
-      "Texture",
-      getEnumName(optionKey),
-      map<string>(VALID_OPTION_KEYS, getEnumName)
-    );
+  if (!VALID_OPTION_KEYS.contains(optionKey)) {
+    throw InvalidMapKey("options", "Texture", VALID_OPTION_KEYS.getNames());
   }
 }
 
 static void validateOptionValue(const GLenum optionKey, const GLint optionValue) {
-  if (!contains(VALID_OPTION_VALUES.at(optionKey), optionValue)) {
+  if (!VALID_OPTION_VALUES.at(optionKey).contains(optionValue)) {
     throw InvalidMapValue(
       "options",
       "Texture",
-      getEnumName(optionKey),
-      getEnumName(optionValue),
-      map<string>(VALID_OPTION_VALUES.at(optionKey), getEnumName)
+      VALID_OPTION_KEYS.getName(optionKey),
+      VALID_OPTION_VALUES.at(optionKey).getNames()
     );
   }
 }

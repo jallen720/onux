@@ -63,12 +63,7 @@ static void validateDimension(const unsigned int dimension, const string& dimens
   static const auto MIN_DIMENSION_SIZE = 1u;
 
   if (dimension < MIN_DIMENSION_SIZE) {
-    throw InvalidArg(
-      dimensionName,
-      "Window",
-      toString(dimension),
-      ">= " + toString(MIN_DIMENSION_SIZE)
-    );
+    throw InvalidArg(dimensionName, "Window", ">= " + toString(MIN_DIMENSION_SIZE));
   }
 }
 

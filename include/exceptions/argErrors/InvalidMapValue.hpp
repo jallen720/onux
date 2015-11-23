@@ -12,7 +12,6 @@ public:
     const std::string&              parameterName,
     const std::string&              objectName,
     const std::string&              key,
-    const std::string&              value,
     const std::vector<std::string>& validValues
   );
 };

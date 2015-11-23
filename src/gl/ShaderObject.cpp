@@ -34,7 +34,6 @@ static void validateSourceCount(const size_t sourceCount) {
       "sources",
       "ShaderObject",
       "count",
-      toString(sourceCount),
       ">= " + toString(MIN_SOURCE_COUNT)
     );
   }
@@ -48,11 +47,7 @@ static bool areSameType(ShaderObject::Sources sources, const GLenum type) {
 
 static void validateSameType(ShaderObject::Sources sources, const GLenum type) {
   if (!areSameType(sources, type)) {
-    throw ArgFailedRequirement(
-      "sources",
-      "ShaderObject",
-      "All sources must be the same type"
-    );
+    throw ArgFailedRequirement("sources", "ShaderObject", "All sources must be the same type");
   }
 }
 

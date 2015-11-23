@@ -13,7 +13,7 @@ EmptyStringArg::EmptyStringArg(
       parameterName,
       objectName,
       " cannot be empty",
-      "String argument"
+      "string argument"
     )) {}
 
 } // namespace onux
