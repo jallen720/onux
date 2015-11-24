@@ -1,7 +1,7 @@
 #include "gl/utils/getInt.hpp"
 
 #include "fixtures/gl/utils/getIntTest.hpp"
-#include "utils/expectGlError.hpp"
+#include "utils/expectGLError.hpp"
 
 using onux::getInt;
 
@@ -13,7 +13,7 @@ TEST_F(getIntTest, validParameter) {
 }
 
 TEST_F(getIntTest, invalidParameter) {
-  expectGlError(GL_INVALID_ENUM, [] {
+  expectGLError(GL_INVALID_ENUM, [] {
     getInt(-1);
   });
 }

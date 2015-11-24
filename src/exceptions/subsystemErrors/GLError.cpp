@@ -1,11 +1,11 @@
-#include "exceptions/subsystemErrors/OpenGlError.hpp"
+#include "exceptions/subsystemErrors/GLError.hpp"
 
 #include "gl/utils/getErrorMessage.hpp"
 #include "exceptions/messageBuilders/buildSystemMessage.hpp"
 
 namespace onux {
 
-OpenGlError::OpenGlError(const GLenum error)
+GLError::GLError(const GLenum error)
   : Error(buildSystemMessage("OPENGL", getErrorMessage(error))) {}
 
 } // namespace onux

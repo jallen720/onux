@@ -1,4 +1,4 @@
-#include "exceptions/subsystemErrors/GlewError.hpp"
+#include "exceptions/subsystemErrors/GLEWError.hpp"
 
 #include "exceptions/messageBuilders/buildSystemMessage.hpp"
 
@@ -6,7 +6,7 @@ using std::string;
 
 namespace onux {
 
-GlewError::GlewError(const string& message)
+GLEWError::GLEWError(const string& message)
   : Error(buildSystemMessage("GLEW", message)) {}
 
 } // namespace onux

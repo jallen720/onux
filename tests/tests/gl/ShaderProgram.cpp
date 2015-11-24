@@ -7,7 +7,7 @@
 #include "exceptions/Error.hpp"
 #include "exceptions/argErrors/ArgFailedRequirement.hpp"
 #include "utils/expectNoThrow.hpp"
-#include "utils/expectGlError.hpp"
+#include "utils/expectGLError.hpp"
 
 using glm::vec3;
 using glm::vec4;
@@ -109,7 +109,7 @@ TEST_F(ShaderProgramTest, setUniformNotCurrentProgram) {
 
   // Trying to set a uniform on a program that is not the current program will
   // generate a GL_INVALID_OPERATION error.
-  expectGlError(GL_INVALID_OPERATION, [&shaderProgram] {
+  expectGLError(GL_INVALID_OPERATION, [&shaderProgram] {
     shaderProgram.setUniform("testVec3", vec3());
   });
 }

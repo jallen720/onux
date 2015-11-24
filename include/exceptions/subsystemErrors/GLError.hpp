@@ -1,12 +1,14 @@
 #pragma once
 
+#include <GL/glew.h>
+
 #include "exceptions/Error.hpp"
 
 namespace onux {
 
-class GlewError : public Error {
+class GLError : public Error {
 public:
-  GlewError(const std::string& message);
+  GLError(const GLenum error);
 };
 
 } // namespace onux

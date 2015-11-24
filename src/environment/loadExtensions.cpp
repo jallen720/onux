@@ -2,7 +2,7 @@
 
 #include <GL/glew.h>
 
-#include "exceptions/subsystemErrors/GlewError.hpp"
+#include "exceptions/subsystemErrors/GLEWError.hpp"
 
 namespace onux {
 
@@ -12,7 +12,7 @@ static void setExperimental() {
 
 static void validateInit(const GLenum initResult) {
   if (initResult != GLEW_OK) {
-    throw GlewError("failed to initialize");
+    throw GLEWError("failed to initialize");
   }
 }
 

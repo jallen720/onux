@@ -2,19 +2,19 @@
 
 #include <GLFW/glfw3.h>
 
-#include "exceptions/subsystemErrors/GlfwError.hpp"
+#include "exceptions/subsystemErrors/GLFWError.hpp"
 
 namespace onux {
 
 static void setErrorCB() {
   glfwSetErrorCallback([](const int code, const char* description) {
-    throw GlfwError(code, description);
+    throw GLFWError(code, description);
   });
 }
 
 static void validateInit(const int initResult) {
   if (initResult == GL_FALSE) {
-    throw GlfwError("failed to initialize");
+    throw GLFWError("failed to initialize");
   }
 }
 

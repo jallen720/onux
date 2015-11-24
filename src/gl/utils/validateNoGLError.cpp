@@ -2,7 +2,7 @@
 
 #include <GL/glew.h>
 
-#include "exceptions/subsystemErrors/OpenGlError.hpp"
+#include "exceptions/subsystemErrors/GLError.hpp"
 
 namespace onux {
 
@@ -10,7 +10,7 @@ void validateNoGLError() {
   const GLenum error = glGetError();
 
   if (error != GL_NO_ERROR) {
-    throw OpenGlError(error);
+    throw GLError(error);
   }
 }
 
