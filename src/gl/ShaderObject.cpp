@@ -1,29 +1,24 @@
 #include "gl/ShaderObject.hpp"
 
-#include <string>
-
 #include "gl/interfaces/IShaderSource.hpp"
+#include "gl/utils/ObjectInfo.hpp"
 #include "utils/existsIn.hpp"
 #include "utils/toString.hpp"
 #include "exceptions/Error.hpp"
 #include "exceptions/argErrors/ArgFailedRequirement.hpp"
 #include "exceptions/argErrors/InvalidArgProperty.hpp"
 
-using std::vector;
-using std::string;
-
 namespace onux {
 
 struct ShaderObject::Impl {
-  const ShaderObject* self;
+  const GLuint     id;
+  const ObjectInfo objectInfo;
 
-  Impl(const ShaderObject* self);
+  Impl(const GLuint id);
   void loadSources(Sources sources) const;
   void compile() const;
   void validateCompileStatus() const;
   const bool compilationSucceeded() const;
-  const GLint getInt(const GLenum parameter) const;
-  const string getInfoLog() const;
 };
 
 static void validateSourceCount(const size_t sourceCount) {
@@ -60,7 +55,7 @@ static const GLuint getValidShaderObject(ShaderObject::Sources sources) {
 
 ShaderObject::ShaderObject(Sources sources)
   : OpenGLData(getValidShaderObject(sources))
-  , impl(new Impl(this)) {
+  , impl(new Impl(getID())) {
   impl->loadSources(sources);
   impl->compile();
   impl->validateCompileStatus();
@@ -71,13 +66,18 @@ ShaderObject::~ShaderObject() {
 }
 
 const GLenum ShaderObject::getType() const {
-  return impl->getInt(GL_SHADER_TYPE);
+  return impl->objectInfo.getValue(GL_SHADER_TYPE);
 }
 
 // Implementation
 
-ShaderObject::Impl::Impl(const ShaderObject* self)
-  : self(self) {}
+ShaderObject::Impl::Impl(const GLuint id)
+  : id(id)
+  , objectInfo(
+      this->id,
+      glGetShaderiv,
+      glGetShaderInfoLog
+    ) {}
 
 void ShaderObject::Impl::loadSources(Sources sources) const {
   const size_t sourceCount = sources.size();
@@ -88,7 +88,7 @@ void ShaderObject::Impl::loadSources(Sources sources) const {
   }
 
   glShaderSource(
-    self->getID(),
+    id,
     sourceCount,
     sourceCode,
     nullptr
@@ -96,37 +96,18 @@ void ShaderObject::Impl::loadSources(Sources sources) const {
 }
 
 void ShaderObject::Impl::compile() const {
-  glCompileShader(self->getID());
+  glCompileShader(id);
 }
 
 void ShaderObject::Impl::validateCompileStatus() const {
   if (!compilationSucceeded()) {
     // TODO: Destroy shader here
-    throw Error("ShaderObject compilation failed:\n" + getInfoLog());
+    throw Error("ShaderObject compilation failed:\n" + objectInfo.getInfoLog());
   }
 }
 
 const bool ShaderObject::Impl::compilationSucceeded() const {
-  return getInt(GL_COMPILE_STATUS) == GL_TRUE;
-}
-
-const GLint ShaderObject::Impl::getInt(const GLenum parameter) const {
-  GLint value;
-  glGetShaderiv(self->getID(), parameter, &value);
-  return value;
-}
-
-const string ShaderObject::Impl::getInfoLog() const {
-  vector<GLchar> infoLog(getInt(GL_INFO_LOG_LENGTH));
-
-  glGetShaderInfoLog(
-    self->getID(),
-    infoLog.size(),
-    nullptr,
-    &infoLog[0]
-  );
-
-  return string(infoLog.begin(), infoLog.end());
+  return objectInfo.getValue(GL_COMPILE_STATUS) == GL_TRUE;
 }
 
 } // namespace onux

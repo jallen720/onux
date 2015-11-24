@@ -4,6 +4,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "gl/ShaderObject.hpp"
+#include "gl/utils/ObjectInfo.hpp"
 #include "exceptions/Error.hpp"
 #include "exceptions/argErrors/ArgFailedRequirement.hpp"
 #include "utils/existsIn.hpp"
@@ -18,16 +19,15 @@ using glm::mat4;
 namespace onux {
 
 struct ShaderProgram::Impl {
-  const ShaderProgram* self;
+  const GLuint     id;
+  const ObjectInfo objectInfo;
 
-  Impl(const ShaderProgram* self);
+  Impl(const GLuint id);
   void attach(Objects objects) const;
   void link() const;
   void detach(Objects objects) const;
   void validateLinkStatus() const;
   const bool linkingSucceeded() const;
-  const GLint getInt(const GLenum parameter) const;
-  const string getInfoLog() const;
   const GLint getUniformLocation(const GLchar* name) const;
 };
 
@@ -67,7 +67,7 @@ static GLuint getValidShaderProgram(ShaderProgram::Objects objects) {
 
 ShaderProgram::ShaderProgram(Objects objects)
   : OpenGLData(getValidShaderProgram(objects))
-  , impl(new Impl(this)) {
+  , impl(new Impl(getID())) {
   impl->attach(objects);
   impl->link();
   impl->detach(objects);
@@ -125,58 +125,38 @@ void ShaderProgram::setUniform(
 
 // Implementation
 
-ShaderProgram::Impl::Impl(const ShaderProgram* self)
-  : self(self) {}
+ShaderProgram::Impl::Impl(const GLuint id)
+  : id(id)
+  , objectInfo(
+      this->id,
+      glGetProgramiv,
+      glGetProgramInfoLog
+    ) {}
 
 void ShaderProgram::Impl::attach(Objects objects) const {
   for (auto object : objects) {
-    glAttachShader(self->getID(), object->getID());
+    glAttachShader(id, object->getID());
   }
 }
 
 void ShaderProgram::Impl::link() const {
-  glLinkProgram(self->getID());
+  glLinkProgram(id);
 }
 
 void ShaderProgram::Impl::detach(Objects objects) const {
   for (auto object : objects) {
-    glDetachShader(self->getID(), object->getID());
+    glDetachShader(id, object->getID());
   }
 }
 
 void ShaderProgram::Impl::validateLinkStatus() const {
   if (!linkingSucceeded()) {
-    throw Error("ShaderProgram linking failed:\n" + getInfoLog());
+    throw Error("ShaderProgram linking failed:\n" + objectInfo.getInfoLog());
   }
 }
 
 const bool ShaderProgram::Impl::linkingSucceeded() const {
-  return getInt(GL_LINK_STATUS) == GL_TRUE;
-}
-
-const GLint ShaderProgram::Impl::getInt(const GLenum parameter) const {
-  GLint value;
-
-  glGetProgramiv(
-    self->getID(),
-    parameter,
-    &value
-  );
-
-  return value;
-}
-
-const string ShaderProgram::Impl::getInfoLog() const {
-  vector<GLchar> infoLog(getInt(GL_INFO_LOG_LENGTH));
-
-  glGetProgramInfoLog(
-    self->getID(),
-    infoLog.size(),
-    nullptr,
-    &infoLog[0]
-  );
-
-  return string(infoLog.begin(), infoLog.end());
+  return objectInfo.getValue(GL_LINK_STATUS) == GL_TRUE;
 }
 
 static const void validateLocation(const GLint location, const string& name) {
@@ -188,7 +168,7 @@ static const void validateLocation(const GLint location, const string& name) {
 }
 
 const GLint ShaderProgram::Impl::getUniformLocation(const GLchar* name) const {
-  const GLint location = glGetUniformLocation(self->getID(), name);
+  const GLint location = glGetUniformLocation(id, name);
   validateLocation(location, name);
   return location;
 }
