@@ -15,7 +15,7 @@ public:
   ~MouseDeltaEvent();
 
   // Event
-  void trigger(const glm::dvec2& position) override;
+  virtual void trigger(const glm::dvec2& position) override;
 
 private:
   struct Impl;

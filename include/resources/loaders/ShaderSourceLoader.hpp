@@ -8,8 +8,8 @@ namespace onux {
 class ShaderSourceLoader : public ResourceLoader<const ShaderSource> {
 protected:
   // ResourceLoader
-  const std::string& getSubDirectory() const override;
-  Resource load(const std::string& path) const override;
+  virtual const std::string& getSubDirectory() const override;
+  virtual Resource load(const std::string& path) const override;
 };
 
 } // namespace onux

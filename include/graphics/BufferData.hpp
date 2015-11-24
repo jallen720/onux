@@ -16,8 +16,8 @@ public:
   const size_t getCount() const;
 
   // IBufferData
-  const GLsizei getSize() const override;
-  const GLvoid* getPointer() const override;
+  virtual const GLsizei getSize() const override;
+  virtual const GLvoid* getPointer() const override;
 
 private:
   std::vector<T> m_data;

@@ -17,7 +17,9 @@ public:
     const GLenum         usage = GL_STATIC_DRAW
   );
   ~VertexBuffer();
-  void loadData() const override;
+
+  // BufferObject
+  virtual void loadData() const override;
 
 private:
   struct Impl;

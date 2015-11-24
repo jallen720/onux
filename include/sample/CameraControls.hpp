@@ -10,7 +10,7 @@ public:
   ~CameraControls();
 
   // IMouseDeltaListener
-  void onMouseDelta(const glm::dvec2& delta) override;
+  virtual void onMouseDelta(const glm::dvec2& delta) override;
 
 private:
   onux::Transform& m_cameraTransform;

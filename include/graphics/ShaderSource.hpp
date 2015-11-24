@@ -19,8 +19,8 @@ public:
   ShaderSource(const std::string& path);
 
   // IShaderSource
-  const GLenum getType() const override;
-  const GLchar* getCode() const override;
+  virtual const GLenum getType() const override;
+  virtual const GLchar* getCode() const override;
 
 private:
   struct Impl;

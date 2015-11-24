@@ -12,8 +12,8 @@ public:
   ~VertexLayout();
 
   // IVertexLayout
-  Attributes& getAttributes() const override;
-  const GLsizei getStride() const override;
+  virtual Attributes& getAttributes() const override;
+  virtual const GLsizei getStride() const override;
 
 private:
   struct Impl;

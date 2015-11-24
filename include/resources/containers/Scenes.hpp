@@ -14,7 +14,7 @@ public:
 
 protected:
   // Resources
-  Loader getLoader() const override;
+  virtual Loader getLoader() const override;
 
 private:
   struct Impl;

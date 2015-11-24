@@ -19,7 +19,7 @@ public:
   MouseDeltaEvent& getMouseDeltaEvent();
 
   // IInput
-  void cursorPosEvent(const double x, const double y) override;
+  virtual void cursorPosEvent(const double x, const double y) override;
 
 private:
   struct Impl;

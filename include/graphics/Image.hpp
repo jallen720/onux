@@ -13,9 +13,9 @@ public:
   ~Image();
 
   // IImage
-  const GLsizei getWidth() const override;
-  const GLsizei getHeight() const override;
-  const GLvoid* getData() const override;
+  virtual const GLsizei getWidth() const override;
+  virtual const GLsizei getHeight() const override;
+  virtual const GLvoid* getData() const override;
 
 private:
   struct Impl;
