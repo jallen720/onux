@@ -7,7 +7,7 @@
 
 #include "environment/Environment.hpp"
 #include "environment/Window.hpp"
-#include "environment/extensions.hpp"
+#include "environment/loadExtensions.hpp"
 
 #include "graphics/ShaderSource.hpp"
 #include "graphics/Image.hpp"

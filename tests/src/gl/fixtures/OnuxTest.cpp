@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "environment/extensions.hpp"
+#include "environment/loadExtensions.hpp"
 #include "exceptions/subsystemErrors/OpenGlError.hpp"
 
 using std::cerr;
