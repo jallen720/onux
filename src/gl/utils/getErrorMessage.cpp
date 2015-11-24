@@ -1,4 +1,4 @@
-#include "gl/helpers.hpp"
+#include "gl/utils/getErrorMessage.hpp"
 
 #include <map>
 
@@ -7,13 +7,7 @@ using std::map;
 
 namespace onux {
 
-const GLint getInt(const GLenum parameter) {
-  GLint value;
-  glGetIntegerv(parameter, &value);
-  return value;
-}
-
-const string getErrorMsg(const GLenum error) {
+const string& getErrorMessage(const GLenum error) {
   static const map<const GLenum, const string> ERROR_MESSAGES {
     { GL_NO_ERROR                      , "No error"                      },
     { GL_INVALID_ENUM                  , "Invalid enum"                  },

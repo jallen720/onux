@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 
 #include "fixtures/ShaderProgramTest.hpp"
-#include "gl/helpers.hpp"
+#include "gl/utils/getInt.hpp"
 #include "exceptions/Error.hpp"
 #include "exceptions/argErrors/ArgFailedRequirement.hpp"
 

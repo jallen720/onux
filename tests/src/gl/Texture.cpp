@@ -3,7 +3,7 @@
 #include <GL/glew.h> // Required before other OpenGL headers
 
 #include "fixtures/TextureTest.hpp"
-#include "gl/helpers.hpp"
+#include "gl/utils/getInt.hpp"
 #include "exceptions/argErrors/NullArg.hpp"
 #include "exceptions/argErrors/InvalidMapKey.hpp"
 #include "exceptions/argErrors/InvalidMapValue.hpp"
