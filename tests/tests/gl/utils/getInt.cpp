@@ -1,7 +1,7 @@
 #include "gl/utils/getInt.hpp"
 
 #include "fixtures/getIntTest.hpp"
-#include "testHelpers.hpp"
+#include "utils/expectGlError.hpp"
 
 using onux::getInt;
 

@@ -7,7 +7,7 @@
 #include "exceptions/Error.hpp"
 #include "exceptions/argErrors/ArgFailedRequirement.hpp"
 #include "utils/expectNoThrow.hpp"
-#include "testHelpers.hpp"
+#include "utils/expectGlError.hpp"
 
 using glm::vec3;
 using glm::vec4;
