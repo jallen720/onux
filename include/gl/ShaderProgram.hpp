@@ -15,7 +15,7 @@ public:
   typedef const std::vector<const ShaderObject*>& Objects;
 
 public:
-  ShaderProgram(Objects objects);
+  explicit ShaderProgram(Objects objects);
   ~ShaderProgram();
   void use() const;
   void setUniform(const GLchar* name, const GLint value) const;

@@ -11,7 +11,7 @@ template<typename T>
 class BufferData : public IBufferData {
 public:
   BufferData();
-  BufferData(const std::initializer_list<T>& data);
+  explicit BufferData(const std::initializer_list<T>& data);
   void add(T element);
   const size_t getCount() const;
 

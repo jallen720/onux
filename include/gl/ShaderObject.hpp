@@ -14,7 +14,7 @@ public:
   typedef const std::vector<const IShaderSource*>& Sources;
 
 public:
-  ShaderObject(Sources sources);
+  explicit ShaderObject(Sources sources);
   ~ShaderObject();
   const GLenum getType() const;
 

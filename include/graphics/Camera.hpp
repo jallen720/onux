@@ -9,7 +9,7 @@ class Transform;
 
 class Camera {
 public:
-  Camera(const glm::mat4& projection);
+  explicit Camera(const glm::mat4& projection);
   ~Camera();
   Transform& getTransform();
   const glm::mat4& getProjection() const;

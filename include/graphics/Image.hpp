@@ -9,7 +9,7 @@ namespace onux {
 
 class Image : public IImage {
 public:
-  Image(const std::string& path);
+  explicit Image(const std::string& path);
   ~Image();
 
   // IImage

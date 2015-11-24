@@ -13,7 +13,7 @@ struct MouseDeltaEvent;
 
 class Input : public IInput {
 public:
-  Input(GLFWwindow* window);
+  explicit Input(GLFWwindow* window);
   ~Input();
   MouseMoveEvent& getMouseMoveEvent();
   MouseDeltaEvent& getMouseDeltaEvent();

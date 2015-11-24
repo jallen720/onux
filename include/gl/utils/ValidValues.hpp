@@ -17,7 +17,7 @@ private:
   typedef const std::initializer_list<ValidValue>& ValidValueList;
 
 public:
-  ValidValues(ValidValueList validValues);
+  explicit ValidValues(ValidValueList validValues);
   const bool contains(const GLenum value) const;
   ValueName getName(const GLenum value) const;
   ValueNames getNames() const;

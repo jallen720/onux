@@ -8,7 +8,7 @@ namespace onux {
 
 class VertexLayout : public IVertexLayout {
 public:
-  VertexLayout(Attributes& attributes);
+  explicit VertexLayout(Attributes& attributes);
   ~VertexLayout();
 
   // IVertexLayout

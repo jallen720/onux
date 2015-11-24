@@ -12,5 +12,5 @@ public:
 
 private:
   const onux::Environment m_environment;
-  GLFWwindow* m_window;
+  GLFWwindow*             m_window;
 };

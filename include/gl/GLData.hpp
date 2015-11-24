@@ -10,7 +10,7 @@ public:
   const GLuint& getID() const;
 
 protected:
-  GLData(const GLuint id);
+  explicit GLData(const GLuint id);
 
 private:
   struct Impl;

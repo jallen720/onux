@@ -14,7 +14,7 @@ public:
   typedef std::vector<Mesh> Meshes;
 
 public:
-  Scene(const std::string& path);
+  explicit Scene(const std::string& path);
   ~Scene();
   const Meshes& getMeshes() const;
 
