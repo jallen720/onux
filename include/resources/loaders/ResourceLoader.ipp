@@ -1,4 +1,4 @@
-#include "resources/helpers.hpp"
+#include "resources/utils/filesInDirectory.hpp"
 
 namespace onux {
 
