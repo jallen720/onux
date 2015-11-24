@@ -2,6 +2,7 @@
 
 #include "fixtures/ShaderSourceTest.hpp"
 #include "testHelpers.hpp"
+#include "utils/testShaderPath.hpp"
 #include "utils/readFile.hpp"
 #include "exceptions/argErrors/InvalidArgProperty.hpp"
 #include "exceptions/argErrors/EmptyStringArg.hpp"

@@ -7,6 +7,7 @@
 #include "exceptions/argErrors/NullArg.hpp"
 #include "exceptions/argErrors/InvalidMapKey.hpp"
 #include "exceptions/argErrors/InvalidMapValue.hpp"
+#include "testHelpers.hpp"
 
 using onux::Texture;
 using onux::getInt;

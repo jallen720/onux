@@ -2,6 +2,7 @@
 
 #include "fixtures/ShaderObjectTest.hpp"
 #include "testHelpers.hpp"
+#include "utils/testShaderPath.hpp"
 #include "graphics/ShaderSource.hpp"
 #include "exceptions/Error.hpp"
 #include "exceptions/argErrors/ArgFailedRequirement.hpp"

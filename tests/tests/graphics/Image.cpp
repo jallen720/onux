@@ -4,6 +4,7 @@
 
 #include "fixtures/ImageTest.hpp"
 #include "testHelpers.hpp"
+#include "utils/testImagePath.hpp"
 #include "exceptions/argErrors/EmptyStringArg.hpp"
 
 using Magick::ErrorMissingDelegate;

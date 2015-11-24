@@ -1,9 +1,12 @@
 #include "utils/readFile.hpp"
 
+#include "utils/values.hpp"
+
 #include <gtest/gtest.h>
 
-#include "testHelpers.hpp"
+#include "utils/testShaderPath.hpp"
 #include "exceptions/Error.hpp"
+#include "testHelpers.hpp"
 
 using onux::readFile;
 using onux::Error;
@@ -15,8 +18,5 @@ TEST(readFileTest, validFile) {
 }
 
 TEST(readFileTest, invalidFile) {
-  EXPECT_THROW(
-    readFile(""),
-    Error
-  );
+  EXPECT_THROW(readFile(""), Error);
 }

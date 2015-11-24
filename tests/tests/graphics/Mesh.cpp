@@ -2,6 +2,7 @@
 
 #include "fixtures/MeshTest.hpp"
 #include "exceptions/argErrors/NullArg.hpp"
+#include "testHelpers.hpp"
 
 using onux::Mesh;
 using onux::NullArg;
@@ -13,10 +14,7 @@ TEST_F(MeshTest, validCreation) {
 }
 
 TEST_F(MeshTest, invalidMesh) {
-  EXPECT_THROW(
-    const Mesh mesh(nullptr),
-    NullArg
-  );
+  EXPECT_THROW(const Mesh mesh(nullptr), NullArg);
 }
 
 TEST_F(MeshTest, validData) {
