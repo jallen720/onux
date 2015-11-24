@@ -38,7 +38,7 @@ void expectNoThrow(const function<void()>& block) {
   }
 }
 
-void expectGLError(const GLenum error, const function<void()>& block) {
+void expectGlError(const GLenum error, const function<void()>& block) {
   // Assert no error has already been generated before testing block error
   // generation.
   ASSERT_EQ(GL_NO_ERROR, glGetError());

@@ -107,7 +107,7 @@ TEST_F(ShaderProgramTest, setUniformNotCurrentProgram) {
 
   // Trying to set a uniform on a program that is not the current program will
   // generate a GL_INVALID_OPERATION error.
-  expectGLError(GL_INVALID_OPERATION, [&shaderProgram] {
+  expectGlError(GL_INVALID_OPERATION, [&shaderProgram] {
     shaderProgram.setUniform("testVec3", vec3());
   });
 }

@@ -13,7 +13,7 @@ TEST_F(getIntTest, validParameter) {
 }
 
 TEST_F(getIntTest, invalidParameter) {
-  expectGLError(GL_INVALID_ENUM, [] {
+  expectGlError(GL_INVALID_ENUM, [] {
     getInt(-1);
   });
 }
