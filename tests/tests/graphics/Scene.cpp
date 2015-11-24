@@ -1,6 +1,6 @@
 #include "graphics/Scene.hpp"
 
-#include "fixtures/SceneTest.hpp"
+#include "fixtures/graphics/SceneTest.hpp"
 #include "utils/expectNoThrow.hpp"
 #include "utils/testModelPath.hpp"
 #include "exceptions/subsystemErrors/AssimpError.hpp"

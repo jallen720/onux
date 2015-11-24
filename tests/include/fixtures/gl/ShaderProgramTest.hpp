@@ -1,6 +1,6 @@
 #pragma once
 
-#include "OnuxTest.hpp"
+#include "fixtures/gl/OnuxTest.hpp"
 #include "graphics/ShaderSource.hpp"
 #include "gl/ShaderObject.hpp"
 #include "utils/testShaderPath.hpp"

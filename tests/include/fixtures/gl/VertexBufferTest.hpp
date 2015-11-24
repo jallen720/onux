@@ -1,6 +1,6 @@
 #pragma once
 
-#include "OnuxTest.hpp"
+#include "fixtures/gl/OnuxTest.hpp"
 #include "graphics/Mesh.hpp"
 
 struct VertexBufferTest : OnuxTest {

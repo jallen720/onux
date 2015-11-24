@@ -1,6 +1,6 @@
 #pragma once
 
-#include "OnuxTest.hpp"
+#include "fixtures/gl/OnuxTest.hpp"
 #include "gl/VertexBuffer.hpp"
 #include "gl/IndexBuffer.hpp"
 #include "graphics/Mesh.hpp"

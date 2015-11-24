@@ -1,6 +1,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "fixtures/TransformTest.hpp"
+#include "fixtures/graphics/TransformTest.hpp"
 
 using glm::vec3;
 using glm::mat4;

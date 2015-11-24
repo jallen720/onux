@@ -1,7 +1,7 @@
 #include "gl/VertexBuffer.hpp"
 
 #include "exceptions/argErrors/InvalidArg.hpp"
-#include "fixtures/VertexBufferTest.hpp"
+#include "fixtures/gl/VertexBufferTest.hpp"
 
 using onux::InvalidArg;
 using onux::VertexBuffer;

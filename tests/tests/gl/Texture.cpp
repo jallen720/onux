@@ -2,7 +2,7 @@
 
 #include <GL/glew.h> // Required before other OpenGL headers
 
-#include "fixtures/TextureTest.hpp"
+#include "fixtures/gl/TextureTest.hpp"
 #include "gl/utils/getInt.hpp"
 #include "exceptions/argErrors/NullArg.hpp"
 #include "exceptions/argErrors/InvalidMapKey.hpp"

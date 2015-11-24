@@ -1,6 +1,6 @@
 #include "gl/ShaderObject.hpp"
 
-#include "fixtures/ShaderObjectTest.hpp"
+#include "fixtures/gl/ShaderObjectTest.hpp"
 #include "utils/expectNoThrow.hpp"
 #include "utils/testShaderPath.hpp"
 #include "graphics/ShaderSource.hpp"

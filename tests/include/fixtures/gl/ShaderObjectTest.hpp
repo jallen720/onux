@@ -1,5 +1,5 @@
 #pragma once
 
-#include "OnuxTest.hpp"
+#include "fixtures/gl/OnuxTest.hpp"
 
 struct ShaderObjectTest : OnuxTest {};

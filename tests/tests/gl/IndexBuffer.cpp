@@ -1,7 +1,7 @@
 #include "gl/IndexBuffer.hpp"
 
 #include "exceptions/argErrors/InvalidArg.hpp"
-#include "fixtures/IndexBufferTest.hpp"
+#include "fixtures/gl/IndexBufferTest.hpp"
 
 using onux::InvalidArg;
 using onux::IndexBuffer;

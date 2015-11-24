@@ -4,7 +4,7 @@
 #include "exceptions/argErrors/InvalidArg.hpp"
 #include "exceptions/argErrors/EmptyStringArg.hpp"
 #include "exceptions/argErrors/NullArg.hpp"
-#include "fixtures/WindowTest.hpp"
+#include "fixtures/environment/WindowTest.hpp"
 #include "utils/expectNoThrow.hpp"
 
 using onux::Window;

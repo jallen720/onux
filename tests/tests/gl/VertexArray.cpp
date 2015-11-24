@@ -1,6 +1,6 @@
 #include "gl/VertexArray.hpp"
 
-#include "fixtures/VertexArrayTest.hpp"
+#include "fixtures/gl/VertexArrayTest.hpp"
 #include "gl/utils/getInt.hpp"
 #include "utils/expectNoThrow.hpp"
 

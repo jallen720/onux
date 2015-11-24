@@ -1,6 +1,6 @@
 #include "gl/utils/getErrorMessage.hpp"
 
-#include "fixtures/getErrorMessageTest.hpp"
+#include "fixtures/gl/utils/getErrorMessageTest.hpp"
 
 using std::out_of_range;
 using onux::getErrorMessage;

@@ -1,4 +1,4 @@
-#include "OnuxTest.hpp"
+#include "fixtures/gl/OnuxTest.hpp"
 
 #include <iostream>
 

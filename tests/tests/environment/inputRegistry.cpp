@@ -3,7 +3,7 @@
 #include <GL/glew.h> // Required before other OpenGL headers
 #include <GLFW/glfw3.h>
 
-#include "fixtures/inputRegistryTest.hpp"
+#include "fixtures/environment/inputRegistryTest.hpp"
 #include "utils/expectNoThrow.hpp"
 #include "exceptions/Error.hpp"
 

@@ -1,6 +1,6 @@
 #include "graphics/Mesh.hpp"
 
-#include "fixtures/MeshTest.hpp"
+#include "fixtures/graphics/MeshTest.hpp"
 #include "exceptions/argErrors/NullArg.hpp"
 #include "utils/expectNoThrow.hpp"
 

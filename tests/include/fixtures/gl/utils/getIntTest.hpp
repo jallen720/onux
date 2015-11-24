@@ -1,5 +1,5 @@
 #pragma once
 
-#include "../../fixtures/OnuxTest.hpp"
+#include "fixtures/gl/OnuxTest.hpp"
 
 struct getIntTest : OnuxTest {};

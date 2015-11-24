@@ -1,6 +1,6 @@
 #pragma once
 
-#include "OnuxTest.hpp"
+#include "fixtures/gl/OnuxTest.hpp"
 #include "graphics/Image.hpp"
 #include "utils/testImagePath.hpp"
 
