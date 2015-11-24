@@ -1,7 +1,7 @@
 #include "graphics/Scene.hpp"
 
 #include "fixtures/SceneTest.hpp"
-#include "testHelpers.hpp"
+#include "utils/expectNoThrow.hpp"
 #include "utils/testModelPath.hpp"
 #include "exceptions/subsystemErrors/AssimpError.hpp"
 #include "exceptions/argErrors/EmptyStringArg.hpp"

@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 
 #include "TestWindow.hpp"
-#include "testHelpers.hpp"
+#include "utils/expectNoThrow.hpp"
 #include "environment/interfaces/IMouseMoveListener.hpp"
 #include "environment/events/MouseMoveEvent.hpp"
 #include "exceptions/argErrors/NullArg.hpp"

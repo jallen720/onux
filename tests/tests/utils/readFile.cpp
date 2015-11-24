@@ -4,9 +4,9 @@
 
 #include <gtest/gtest.h>
 
+#include "utils/expectNoThrow.hpp"
 #include "utils/testShaderPath.hpp"
 #include "exceptions/Error.hpp"
-#include "testHelpers.hpp"
 
 using onux::readFile;
 using onux::Error;

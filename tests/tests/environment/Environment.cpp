@@ -1,7 +1,7 @@
 #include "environment/Environment.hpp"
 
 #include "fixtures/EnvironmentTest.hpp"
-#include "testHelpers.hpp"
+#include "utils/expectNoThrow.hpp"
 
 using onux::Environment;
 

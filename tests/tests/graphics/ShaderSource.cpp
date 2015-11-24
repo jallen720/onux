@@ -1,7 +1,7 @@
 #include "graphics/ShaderSource.hpp"
 
 #include "fixtures/ShaderSourceTest.hpp"
-#include "testHelpers.hpp"
+#include "utils/expectNoThrow.hpp"
 #include "utils/testShaderPath.hpp"
 #include "utils/readFile.hpp"
 #include "exceptions/argErrors/InvalidArgProperty.hpp"

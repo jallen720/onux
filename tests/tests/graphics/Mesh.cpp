@@ -2,7 +2,7 @@
 
 #include "fixtures/MeshTest.hpp"
 #include "exceptions/argErrors/NullArg.hpp"
-#include "testHelpers.hpp"
+#include "utils/expectNoThrow.hpp"
 
 using onux::Mesh;
 using onux::NullArg;

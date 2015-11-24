@@ -6,6 +6,7 @@
 #include "gl/utils/getInt.hpp"
 #include "exceptions/Error.hpp"
 #include "exceptions/argErrors/ArgFailedRequirement.hpp"
+#include "utils/expectNoThrow.hpp"
 #include "testHelpers.hpp"
 
 using glm::vec3;

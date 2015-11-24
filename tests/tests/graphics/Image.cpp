@@ -3,7 +3,7 @@
 #include <Magick++.h>
 
 #include "fixtures/ImageTest.hpp"
-#include "testHelpers.hpp"
+#include "utils/expectNoThrow.hpp"
 #include "utils/testImagePath.hpp"
 #include "exceptions/argErrors/EmptyStringArg.hpp"
 

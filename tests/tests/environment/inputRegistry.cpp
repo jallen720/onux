@@ -4,7 +4,7 @@
 #include <GLFW/glfw3.h>
 
 #include "fixtures/inputRegistryTest.hpp"
-#include "testHelpers.hpp"
+#include "utils/expectNoThrow.hpp"
 #include "exceptions/Error.hpp"
 
 using onux::registerInput;
