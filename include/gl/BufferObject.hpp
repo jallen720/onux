@@ -2,11 +2,11 @@
 
 #include <memory>
 
-#include "gl/OpenGLData.hpp"
+#include "gl/GLData.hpp"
 
 namespace onux {
 
-class BufferObject : OpenGLData {
+class BufferObject : GLData {
 public:
   virtual void loadData() const;
 

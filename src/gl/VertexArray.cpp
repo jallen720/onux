@@ -17,7 +17,7 @@ static GLuint createVertexArray() {
 VertexArray::VertexArray(
   const VertexBuffer& vertexBuffer,
   const IndexBuffer&  indexBuffer
-) : OpenGLData(createVertexArray()) {
+) : GLData(createVertexArray()) {
   bind();
   vertexBuffer.loadData();
   indexBuffer.loadData();

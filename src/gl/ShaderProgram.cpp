@@ -66,7 +66,7 @@ static GLuint getValidShaderProgram(ShaderProgram::Objects objects) {
 }
 
 ShaderProgram::ShaderProgram(Objects objects)
-  : OpenGLData(getValidShaderProgram(objects))
+  : GLData(getValidShaderProgram(objects))
   , impl(new Impl(getID())) {
   impl->attach(objects);
   impl->link();

@@ -3,13 +3,13 @@
 #include <memory>
 #include <map>
 
-#include "gl/OpenGLData.hpp"
+#include "gl/GLData.hpp"
 
 namespace onux {
 
 struct IImage;
 
-class Texture : public OpenGLData {
+class Texture : public GLData {
 public:
   typedef const std::map<const GLenum, const GLint> Options;
 

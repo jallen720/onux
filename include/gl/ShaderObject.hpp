@@ -3,13 +3,13 @@
 #include <memory>
 #include <vector>
 
-#include "gl/OpenGLData.hpp"
+#include "gl/GLData.hpp"
 
 namespace onux {
 
 struct IShaderSource;
 
-class ShaderObject : public OpenGLData {
+class ShaderObject : public GLData {
 public:
   typedef const std::vector<const IShaderSource*>& Sources;
 

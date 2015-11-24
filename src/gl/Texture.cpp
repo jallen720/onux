@@ -101,7 +101,7 @@ static GLuint getValidTexture(const IImage* image, Texture::Options& options) {
 }
 
 Texture::Texture(const IImage* image, Options& options)
-  : OpenGLData(getValidTexture(image, options))
+  : GLData(getValidTexture(image, options))
   , impl(new Impl()) {
   bind(0);
   impl->loadImage(image);

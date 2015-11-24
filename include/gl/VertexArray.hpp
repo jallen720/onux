@@ -1,13 +1,13 @@
 #pragma once
 
-#include "gl/OpenGLData.hpp"
+#include "gl/GLData.hpp"
 
 namespace onux {
 
 struct VertexBuffer;
 struct IndexBuffer;
 
-class VertexArray : public OpenGLData {
+class VertexArray : public GLData {
 public:
   VertexArray(
     const VertexBuffer& vertexBuffer,

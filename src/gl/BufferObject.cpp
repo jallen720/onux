@@ -111,7 +111,7 @@ BufferObject::BufferObject(
   const GLsizeiptr size,
   const GLvoid*    data,
   const GLenum     usage
-) : OpenGLData(getValidBufferObject(target, size, usage))
+) : GLData(getValidBufferObject(target, size, usage))
   , impl(new Impl(target, size, data, usage, this)) {}
 
 BufferObject::~BufferObject() {

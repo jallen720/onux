@@ -4,13 +4,13 @@
 #include <vector>
 #include <glm/glm.hpp>
 
-#include "gl/OpenGLData.hpp"
+#include "gl/GLData.hpp"
 
 namespace onux {
 
 class ShaderObject;
 
-class ShaderProgram : public OpenGLData {
+class ShaderProgram : public GLData {
 public:
   typedef const std::vector<const ShaderObject*>& Objects;
 

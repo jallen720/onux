@@ -5,12 +5,12 @@
 
 namespace onux {
 
-class OpenGLData {
+class GLData {
 public:
   const GLuint& getID() const;
 
 protected:
-  OpenGLData(const GLuint id);
+  GLData(const GLuint id);
 
 private:
   struct Impl;

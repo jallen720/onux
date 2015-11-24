@@ -54,7 +54,7 @@ static const GLuint getValidShaderObject(ShaderObject::Sources sources) {
 }
 
 ShaderObject::ShaderObject(Sources sources)
-  : OpenGLData(getValidShaderObject(sources))
+  : GLData(getValidShaderObject(sources))
   , impl(new Impl(getID())) {
   impl->loadSources(sources);
   impl->compile();
