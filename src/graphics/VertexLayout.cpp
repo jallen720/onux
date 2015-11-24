@@ -28,7 +28,7 @@ const GLsizei VertexLayout::getStride() const {
 // Implementation
 
 static const GLsizei calculateStride(IVertexLayout::Attributes& attributes) {
-  return accumulate<GLsizei>(0, attributes, [](auto stride, auto attribute) {
+  return accumulate(0, attributes, [](auto stride, auto attribute) {
     return stride + attribute->getSize();
   });
 }
