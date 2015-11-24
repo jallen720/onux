@@ -7,10 +7,12 @@ using glm::dvec2;
 namespace onux {
 
 struct MouseDeltaEvent::Impl {
-  MouseDeltaEvent* self;
+  typedef MouseDeltaEvent* Self;
+
+  Self self;
   dvec2 previousPosition;
 
-  Impl(MouseDeltaEvent* self);
+  Impl(Self self);
   const dvec2 getDelta(const dvec2& position);
   const bool previousPositionIsSet() const;
   void callListeners(const dvec2& delta);
@@ -30,7 +32,7 @@ void MouseDeltaEvent::trigger(const dvec2& position) {
 
 static const double PREVIOUS_POSITION_UNSET = -10000.0;
 
-MouseDeltaEvent::Impl::Impl(MouseDeltaEvent* self)
+MouseDeltaEvent::Impl::Impl(Self self)
   : self(self)
   , previousPosition(PREVIOUS_POSITION_UNSET) {}
 

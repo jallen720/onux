@@ -13,20 +13,18 @@ using std::string;
 namespace onux {
 
 struct BufferObject::Impl {
-  typedef const BufferObject* Self;
-
+  const GLuint     id;
   const GLenum     target;
   const GLsizeiptr size;
   const GLvoid*    data;
   const GLenum     usage;
-  Self             self;
 
   Impl(
+    const GLuint     id,
     const GLenum     target,
     const GLsizeiptr size,
     const GLvoid*    data,
-    const GLenum     usage,
-    Self             self
+    const GLenum     usage
   );
   void bind() const;
 };
@@ -112,7 +110,7 @@ BufferObject::BufferObject(
   const GLvoid*    data,
   const GLenum     usage
 ) : GLData(getValidBufferObject(target, size, usage))
-  , impl(new Impl(target, size, data, usage, this)) {}
+  , impl(new Impl(getID(), target, size, data, usage)) {}
 
 BufferObject::~BufferObject() {
   glDeleteBuffers(BUFFER_COUNT, &getID());
@@ -121,19 +119,19 @@ BufferObject::~BufferObject() {
 // Implementation
 
 BufferObject::Impl::Impl(
+  const GLuint     id,
   const GLenum     target,
   const GLsizeiptr size,
   const GLvoid*    data,
-  const GLenum     usage,
-  Self             self
-) : target(target)
+  const GLenum     usage
+) : id(id)
+  , target(target)
   , size(size)
   , data(data)
-  , usage(usage)
-  , self(self) {}
+  , usage(usage) {}
 
 void BufferObject::Impl::bind() const {
-  glBindBuffer(target, self->getID());
+  glBindBuffer(target, id);
 }
 
 } // namespace onux
