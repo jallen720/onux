@@ -7,7 +7,7 @@
 
 #include "environment/Window.hpp"
 #include "engine/GraphicsEngine.hpp"
-#include "exceptions/subsystemErrors/OpenGlError.hpp"
+#include "gl/utils/validateNoGLError.hpp"
 
 using std::this_thread::sleep_for;
 using std::chrono::milliseconds;
@@ -23,15 +23,9 @@ struct Engine::Impl {
   void processFrame();
 };
 
-static void validateNoOpenGlError(const GLenum error) {
-  if (error != GL_NO_ERROR) {
-    throw OpenGlError(error);
-  }
-}
-
 Engine::Engine(const Window& window, GraphicsEngine& graphicsEngine)
   : impl(new Impl(window, graphicsEngine)) {
-  validateNoOpenGlError(glGetError());
+  validateNoGLError();
 }
 
 Engine::~Engine() {}
@@ -70,7 +64,7 @@ void Engine::Impl::renderObjects() {
 void Engine::Impl::processFrame() {
   glfwPollEvents();
   renderObjects();
-  validateNoOpenGlError(glGetError());
+  validateNoGLError();
 }
 
 } // namespace onux

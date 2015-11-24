@@ -3,23 +3,17 @@
 #include <iostream>
 
 #include "environment/loadExtensions.hpp"
+#include "gl/utils/validateNoGLError.hpp"
 #include "exceptions/subsystemErrors/OpenGlError.hpp"
 
 using std::cerr;
 using onux::loadExtensions;
+using onux::validateNoGLError;
 using onux::OpenGlError;
 
-static void validateNoOpenGlError(const GLenum error) {
-  // Validate no error was generated during test. This is required for all tests that use OpenGL
-  // functions.
-  if (error != GL_NO_ERROR) {
-    throw OpenGlError(error);
-  }
-}
-
-static void checkUnhandledOpenGlError() {
+static void validateNoUnhandledGLError() {
   try {
-    validateNoOpenGlError(glGetError());
+    validateNoGLError();
   } catch(const OpenGlError& e) {
     cerr <<
       "Unhandled OpenGL error generated in test:\n"
@@ -35,5 +29,5 @@ OnuxTest::OnuxTest() {
 }
 
 OnuxTest::~OnuxTest() {
-  checkUnhandledOpenGlError();
+  validateNoUnhandledGLError();
 }
