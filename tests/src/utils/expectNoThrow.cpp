@@ -11,10 +11,12 @@ using std::function;
 void expectNoThrow(const function<void()>& block) {
   try {
     block();
-  } catch (const exception& e) {
+  }
+  catch (const exception& e) {
     cerr << "std::exception thrown in test:\n  " << e.what() << "\n";
     FAIL();
-  } catch (...) {
+  }
+  catch (...) {
     cerr << "Unknown exception thrown in test!\n";
     FAIL();
   }

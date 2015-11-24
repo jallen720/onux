@@ -14,7 +14,8 @@ using onux::GLError;
 static void validateNoUnhandledGLError() {
   try {
     validateNoGLError();
-  } catch(const GLError& e) {
+  }
+  catch(const GLError& e) {
     cerr <<
       "Unhandled OpenGL error generated in test:\n"
       "  " << e.what() << "\n\n";

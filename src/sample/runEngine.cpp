@@ -200,9 +200,11 @@ void runEngine() {
     GraphicsEngine graphicsEngine(drawables, camera);
     Engine engine(window, graphicsEngine);
     engine.run();
-  } catch(const Error& e) {
+  }
+  catch(const Error& e) {
     cerr << e.what() << "\n";
-  } catch(...) {
+  }
+  catch(...) {
     cerr << "Unknown exception thrown!\n";
   }
 }

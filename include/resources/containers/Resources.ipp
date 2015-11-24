@@ -23,7 +23,8 @@ template<typename T>
 T* Resources<T>::atPath(const std::string& path) const {
   try {
     return m_resources.at(path).get();
-  } catch (...) {
+  }
+  catch (...) {
     throw Error("No resource found at \"" + path + "\"!");
   }
 }
