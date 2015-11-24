@@ -1,6 +1,7 @@
 #include "graphics/ShaderSource.hpp"
 
-#include "utils/helpers.hpp"
+#include "utils/readFile.hpp"
+#include "utils/getExtension.hpp"
 #include "exceptions/argErrors/InvalidArgProperty.hpp"
 #include "exceptions/argErrors/EmptyStringArg.hpp"
 #include "utils/keys.hpp"
@@ -65,7 +66,7 @@ static void validateExtension(const string& extension) {
 }
 
 static const GLenum getValidType(const string& path) {
-  const string extension = fileExtension(path);
+  const string extension = getExtension(path);
   validateExtension(extension);
   return ShaderSource::TYPES.at(extension);
 }

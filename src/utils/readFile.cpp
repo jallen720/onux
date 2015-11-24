@@ -1,4 +1,4 @@
-#include "utils/helpers.hpp"
+#include "utils/readFile.hpp"
 
 #include <fstream>
 #include <functional>
@@ -44,14 +44,6 @@ const string readFile(const string& path) {
   });
 
   return contents;
-}
-
-const string fileExtension(const string& path) {
-  const size_t dotPosition = path.find_last_of(".");
-
-  return dotPosition != string::npos
-         ? path.substr(dotPosition + 1)
-         : "";
 }
 
 } // namespace onux
