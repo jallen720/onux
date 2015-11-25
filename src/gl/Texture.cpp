@@ -11,6 +11,7 @@
 #include "exceptions/argErrors/InvalidMapKey.hpp"
 #include "exceptions/argErrors/InvalidMapValue.hpp"
 
+using std::map;
 using std::string;
 using std::vector;
 
@@ -63,7 +64,7 @@ static const ValidValues VALID_OPTION_KEYS {
     VALID_VALUE(GL_TEXTURE_MAG_FILTER),
 };
 
-static const std::map<const GLenum, const ValidValues> VALID_OPTION_VALUES {
+static const map<const GLenum, const ValidValues&> VALID_OPTION_VALUES {
     { GL_TEXTURE_WRAP_S    , VALID_WRAP_VALUES       },
     { GL_TEXTURE_WRAP_T    , VALID_WRAP_VALUES       },
     { GL_TEXTURE_MIN_FILTER, VALID_MIN_FILTER_VALUES },
