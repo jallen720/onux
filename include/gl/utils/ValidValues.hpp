@@ -1,10 +1,10 @@
 #pragma once
 
+#include <memory>
 #include <vector>
 #include <string>
 #include <initializer_list>
 #include <utility>
-#include <map>
 #include <GL/glew.h>
 
 namespace onux {
@@ -18,12 +18,14 @@ private:
 
 public:
     explicit ValidValues(ValidValueList validValues);
+    ~ValidValues();
     const bool contains(const GLenum value) const;
     ValueName getName(const GLenum value) const;
     ValueNames getNames() const;
 
 private:
-    const std::map<const GLenum, const ValueName> m_validValues;
+    struct Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux
