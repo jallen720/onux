@@ -17,10 +17,7 @@ private:
     static Options DEFAULT_OPTIONS;
 
 public:
-    Texture(
-        const IImage* image,
-        Options&      options = DEFAULT_OPTIONS
-    );
+    Texture(const IImage* image, Options& options = DEFAULT_OPTIONS);
     ~Texture();
     void bind(const GLuint unit) const;
 
