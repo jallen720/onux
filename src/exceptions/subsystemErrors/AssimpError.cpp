@@ -7,6 +7,6 @@ using std::string;
 namespace onux {
 
 AssimpError::AssimpError(const string& message)
-  : Error(buildSystemMessage("ASSIMP", message)) {}
+    : Error(buildSystemMessage("ASSIMP", message)) {}
 
 } // namespace onux

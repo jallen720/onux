@@ -8,20 +8,20 @@ namespace onux {
 
 class BufferObject : GLData {
 public:
-  virtual void loadData() const;
+    virtual void loadData() const;
 
 protected:
-  BufferObject(
-    const GLenum     target,
-    const GLsizeiptr size,
-    const GLvoid*    data,
-    const GLenum     usage
-  );
-  ~BufferObject();
+    BufferObject(
+        const GLenum     target,
+        const GLsizeiptr size,
+        const GLvoid*    data,
+        const GLenum     usage
+    );
+    ~BufferObject();
 
 private:
-  struct Impl;
-  std::unique_ptr<Impl> impl;
+    struct Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux

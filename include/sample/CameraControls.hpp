@@ -6,13 +6,13 @@
 
 class CameraControls : public onux::IMouseDeltaListener {
 public:
-  CameraControls(onux::Transform& cameraTransform, onux::Input& input);
-  ~CameraControls();
+    CameraControls(onux::Transform& cameraTransform, onux::Input& input);
+    ~CameraControls();
 
-  // IMouseDeltaListener
-  virtual void onMouseDelta(const glm::dvec2& delta) override;
+    // IMouseDeltaListener
+    virtual void onMouseDelta(const glm::dvec2& delta) override;
 
 private:
-  onux::Transform& m_cameraTransform;
-  onux::Input&     m_input;
+    onux::Transform& m_cameraTransform;
+    onux::Input&     m_input;
 };

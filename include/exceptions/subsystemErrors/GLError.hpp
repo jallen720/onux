@@ -8,7 +8,7 @@ namespace onux {
 
 class GLError : public Error {
 public:
-  explicit GLError(const GLenum error);
+    explicit GLError(const GLenum error);
 };
 
 } // namespace onux

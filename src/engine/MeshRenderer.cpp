@@ -9,37 +9,37 @@
 namespace onux {
 
 struct MeshRenderer::Impl {
-  const Mesh&        mesh;
-  const VertexBuffer vertexBuffer;
-  const IndexBuffer  indexBuffer;
-  const VertexArray  vertexArray;
+    const Mesh&        mesh;
+    const VertexBuffer vertexBuffer;
+    const IndexBuffer  indexBuffer;
+    const VertexArray  vertexArray;
 
-  Impl(const Mesh& mesh);
+    Impl(const Mesh& mesh);
 };
 
 MeshRenderer::MeshRenderer(const Mesh& mesh)
-  : impl(new Impl(mesh)) {}
+    : impl(new Impl(mesh)) {}
 
 MeshRenderer::~MeshRenderer() {}
 
 static void drawElements(const GLsizei indexCount) {
-  static const GLenum  MODE  = GL_TRIANGLES;
-  static const GLenum  TYPE  = GL_UNSIGNED_INT;
-  static const GLvoid* FIRST = 0;
-  glDrawElements(MODE, indexCount, TYPE, FIRST);
+    static const GLenum  MODE  = GL_TRIANGLES;
+    static const GLenum  TYPE  = GL_UNSIGNED_INT;
+    static const GLvoid* FIRST = 0;
+    glDrawElements(MODE, indexCount, TYPE, FIRST);
 }
 
 void MeshRenderer::render() const {
-  impl->vertexArray.bind();
-  drawElements(impl->mesh.getIndexes().getCount());
+    impl->vertexArray.bind();
+    drawElements(impl->mesh.getIndexes().getCount());
 }
 
 // Implementation
 
 MeshRenderer::Impl::Impl(const Mesh& mesh)
-  : mesh(mesh)
-  , vertexBuffer(Vertex::LAYOUT, this->mesh.getVertexes())
-  , indexBuffer(this->mesh.getIndexes())
-  , vertexArray(vertexBuffer, this->indexBuffer) {}
+    : mesh(mesh)
+    , vertexBuffer(Vertex::LAYOUT, this->mesh.getVertexes())
+    , indexBuffer(this->mesh.getIndexes())
+    , vertexArray(vertexBuffer, this->indexBuffer) {}
 
 } // namespace onux

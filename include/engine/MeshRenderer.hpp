@@ -8,13 +8,13 @@ class Mesh;
 
 class MeshRenderer {
 public:
-  explicit MeshRenderer(const Mesh& mesh);
-  ~MeshRenderer();
-  void render() const;
+    explicit MeshRenderer(const Mesh& mesh);
+    ~MeshRenderer();
+    void render() const;
 
 private:
-  struct Impl;
-  std::unique_ptr<Impl> impl;
+    struct Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux

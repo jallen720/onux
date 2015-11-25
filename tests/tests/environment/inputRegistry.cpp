@@ -11,21 +11,21 @@ using onux::registerInput;
 using onux::Error;
 
 TEST_F(inputRegistryTest, validRegistry) {
-  expectNoThrow([&] {
-    registerInput(&input, window);
-  });
+    expectNoThrow([&] {
+        registerInput(&input, window);
+    });
 }
 
 TEST_F(inputRegistryTest, nullInput) {
-  EXPECT_THROW(
-    registerInput(nullptr, window),
-    Error
-  );
+    EXPECT_THROW(
+        registerInput(nullptr, window),
+        Error
+    );
 }
 
 TEST_F(inputRegistryTest, nullWindow) {
-  EXPECT_THROW(
-    registerInput(&input, nullptr),
-    Error
-  );
+    EXPECT_THROW(
+        registerInput(&input, nullptr),
+        Error
+    );
 }

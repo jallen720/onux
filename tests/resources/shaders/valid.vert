@@ -8,6 +8,6 @@ uniform vec3 testVec3;
 uniform mat4 testMat4;
 
 void main() {
-  gl_Position = testMat4 * vec4(position + testVec3, 1.0);
-  vertColor = gl_Position;
+    gl_Position = testMat4 * vec4(position + testVec3, 1.0);
+    vertColor = gl_Position;
 }

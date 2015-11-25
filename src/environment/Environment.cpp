@@ -7,24 +7,24 @@
 namespace onux {
 
 static void setErrorCB() {
-  glfwSetErrorCallback([](const int code, const char* description) {
-    throw GLFWError(code, description);
-  });
+    glfwSetErrorCallback([](const int code, const char* description) {
+        throw GLFWError(code, description);
+    });
 }
 
 static void validateInit(const int initResult) {
-  if (initResult == GL_FALSE) {
-    throw GLFWError("failed to initialize");
-  }
+    if (initResult == GL_FALSE) {
+        throw GLFWError("failed to initialize");
+    }
 }
 
 Environment::Environment() {
-  setErrorCB();
-  validateInit(glfwInit());
+    setErrorCB();
+    validateInit(glfwInit());
 }
 
 Environment::~Environment() {
-  glfwTerminate();
+    glfwTerminate();
 }
 
 } // namespace onux

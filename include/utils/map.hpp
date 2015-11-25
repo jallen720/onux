@@ -7,19 +7,19 @@ namespace onux {
 
 template<typename T, typename Container, typename Function>
 const std::vector<T> map(
-  const Container& container,
-  const Function&  function
+    const Container& container,
+    const Function&    function
 ) {
-  std::vector<T> result(container.size());
+    std::vector<T> result(container.size());
 
-  std::transform(
-    container.begin(),
-    container.end(),
-    result.begin(),
-    function
-  );
+    std::transform(
+        container.begin(),
+        container.end(),
+        result.begin(),
+        function
+    );
 
-  return result;
+    return result;
 }
 
 }

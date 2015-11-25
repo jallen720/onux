@@ -9,26 +9,26 @@ namespace onux {
 static const GLsizei VERTEX_ARRAY_COUNT = 1;
 
 static GLuint createVertexArray() {
-  GLuint id;
-  glGenVertexArrays(VERTEX_ARRAY_COUNT, &id);
-  return id;
+    GLuint id;
+    glGenVertexArrays(VERTEX_ARRAY_COUNT, &id);
+    return id;
 }
 
 VertexArray::VertexArray(
-  const VertexBuffer& vertexBuffer,
-  const IndexBuffer&  indexBuffer
-) : GLData(createVertexArray()) {
-  bind();
-  vertexBuffer.loadData();
-  indexBuffer.loadData();
+    const VertexBuffer& vertexBuffer,
+    const IndexBuffer&  indexBuffer
+)   : GLData(createVertexArray()) {
+    bind();
+    vertexBuffer.loadData();
+    indexBuffer.loadData();
 }
 
 VertexArray::~VertexArray() {
-  glDeleteVertexArrays(VERTEX_ARRAY_COUNT, &getID());
+    glDeleteVertexArrays(VERTEX_ARRAY_COUNT, &getID());
 }
 
 void VertexArray::bind() const {
-  glBindVertexArray(getID());
+    glBindVertexArray(getID());
 }
 
 } // namespace onux

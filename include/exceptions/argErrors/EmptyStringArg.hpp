@@ -6,10 +6,10 @@ namespace onux {
 
 class EmptyStringArg : public Error {
 public:
-  EmptyStringArg(
-    const std::string& parameterName,
-    const std::string& objectName
-  );
+    EmptyStringArg(
+        const std::string& parameterName,
+        const std::string& objectName
+    );
 };
 
 } // namespace onux

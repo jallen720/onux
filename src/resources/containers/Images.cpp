@@ -5,18 +5,18 @@
 namespace onux {
 
 struct Images::Impl {
-  const ImageLoader loader;
+    const ImageLoader loader;
 };
 
 Images::Images()
-  : impl(new Impl()) {
-  load();
+    : impl(new Impl()) {
+    load();
 }
 
 Images::~Images() {}
 
 auto Images::getLoader() const -> Loader {
-  return impl->loader;
+    return impl->loader;
 }
 
 } // namespace onux

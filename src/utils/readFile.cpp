@@ -14,36 +14,36 @@ namespace onux {
 static const char LINE_DELIMITER = '\r';
 
 static void validateFile(const ifstream& file, const string& path) {
-  if (!file.is_open()) {
-    throw Error("Failed to open " + path);
-  }
+    if (!file.is_open()) {
+        throw Error("Failed to open " + path);
+    }
 }
 
 static void useFile(const string& path, const function<void(ifstream& file)>& callback) {
-  ifstream file(path);
-  validateFile(file, path);
-  callback(file);
-  file.close();
+    ifstream file(path);
+    validateFile(file, path);
+    callback(file);
+    file.close();
 }
 
 static void readLines(const string& path, const function<void(const string& line)>& callback) {
-  useFile(path, [&](ifstream& file) {
-    string line;
+    useFile(path, [&](ifstream& file) {
+        string line;
 
-    while (getline(file, line, LINE_DELIMITER)) {
-      callback(line);
-    }
-  });
+        while (getline(file, line, LINE_DELIMITER)) {
+            callback(line);
+        }
+    });
 }
 
 const string readFile(const string& path) {
-  string contents;
+    string contents;
 
-  readLines(path, [&](const string& line) {
-    contents += line;
-  });
+    readLines(path, [&](const string& line) {
+        contents += line;
+    });
 
-  return contents;
+    return contents;
 }
 
 } // namespace onux

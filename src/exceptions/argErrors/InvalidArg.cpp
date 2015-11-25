@@ -10,35 +10,35 @@ using std::vector;
 namespace onux {
 
 static const string buildInvalidArgMessage(
-  const string& parameterName,
-  const string& objectName,
-  const string& mustBe
+    const string& parameterName,
+    const string& objectName,
+    const string& mustBe
 ) {
-  return buildArgMessage(
-    parameterName,
-    objectName,
-    buildArgInfo(mustBe)
-  );
+    return buildArgMessage(
+        parameterName,
+        objectName,
+        buildArgInfo(mustBe)
+    );
 }
 
 InvalidArg::InvalidArg(
-  const string& parameterName,
-  const string& objectName,
-  const string& validArgument
-) : Error(buildInvalidArgMessage(
-      parameterName,
-      objectName,
-      validArgument
+    const string& parameterName,
+    const string& objectName,
+    const string& validArgument
+)   : Error(buildInvalidArgMessage(
+        parameterName,
+        objectName,
+        validArgument
     )) {}
 
 InvalidArg::InvalidArg(
-  const string&         parameterName,
-  const string&         objectName,
-  const vector<string>& validArguments
-) : Error(buildInvalidArgMessage(
-      parameterName,
-      objectName,
-      buildMustBe(validArguments)
+    const string&         parameterName,
+    const string&         objectName,
+    const vector<string>& validArguments
+)   : Error(buildInvalidArgMessage(
+        parameterName,
+        objectName,
+        buildMustBe(validArguments)
     )) {}
 
 } // namespace onux

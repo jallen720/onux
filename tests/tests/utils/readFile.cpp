@@ -12,11 +12,11 @@ using onux::readFile;
 using onux::Error;
 
 TEST(readFileTest, validFile) {
-  expectNoThrow([] {
-    readFile(testShaderPath("valid.vert"));
-  });
+    expectNoThrow([] {
+        readFile(testShaderPath("valid.vert"));
+    });
 }
 
 TEST(readFileTest, invalidFile) {
-  EXPECT_THROW(readFile(""), Error);
+    EXPECT_THROW(readFile(""), Error);
 }

@@ -65,146 +65,146 @@ using onux::Scenes;
 using onux::Error;
 
 static void configureOpenGL() {
-  glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-  glCullFace(GL_BACK);
-  glEnable(GL_CULL_FACE);
-  glEnable(GL_DEPTH_TEST);
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glCullFace(GL_BACK);
+    glEnable(GL_CULL_FACE);
+    glEnable(GL_DEPTH_TEST);
 }
 
 void runEngine() {
-  try {
-    // Environment creation
-    Environment environment;
-    Window window(1280, 720, "Onux");
-    window.makeContextCurrent();
-    loadExtensions();
-    configureOpenGL();
+    try {
+        // Environment creation
+        Environment environment;
+        Window window(1280, 720, "Onux");
+        window.makeContextCurrent();
+        loadExtensions();
+        configureOpenGL();
 
-    // Resources
-    ShaderSources shaderSources;
-    Images images;
-    Scenes scenes;
+        // Resources
+        ShaderSources shaderSources;
+        Images images;
+        Scenes scenes;
 
-    // Shaders
-    const ShaderObject vertObjects[] {
-      ShaderObject({
-        shaderSources["onux.vert"],
-        shaderSources["sample0.vert"],
-      }),
-      ShaderObject({
-        shaderSources["onux.vert"],
-        shaderSources["sample1.vert"],
-      }),
-    };
+        // Shaders
+        const ShaderObject vertObjects[] {
+            ShaderObject({
+                shaderSources["onux.vert"],
+                shaderSources["sample0.vert"],
+            }),
+            ShaderObject({
+                shaderSources["onux.vert"],
+                shaderSources["sample1.vert"],
+            }),
+        };
 
-    const ShaderObject fragObjects[] {
-      ShaderObject({
-        shaderSources["onux.frag"],
-        shaderSources["sample0.frag"],
-      }),
-      ShaderObject({
-        shaderSources["onux.frag"],
-        shaderSources["sample1.frag"],
-      }),
-    };
+        const ShaderObject fragObjects[] {
+            ShaderObject({
+                shaderSources["onux.frag"],
+                shaderSources["sample0.frag"],
+            }),
+            ShaderObject({
+                shaderSources["onux.frag"],
+                shaderSources["sample1.frag"],
+            }),
+        };
 
-    const ShaderProgram shaderPrograms[] {
-      ShaderProgram({
-        &vertObjects[0],
-        &fragObjects[0],
-      }),
-      ShaderProgram({
-        &vertObjects[1],
-        &fragObjects[1],
-      }),
-    };
+        const ShaderProgram shaderPrograms[] {
+            ShaderProgram({
+                &vertObjects[0],
+                &fragObjects[0],
+            }),
+            ShaderProgram({
+                &vertObjects[1],
+                &fragObjects[1],
+            }),
+        };
 
-    shaderPrograms[0].use();
-    shaderPrograms[0].setUniform("texture1", 1);
+        shaderPrograms[0].use();
+        shaderPrograms[0].setUniform("texture1", 1);
 
-    // Textures
-    const Texture textures[] {
-      { images["box.jpg"]    },
-      { images["bricks.png"] },
-      { images["hheli.bmp"]  },
-    };
+        // Textures
+        const Texture textures[] {
+            { images["box.jpg"]    },
+            { images["bricks.png"] },
+            { images["hheli.bmp"]  },
+        };
 
-    // Drawable data
-    Renderable renderables[] {
-      Renderable(
-        scenes["hheli.obj"]->getMeshes()[0],
-        shaderPrograms[1],
-        {
-          &textures[2]
-        }
-      ),
-      Renderable(
-        scenes["cube.obj"]->getMeshes()[0],
-        shaderPrograms[0],
-        {
-          &textures[0],
-          &textures[1],
-        }
-      ),
-      Renderable(
-        scenes["hheli.obj"]->getMeshes()[0],
-        shaderPrograms[1],
-        {
-          &textures[2],
-        }
-      ),
-    };
+        // Drawable data
+        Renderable renderables[] {
+            Renderable(
+                scenes["hheli.obj"]->getMeshes()[0],
+                shaderPrograms[1],
+                {
+                    &textures[2]
+                }
+            ),
+            Renderable(
+                scenes["cube.obj"]->getMeshes()[0],
+                shaderPrograms[0],
+                {
+                    &textures[0],
+                    &textures[1],
+                }
+            ),
+            Renderable(
+                scenes["hheli.obj"]->getMeshes()[0],
+                shaderPrograms[1],
+                {
+                    &textures[2],
+                }
+            ),
+        };
 
-    renderables[1]
-      .getTransform()
-      .setPosition(vec3(0, 0, -5));
+        renderables[1]
+            .getTransform()
+            .setPosition(vec3(0, 0, -5));
 
-    renderables[0]
-      .getTransform()
-      .setScale(vec3(0.025f));
+        renderables[0]
+            .getTransform()
+            .setScale(vec3(0.025f));
 
-    renderables[0]
-      .getTransform()
-      .setPosition(vec3(2, -1, -5));
+        renderables[0]
+            .getTransform()
+            .setPosition(vec3(2, -1, -5));
 
-    renderables[0]
-      .getTransform()
-      .setRotation(vec3(0, 90, 0));
+        renderables[0]
+            .getTransform()
+            .setRotation(vec3(0, 90, 0));
 
-    renderables[2]
-      .getTransform()
-      .setScale(vec3(0.025f));
+        renderables[2]
+            .getTransform()
+            .setScale(vec3(0.025f));
 
-    renderables[2]
-      .getTransform()
-      .setPosition(vec3(-2, -1, -5));
+        renderables[2]
+            .getTransform()
+            .setPosition(vec3(-2, -1, -5));
 
-    renderables[2]
-      .getTransform()
-      .setRotation(vec3(0, 90, 0));
+        renderables[2]
+            .getTransform()
+            .setRotation(vec3(0, 90, 0));
 
-    GraphicsEngine::Drawables drawables {
-      &renderables[0],
-      &renderables[1],
-      &renderables[2],
-    };
+        GraphicsEngine::Drawables drawables {
+            &renderables[0],
+            &renderables[1],
+            &renderables[2],
+        };
 
-    // Camera setup
-    static const float FOV    = radians(45.0f);
-    static const float Z_NEAR = 1.0f;
-    static const float Z_FAR  = 500.0f;
-    Camera camera(perspective(FOV, window.getAspect(), Z_NEAR, Z_FAR));
+        // Camera setup
+        static const float FOV    = radians(45.0f);
+        static const float Z_NEAR = 1.0f;
+        static const float Z_FAR  = 500.0f;
+        Camera camera(perspective(FOV, window.getAspect(), Z_NEAR, Z_FAR));
 
-    // Engine setup
-    CameraControls cameraControls(camera.getTransform(), window.getInput());
-    GraphicsEngine graphicsEngine(drawables, camera);
-    Engine engine(window, graphicsEngine);
-    engine.run();
-  }
-  catch(const Error& e) {
-    cerr << e.what() << "\n";
-  }
-  catch(...) {
-    cerr << "Unknown exception thrown!\n";
-  }
+        // Engine setup
+        CameraControls cameraControls(camera.getTransform(), window.getInput());
+        GraphicsEngine graphicsEngine(drawables, camera);
+        Engine engine(window, graphicsEngine);
+        engine.run();
+    }
+    catch(const Error& e) {
+        cerr << e.what() << "\n";
+    }
+    catch(...) {
+        cerr << "Unknown exception thrown!\n";
+    }
 }

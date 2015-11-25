@@ -4,12 +4,12 @@
 #include <GLFW/glfw3.h>
 
 TestWindow::TestWindow()
-  : m_window(glfwCreateWindow(1280, 720, "Test", nullptr, nullptr)) {}
+    : m_window(glfwCreateWindow(1280, 720, "Test", nullptr, nullptr)) {}
 
 TestWindow::~TestWindow() {
-  glfwDestroyWindow(m_window);
+    glfwDestroyWindow(m_window);
 }
 
 TestWindow::operator GLFWwindow*() {
-  return m_window;
+    return m_window;
 }

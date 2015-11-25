@@ -5,18 +5,18 @@
 namespace onux {
 
 struct Scenes::Impl {
-  const SceneLoader loader;
+    const SceneLoader loader;
 };
 
 Scenes::Scenes()
-  : impl(new Impl()) {
-  load();
+    : impl(new Impl()) {
+    load();
 }
 
 Scenes::~Scenes() {}
 
 auto Scenes::getLoader() const -> Loader {
-  return impl->loader;
+    return impl->loader;
 }
 
 } // namespace onux

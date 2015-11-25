@@ -9,16 +9,16 @@ namespace onux {
 
 class Images : public Resources<const Image> {
 public:
-  Images();
-  ~Images();
+    Images();
+    ~Images();
 
 protected:
-  // Resources
-  virtual Loader getLoader() const override;
+    // Resources
+    virtual Loader getLoader() const override;
 
 private:
-  struct Impl;
-  std::unique_ptr<Impl> impl;
+    struct Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux

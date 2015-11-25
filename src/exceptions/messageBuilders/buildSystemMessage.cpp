@@ -5,10 +5,10 @@ using std::string;
 namespace onux {
 
 const string buildSystemMessage(
-  const string& systemName,
-  const string& message
+    const string& systemName,
+    const string& message
 ) {
-  return systemName + " ERROR: " + message;
+    return systemName + " ERROR: " + message;
 }
 
 } // namespace onux

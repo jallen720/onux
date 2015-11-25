@@ -6,7 +6,7 @@
 using onux::Environment;
 
 TEST_F(EnvironmentTest, validCreation) {
-  expectNoThrow([] {
-    const Environment environment;
-  });
+    expectNoThrow([] {
+        const Environment environment;
+    });
 }

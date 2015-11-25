@@ -10,8 +10,8 @@ struct IMouseMoveListener;
 
 class MouseMoveEvent : public Event<IMouseMoveListener, const glm::dvec2&> {
 public:
-  // Event
-  virtual void trigger(const glm::dvec2& position) override;
+    // Event
+    virtual void trigger(const glm::dvec2& position) override;
 };
 
 } // namespace onux

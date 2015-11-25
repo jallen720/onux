@@ -11,22 +11,22 @@ struct IImage;
 
 class Texture : public GLData {
 public:
-  typedef const std::map<const GLenum, const GLint> Options;
+    typedef const std::map<const GLenum, const GLint> Options;
 
 private:
-  static Options DEFAULT_OPTIONS;
+    static Options DEFAULT_OPTIONS;
 
 public:
-  Texture(
-    const IImage* image,
-    Options&      options = DEFAULT_OPTIONS
-  );
-  ~Texture();
-  void bind(const GLuint unit) const;
+    Texture(
+        const IImage* image,
+        Options&      options = DEFAULT_OPTIONS
+    );
+    ~Texture();
+    void bind(const GLuint unit) const;
 
 private:
-  struct Impl;
-  std::unique_ptr<Impl> impl;
+    struct Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux

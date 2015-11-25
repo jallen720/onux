@@ -11,16 +11,16 @@ struct IShaderSource;
 
 class ShaderObject : public GLData {
 public:
-  typedef const std::vector<const IShaderSource*>& Sources;
+    typedef const std::vector<const IShaderSource*>& Sources;
 
 public:
-  explicit ShaderObject(Sources sources);
-  ~ShaderObject();
-  const GLenum getType() const;
+    explicit ShaderObject(Sources sources);
+    ~ShaderObject();
+    const GLenum getType() const;
 
 private:
-  struct Impl;
-  std::shared_ptr<Impl> impl;
+    struct Impl;
+    std::shared_ptr<Impl> impl;
 };
 
 } // namespace onux

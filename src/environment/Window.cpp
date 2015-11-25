@@ -15,89 +15,89 @@ using std::string;
 namespace onux {
 
 struct Window::Impl {
-  GLFWwindow*  glfwWindow;
-  Input        input;
-  unsigned int width;
-  unsigned int height;
+    GLFWwindow*  glfwWindow;
+    Input        input;
+    unsigned int width;
+    unsigned int height;
 
-  Impl(
-    const unsigned int width,
-    const unsigned int height,
-    const char*        name
-  );
+    Impl(
+        const unsigned int width,
+        const unsigned int height,
+        const char*        name
+    );
 };
 
 Window::Window(
-  const unsigned int width,
-  const unsigned int height,
-  const char*        name
-) : impl(new Impl(width, height, name)) {}
+    const unsigned int width,
+    const unsigned int height,
+    const char*        name
+)   : impl(new Impl(width, height, name)) {}
 
 Window::~Window() {
-  glfwDestroyWindow(impl->glfwWindow);
+    glfwDestroyWindow(impl->glfwWindow);
 }
 
 void Window::makeContextCurrent() const {
-  glfwMakeContextCurrent(impl->glfwWindow);
+    glfwMakeContextCurrent(impl->glfwWindow);
 }
 
 const float Window::getAspect() const {
-  return (float)impl->width / impl->height;
+    return (float)impl->width / impl->height;
 }
 
 const bool Window::shouldClose() const {
-  return glfwWindowShouldClose(impl->glfwWindow);
+    return glfwWindowShouldClose(impl->glfwWindow);
 }
 
 void Window::swapBuffers() const {
-  glfwSwapBuffers(impl->glfwWindow);
+    glfwSwapBuffers(impl->glfwWindow);
 }
 
 Input& Window::getInput() {
-  return impl->input;
+    return impl->input;
 }
 
 // Implementation
 
 static void validateDimension(const unsigned int dimension, const string& dimensionName) {
-  static const auto MIN_DIMENSION_SIZE = 1u;
+    static const auto MIN_DIMENSION_SIZE = 1u;
 
-  if (dimension < MIN_DIMENSION_SIZE) {
-    throw InvalidArg(dimensionName, "Window", ">= " + toString(MIN_DIMENSION_SIZE));
-  }
+    if (dimension < MIN_DIMENSION_SIZE) {
+        throw InvalidArg(dimensionName, "Window", ">= " + toString(MIN_DIMENSION_SIZE));
+    }
 }
 
 static bool isEmpty(const char* name) {
-  return strcmp(name, "") == 0;
+    return strcmp(name, "") == 0;
 }
 
 static void validateName(const char* name) {
-  if (name == nullptr) {
-    throw NullArg("name", "Window");
-  }
-  else if (isEmpty(name)) {
-    throw EmptyStringArg("name", "Window");
-  }
+    if (name == nullptr) {
+        throw NullArg("name", "Window");
+    }
+    else if (isEmpty(name)) {
+        throw EmptyStringArg("name", "Window");
+    }
 }
 
 static GLFWwindow* getValidWindow(
-  const unsigned int width,
-  const unsigned int height,
-  const char*        name
+    const unsigned int width,
+    const unsigned int height,
+    const char*        name
 ) {
-  validateDimension(width, "width");
-  validateDimension(height, "height");
-  validateName(name);
-  return glfwCreateWindow(width, height, name, nullptr, nullptr);
+    validateDimension(width, "width");
+    validateDimension(height, "height");
+    validateName(name);
+    return glfwCreateWindow(width, height, name, nullptr, nullptr);
 }
 
 Window::Impl::Impl(
-  const unsigned int width,
-  const unsigned int height,
-  const char*        name
-) : glfwWindow(getValidWindow(width, height, name))
-  , input(glfwWindow)
-  , width(width)
-  , height(height) {}
+    const unsigned int width,
+    const unsigned int height,
+    const char*        name
+)   : glfwWindow(getValidWindow(width, height, name))
+    , input(glfwWindow)
+    , width(width)
+    , height(height) {}
 
 } // namespace onux

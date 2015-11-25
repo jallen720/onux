@@ -6,6 +6,6 @@
 namespace onux {
 
 GLError::GLError(const GLenum error)
-  : Error(buildSystemMessage("OPENGL", getErrorMessage(error))) {}
+    : Error(buildSystemMessage("OPENGL", getErrorMessage(error))) {}
 
 } // namespace onux

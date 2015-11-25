@@ -5,8 +5,8 @@
 namespace onux {
 
 struct IMouseDeltaListener {
-  virtual ~IMouseDeltaListener() {};
-  virtual void onMouseDelta(const glm::dvec2& delta) = 0;
+    virtual ~IMouseDeltaListener() {};
+    virtual void onMouseDelta(const glm::dvec2& delta) = 0;
 };
 
 } // namespace onux

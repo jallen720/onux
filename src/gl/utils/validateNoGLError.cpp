@@ -7,11 +7,11 @@
 namespace onux {
 
 void validateNoGLError() {
-  const GLenum error = glGetError();
+    const GLenum error = glGetError();
 
-  if (error != GL_NO_ERROR) {
-    throw GLError(error);
-  }
+    if (error != GL_NO_ERROR) {
+        throw GLError(error);
+    }
 }
 
 } // namespace onux

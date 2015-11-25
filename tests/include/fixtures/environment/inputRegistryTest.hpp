@@ -7,6 +7,6 @@
 
 struct inputRegistryTest : testing::Test {
 protected:
-  TestWindow window;
-  onux::Input input { window };
+    TestWindow window;
+    onux::Input input { window };
 };

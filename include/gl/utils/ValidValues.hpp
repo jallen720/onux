@@ -11,19 +11,19 @@ namespace onux {
 
 class ValidValues {
 private:
-  typedef std::string ValueName;
-  typedef const std::vector<ValueName> ValueNames;
-  typedef std::pair<const GLenum, const ValueName> ValidValue;
-  typedef const std::initializer_list<ValidValue>& ValidValueList;
+    typedef std::string ValueName;
+    typedef const std::vector<ValueName> ValueNames;
+    typedef std::pair<const GLenum, const ValueName> ValidValue;
+    typedef const std::initializer_list<ValidValue>& ValidValueList;
 
 public:
-  explicit ValidValues(ValidValueList validValues);
-  const bool contains(const GLenum value) const;
-  ValueName getName(const GLenum value) const;
-  ValueNames getNames() const;
+    explicit ValidValues(ValidValueList validValues);
+    const bool contains(const GLenum value) const;
+    ValueName getName(const GLenum value) const;
+    ValueNames getNames() const;
 
 private:
-  const std::map<const GLenum, const ValueName> m_validValues;
+    const std::map<const GLenum, const ValueName> m_validValues;
 };
 
 } // namespace onux

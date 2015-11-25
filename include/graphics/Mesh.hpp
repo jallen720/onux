@@ -12,17 +12,17 @@ namespace onux {
 
 class Mesh {
 public:
-  typedef BufferData<Vertex> Vertexes;
-  typedef BufferData<GLuint> Indexes;
+    typedef BufferData<Vertex> Vertexes;
+    typedef BufferData<GLuint> Indexes;
 
 public:
-  Mesh(const aiMesh* mesh);
-  const Vertexes& getVertexes() const;
-  const Indexes& getIndexes() const;
+    Mesh(const aiMesh* mesh);
+    const Vertexes& getVertexes() const;
+    const Indexes& getIndexes() const;
 
 private:
-  struct Impl;
-  std::shared_ptr<Impl> impl;
+    struct Impl;
+    std::shared_ptr<Impl> impl;
 };
 
 } // namespace onux

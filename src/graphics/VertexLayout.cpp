@@ -6,35 +6,35 @@
 namespace onux {
 
 struct VertexLayout::Impl {
-  Attributes    attributes;
-  const GLsizei stride;
+    Attributes    attributes;
+    const GLsizei stride;
 
-  Impl(Attributes& attributes);
+    Impl(Attributes& attributes);
 };
 
 VertexLayout::VertexLayout(Attributes& attributes)
-  : impl(new Impl(attributes)) {}
+    : impl(new Impl(attributes)) {}
 
 VertexLayout::~VertexLayout() {}
 
 auto VertexLayout::getAttributes() const -> Attributes& {
-  return impl->attributes;
+    return impl->attributes;
 }
 
 const GLsizei VertexLayout::getStride() const {
-  return impl->stride;
+    return impl->stride;
 }
 
 // Implementation
 
 static const GLsizei calculateStride(IVertexLayout::Attributes& attributes) {
-  return accumulate(0, attributes, [](auto stride, auto attribute) {
-    return stride + attribute->getSize();
-  });
+    return accumulate(0, attributes, [](auto stride, auto attribute) {
+        return stride + attribute->getSize();
+    });
 }
 
 VertexLayout::Impl::Impl(Attributes& attributes)
-  : attributes(attributes)
-  , stride(calculateStride(this->attributes)) {}
+    : attributes(attributes)
+    , stride(calculateStride(this->attributes)) {}
 
 } // namespace onux

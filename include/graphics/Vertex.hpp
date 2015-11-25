@@ -7,11 +7,11 @@
 namespace onux {
 
 struct Vertex {
-  static const VertexLayout LAYOUT;
+    static const VertexLayout LAYOUT;
 
-  const glm::vec3 POSITION;
-  const glm::vec3 NORMAL;
-  const glm::vec2 UV;
+    const glm::vec3 POSITION;
+    const glm::vec3 NORMAL;
+    const glm::vec2 UV;
 };
 
 } // namespace onux

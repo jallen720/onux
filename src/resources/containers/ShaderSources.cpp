@@ -5,18 +5,18 @@
 namespace onux {
 
 struct ShaderSources::Impl {
-  const ShaderSourceLoader loader;
+    const ShaderSourceLoader loader;
 };
 
 ShaderSources::ShaderSources()
-  : impl(new Impl()) {
-  load();
+    : impl(new Impl()) {
+    load();
 }
 
 ShaderSources::~ShaderSources() {}
 
 auto ShaderSources::getLoader() const -> Loader {
-  return impl->loader;
+    return impl->loader;
 }
 
 } // namespace onux

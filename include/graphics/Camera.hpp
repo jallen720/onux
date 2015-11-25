@@ -9,14 +9,14 @@ class Transform;
 
 class Camera {
 public:
-  explicit Camera(const glm::mat4& projection);
-  ~Camera();
-  Transform& getTransform();
-  const glm::mat4& getProjection() const;
+    explicit Camera(const glm::mat4& projection);
+    ~Camera();
+    Transform& getTransform();
+    const glm::mat4& getProjection() const;
 
 private:
-  struct Impl;
-  std::unique_ptr<Impl> impl;
+    struct Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux

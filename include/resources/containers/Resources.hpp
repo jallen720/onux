@@ -10,24 +10,24 @@ namespace onux {
 template<typename T>
 class Resources {
 protected:
-  typedef const ResourceLoader<T>& Loader;
+    typedef const ResourceLoader<T>& Loader;
 
 private:
-  typedef typename ResourceLoader<T>::Resource Resource;
-  typedef std::map<const std::string, Resource> ResourceMap;
+    typedef typename ResourceLoader<T>::Resource Resource;
+    typedef std::map<const std::string, Resource> ResourceMap;
 
 public:
-  virtual ~Resources();
-  T* operator [](const std::string& relativePath) const;
+    virtual ~Resources();
+    T* operator [](const std::string& relativePath) const;
 
 protected:
-  void load();
-  virtual Loader getLoader() const = 0;
+    void load();
+    virtual Loader getLoader() const = 0;
 
 private:
-  ResourceMap m_resources;
+    ResourceMap m_resources;
 
-  T* atPath(const std::string& path) const;
+    T* atPath(const std::string& path) const;
 };
 
 } // namespace onux

@@ -11,6 +11,6 @@ uniform mat4 view;
 uniform mat4 projection;
 
 vec4 vertexPosition() {
-  vec3 samp = normal;
-  return projection * view * model * vec4(position, 1);
+    vec3 samp = normal;
+    return projection * view * model * vec4(position, 1);
 }

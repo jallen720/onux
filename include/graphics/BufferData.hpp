@@ -10,17 +10,17 @@ namespace onux {
 template<typename T>
 class BufferData : public IBufferData {
 public:
-  BufferData();
-  explicit BufferData(const std::initializer_list<T>& data);
-  void add(T element);
-  const size_t getCount() const;
+    BufferData();
+    explicit BufferData(const std::initializer_list<T>& data);
+    void add(T element);
+    const size_t getCount() const;
 
-  // IBufferData
-  virtual const GLsizei getSize() const override;
-  virtual const GLvoid* getPointer() const override;
+    // IBufferData
+    virtual const GLsizei getSize() const override;
+    virtual const GLvoid* getPointer() const override;
 
 private:
-  std::vector<T> m_data;
+    std::vector<T> m_data;
 };
 
 } // namespace onux

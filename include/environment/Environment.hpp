@@ -3,8 +3,8 @@
 namespace onux {
 
 struct Environment {
-  Environment();
-  ~Environment();
+    Environment();
+    ~Environment();
 };
 
 } // namespace onux

@@ -5,5 +5,5 @@
 
 struct IndexBufferTest : OnuxTest {
 protected:
-  const onux::Mesh::Indexes validData { 0, 1, 2 };
+    const onux::Mesh::Indexes validData { 0, 1, 2 };
 };

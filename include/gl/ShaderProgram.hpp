@@ -12,24 +12,24 @@ class ShaderObject;
 
 class ShaderProgram : public GLData {
 public:
-  typedef const std::vector<const ShaderObject*>& Objects;
+    typedef const std::vector<const ShaderObject*>& Objects;
 
 public:
-  explicit ShaderProgram(Objects objects);
-  ~ShaderProgram();
-  void use() const;
-  void setUniform(const GLchar* name, const GLint value) const;
-  void setUniform(const GLchar* name, const glm::vec3& value) const;
-  void setUniform(const GLchar* name, const glm::vec4& value) const;
-  void setUniform(
-    const GLchar*    name,
-    const glm::mat4& value,
-    const GLboolean  transpose = GL_FALSE
-  ) const;
+    explicit ShaderProgram(Objects objects);
+    ~ShaderProgram();
+    void use() const;
+    void setUniform(const GLchar* name, const GLint value) const;
+    void setUniform(const GLchar* name, const glm::vec3& value) const;
+    void setUniform(const GLchar* name, const glm::vec4& value) const;
+    void setUniform(
+        const GLchar*    name,
+        const glm::mat4& value,
+        const GLboolean  transpose = GL_FALSE
+    ) const;
 
 private:
-  struct Impl;
-  std::shared_ptr<Impl> impl;
+    struct Impl;
+    std::shared_ptr<Impl> impl;
 };
 
 } // namespace onux

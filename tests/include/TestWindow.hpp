@@ -6,11 +6,11 @@ struct GLFWwindow;
 
 class TestWindow {
 public:
-  TestWindow();
-  ~TestWindow();
-  operator GLFWwindow*();
+    TestWindow();
+    ~TestWindow();
+    operator GLFWwindow*();
 
 private:
-  const onux::Environment m_environment;
-  GLFWwindow*             m_window;
+    const onux::Environment m_environment;
+    GLFWwindow*             m_window;
 };

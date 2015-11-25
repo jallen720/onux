@@ -15,50 +15,50 @@ using onux::ArgFailedRequirement;
 using onux::InvalidArgProperty;
 
 TEST_F(ShaderObjectTest, validCreation) {
-  const ShaderSource validSource(testShaderPath("valid.vert"));
+    const ShaderSource validSource(testShaderPath("valid.vert"));
 
-  expectNoThrow([&validSource] {
-    const ShaderObject shaderObject({
-      &validSource,
+    expectNoThrow([&validSource] {
+        const ShaderObject shaderObject({
+            &validSource,
+        });
     });
-  });
 }
 
 TEST_F(ShaderObjectTest, noSources) {
-  EXPECT_THROW(
-    const ShaderObject shaderObject({}),
-    InvalidArgProperty
-  );
+    EXPECT_THROW(
+        const ShaderObject shaderObject({}),
+        InvalidArgProperty
+    );
 }
 
 TEST_F(ShaderObjectTest, differentSourceTypes) {
-  const ShaderSource invalidSources[] {
-    { testShaderPath("valid.vert") },
-    { testShaderPath("valid.frag") },
-  };
+    const ShaderSource invalidSources[] {
+        { testShaderPath("valid.vert") },
+        { testShaderPath("valid.frag") },
+    };
 
-  EXPECT_THROW(
-    const ShaderObject shaderObject({
-      &invalidSources[0],
-      &invalidSources[1],
-    }),
+    EXPECT_THROW(
+        const ShaderObject shaderObject({
+            &invalidSources[0],
+            &invalidSources[1],
+        }),
 
-    ArgFailedRequirement
-  );
+        ArgFailedRequirement
+    );
 }
 
 TEST_F(ShaderObjectTest, compilationFailure) {
-  const ShaderSource invalidSources[] {
-    { testShaderPath("valid.vert")   },
-    { testShaderPath("invalid.vert") },
-  };
+    const ShaderSource invalidSources[] {
+        { testShaderPath("valid.vert")   },
+        { testShaderPath("invalid.vert") },
+    };
 
-  EXPECT_THROW(
-    const ShaderObject shaderObject({
-      &invalidSources[0],
-      &invalidSources[1],
-    }),
+    EXPECT_THROW(
+        const ShaderObject shaderObject({
+            &invalidSources[0],
+            &invalidSources[1],
+        }),
 
-    Error
-  );
+        Error
+    );
 }

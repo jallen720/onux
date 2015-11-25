@@ -7,6 +7,6 @@ using std::string;
 namespace onux {
 
 GLEWError::GLEWError(const string& message)
-  : Error(buildSystemMessage("GLEW", message)) {}
+    : Error(buildSystemMessage("GLEW", message)) {}
 
 } // namespace onux

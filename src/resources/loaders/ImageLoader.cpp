@@ -5,12 +5,12 @@ using std::string;
 namespace onux {
 
 const string& ImageLoader::getSubDirectory() const {
-  static const string SUB_DIRECTORY = "images/";
-  return SUB_DIRECTORY;
+    static const string SUB_DIRECTORY = "images/";
+    return SUB_DIRECTORY;
 }
 
 auto ImageLoader::load(const string& path) const -> Resource {
-  return Resource(new Image(path));
+    return Resource(new Image(path));
 }
 
 } // namespace onux

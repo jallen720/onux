@@ -10,16 +10,16 @@ class Camera;
 
 class GraphicsEngine {
 public:
-  typedef const std::vector<const Renderable*> Drawables;
+    typedef const std::vector<const Renderable*> Drawables;
 
 public:
-  GraphicsEngine(Drawables& drawables, Camera& camera);
-  ~GraphicsEngine();
-  void render();
+    GraphicsEngine(Drawables& drawables, Camera& camera);
+    ~GraphicsEngine();
+    void render();
 
 private:
-  struct Impl;
-  std::unique_ptr<Impl> impl;
+    struct Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux

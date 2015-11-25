@@ -5,8 +5,8 @@
 namespace onux {
 
 struct IMouseMoveListener {
-  virtual ~IMouseMoveListener() {};
-  virtual void onMouseMove(const glm::dvec2& position) = 0;
+    virtual ~IMouseMoveListener() {};
+    virtual void onMouseMove(const glm::dvec2& position) = 0;
 };
 
 } // namespace onux

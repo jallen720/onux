@@ -15,34 +15,34 @@ using onux::IMouseMoveListener;
 using onux::NullArg;
 
 TEST(InputTest, validCreation) {
-  expectNoThrow([&] {
-    const Input input { TestWindow() };
-  });
+    expectNoThrow([&] {
+        const Input input { TestWindow() };
+    });
 }
 
 TEST(InputTest, invalidWindow) {
-  EXPECT_THROW(
-    const Input input(nullptr),
-    NullArg
-  );
+    EXPECT_THROW(
+        const Input input(nullptr),
+        NullArg
+    );
 }
 
 TEST(InputTest, cursorPosEventWorks) {
-  static const struct {
-    const double X = 1.0;
-    const double Y = 2.0;
-  } VALID;
+    static const struct {
+        const double X = 1.0;
+        const double Y = 2.0;
+    } VALID;
 
-  TestWindow window;
-  Input input(window);
+    TestWindow window;
+    Input input(window);
 
-  struct MouseMoveListener : IMouseMoveListener {
-    void onMouseMove(const dvec2& position) override {
-      ASSERT_EQ(VALID.X, position.x);
-      ASSERT_EQ(VALID.Y, position.y);
-    }
-  } mouseMoveListener;
+    struct MouseMoveListener : IMouseMoveListener {
+        void onMouseMove(const dvec2& position) override {
+            ASSERT_EQ(VALID.X, position.x);
+            ASSERT_EQ(VALID.Y, position.y);
+        }
+    } mouseMoveListener;
 
-  input.getMouseMoveEvent().add(&mouseMoveListener);
-  input.cursorPosEvent(VALID.X, VALID.Y);
+    input.getMouseMoveEvent().add(&mouseMoveListener);
+    input.cursorPosEvent(VALID.X, VALID.Y);
 }

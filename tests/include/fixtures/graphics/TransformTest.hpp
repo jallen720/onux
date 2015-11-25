@@ -6,5 +6,5 @@
 
 struct TransformTest : testing::Test {
 protected:
-  onux::Transform transform;
+    onux::Transform transform;
 };

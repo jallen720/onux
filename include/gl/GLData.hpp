@@ -7,14 +7,14 @@ namespace onux {
 
 class GLData {
 public:
-  const GLuint& getID() const;
+    const GLuint& getID() const;
 
 protected:
-  explicit GLData(const GLuint id);
+    explicit GLData(const GLuint id);
 
 private:
-  struct Impl;
-  std::shared_ptr<Impl> impl;
+    struct Impl;
+    std::shared_ptr<Impl> impl;
 };
 
 } // namespace onux

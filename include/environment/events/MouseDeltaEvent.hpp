@@ -11,15 +11,15 @@ struct IMouseDeltaListener;
 
 class MouseDeltaEvent : public Event<IMouseDeltaListener, const glm::dvec2&> {
 public:
-  MouseDeltaEvent();
-  ~MouseDeltaEvent();
+    MouseDeltaEvent();
+    ~MouseDeltaEvent();
 
-  // Event
-  virtual void trigger(const glm::dvec2& position) override;
+    // Event
+    virtual void trigger(const glm::dvec2& position) override;
 
 private:
-  struct Impl;
-  std::unique_ptr<Impl> impl;
+    struct Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux

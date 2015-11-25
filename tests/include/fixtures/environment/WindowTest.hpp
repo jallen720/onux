@@ -6,5 +6,5 @@
 
 struct WindowTest : testing::Test {
 protected:
-  onux::Environment environment;
+    onux::Environment environment;
 };

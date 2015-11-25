@@ -3,9 +3,9 @@
 namespace onux {
 
 const GLint getInt(const GLenum parameter) {
-  GLint value;
-  glGetIntegerv(parameter, &value);
-  return value;
+    GLint value;
+    glGetIntegerv(parameter, &value);
+    return value;
 }
 
 } // namespace onux

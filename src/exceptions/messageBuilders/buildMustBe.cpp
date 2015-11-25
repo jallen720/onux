@@ -8,11 +8,11 @@ using std::vector;
 namespace onux {
 
 const string buildMustBe(const vector<string>& validArguments) {
-  return accumulate<string>("\n", validArguments,
-    [](const auto& mustBe, const auto& validArgument) {
-      return mustBe + "      " + validArgument + ",\n";
-    }
-  );
+    return accumulate<string>("\n", validArguments,
+        [](const auto& mustBe, const auto& validArgument) {
+            return mustBe + "      " + validArgument + ",\n";
+        }
+    );
 }
 
 } // namespace onux

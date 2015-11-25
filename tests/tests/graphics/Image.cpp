@@ -13,28 +13,28 @@ using onux::Image;
 using onux::EmptyStringArg;
 
 TEST_F(ImageTest, validCreation) {
-  expectNoThrow([] {
-    const Image image(testImagePath("valid.png"));
-  });
+    expectNoThrow([] {
+        const Image image(testImagePath("valid.png"));
+    });
 }
 
 TEST_F(ImageTest, emptyPath) {
-  EXPECT_THROW(
-    const Image image(""),
-    EmptyStringArg
-  );
+    EXPECT_THROW(
+        const Image image(""),
+        EmptyStringArg
+    );
 }
 
 TEST_F(ImageTest, invalidFileExtension) {
-  EXPECT_THROW(
-    const Image image(testImagePath("invalid_format.pngg")),
-    ErrorMissingDelegate
-  );
+    EXPECT_THROW(
+        const Image image(testImagePath("invalid_format.pngg")),
+        ErrorMissingDelegate
+    );
 }
 
 TEST_F(ImageTest, fileDoesNotExist) {
-  EXPECT_THROW(
-    const Image image("does_not_exist.png"),
-    ErrorBlob
-  );
+    EXPECT_THROW(
+        const Image image("does_not_exist.png"),
+        ErrorBlob
+    );
 }

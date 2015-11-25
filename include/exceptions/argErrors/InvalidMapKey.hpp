@@ -8,11 +8,11 @@ namespace onux {
 
 class InvalidMapKey : public Error {
 public:
-  InvalidMapKey(
-    const std::string&              parameterName,
-    const std::string&              objectName,
-    const std::vector<std::string>& validKeys
-  );
+    InvalidMapKey(
+        const std::string&              parameterName,
+        const std::string&              objectName,
+        const std::vector<std::string>& validKeys
+    );
 };
 
 } // namespace onux

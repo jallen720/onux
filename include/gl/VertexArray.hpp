@@ -9,12 +9,12 @@ struct IndexBuffer;
 
 class VertexArray : public GLData {
 public:
-  VertexArray(
-    const VertexBuffer& vertexBuffer,
-    const IndexBuffer&  indexBuffer
-  );
-  ~VertexArray();
-  void bind() const;
+    VertexArray(
+        const VertexBuffer& vertexBuffer,
+        const IndexBuffer&  indexBuffer
+    );
+    ~VertexArray();
+    void bind() const;
 };
 
 } // namespace onux

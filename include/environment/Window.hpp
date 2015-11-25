@@ -10,21 +10,21 @@ class Input;
 
 class Window {
 public:
-  Window(
-    const unsigned int width,
-    const unsigned int height,
-    const char*        name
-  );
-  ~Window();
-  void makeContextCurrent() const;
-  const float getAspect() const;
-  const bool shouldClose() const;
-  void swapBuffers() const;
-  Input& getInput();
+    Window(
+        const unsigned int width,
+        const unsigned int height,
+        const char*        name
+    );
+    ~Window();
+    void makeContextCurrent() const;
+    const float getAspect() const;
+    const bool shouldClose() const;
+    void swapBuffers() const;
+    Input& getInput();
 
 private:
-  struct Impl;
-  std::unique_ptr<Impl> impl;
+    struct Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux

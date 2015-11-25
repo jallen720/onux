@@ -8,6 +8,6 @@ out vec4 vertColor;
 uniform vec3 unusedVec3;
 
 void main() {
-  gl_Position = vec4(position, 1.0);
-  vertColor = vec4(position, 1.0);
+    gl_Position = vec4(position, 1.0);
+    vertColor = vec4(position, 1.0);
 }

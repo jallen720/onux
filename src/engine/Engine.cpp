@@ -15,56 +15,56 @@ using std::chrono::milliseconds;
 namespace onux {
 
 struct Engine::Impl {
-  const Window&   window;
-  GraphicsEngine& graphicsEngine;
+    const Window&   window;
+    GraphicsEngine& graphicsEngine;
 
-  Impl(const Window& window, GraphicsEngine& graphicsEngine);
-  void renderObjects();
-  void processFrame();
+    Impl(const Window& window, GraphicsEngine& graphicsEngine);
+    void renderObjects();
+    void processFrame();
 };
 
 Engine::Engine(const Window& window, GraphicsEngine& graphicsEngine)
-  : impl(new Impl(window, graphicsEngine)) {
-  validateNoGLError();
+    : impl(new Impl(window, graphicsEngine)) {
+    validateNoGLError();
 }
 
 Engine::~Engine() {}
 
 static void frameWait(float frameStart) {
-  static const float FPS = 60.0f;
-  long wait = ((1.0f / FPS) * 1000) - (glfwGetTime() - frameStart);
-  sleep_for(milliseconds(wait));
+    static const float FPS = 60.0f;
+    long wait = ((1.0f / FPS) * 1000) - (glfwGetTime() - frameStart);
+    sleep_for(milliseconds(wait));
 }
 
 static void handleFrameTiming(float& frameStart) {
-  frameWait(frameStart);
-  frameStart = glfwGetTime();
+    frameWait(frameStart);
+    frameStart = glfwGetTime();
 }
 
 void Engine::run() {
-  float frameStart = glfwGetTime();
+    float frameStart = glfwGetTime();
 
-  while (!impl->window.shouldClose()) {
-    impl->processFrame();
-    handleFrameTiming(frameStart);
-  }
+    while (!impl->window.shouldClose()) {
+        impl->processFrame();
+        handleFrameTiming(frameStart);
+    }
 }
 
 // Implementation
 
 Engine::Impl::Impl(const Window& window, GraphicsEngine& graphicsEngine)
-  : window(window)
-  , graphicsEngine(graphicsEngine) {}
+    : window(window)
+    , graphicsEngine(graphicsEngine) {}
 
 void Engine::Impl::renderObjects() {
-  graphicsEngine.render();
-  window.swapBuffers();
+    graphicsEngine.render();
+    window.swapBuffers();
 }
 
 void Engine::Impl::processFrame() {
-  glfwPollEvents();
-  renderObjects();
-  validateNoGLError();
+    glfwPollEvents();
+    renderObjects();
+    validateNoGLError();
 }
 
 } // namespace onux

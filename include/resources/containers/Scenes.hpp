@@ -9,16 +9,16 @@ namespace onux {
 
 class Scenes : public Resources<const Scene> {
 public:
-  Scenes();
-  ~Scenes();
+    Scenes();
+    ~Scenes();
 
 protected:
-  // Resources
-  virtual Loader getLoader() const override;
+    // Resources
+    virtual Loader getLoader() const override;
 
 private:
-  struct Impl;
-  std::unique_ptr<Impl> impl;
+    struct Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux

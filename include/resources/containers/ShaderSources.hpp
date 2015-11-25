@@ -9,16 +9,16 @@ namespace onux {
 
 class ShaderSources : public Resources<const ShaderSource> {
 public:
-  ShaderSources();
-  ~ShaderSources();
+    ShaderSources();
+    ~ShaderSources();
 
 protected:
-  // Resources
-  virtual Loader getLoader() const override;
+    // Resources
+    virtual Loader getLoader() const override;
 
 private:
-  struct Impl;
-  std::unique_ptr<Impl> impl;
+    struct Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux

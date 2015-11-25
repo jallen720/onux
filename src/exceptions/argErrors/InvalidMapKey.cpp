@@ -10,26 +10,26 @@ using std::vector;
 namespace onux {
 
 static const string buildMapKeyMessage(
-  const string& parameterName,
-  const string& objectName,
-  const string& mustBe
+    const string& parameterName,
+    const string& objectName,
+    const string& mustBe
 ) {
-  return buildArgMessage(
-    parameterName,
-    objectName,
-    buildArgInfo(mustBe),
-    "map key in argument"
-  );
+    return buildArgMessage(
+        parameterName,
+        objectName,
+        buildArgInfo(mustBe),
+        "map key in argument"
+    );
 }
 
 InvalidMapKey::InvalidMapKey(
-  const string&         parameterName,
-  const string&         objectName,
-  const vector<string>& validKeys
-) : Error(buildMapKeyMessage(
-      parameterName,
-      objectName,
-      buildMustBe(validKeys)
+    const string&         parameterName,
+    const string&         objectName,
+    const vector<string>& validKeys
+)   : Error(buildMapKeyMessage(
+        parameterName,
+        objectName,
+        buildMustBe(validKeys)
     )) {}
 
 } // namespace onux

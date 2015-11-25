@@ -6,10 +6,10 @@ namespace onux {
 
 class NullArg : public Error {
 public:
-  NullArg(
-    const std::string& parameterName,
-    const std::string& objectName
-  );
+    NullArg(
+        const std::string& parameterName,
+        const std::string& objectName
+    );
 };
 
 } // namespace onux
