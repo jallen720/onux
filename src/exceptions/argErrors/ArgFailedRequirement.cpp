@@ -7,12 +7,12 @@ using std::string;
 namespace onux {
 
 ArgFailedRequirement::ArgFailedRequirement(
-    const string& parameterName,
-    const string& functionName,
+    const string& parameter,
+    const string& function,
     const string& requirement
 )   : Error(buildArgMessage(
-        parameterName,
-        functionName,
+        parameter,
+        function,
         " failed requirement:\n    " + requirement
     )) {}
 

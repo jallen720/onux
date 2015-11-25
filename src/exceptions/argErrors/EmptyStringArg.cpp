@@ -7,11 +7,11 @@ using std::string;
 namespace onux {
 
 EmptyStringArg::EmptyStringArg(
-    const string& parameterName,
-    const string& functionName
+    const string& parameter,
+    const string& function
 )   : Error(buildArgMessage(
-        parameterName,
-        functionName,
+        parameter,
+        function,
         " cannot be empty",
         "string argument"
     )) {}

@@ -7,8 +7,8 @@ namespace onux {
 class NullArg : public Error {
 public:
     NullArg(
-        const std::string& parameterName,
-        const std::string& functionName
+        const std::string& parameter,
+        const std::string& function
     );
 };
 

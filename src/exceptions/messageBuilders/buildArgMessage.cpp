@@ -5,16 +5,16 @@ using std::string;
 namespace onux {
 
 const string buildArgMessage(
-    const string& parameterName,
-    const string& functionName,
-    const string& argumentInfo,
-    const string& argumentDescription
+    const string& parameter,
+    const string& function,
+    const string& argInfo,
+    const string& argDescription
 ) {
     return "\n  " +
-           argumentDescription + " passed to \"" +
-           parameterName + "\" parameter for " +
-           functionName + "()" +
-           argumentInfo;
+           argDescription + " passed to \"" +
+           parameter + "\" parameter for " +
+           function + "()" +
+           argInfo;
 }
 
 } // namespace onux

@@ -5,10 +5,10 @@
 namespace onux {
 
 const std::string buildArgMessage(
-    const std::string& parameterName,
-    const std::string& functionName,
-    const std::string& argumentInfo,
-    const std::string& argumentDescription = "argument"
+    const std::string& parameter,
+    const std::string& function,
+    const std::string& argInfo,
+    const std::string& argDescription = "argument"
 );
 
 } // namespace onux

@@ -10,40 +10,40 @@ using std::vector;
 namespace onux {
 
 static const string buildArgPropertyMessage(
-    const string& parameterName,
-    const string& functionName,
-    const string& propertyName,
+    const string& parameter,
+    const string& function,
+    const string& property,
     const string& mustBe
 ) {
     return buildArgMessage(
-        parameterName,
-        functionName,
+        parameter,
+        function,
         buildArgInfo(mustBe),
-        "property \"" + propertyName + "\" of argument"
+        "property \"" + property + "\" of argument"
     );
 }
 
 InvalidArgProperty::InvalidArgProperty(
-    const string& parameterName,
-    const string& functionName,
-    const string& propertyName,
+    const string& parameter,
+    const string& function,
+    const string& property,
     const string& validProperty
 )   : Error(buildArgPropertyMessage(
-        parameterName,
-        functionName,
-        propertyName,
+        parameter,
+        function,
+        property,
         validProperty
     )) {}
 
 InvalidArgProperty::InvalidArgProperty(
-    const string&         parameterName,
-    const string&         functionName,
-    const string&         propertyName,
+    const string&         parameter,
+    const string&         function,
+    const string&         property,
     const vector<string>& validProperties
 )   : Error(buildArgPropertyMessage(
-        parameterName,
-        functionName,
-        propertyName,
+        parameter,
+        function,
+        property,
         buildMustBe(validProperties)
     )) {}
 

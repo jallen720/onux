@@ -4,11 +4,8 @@ using std::string;
 
 namespace onux {
 
-const string buildSystemMessage(
-    const string& systemName,
-    const string& message
-) {
-    return systemName + " ERROR: " + message;
+const string buildSystemMessage(const string& system, const string& message) {
+    return system + " ERROR: " + message;
 }
 
 } // namespace onux

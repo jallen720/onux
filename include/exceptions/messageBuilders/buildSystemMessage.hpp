@@ -5,7 +5,7 @@
 namespace onux {
 
 const std::string buildSystemMessage(
-    const std::string& systemName,
+    const std::string& system,
     const std::string& message
 );
 

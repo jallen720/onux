@@ -10,25 +10,25 @@ using std::vector;
 namespace onux {
 
 static const string buildMapKeyMessage(
-    const string& parameterName,
-    const string& functionName,
+    const string& parameter,
+    const string& function,
     const string& mustBe
 ) {
     return buildArgMessage(
-        parameterName,
-        functionName,
+        parameter,
+        function,
         buildArgInfo(mustBe),
         "map key in argument"
     );
 }
 
 InvalidMapKey::InvalidMapKey(
-    const string&         parameterName,
-    const string&         functionName,
+    const string&         parameter,
+    const string&         function,
     const vector<string>& validKeys
 )   : Error(buildMapKeyMessage(
-        parameterName,
-        functionName,
+        parameter,
+        function,
         buildMustBe(validKeys)
     )) {}
 

@@ -7,8 +7,8 @@ namespace onux {
 class ArgFailedRequirement : public Error {
 public:
     ArgFailedRequirement(
-        const std::string& parameterName,
-        const std::string& functionName,
+        const std::string& parameter,
+        const std::string& function,
         const std::string& requirement
     );
 };

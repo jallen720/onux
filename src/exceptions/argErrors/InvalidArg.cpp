@@ -10,34 +10,34 @@ using std::vector;
 namespace onux {
 
 static const string buildInvalidArgMessage(
-    const string& parameterName,
-    const string& functionName,
+    const string& parameter,
+    const string& function,
     const string& mustBe
 ) {
     return buildArgMessage(
-        parameterName,
-        functionName,
+        parameter,
+        function,
         buildArgInfo(mustBe)
     );
 }
 
 InvalidArg::InvalidArg(
-    const string& parameterName,
-    const string& functionName,
+    const string& parameter,
+    const string& function,
     const string& validArgument
 )   : Error(buildInvalidArgMessage(
-        parameterName,
-        functionName,
+        parameter,
+        function,
         validArgument
     )) {}
 
 InvalidArg::InvalidArg(
-    const string&         parameterName,
-    const string&         functionName,
+    const string&         parameter,
+    const string&         function,
     const vector<string>& validArguments
 )   : Error(buildInvalidArgMessage(
-        parameterName,
-        functionName,
+        parameter,
+        function,
         buildMustBe(validArguments)
     )) {}
 

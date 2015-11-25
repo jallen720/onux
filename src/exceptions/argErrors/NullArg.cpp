@@ -6,12 +6,10 @@ using std::string;
 
 namespace onux {
 
-NullArg::NullArg(
-    const string& parameterName,
-    const string& functionName
-)   : Error(buildArgMessage(
-        parameterName,
-        functionName,
+NullArg::NullArg(const string& parameter, const string& function)
+    : Error(buildArgMessage(
+        parameter,
+        function,
         " cannot be null"
     )) {}
 

@@ -9,8 +9,8 @@ namespace onux {
 class InvalidMapValue : public Error {
 public:
     InvalidMapValue(
-        const std::string&              parameterName,
-        const std::string&              functionName,
+        const std::string&              parameter,
+        const std::string&              function,
         const std::string&              key,
         const std::vector<std::string>& validValues
     );

@@ -7,8 +7,8 @@ namespace onux {
 class EmptyStringArg : public Error {
 public:
     EmptyStringArg(
-        const std::string& parameterName,
-        const std::string& functionName
+        const std::string& parameter,
+        const std::string& function
     );
 };
 

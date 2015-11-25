@@ -10,27 +10,27 @@ using std::vector;
 namespace onux {
 
 static const string buildMapValueMessage(
-    const string& parameterName,
-    const string& functionName,
+    const string& parameter,
+    const string& function,
     const string& key,
     const string& mustBe
 ) {
     return buildArgMessage(
-        parameterName,
-        functionName,
+        parameter,
+        function,
         buildArgInfo(mustBe),
         "map value for \"" + key + "\" key in argument"
     );
 }
 
 InvalidMapValue::InvalidMapValue(
-    const string&         parameterName,
-    const string&         functionName,
+    const string&         parameter,
+    const string&         function,
     const string&         key,
     const vector<string>& validValues
 )   : Error(buildMapValueMessage(
-        parameterName,
-        functionName,
+        parameter,
+        function,
         key,
         buildMustBe(validValues)
     )) {}
