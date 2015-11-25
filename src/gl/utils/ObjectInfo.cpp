@@ -8,24 +8,25 @@ using std::vector;
 namespace onux {
 
 struct ObjectInfo::Impl {
-    const GLuint   objectID;
-    GetValueFunc   getValueFunc;
-    GetInfoLogFunc getInfoLogFunc;
+    const GLuint objectID;
+    GetValueFunc getValueFunc;
+    GetLogFunc   getLogFunc;
 
     Impl(
-        const GLuint   objectID,
-        GetValueFunc   getValueFunc,
-        GetInfoLogFunc getInfoLogFunc
+        const GLuint objectID,
+        GetValueFunc getValueFunc,
+        GetLogFunc   getLogFunc
     );
 };
 
 ObjectInfo::ObjectInfo(
-    const GLuint   objectID,
-    GetValueFunc   getValueFunc,
-    GetInfoLogFunc getInfoLogFunc
-)   : impl(new Impl(objectID, getValueFunc, getInfoLogFunc)) {}
+    const GLuint objectID,
+    GetValueFunc getValueFunc,
+    GetLogFunc   getLogFunc
+)   : impl(new Impl(objectID, getValueFunc, getLogFunc)) {}
 
 const GLint ObjectInfo::getValue(const GLenum parameter) const {
+    validateParameter(parameter);
     GLint value;
 
     impl->getValueFunc(
@@ -37,27 +38,27 @@ const GLint ObjectInfo::getValue(const GLenum parameter) const {
     return value;
 }
 
-const string ObjectInfo::getInfoLog() const {
-    vector<GLchar> infoLog(getValue(GL_INFO_LOG_LENGTH));
+const string ObjectInfo::getLog() const {
+    vector<GLchar> log(getValue(GL_INFO_LOG_LENGTH));
 
-    impl->getInfoLogFunc(
+    impl->getLogFunc(
         impl->objectID,
-        infoLog.size(),
+        log.size(),
         nullptr,
-        &infoLog[0]
+        &log[0]
     );
 
-    return string(infoLog.begin(), infoLog.end());
+    return string(log.begin(), log.end());
 }
 
 // Implementation
 
 ObjectInfo::Impl::Impl(
-    const GLuint   objectID,
-    GetValueFunc   getValueFunc,
-    GetInfoLogFunc getInfoLogFunc
+    const GLuint objectID,
+    GetValueFunc getValueFunc,
+    GetLogFunc   getLogFunc
 )   : objectID(objectID)
     , getValueFunc(getValueFunc)
-    , getInfoLogFunc(getInfoLogFunc) {}
+    , getLogFunc(getLogFunc) {}
 
 } // namespace onux

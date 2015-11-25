@@ -10,16 +10,19 @@ namespace onux {
 class ObjectInfo {
 private:
     typedef void (*GetValueFunc)(GLuint, GLenum, GLint*);
-    typedef void (*GetInfoLogFunc)(GLuint, GLsizei, GLsizei*, GLchar*);
+    typedef void (*GetLogFunc)(GLuint, GLsizei, GLsizei*, GLchar*);
 
 public:
     ObjectInfo(
-        const GLuint   objectID,
-        GetValueFunc   getValueFunc,
-        GetInfoLogFunc getInfoLogFunc
+        const GLuint objectID,
+        GetValueFunc getValueFunc,
+        GetLogFunc   getLogFunc
     );
     const GLint getValue(const GLenum parameter) const;
-    const std::string getInfoLog() const;
+    const std::string getLog() const;
+
+protected:
+    virtual void validateParameter(const GLenum parameter) const = 0;
 
 private:
     struct Impl;
