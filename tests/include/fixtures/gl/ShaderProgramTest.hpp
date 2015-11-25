@@ -3,6 +3,7 @@
 #include "fixtures/gl/OnuxTest.hpp"
 #include "graphics/ShaderSource.hpp"
 #include "gl/ShaderObject.hpp"
+#include "gl/ShaderProgram.hpp"
 #include "utils/testShaderPath.hpp"
 
 struct ShaderProgramTest : OnuxTest {
@@ -21,4 +22,9 @@ protected:
             &validSources[1]
         }),
     };
+
+    const onux::ShaderProgram validShaderProgram = onux::ShaderProgram({
+        &validObjects[0],
+        &validObjects[1],
+    });
 };

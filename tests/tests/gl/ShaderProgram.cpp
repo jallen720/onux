@@ -6,6 +6,8 @@
 #include "gl/utils/getInt.hpp"
 #include "exceptions/Error.hpp"
 #include "exceptions/argErrors/ArgFailedRequirement.hpp"
+#include "exceptions/argErrors/EmptyStringArg.hpp"
+#include "exceptions/argErrors/NullArg.hpp"
 #include "utils/expectNoThrow.hpp"
 #include "utils/expectGLError.hpp"
 
@@ -18,6 +20,8 @@ using onux::ShaderSource;
 using onux::getInt;
 using onux::Error;
 using onux::ArgFailedRequirement;
+using onux::EmptyStringArg;
+using onux::NullArg;
 
 TEST_F(ShaderProgramTest, validCreation) {
     expectNoThrow([&] {
@@ -53,36 +57,31 @@ TEST_F(ShaderProgramTest, missingMainFunctionInObject) {
 }
 
 TEST_F(ShaderProgramTest, use) {
-    const ShaderProgram shaderProgram({
-        &validObjects[0],
-        &validObjects[1],
-    });
-
     // Only after calling use() should a ShaderProgram be the current program.
-    ASSERT_NE(getInt(GL_CURRENT_PROGRAM), shaderProgram.getID());
+    ASSERT_NE(getInt(GL_CURRENT_PROGRAM), validShaderProgram.getID());
 
-    shaderProgram.use();
-    EXPECT_EQ(getInt(GL_CURRENT_PROGRAM), shaderProgram.getID());
+    validShaderProgram.use();
+    EXPECT_EQ(getInt(GL_CURRENT_PROGRAM), validShaderProgram.getID());
 }
 
-TEST_F(ShaderProgramTest, setUniform) {
-    const ShaderProgram shaderProgram({
-        &validObjects[0],
-        &validObjects[1],
-    });
-
+TEST_F(ShaderProgramTest, setValidUniform) {
     // A ShaderProgram must be the current program in order to set uniforms.
-    shaderProgram.use();
+    validShaderProgram.use();
 
-    expectNoThrow([&shaderProgram] {
-        shaderProgram.setUniform("testVec3", vec3());
-        shaderProgram.setUniform("testVec4", vec4());
-        shaderProgram.setUniform("testMat4", mat4());
-        shaderProgram.setUniform("testMat4", mat4(), GL_TRUE);
+    expectNoThrow([&] {
+        validShaderProgram.setUniform("testVec3", vec3());
+        validShaderProgram.setUniform("testVec4", vec4());
+        validShaderProgram.setUniform("testMat4", mat4());
+        validShaderProgram.setUniform("testMat4", mat4(), GL_TRUE);
     });
 }
 
-TEST_F(ShaderProgramTest, setUniformUnusedUniform) {
+TEST_F(ShaderProgramTest, setInvalidUniform) {
+    EXPECT_THROW(validShaderProgram.setUniform("", 0), EmptyStringArg);
+    EXPECT_THROW(validShaderProgram.setUniform(nullptr, 0), NullArg);
+}
+
+TEST_F(ShaderProgramTest, setUnusedUniform) {
     const ShaderSource unusedUniformSource(testShaderPath("unusedUniform.vert"));
     const ShaderObject unusedUniformObject({ &unusedUniformSource });
 

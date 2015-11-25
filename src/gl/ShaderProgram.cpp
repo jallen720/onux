@@ -7,6 +7,7 @@
 #include "gl/utils/ShaderProgramInfo.hpp"
 #include "exceptions/Error.hpp"
 #include "exceptions/argErrors/ArgFailedRequirement.hpp"
+#include "exceptions/validators/validateStringArg.hpp"
 #include "utils/existsIn.hpp"
 
 using std::vector;
@@ -82,7 +83,13 @@ void ShaderProgram::use() const {
     glUseProgram(getID());
 }
 
+static void validateName(const GLchar* name) {
+    validateStringArg("name", "ShaderProgram::setUniform", name);
+}
+
 void ShaderProgram::setUniform(const GLchar* name, const GLint value) const {
+    validateName(name);
+
     glUniform1i(
         impl->getUniformLocation(name),
         value
@@ -90,6 +97,8 @@ void ShaderProgram::setUniform(const GLchar* name, const GLint value) const {
 }
 
 void ShaderProgram::setUniform(const GLchar* name, const vec3& value) const {
+    validateName(name);
+
     glUniform3f(
         impl->getUniformLocation(name),
         value.x,
@@ -99,6 +108,8 @@ void ShaderProgram::setUniform(const GLchar* name, const vec3& value) const {
 }
 
 void ShaderProgram::setUniform(const GLchar* name, const vec4& value) const {
+    validateName(name);
+
     glUniform4f(
         impl->getUniformLocation(name),
         value.x,
