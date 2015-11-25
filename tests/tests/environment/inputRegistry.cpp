@@ -5,10 +5,11 @@
 
 #include "fixtures/environment/inputRegistryTest.hpp"
 #include "utils/expectNoThrow.hpp"
-#include "exceptions/Error.hpp"
+#include "exceptions/argErrors/NullArg.hpp"
 
 using onux::registerInput;
-using onux::Error;
+using onux::unregisterInput;
+using onux::NullArg;
 
 TEST_F(inputRegistryTest, validRegistry) {
     expectNoThrow([&] {
@@ -16,16 +17,22 @@ TEST_F(inputRegistryTest, validRegistry) {
     });
 }
 
-TEST_F(inputRegistryTest, nullInput) {
-    EXPECT_THROW(
-        registerInput(nullptr, window),
-        Error
-    );
+TEST_F(inputRegistryTest, registerNullInput) {
+    EXPECT_THROW(registerInput(nullptr, window), NullArg);
 }
 
-TEST_F(inputRegistryTest, nullWindow) {
-    EXPECT_THROW(
-        registerInput(&input, nullptr),
-        Error
-    );
+TEST_F(inputRegistryTest, registerNullWindow) {
+    EXPECT_THROW(registerInput(&input, nullptr), NullArg);
+}
+
+TEST_F(inputRegistryTest, validUnregistry) {
+    registerInput(&input, window);
+
+    expectNoThrow([&] {
+        unregisterInput(window);
+    });
+}
+
+TEST_F(inputRegistryTest, unregisterNullWindow) {
+    EXPECT_THROW(unregisterInput(nullptr), NullArg);
 }
