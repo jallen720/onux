@@ -4,7 +4,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "gl/ShaderObject.hpp"
-#include "gl/utils/ObjectInfo.hpp"
+#include "gl/utils/ShaderProgramInfo.hpp"
 #include "exceptions/Error.hpp"
 #include "exceptions/argErrors/ArgFailedRequirement.hpp"
 #include "utils/existsIn.hpp"
@@ -19,8 +19,8 @@ using glm::mat4;
 namespace onux {
 
 struct ShaderProgram::Impl {
-    const GLuint     id;
-    const ObjectInfo objectInfo;
+    const GLuint            id;
+    const ShaderProgramInfo info;
 
     Impl(const GLuint id);
     void attach(Objects objects) const;
@@ -54,7 +54,7 @@ static void validateRequiredTypes(ShaderProgram::Objects objects) {
     if (!hasRequiredTypes(objects)) {
         throw ArgFailedRequirement(
             "objects",
-            "ShaderProgram",
+            "ShaderProgram::ShaderProgram",
             "Must contain atleast 1 vertex & 1 fragment object."
         );
     }
@@ -127,7 +127,7 @@ void ShaderProgram::setUniform(
 
 ShaderProgram::Impl::Impl(const GLuint id)
     : id(id)
-    , objectInfo(
+    , info(
         this->id,
         glGetProgramiv,
         glGetProgramInfoLog
@@ -151,12 +151,12 @@ void ShaderProgram::Impl::detach(Objects objects) const {
 
 void ShaderProgram::Impl::validateLinkStatus() const {
     if (!linkingSucceeded()) {
-        throw Error("ShaderProgram linking failed:\n" + objectInfo.getInfoLog());
+        throw Error("ShaderProgram linking failed:\n" + info.getLog());
     }
 }
 
 const bool ShaderProgram::Impl::linkingSucceeded() const {
-    return objectInfo.getValue(GL_LINK_STATUS) == GL_TRUE;
+    return info.getValue(GL_LINK_STATUS) == GL_TRUE;
 }
 
 static const void validateLocation(const GLint location, const string& name) {

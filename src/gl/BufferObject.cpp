@@ -54,7 +54,11 @@ static void validateTarget(const GLenum target) {
     };
 
     if (!VALID_TARGETS.contains(target)) {
-        throw InvalidArg("target", "BufferObject", VALID_TARGETS.getNames());
+        throw InvalidArg(
+            "target",
+            "BufferObject::BufferObject",
+            VALID_TARGETS.getNames()
+        );
     }
 }
 
@@ -62,7 +66,11 @@ static void validateSize(const GLsizeiptr size) {
     static const GLsizeiptr MIN_SIZE = 0;
 
     if (size < MIN_SIZE) {
-        throw InvalidArg("size", "BufferObject", ">= " + toString(MIN_SIZE));
+        throw InvalidArg(
+            "size",
+            "BufferObject::BufferObject",
+            ">= " + toString(MIN_SIZE)
+        );
     }
 }
 
@@ -80,7 +88,11 @@ static void validateUsage(const GLenum usage) {
     };
 
     if (!VALID_USAGES.contains(usage)) {
-        throw InvalidArg("usage", "BufferObject", VALID_USAGES.getNames());
+        throw InvalidArg(
+            "usage",
+            "BufferObject::BufferObject",
+            VALID_USAGES.getNames()
+        );
     }
 }
 

@@ -11,13 +11,13 @@ namespace onux {
 
 static const string buildArgPropertyMessage(
     const string& parameterName,
-    const string& objectName,
+    const string& functionName,
     const string& propertyName,
     const string& mustBe
 ) {
     return buildArgMessage(
         parameterName,
-        objectName,
+        functionName,
         buildArgInfo(mustBe),
         "property \"" + propertyName + "\" of argument"
     );
@@ -25,24 +25,24 @@ static const string buildArgPropertyMessage(
 
 InvalidArgProperty::InvalidArgProperty(
     const string& parameterName,
-    const string& objectName,
+    const string& functionName,
     const string& propertyName,
     const string& validProperty
 )   : Error(buildArgPropertyMessage(
         parameterName,
-        objectName,
+        functionName,
         propertyName,
         validProperty
     )) {}
 
 InvalidArgProperty::InvalidArgProperty(
     const string&         parameterName,
-    const string&         objectName,
+    const string&         functionName,
     const string&         propertyName,
     const vector<string>& validProperties
 )   : Error(buildArgPropertyMessage(
         parameterName,
-        objectName,
+        functionName,
         propertyName,
         buildMustBe(validProperties)
     )) {}

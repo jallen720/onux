@@ -11,33 +11,33 @@ namespace onux {
 
 static const string buildInvalidArgMessage(
     const string& parameterName,
-    const string& objectName,
+    const string& functionName,
     const string& mustBe
 ) {
     return buildArgMessage(
         parameterName,
-        objectName,
+        functionName,
         buildArgInfo(mustBe)
     );
 }
 
 InvalidArg::InvalidArg(
     const string& parameterName,
-    const string& objectName,
+    const string& functionName,
     const string& validArgument
 )   : Error(buildInvalidArgMessage(
         parameterName,
-        objectName,
+        functionName,
         validArgument
     )) {}
 
 InvalidArg::InvalidArg(
     const string&         parameterName,
-    const string&         objectName,
+    const string&         functionName,
     const vector<string>& validArguments
 )   : Error(buildInvalidArgMessage(
         parameterName,
-        objectName,
+        functionName,
         buildMustBe(validArguments)
     )) {}
 

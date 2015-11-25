@@ -24,7 +24,7 @@ struct Scene::Impl {
 
 static void validatePath(const string& path) {
     if (path.empty()) {
-        throw EmptyStringArg("path", "Scene");
+        throw EmptyStringArg("path", "Scene::Scene");
     }
 }
 

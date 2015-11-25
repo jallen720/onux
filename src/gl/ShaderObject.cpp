@@ -1,7 +1,7 @@
 #include "gl/ShaderObject.hpp"
 
 #include "gl/interfaces/IShaderSource.hpp"
-#include "gl/utils/ObjectInfo.hpp"
+#include "gl/utils/ShaderObjectInfo.hpp"
 #include "utils/existsIn.hpp"
 #include "utils/toString.hpp"
 #include "exceptions/Error.hpp"
@@ -11,8 +11,8 @@
 namespace onux {
 
 struct ShaderObject::Impl {
-    const GLuint     id;
-    const ObjectInfo objectInfo;
+    const GLuint           id;
+    const ShaderObjectInfo info;
 
     Impl(const GLuint id);
     void loadSources(Sources sources) const;
@@ -27,7 +27,7 @@ static void validateSourceCount(const size_t sourceCount) {
     if (sourceCount < MIN_SOURCE_COUNT) {
         throw InvalidArgProperty(
             "sources",
-            "ShaderObject",
+            "ShaderObject::ShaderObject",
             "count",
             ">= " + toString(MIN_SOURCE_COUNT)
         );
@@ -42,7 +42,11 @@ static bool areSameType(ShaderObject::Sources sources, const GLenum type) {
 
 static void validateSameType(ShaderObject::Sources sources, const GLenum type) {
     if (!areSameType(sources, type)) {
-        throw ArgFailedRequirement("sources", "ShaderObject", "All sources must be the same type");
+        throw ArgFailedRequirement(
+            "sources",
+            "ShaderObject::ShaderObject",
+            "All sources must be the same type"
+        );
     }
 }
 
@@ -66,14 +70,14 @@ ShaderObject::~ShaderObject() {
 }
 
 const GLenum ShaderObject::getType() const {
-    return impl->objectInfo.getValue(GL_SHADER_TYPE);
+    return impl->info.getValue(GL_SHADER_TYPE);
 }
 
 // Implementation
 
 ShaderObject::Impl::Impl(const GLuint id)
     : id(id)
-    , objectInfo(
+    , info(
         this->id,
         glGetShaderiv,
         glGetShaderInfoLog
@@ -102,12 +106,12 @@ void ShaderObject::Impl::compile() const {
 void ShaderObject::Impl::validateCompileStatus() const {
     if (!compilationSucceeded()) {
         // TODO: Destroy shader here
-        throw Error("ShaderObject compilation failed:\n" + objectInfo.getInfoLog());
+        throw Error("ShaderObject compilation failed:\n" + info.getLog());
     }
 }
 
 const bool ShaderObject::Impl::compilationSucceeded() const {
-    return objectInfo.getValue(GL_COMPILE_STATUS) == GL_TRUE;
+    return info.getValue(GL_COMPILE_STATUS) == GL_TRUE;
 }
 
 } // namespace onux

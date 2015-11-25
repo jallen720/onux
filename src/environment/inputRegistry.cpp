@@ -1,12 +1,14 @@
 #include "environment/inputRegistry.hpp"
 
 #include <map>
+#include <string>
 #include <GLFW/glfw3.h>
 
-#include "exceptions/Error.hpp"
+#include "exceptions/argErrors/NullArg.hpp"
 #include "environment/interfaces/IInput.hpp"
 
 using std::map;
+using std::string;
 
 namespace onux {
 
@@ -14,13 +16,13 @@ static map<const GLFWwindow*, IInput*> inputs;
 
 static void validateInput(const IInput* input) {
     if (input == nullptr) {
-        throw Error("Cannot register null input!");
+        throw NullArg("input", "registerInput");
     }
 }
 
-static void validateWindow(const GLFWwindow* window) {
+static void validateWindow(const string& functionName, const GLFWwindow* window) {
     if (window == nullptr) {
-        throw Error("Cannot register input for null window!");
+        throw NullArg("window", functionName);
     }
 }
 
@@ -40,12 +42,13 @@ static void cursorPosCallback(
 
 void registerInput(IInput* input, GLFWwindow* window) {
     validateInput(input);
-    validateWindow(window);
+    validateWindow("registerInput", window);
     inputs[window] = input;
     glfwSetCursorPosCallback(window, cursorPosCallback);
 }
 
 void unregisterInput(const GLFWwindow* window) {
+    validateWindow("unregisterInput", window);
     inputs.erase(window);
 }
 

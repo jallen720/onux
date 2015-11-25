@@ -71,7 +71,7 @@ static void validateElementCount(const GLint elementCount) {
     if (!contains(VALID_ELEMENT_COUNTS, elementCount)) {
         throw InvalidArg(
             "elementCount",
-            "VertexAttribute",
+            "VertexAttribute::VertexAttribute",
             map<string>(VALID_ELEMENT_COUNTS, toString<GLint>)
         );
     }
@@ -100,7 +100,11 @@ static void validateType(const GLenum type) {
     };
 
     if (!VALID_TYPES.contains(type)) {
-        throw InvalidArg("type", "VertexAttribute", VALID_TYPES.getNames());
+        throw InvalidArg(
+            "type",
+            "VertexAttribute::VertexAttribute",
+            VALID_TYPES.getNames()
+        );
     }
 }
 
@@ -118,7 +122,7 @@ static void validateIsNormalized(const GLboolean isNormalized) {
     if (!VALID_IS_NORMALIZED_VALUES.contains(isNormalized)) {
         throw InvalidArg(
             "isNormalized",
-            "VertexAttribute",
+            "VertexAttribute::VertexAttribute",
             VALID_IS_NORMALIZED_VALUES.getNames()
         );
     }

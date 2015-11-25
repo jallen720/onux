@@ -8,7 +8,7 @@ class EmptyStringArg : public Error {
 public:
     EmptyStringArg(
         const std::string& parameterName,
-        const std::string& objectName
+        const std::string& functionName
     );
 };
 

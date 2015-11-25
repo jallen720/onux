@@ -8,10 +8,10 @@ namespace onux {
 
 NullArg::NullArg(
     const string& parameterName,
-    const string& objectName
+    const string& functionName
 )   : Error(buildArgMessage(
         parameterName,
-        objectName,
+        functionName,
         " cannot be null"
     )) {}
 

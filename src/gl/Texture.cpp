@@ -32,7 +32,7 @@ static GLuint createTexture() {
 
 static void validateImage(const IImage* image) {
     if (image == nullptr) {
-        throw NullArg("image", "Texture");
+        throw NullArg("image", "Texture::Texture");
     }
 }
 
@@ -72,7 +72,11 @@ static const std::map<const GLenum, const ValidValues> VALID_OPTION_VALUES {
 
 static void validateOptionKey(const GLenum optionKey) {
     if (!VALID_OPTION_KEYS.contains(optionKey)) {
-        throw InvalidMapKey("options", "Texture", VALID_OPTION_KEYS.getNames());
+        throw InvalidMapKey(
+            "options",
+            "Texture::Texture",
+            VALID_OPTION_KEYS.getNames()
+        );
     }
 }
 
@@ -80,7 +84,7 @@ static void validateOptionValue(const GLenum optionKey, const GLint optionValue)
     if (!VALID_OPTION_VALUES.at(optionKey).contains(optionValue)) {
         throw InvalidMapValue(
             "options",
-            "Texture",
+            "Texture::Texture",
             VALID_OPTION_KEYS.getName(optionKey),
             VALID_OPTION_VALUES.at(optionKey).getNames()
         );

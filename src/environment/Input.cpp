@@ -22,8 +22,19 @@ struct Input::Impl {
     Impl(Window window);
 };
 
+static void validateWindow(Window window) {
+    if (window == nullptr) {
+        throw NullArg("window", "Input::Input");
+    }
+}
+
+static Window getValidWindow(Window window) {
+    validateWindow(window);
+    return window;
+}
+
 Input::Input(GLFWwindow* window)
-    : impl(new Impl(window)) {
+    : impl(new Impl(getValidWindow(window))) {
     registerInput(this, window);
 }
 
@@ -47,18 +58,7 @@ MouseDeltaEvent& Input::getMouseDeltaEvent() {
 
 // Implementation
 
-static void validateWindow(Window window) {
-    if (window == nullptr) {
-        throw NullArg("window", "Input");
-    }
-}
-
-static Window getValidWindow(Window window) {
-    validateWindow(window);
-    return window;
-}
-
 Input::Impl::Impl(Window window)
-    : window(getValidWindow(window)) {}
+    : window(window) {}
 
 } // namespace onux

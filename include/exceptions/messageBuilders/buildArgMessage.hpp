@@ -6,7 +6,7 @@ namespace onux {
 
 const std::string buildArgMessage(
     const std::string& parameterName,
-    const std::string& objectName,
+    const std::string& functionName,
     const std::string& argumentInfo,
     const std::string& argumentDescription = "argument"
 );

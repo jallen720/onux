@@ -10,7 +10,7 @@ class InvalidMapKey : public Error {
 public:
     InvalidMapKey(
         const std::string&              parameterName,
-        const std::string&              objectName,
+        const std::string&              functionName,
         const std::vector<std::string>& validKeys
     );
 };

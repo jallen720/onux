@@ -10,12 +10,12 @@ class InvalidArg : public Error {
 public:
     InvalidArg(
         const std::string& parameterName,
-        const std::string& objectName,
+        const std::string& functionName,
         const std::string& validArgument
     );
     InvalidArg(
         const std::string&              parameterName,
-        const std::string&              objectName,
+        const std::string&              functionName,
         const std::vector<std::string>& validArguments
     );
 };

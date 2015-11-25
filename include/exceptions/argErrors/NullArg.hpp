@@ -8,7 +8,7 @@ class NullArg : public Error {
 public:
     NullArg(
         const std::string& parameterName,
-        const std::string& objectName
+        const std::string& functionName
     );
 };
 

@@ -18,7 +18,7 @@ struct Image::Impl {
 
 static void validatePath(const string& path) {
     if (path.empty()) {
-        throw EmptyStringArg("path", "Image");
+        throw EmptyStringArg("path", "Image::Image");
     }
 }
 

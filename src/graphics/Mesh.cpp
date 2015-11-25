@@ -19,7 +19,7 @@ struct Mesh::Impl {
 
 static void validateMesh(const aiMesh* mesh) {
     if (mesh == nullptr) {
-        throw NullArg("mesh", "Mesh");
+        throw NullArg("mesh", "Mesh::Mesh");
     }
 }
 

@@ -11,12 +11,12 @@ namespace onux {
 
 static const string buildMapKeyMessage(
     const string& parameterName,
-    const string& objectName,
+    const string& functionName,
     const string& mustBe
 ) {
     return buildArgMessage(
         parameterName,
-        objectName,
+        functionName,
         buildArgInfo(mustBe),
         "map key in argument"
     );
@@ -24,11 +24,11 @@ static const string buildMapKeyMessage(
 
 InvalidMapKey::InvalidMapKey(
     const string&         parameterName,
-    const string&         objectName,
+    const string&         functionName,
     const vector<string>& validKeys
 )   : Error(buildMapKeyMessage(
         parameterName,
-        objectName,
+        functionName,
         buildMustBe(validKeys)
     )) {}
 

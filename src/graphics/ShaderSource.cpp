@@ -28,7 +28,7 @@ ShaderSource::Types ShaderSource::TYPES {
 
 static void validatePath(const string& path) {
     if (path.empty()) {
-        throw EmptyStringArg("path", "ShaderSource");
+        throw EmptyStringArg("path", "ShaderSource::ShaderSource");
     }
 }
 
@@ -58,7 +58,7 @@ static void validateExtension(const string& extension) {
     if (!isValidExtension(extension)) {
         throw InvalidArgProperty(
             "path",
-            "ShaderSource",
+            "ShaderSource::ShaderSource",
             "extension",
             keys(ShaderSource::TYPES)
         );

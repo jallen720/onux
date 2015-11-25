@@ -8,11 +8,11 @@ namespace onux {
 
 ArgFailedRequirement::ArgFailedRequirement(
     const string& parameterName,
-    const string& objectName,
+    const string& functionName,
     const string& requirement
 )   : Error(buildArgMessage(
         parameterName,
-        objectName,
+        functionName,
         " failed requirement:\n    " + requirement
     )) {}
 

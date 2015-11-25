@@ -8,10 +8,10 @@ namespace onux {
 
 EmptyStringArg::EmptyStringArg(
     const string& parameterName,
-    const string& objectName
+    const string& functionName
 )   : Error(buildArgMessage(
         parameterName,
-        objectName,
+        functionName,
         " cannot be empty",
         "string argument"
     )) {}
