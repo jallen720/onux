@@ -41,7 +41,7 @@ void BufferObject::loadData() const {
 }
 
 static void validateTarget(const GLenum target) {
-    static const ValidValues VALID_TARGETS {
+    static const ValidValues VALID_TARGETS({
         VALID_VALUE(GL_ARRAY_BUFFER),
         VALID_VALUE(GL_COPY_READ_BUFFER),
         VALID_VALUE(GL_COPY_WRITE_BUFFER),
@@ -51,7 +51,7 @@ static void validateTarget(const GLenum target) {
         VALID_VALUE(GL_TEXTURE_BUFFER),
         VALID_VALUE(GL_TRANSFORM_FEEDBACK_BUFFER),
         VALID_VALUE(GL_UNIFORM_BUFFER),
-    };
+    });
 
     if (!VALID_TARGETS.contains(target)) {
         throw InvalidArg(
@@ -75,7 +75,7 @@ static void validateSize(const GLsizeiptr size) {
 }
 
 static void validateUsage(const GLenum usage) {
-    static const ValidValues VALID_USAGES {
+    static const ValidValues VALID_USAGES({
         VALID_VALUE(GL_STREAM_DRAW),
         VALID_VALUE(GL_STREAM_READ),
         VALID_VALUE(GL_STREAM_COPY),
@@ -85,7 +85,7 @@ static void validateUsage(const GLenum usage) {
         VALID_VALUE(GL_DYNAMIC_DRAW),
         VALID_VALUE(GL_DYNAMIC_READ),
         VALID_VALUE(GL_DYNAMIC_COPY),
-    };
+    });
 
     if (!VALID_USAGES.contains(usage)) {
         throw InvalidArg(

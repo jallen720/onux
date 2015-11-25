@@ -6,7 +6,7 @@
 namespace onux {
 
 void ShaderProgramInfo::validateParameter(const GLenum parameter) const {
-    static const ValidValues VALID_SHADER_PROGRAM_PARAMETERS {
+    static const ValidValues VALID_SHADER_PROGRAM_PARAMETERS({
         VALID_VALUE(GL_DELETE_STATUS),
         VALID_VALUE(GL_LINK_STATUS),
         VALID_VALUE(GL_VALIDATE_STATUS),
@@ -16,7 +16,7 @@ void ShaderProgramInfo::validateParameter(const GLenum parameter) const {
         VALID_VALUE(GL_ACTIVE_ATTRIBUTE_MAX_LENGTH),
         VALID_VALUE(GL_ACTIVE_UNIFORMS),
         VALID_VALUE(GL_ACTIVE_UNIFORM_MAX_LENGTH),
-    };
+    });
 
     if (!VALID_SHADER_PROGRAM_PARAMETERS.contains(parameter)) {
         throw InvalidArg(

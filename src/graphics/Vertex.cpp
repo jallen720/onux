@@ -83,7 +83,7 @@ static const GLint getValidElementCount(const GLint elementCount) {
 }
 
 static void validateType(const GLenum type) {
-    static const ValidValues VALID_TYPES {
+    static const ValidValues VALID_TYPES({
         VALID_VALUE(GL_BYTE),
         VALID_VALUE(GL_UNSIGNED_BYTE),
         VALID_VALUE(GL_SHORT),
@@ -97,7 +97,7 @@ static void validateType(const GLenum type) {
         VALID_VALUE(GL_INT_2_10_10_10_REV),
         VALID_VALUE(GL_UNSIGNED_INT_2_10_10_10_REV),
         VALID_VALUE(GL_UNSIGNED_INT_10F_11F_11F_REV),
-    };
+    });
 
     if (!VALID_TYPES.contains(type)) {
         throw InvalidArg(
@@ -114,10 +114,10 @@ static const GLenum getValidType(const GLenum type) {
 }
 
 static void validateIsNormalized(const GLboolean isNormalized) {
-    static const ValidValues VALID_IS_NORMALIZED_VALUES {
+    static const ValidValues VALID_IS_NORMALIZED_VALUES({
         VALID_VALUE(GL_TRUE),
         VALID_VALUE(GL_FALSE),
-    };
+    });
 
     if (!VALID_IS_NORMALIZED_VALUES.contains(isNormalized)) {
         throw InvalidArg(

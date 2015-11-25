@@ -1,10 +1,9 @@
 #pragma once
 
-#include <memory>
-#include <vector>
 #include <string>
-#include <initializer_list>
-#include <utility>
+#include <vector>
+#include <map>
+#include <memory>
 #include <GL/glew.h>
 
 namespace onux {
@@ -13,11 +12,10 @@ class ValidValues {
 private:
     typedef std::string ValueName;
     typedef const std::vector<ValueName> ValueNames;
-    typedef std::pair<const GLenum, const ValueName> ValidValue;
-    typedef const std::initializer_list<ValidValue>& ValidValueList;
+    typedef const std::map<const GLenum, const ValueName> Values;
 
 public:
-    explicit ValidValues(ValidValueList validValues);
+    explicit ValidValues(Values& values);
     ~ValidValues();
     const bool contains(const GLenum value) const;
     ValueName getName(const GLenum value) const;

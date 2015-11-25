@@ -37,32 +37,32 @@ static void validateImage(const IImage* image) {
     }
 }
 
-static const ValidValues VALID_WRAP_VALUES {
+static const ValidValues VALID_WRAP_VALUES({
     VALID_VALUE(GL_CLAMP_TO_EDGE),
     VALID_VALUE(GL_MIRRORED_REPEAT),
     VALID_VALUE(GL_REPEAT),
-};
+});
 
-static const ValidValues VALID_MIN_FILTER_VALUES {
+static const ValidValues VALID_MIN_FILTER_VALUES({
     VALID_VALUE(GL_NEAREST),
     VALID_VALUE(GL_LINEAR),
     VALID_VALUE(GL_NEAREST_MIPMAP_NEAREST),
     VALID_VALUE(GL_LINEAR_MIPMAP_NEAREST),
     VALID_VALUE(GL_NEAREST_MIPMAP_LINEAR),
     VALID_VALUE(GL_LINEAR_MIPMAP_LINEAR),
-};
+});
 
-static const ValidValues VALID_MAG_FILTER_VALUES {
+static const ValidValues VALID_MAG_FILTER_VALUES({
     VALID_VALUE(GL_NEAREST),
     VALID_VALUE(GL_LINEAR),
-};
+});
 
-static const ValidValues VALID_OPTION_KEYS {
+static const ValidValues VALID_OPTION_KEYS({
     VALID_VALUE(GL_TEXTURE_WRAP_S),
     VALID_VALUE(GL_TEXTURE_WRAP_T),
     VALID_VALUE(GL_TEXTURE_MIN_FILTER),
     VALID_VALUE(GL_TEXTURE_MAG_FILTER),
-};
+});
 
 static const map<const GLenum, const ValidValues&> VALID_OPTION_VALUES {
     { GL_TEXTURE_WRAP_S    , VALID_WRAP_VALUES       },
