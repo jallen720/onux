@@ -1,13 +1,11 @@
 #include "environment/Window.hpp"
 
-#include <cstring>
 #include <string>
 #include <GLFW/glfw3.h>
 
 #include "environment/Input.hpp"
 #include "exceptions/argErrors/InvalidArg.hpp"
-#include "exceptions/argErrors/EmptyStringArg.hpp"
-#include "exceptions/argErrors/NullArg.hpp"
+#include "exceptions/validators/validateStringArg.hpp"
 #include "utils/toString.hpp"
 
 using std::string;
@@ -42,19 +40,6 @@ static void validateDimension(
     }
 }
 
-static bool isEmpty(const char* name) {
-    return strcmp(name, "") == 0;
-}
-
-static void validateName(const char* name) {
-    if (name == nullptr) {
-        throw NullArg("name", "Window::Window");
-    }
-    else if (isEmpty(name)) {
-        throw EmptyStringArg("name", "Window::Window");
-    }
-}
-
 static const unsigned int getValidDimension(
     const unsigned int dimension,
     const string&      dimensionName
@@ -64,7 +49,7 @@ static const unsigned int getValidDimension(
 }
 
 static const char* getValidName(const char* name) {
-    validateName(name);
+    validateStringArg("name", "Window::Window", name);
     return name;
 }
 

@@ -2,7 +2,7 @@
 
 #include <Magick++.h>
 
-#include "exceptions/argErrors/EmptyStringArg.hpp"
+#include "exceptions/validators/validateStringArg.hpp"
 
 using std::string;
 
@@ -16,14 +16,8 @@ struct Image::Impl {
     void loadBlob(const string& path);
 };
 
-static void validatePath(const string& path) {
-    if (path.empty()) {
-        throw EmptyStringArg("path", "Image::Image");
-    }
-}
-
 static const string& getValidPath(const string& path) {
-    validatePath(path);
+    validateStringArg("path", "Image::Image", path);
     return path;
 }
 
