@@ -6,6 +6,7 @@
 
 #include "exceptions/argErrors/NullArg.hpp"
 #include "environment/interfaces/IInput.hpp"
+#include "utils/contains.hpp"
 
 using std::map;
 using std::string;
@@ -27,7 +28,7 @@ static void validateWindow(const string& functionName, const GLFWwindow* window)
 }
 
 static const bool hasInput(const GLFWwindow* window) {
-    return inputs.count(window) != 0;
+    return contains(inputs, window);
 }
 
 static void cursorPosCallback(
