@@ -5,7 +5,7 @@
 
 #include "gl/interfaces/IVertexAttribute.hpp"
 #include "utils/contains.hpp"
-#include "utils/map.hpp"
+#include "utils/transform.hpp"
 #include "utils/toString.hpp"
 #include "gl/utils/ValidValues.hpp"
 #include "exceptions/argErrors/InvalidArg.hpp"
@@ -72,7 +72,7 @@ static void validateElementCount(const GLint elementCount) {
         throw InvalidArg(
             "elementCount",
             "VertexAttribute::VertexAttribute",
-            map<string>(VALID_ELEMENT_COUNTS, toString<GLint>)
+            transform<string>(VALID_ELEMENT_COUNTS, toString<GLint>)
         );
     }
 }
