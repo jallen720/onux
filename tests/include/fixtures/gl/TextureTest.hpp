@@ -7,4 +7,5 @@
 struct TextureTest : OnuxTest {
 protected:
     const onux::Image validImage { testImagePath("valid.png") };
+    const onux::Texture validTexture { &validImage };
 };

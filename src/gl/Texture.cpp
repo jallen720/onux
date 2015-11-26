@@ -4,12 +4,15 @@
 #include <string>
 #include <vector>
 
+#include "utils/toString.hpp"
 #include "gl/interfaces/IImage.hpp"
 #include "gl/utils/ValidValues.hpp"
+#include "gl/utils/getInt.hpp"
 #include "exceptions/Error.hpp"
-#include "exceptions/validators/validateNotNull.hpp"
 #include "exceptions/argErrors/InvalidMapKey.hpp"
 #include "exceptions/argErrors/InvalidMapValue.hpp"
+#include "exceptions/argErrors/InvalidArg.hpp"
+#include "exceptions/validators/validateNotNull.hpp"
 
 using std::map;
 using std::string;
@@ -111,9 +114,18 @@ Texture::~Texture() {
     glDeleteTextures(TEXTURE_COUNT, &getID());
 }
 
+static void validateUnit(const GLuint unit) {
+    static const GLuint MAX_UNIT = getInt(GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS) - 1;
+
+    if (unit > MAX_UNIT) {
+        throw InvalidArg("unit", "Texture::bind", "<= " + toString(MAX_UNIT));
+    }
+}
+
 static const GLenum TARGET = GL_TEXTURE_2D;
 
 void Texture::bind(const GLuint unit) const {
+    validateUnit(unit);
     glActiveTexture(GL_TEXTURE0 + unit);
     glBindTexture(TARGET, getID());
 }

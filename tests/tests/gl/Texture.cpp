@@ -5,6 +5,7 @@
 #include "fixtures/gl/TextureTest.hpp"
 #include "gl/utils/getInt.hpp"
 #include "exceptions/argErrors/NullArg.hpp"
+#include "exceptions/argErrors/InvalidArg.hpp"
 #include "exceptions/argErrors/InvalidMapKey.hpp"
 #include "exceptions/argErrors/InvalidMapValue.hpp"
 #include "utils/expectNoThrow.hpp"
@@ -12,6 +13,7 @@
 using onux::Texture;
 using onux::getInt;
 using onux::NullArg;
+using onux::InvalidArg;
 using onux::InvalidMapKey;
 using onux::InvalidMapValue;
 
@@ -61,14 +63,17 @@ TEST_F(TextureTest, invalidOptionValueForKey) {
 }
 
 TEST_F(TextureTest, bind) {
-    const Texture texture(&validImage);
-
     // A valid Texture will be bound to GL_TEXTURE_2D after creation.
-    ASSERT_EQ(getInt(GL_TEXTURE_BINDING_2D), texture.getID());
+    ASSERT_EQ(getInt(GL_TEXTURE_BINDING_2D), validTexture.getID());
 
     glBindTexture(GL_TEXTURE_2D, 0);
-    ASSERT_NE(getInt(GL_TEXTURE_BINDING_2D), texture.getID());
+    ASSERT_NE(getInt(GL_TEXTURE_BINDING_2D), validTexture.getID());
 
-    texture.bind(0);
-    ASSERT_EQ(getInt(GL_TEXTURE_BINDING_2D), texture.getID());
+    validTexture.bind(0);
+    ASSERT_EQ(getInt(GL_TEXTURE_BINDING_2D), validTexture.getID());
+}
+
+TEST_F(TextureTest, bindToInvalidUnit) {
+    static const GLuint INVALID_UNIT = getInt(GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS);
+    EXPECT_THROW(validTexture.bind(INVALID_UNIT), InvalidArg);
 }
