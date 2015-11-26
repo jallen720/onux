@@ -4,7 +4,7 @@
 #include <string>
 #include <GLFW/glfw3.h>
 
-#include "exceptions/argErrors/NullArg.hpp"
+#include "exceptions/validators/validateNotNull.hpp"
 #include "environment/interfaces/IInput.hpp"
 #include "utils/contains.hpp"
 
@@ -14,18 +14,6 @@ using std::string;
 namespace onux {
 
 static map<const GLFWwindow*, IInput*> inputs;
-
-static void validateInput(const IInput* input) {
-    if (input == nullptr) {
-        throw NullArg("input", "registerInput");
-    }
-}
-
-static void validateWindow(const string& functionName, const GLFWwindow* window) {
-    if (window == nullptr) {
-        throw NullArg("window", functionName);
-    }
-}
 
 static const bool hasInput(const GLFWwindow* window) {
     return contains(inputs, window);
@@ -42,14 +30,14 @@ static void cursorPosCallback(
 }
 
 void registerInput(IInput* input, GLFWwindow* window) {
-    validateInput(input);
-    validateWindow("registerInput", window);
+    validateNotNull("input", "registerInput", input);
+    validateNotNull("window", "registerInput", window);
     inputs[window] = input;
     glfwSetCursorPosCallback(window, cursorPosCallback);
 }
 
 void unregisterInput(const GLFWwindow* window) {
-    validateWindow("unregisterInput", window);
+    validateNotNull("window", "unregisterInput", window);
     inputs.erase(window);
 }
 

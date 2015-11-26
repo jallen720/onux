@@ -4,13 +4,13 @@
 
 namespace onux {
 
-void validateStringArg(
+void validateNotEmpty(
     const std::string& parameter,
     const std::string& function,
     const std::string& arg
 );
 
-void validateStringArg(
+void validateNotEmpty(
     const std::string& parameter,
     const std::string& function,
     const char*        arg

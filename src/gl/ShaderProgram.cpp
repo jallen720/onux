@@ -7,7 +7,8 @@
 #include "gl/utils/ShaderProgramInfo.hpp"
 #include "exceptions/Error.hpp"
 #include "exceptions/argErrors/ArgFailedRequirement.hpp"
-#include "exceptions/validators/validateStringArg.hpp"
+#include "exceptions/validators/validateNotNull.hpp"
+#include "exceptions/validators/validateNotEmpty.hpp"
 #include "utils/existsIn.hpp"
 
 using std::vector;
@@ -51,7 +52,7 @@ static const bool hasRequiredTypes(ShaderProgram::Objects objects) {
     });
 }
 
-static void validateRequiredTypes(ShaderProgram::Objects objects) {
+static void validateHasRequiredTypes(ShaderProgram::Objects objects) {
     if (!hasRequiredTypes(objects)) {
         throw ArgFailedRequirement(
             "objects",
@@ -62,7 +63,7 @@ static void validateRequiredTypes(ShaderProgram::Objects objects) {
 }
 
 static GLuint getValidShaderProgram(ShaderProgram::Objects objects) {
-    validateRequiredTypes(objects);
+    validateHasRequiredTypes(objects);
     return glCreateProgram();
 }
 
@@ -84,7 +85,8 @@ void ShaderProgram::use() const {
 }
 
 static void validateName(const GLchar* name) {
-    validateStringArg("name", "ShaderProgram::setUniform", name);
+    validateNotNull("name", "ShaderProgram::setUniform", name);
+    validateNotEmpty("name", "ShaderProgram::setUniform", name);
 }
 
 void ShaderProgram::setUniform(const GLchar* name, const GLint value) const {

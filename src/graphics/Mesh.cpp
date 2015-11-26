@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 #include <assimp/mesh.h>
 
-#include "exceptions/argErrors/NullArg.hpp"
+#include "exceptions/validators/validateNotNull.hpp"
 
 using glm::vec2;
 using glm::vec3;
@@ -17,14 +17,8 @@ struct Mesh::Impl {
     Impl(const aiMesh* mesh);
 };
 
-static void validateMesh(const aiMesh* mesh) {
-    if (mesh == nullptr) {
-        throw NullArg("mesh", "Mesh::Mesh");
-    }
-}
-
 static const aiMesh* getValidMesh(const aiMesh* mesh) {
-    validateMesh(mesh);
+    validateNotNull("mesh", "Mesh::Mesh", mesh);
     return mesh;
 }
 

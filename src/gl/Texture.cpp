@@ -7,7 +7,7 @@
 #include "gl/interfaces/IImage.hpp"
 #include "gl/utils/ValidValues.hpp"
 #include "exceptions/Error.hpp"
-#include "exceptions/argErrors/NullArg.hpp"
+#include "exceptions/validators/validateNotNull.hpp"
 #include "exceptions/argErrors/InvalidMapKey.hpp"
 #include "exceptions/argErrors/InvalidMapValue.hpp"
 
@@ -29,12 +29,6 @@ static GLuint createTexture() {
     GLuint id;
     glGenTextures(TEXTURE_COUNT, &id);
     return id;
-}
-
-static void validateImage(const IImage* image) {
-    if (image == nullptr) {
-        throw NullArg("image", "Texture::Texture");
-    }
 }
 
 static const ValidValues VALID_WRAP_VALUES({
@@ -100,7 +94,7 @@ static void validateOptions(Texture::Options& options) {
 }
 
 static GLuint getValidTexture(const IImage* image, Texture::Options& options) {
-    validateImage(image);
+    validateNotNull("image", "Texture::Texture", image);
     validateOptions(options);
     return createTexture();
 }

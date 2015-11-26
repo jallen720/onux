@@ -6,7 +6,7 @@
 #include "environment/inputRegistry.hpp"
 #include "environment/events/MouseMoveEvent.hpp"
 #include "environment/events/MouseDeltaEvent.hpp"
-#include "exceptions/argErrors/NullArg.hpp"
+#include "exceptions/validators/validateNotNull.hpp"
 
 using glm::dvec2;
 
@@ -22,14 +22,8 @@ struct Input::Impl {
     Impl(Window window);
 };
 
-static void validateWindow(Window window) {
-    if (window == nullptr) {
-        throw NullArg("window", "Input::Input");
-    }
-}
-
 static Window getValidWindow(Window window) {
-    validateWindow(window);
+    validateNotNull("window", "Input::Input", window);
     return window;
 }
 

@@ -5,7 +5,8 @@
 
 #include "environment/Input.hpp"
 #include "exceptions/argErrors/InvalidArg.hpp"
-#include "exceptions/validators/validateStringArg.hpp"
+#include "exceptions/validators/validateNotNull.hpp"
+#include "exceptions/validators/validateNotEmpty.hpp"
 #include "utils/toString.hpp"
 
 using std::string;
@@ -49,7 +50,8 @@ static const unsigned int getValidDimension(
 }
 
 static const char* getValidName(const char* name) {
-    validateStringArg("name", "Window::Window", name);
+    validateNotNull("name", "Window::Window", name);
+    validateNotEmpty("name", "Window::Window", name);
     return name;
 }
 

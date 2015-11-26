@@ -3,7 +3,7 @@
 #include "utils/readFile.hpp"
 #include "utils/getExtension.hpp"
 #include "exceptions/argErrors/InvalidArgProperty.hpp"
-#include "exceptions/validators/validateStringArg.hpp"
+#include "exceptions/validators/validateNotEmpty.hpp"
 #include "utils/keys.hpp"
 
 using std::string;
@@ -27,7 +27,7 @@ ShaderSource::Types ShaderSource::TYPES {
 };
 
 static const string& getValidPath(const string& path) {
-    validateStringArg("path", "ShaderSource::ShaderSource", path);
+    validateNotEmpty("path", "ShaderSource::ShaderSource", path);
     return path;
 }
 

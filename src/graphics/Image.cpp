@@ -2,7 +2,7 @@
 
 #include <Magick++.h>
 
-#include "exceptions/validators/validateStringArg.hpp"
+#include "exceptions/validators/validateNotEmpty.hpp"
 
 using std::string;
 
@@ -17,7 +17,7 @@ struct Image::Impl {
 };
 
 static const string& getValidPath(const string& path) {
-    validateStringArg("path", "Image::Image", path);
+    validateNotEmpty("path", "Image::Image", path);
     return path;
 }
 
