@@ -4,6 +4,7 @@
 #include <functional>
 
 #include "exceptions/Error.hpp"
+#include "exceptions/validators/validateNotEmpty.hpp"
 
 using std::string;
 using std::ifstream;
@@ -37,6 +38,7 @@ static void readLines(const string& path, const function<void(const string& line
 }
 
 const string readFile(const string& path) {
+    validateNotEmpty("path", "readFile", path);
     string contents;
 
     readLines(path, [&](const string& line) {
