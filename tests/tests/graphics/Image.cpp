@@ -19,10 +19,7 @@ TEST_F(ImageTest, validCreation) {
 }
 
 TEST_F(ImageTest, emptyPath) {
-    EXPECT_THROW(
-        const Image image(""),
-        EmptyStringArg
-    );
+    EXPECT_THROW(const Image image(""), EmptyStringArg);
 }
 
 TEST_F(ImageTest, invalidFileExtension) {
@@ -33,8 +30,5 @@ TEST_F(ImageTest, invalidFileExtension) {
 }
 
 TEST_F(ImageTest, fileDoesNotExist) {
-    EXPECT_THROW(
-        const Image image("does_not_exist.png"),
-        ErrorBlob
-    );
+    EXPECT_THROW(const Image image("does_not_exist.png"), ErrorBlob);
 }

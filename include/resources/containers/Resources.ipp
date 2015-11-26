@@ -14,7 +14,7 @@ T* Resources<T>::operator [](const std::string& relativePath) const {
 
 template<typename T>
 void Resources<T>::load() {
-    getLoader().loadAll([&](const std::string& path, Resource resource) {
+    getLoader().loadAll([&](auto path, auto resource) {
         m_resources[path] = std::move(resource);
     });
 }
