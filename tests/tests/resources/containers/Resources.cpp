@@ -6,7 +6,7 @@
 using onux::ShaderSources;
 using onux::EmptyStringArg;
 
-TEST(ResourcesTest, emptyPath) {
+TEST(ResourcesTest, emptyRelativePath) {
     const ShaderSources shaderSources;
     EXPECT_THROW(shaderSources[""], EmptyStringArg);
 }
