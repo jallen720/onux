@@ -19,13 +19,6 @@ struct BufferObject::Impl {
     const GLvoid*    data;
     const GLenum     usage;
 
-    Impl(
-        const GLuint     id,
-        const GLenum     target,
-        const GLsizeiptr size,
-        const GLvoid*    data,
-        const GLenum     usage
-    );
     void bind() const;
 };
 
@@ -122,25 +115,13 @@ BufferObject::BufferObject(
     const GLvoid*    data,
     const GLenum     usage
 )   : GLData(getValidBufferObject(target, size, usage))
-    , impl(new Impl(getID(), target, size, data, usage)) {}
+    , impl(new Impl({ getID(), target, size, data, usage })) {}
 
 BufferObject::~BufferObject() {
     glDeleteBuffers(BUFFER_COUNT, &getID());
 }
 
 // Implementation
-
-BufferObject::Impl::Impl(
-    const GLuint     id,
-    const GLenum     target,
-    const GLsizeiptr size,
-    const GLvoid*    data,
-    const GLenum     usage
-)   : id(id)
-    , target(target)
-    , size(size)
-    , data(data)
-    , usage(usage) {}
 
 void BufferObject::Impl::bind() const {
     glBindBuffer(target, id);

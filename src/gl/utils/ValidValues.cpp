@@ -9,12 +9,10 @@ namespace onux {
 
 struct ValidValues::Impl {
     Values values;
-
-    Impl(Values& values);
 };
 
 ValidValues::ValidValues(Values& values)
-    : impl(new Impl(values)) {}
+    : impl(new Impl({ values })) {}
 
 ValidValues::~ValidValues() {}
 
@@ -29,10 +27,5 @@ auto ValidValues::getName(const GLenum value) const -> ValueName {
 auto ValidValues::getNames() const -> ValueNames {
     return values(impl->values);
 }
-
-// Implementation
-
-ValidValues::Impl::Impl(Values& values)
-    : values(values) {}
 
 } // namespace onux

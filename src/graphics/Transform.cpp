@@ -78,6 +78,6 @@ const mat4 Transform::getWorldMatrix() const {
 // Implementation
 
 Transform::Impl::Impl()
-    : scale(vec3(1)) {}
+    : scale(1) {}
 
 } // namespace onux

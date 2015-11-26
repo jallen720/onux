@@ -9,7 +9,6 @@ namespace onux {
 struct VertexBuffer::Impl {
     const IVertexLayout& layout;
 
-    Impl(const IVertexLayout& layout);
     void defineLayout() const;
 };
 
@@ -23,7 +22,7 @@ VertexBuffer::VertexBuffer(
         data.getPointer(),
         usage
     )
-    , impl(new Impl(layout)) {}
+    , impl(new Impl({ layout })) {}
 
 VertexBuffer::~VertexBuffer() {}
 
@@ -60,9 +59,6 @@ static void setAttributePointers(const GLsizei stride, IVertexLayout::Attributes
         );
     }
 }
-
-VertexBuffer::Impl::Impl(const IVertexLayout& layout)
-    : layout(layout) {}
 
 void VertexBuffer::Impl::defineLayout() const {
     setAttributePointers(

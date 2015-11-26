@@ -11,19 +11,13 @@ struct ObjectInfo::Impl {
     const GLuint objectID;
     GetValueFunc getValueFunc;
     GetLogFunc   getLogFunc;
-
-    Impl(
-        const GLuint objectID,
-        GetValueFunc getValueFunc,
-        GetLogFunc   getLogFunc
-    );
 };
 
 ObjectInfo::ObjectInfo(
     const GLuint objectID,
     GetValueFunc getValueFunc,
     GetLogFunc   getLogFunc
-)   : impl(new Impl(objectID, getValueFunc, getLogFunc)) {}
+)   : impl(new Impl({ objectID, getValueFunc, getLogFunc })) {}
 
 const GLint ObjectInfo::getValue(const GLenum parameter) const {
     validateParameter(parameter);
@@ -50,15 +44,5 @@ const string ObjectInfo::getLog() const {
 
     return string(log.begin(), log.end());
 }
-
-// Implementation
-
-ObjectInfo::Impl::Impl(
-    const GLuint objectID,
-    GetValueFunc getValueFunc,
-    GetLogFunc   getLogFunc
-)   : objectID(objectID)
-    , getValueFunc(getValueFunc)
-    , getLogFunc(getLogFunc) {}
 
 } // namespace onux

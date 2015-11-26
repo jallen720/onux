@@ -18,13 +18,12 @@ struct Engine::Impl {
     const Window&   window;
     GraphicsEngine& graphicsEngine;
 
-    Impl(const Window& window, GraphicsEngine& graphicsEngine);
     void renderObjects();
     void processFrame();
 };
 
 Engine::Engine(const Window& window, GraphicsEngine& graphicsEngine)
-    : impl(new Impl(window, graphicsEngine)) {
+    : impl(new Impl({ window, graphicsEngine })) {
     validateNoGLError();
 }
 
@@ -51,10 +50,6 @@ void Engine::run() {
 }
 
 // Implementation
-
-Engine::Impl::Impl(const Window& window, GraphicsEngine& graphicsEngine)
-    : window(window)
-    , graphicsEngine(graphicsEngine) {}
 
 void Engine::Impl::renderObjects() {
     graphicsEngine.render();

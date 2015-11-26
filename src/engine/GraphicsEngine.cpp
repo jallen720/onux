@@ -12,12 +12,11 @@ struct GraphicsEngine::Impl {
     Drawables& drawables;
     Camera&    camera;
 
-    Impl(Drawables& drawables, Camera& camera);
     void renderDrawables() const;
 };
 
 GraphicsEngine::GraphicsEngine(Drawables& drawables, Camera& camera)
-    : impl(new Impl(drawables, camera)) {}
+    : impl(new Impl({ drawables, camera })) {}
 
 GraphicsEngine::~GraphicsEngine() {}
 
@@ -35,10 +34,6 @@ void GraphicsEngine::render() {
 }
 
 // Implementation
-
-GraphicsEngine::Impl::Impl(Drawables& drawables, Camera& camera)
-    : drawables(drawables)
-    , camera(camera) {}
 
 void GraphicsEngine::Impl::renderDrawables() const {
     for (auto drawable : drawables) {

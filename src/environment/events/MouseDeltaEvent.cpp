@@ -12,14 +12,15 @@ struct MouseDeltaEvent::Impl {
     Self self;
     dvec2 previousPosition;
 
-    Impl(Self self);
     const dvec2 getDelta(const dvec2& position);
     const bool previousPositionIsSet() const;
     void callListeners(const dvec2& delta);
 };
 
+static const auto PREVIOUS_POSITION_UNSET = -10000.0;
+
 MouseDeltaEvent::MouseDeltaEvent()
-    : impl(new Impl(this)) {}
+    : impl(new Impl({ this, dvec2(PREVIOUS_POSITION_UNSET) })) {}
 
 MouseDeltaEvent::~MouseDeltaEvent() {}
 
@@ -29,12 +30,6 @@ void MouseDeltaEvent::trigger(const dvec2& position) {
 }
 
 // Implementation
-
-static const double PREVIOUS_POSITION_UNSET = -10000.0;
-
-MouseDeltaEvent::Impl::Impl(Self self)
-    : self(self)
-    , previousPosition(PREVIOUS_POSITION_UNSET) {}
 
 const dvec2 MouseDeltaEvent::Impl::getDelta(const dvec2& position) {
     return previousPositionIsSet()
