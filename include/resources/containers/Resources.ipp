@@ -1,6 +1,7 @@
 #include <memory>
 
 #include "exceptions/Error.hpp"
+#include "exceptions/validators/validateNotEmpty.hpp"
 
 namespace onux {
 
@@ -9,6 +10,12 @@ Resources<T>::~Resources() {}
 
 template<typename T>
 T* Resources<T>::operator [](const std::string& relativePath) const {
+    validateNotEmpty(
+        "relativePath",
+        "Resources<>::operator[]",
+        relativePath
+    );
+
     return atPath(getLoader().getPath(relativePath));
 }
 
