@@ -8,7 +8,7 @@ struct IBufferData;
 
 class IndexBuffer : public BufferObject {
 public:
-    IndexBuffer(
+    explicit IndexBuffer(
         const IBufferData& data,
         const GLenum       usage = GL_STATIC_DRAW
     );
