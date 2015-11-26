@@ -4,6 +4,8 @@
 #include <boost/filesystem.hpp>
 #include <boost/foreach.hpp>
 
+#include "exceptions/validators/validateNotEmpty.hpp"
+
 using std::string;
 using std::function;
 using std::make_pair;
@@ -14,6 +16,7 @@ using boost::filesystem::is_regular_file;
 namespace onux {
 
 void filesInDirectory(const string& directory, const function<void(const string&)> callback) {
+    validateNotEmpty("directory", "filesInDirectory", directory);
     recursive_directory_iterator it(directory), eod;
 
     BOOST_FOREACH(const path& file, make_pair(it, eod)) {
