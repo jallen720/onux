@@ -9,14 +9,14 @@ namespace onux {
 
 class ObjectInfo {
 private:
-    typedef void (*GetValueFunc)(GLuint, GLenum, GLint*);
-    typedef void (*GetLogFunc)(GLuint, GLsizei, GLsizei*, GLchar*);
+    typedef void (*GetValue)(const GLuint, const GLenum, GLint*);
+    typedef void (*GetLog)(const GLuint, const GLsizei, GLsizei*, GLchar*);
 
 public:
     ObjectInfo(
         const GLuint objectID,
-        GetValueFunc getValueFunc,
-        GetLogFunc   getLogFunc
+        GetValue     getValue,
+        GetLog       getLog
     );
     ~ObjectInfo();
     const GLint getValue(const GLenum parameter) const;

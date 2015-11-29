@@ -9,15 +9,15 @@ namespace onux {
 
 struct ObjectInfo::Impl {
     const GLuint objectID;
-    GetValueFunc getValueFunc;
-    GetLogFunc   getLogFunc;
+    GetValue     getValue;
+    GetLog       getLog;
 };
 
 ObjectInfo::ObjectInfo(
     const GLuint objectID,
-    GetValueFunc getValueFunc,
-    GetLogFunc   getLogFunc
-)   : impl(new Impl({ objectID, getValueFunc, getLogFunc })) {}
+    GetValue     getValue,
+    GetLog       getLog
+)   : impl(new Impl({ objectID, getValue, getLog })) {}
 
 ObjectInfo::~ObjectInfo() {}
 
@@ -25,7 +25,7 @@ const GLint ObjectInfo::getValue(const GLenum parameter) const {
     validateParameter(parameter);
     GLint value;
 
-    impl->getValueFunc(
+    impl->getValue(
         impl->objectID,
         parameter,
         &value
@@ -37,7 +37,7 @@ const GLint ObjectInfo::getValue(const GLenum parameter) const {
 const string ObjectInfo::getLog() const {
     vector<GLchar> log(getValue(GL_INFO_LOG_LENGTH));
 
-    impl->getLogFunc(
+    impl->getLog(
         impl->objectID,
         log.size(),
         nullptr,
