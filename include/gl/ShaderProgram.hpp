@@ -15,7 +15,7 @@ public:
     typedef const std::vector<const ShaderObject*>& Objects;
 
 public:
-    explicit ShaderProgram(Objects objects);
+    ShaderProgram(Objects objects);
     ~ShaderProgram();
     void use() const;
     void setUniform(const GLchar* name, const GLint value) const;
@@ -29,7 +29,7 @@ public:
 
 private:
     struct Impl;
-    std::shared_ptr<Impl> impl;
+    std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux

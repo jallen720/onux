@@ -1,6 +1,8 @@
 #include "sample/runEngine.hpp"
 
 #include <iostream>
+#include <vector>
+#include <memory>
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <GL/glew.h> // Required before other OpenGL headers
@@ -34,6 +36,8 @@
 #include "sample/CameraControls.hpp"
 
 using std::cerr;
+using std::vector;
+using std::unique_ptr;
 using glm::vec3;
 using glm::perspective;
 using glm::radians;
@@ -86,71 +90,73 @@ void runEngine() {
         Scenes scenes;
 
         // Shaders
-        const ShaderObject vertObjects[] {
-            ShaderObject({
-                shaderSources["onux.vert"],
-                shaderSources["sample0.vert"],
-            }),
-            ShaderObject({
-                shaderSources["onux.vert"],
-                shaderSources["sample1.vert"],
-            }),
-        };
+        vector<unique_ptr<ShaderObject>> vertObjects;
 
-        const ShaderObject fragObjects[] {
-            ShaderObject({
-                shaderSources["onux.frag"],
-                shaderSources["sample0.frag"],
-            }),
-            ShaderObject({
-                shaderSources["onux.frag"],
-                shaderSources["sample1.frag"],
-            }),
-        };
+        vertObjects.emplace_back(new ShaderObject({
+            shaderSources["onux.vert"],
+            shaderSources["sample0.vert"],
+        }));
 
-        const ShaderProgram shaderPrograms[] {
-            ShaderProgram({
-                &vertObjects[0],
-                &fragObjects[0],
-            }),
-            ShaderProgram({
-                &vertObjects[1],
-                &fragObjects[1],
-            }),
-        };
+        vertObjects.emplace_back(new ShaderObject({
+            shaderSources["onux.vert"],
+            shaderSources["sample1.vert"],
+        }));
 
-        shaderPrograms[0].use();
-        shaderPrograms[0].setUniform("texture1", 1);
+        vector<unique_ptr<ShaderObject>> fragObjects;
+
+        fragObjects.emplace_back(new ShaderObject({
+            shaderSources["onux.frag"],
+            shaderSources["sample0.frag"],
+        }));
+
+        fragObjects.emplace_back(new ShaderObject({
+            shaderSources["onux.frag"],
+            shaderSources["sample1.frag"],
+        }));
+
+        vector<unique_ptr<ShaderProgram>> shaderPrograms;
+
+        shaderPrograms.emplace_back(new ShaderProgram({
+            vertObjects[0].get(),
+            fragObjects[0].get(),
+        }));
+
+        shaderPrograms.emplace_back(new ShaderProgram({
+            vertObjects[1].get(),
+            fragObjects[1].get(),
+        }));
+
+        shaderPrograms[0]->use();
+        shaderPrograms[0]->setUniform("texture1", 1);
 
         // Textures
-        const Texture textures[] {
-            { images["box.jpg"]    },
-            { images["bricks.png"] },
-            { images["hheli.bmp"]  },
-        };
+        vector<unique_ptr<Texture>> textures;
+        textures.emplace_back(new Texture(images["box.jpg"]));
+        textures.emplace_back(new Texture(images["bricks.png"]));
+        textures.emplace_back(new Texture(images["hheli.bmp"]));
 
         // Drawable data
         Renderable renderables[] {
             Renderable(
                 scenes["hheli.obj"]->getMeshes()[0],
-                shaderPrograms[1],
+                *shaderPrograms[1].get(),
                 {
-                    &textures[2]
+                    textures[2].get(),
                 }
             ),
             Renderable(
                 scenes["cube.obj"]->getMeshes()[0],
-                shaderPrograms[0],
+                *shaderPrograms[0].get(),
                 {
-                    &textures[0],
-                    &textures[1],
+                    textures[0].get(),
+                    textures[1].get(),
                 }
             ),
             Renderable(
                 scenes["hheli.obj"]->getMeshes()[0],
-                shaderPrograms[1],
+                *shaderPrograms[1].get(),
                 {
-                    &textures[2],
+                    textures[2].get(),
                 }
             ),
         };

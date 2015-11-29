@@ -11,10 +11,11 @@ public:
 
 protected:
     explicit GLData(const GLuint id);
+    ~GLData();
 
 private:
     struct Impl;
-    std::shared_ptr<Impl> impl;
+    std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux

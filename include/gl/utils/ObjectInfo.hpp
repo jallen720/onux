@@ -18,6 +18,7 @@ public:
         GetValueFunc getValueFunc,
         GetLogFunc   getLogFunc
     );
+    ~ObjectInfo();
     const GLint getValue(const GLenum parameter) const;
     const std::string getLog() const;
 
@@ -26,7 +27,7 @@ protected:
 
 private:
     struct Impl;
-    std::shared_ptr<Impl> impl;
+    std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux

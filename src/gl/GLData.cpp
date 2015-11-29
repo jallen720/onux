@@ -13,4 +13,6 @@ const GLuint& GLData::getID() const {
 GLData::GLData(const GLuint id)
     : impl(new Impl({ id })) {}
 
+GLData::~GLData() {}
+
 } // namespace onux

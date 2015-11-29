@@ -19,6 +19,8 @@ ObjectInfo::ObjectInfo(
     GetLogFunc   getLogFunc
 )   : impl(new Impl({ objectID, getValueFunc, getLogFunc })) {}
 
+ObjectInfo::~ObjectInfo() {}
+
 const GLint ObjectInfo::getValue(const GLenum parameter) const {
     validateParameter(parameter);
     GLint value;
