@@ -21,13 +21,14 @@ using glm::mat4;
 namespace onux {
 
 struct ShaderProgram::Impl {
+    typedef void (*Processor)(const GLuint, const GLuint);
+
     const GLuint            id;
     const ShaderProgramInfo info;
 
     Impl(const GLuint id);
-    void attach(Objects objects) const;
+    void process(Objects objects, Processor processor) const;
     void link() const;
-    void detach(Objects objects) const;
     void validateLinkStatus() const;
     const bool linkingSucceeded() const;
     const GLint getUniformLocation(const GLchar* name) const;
@@ -70,9 +71,9 @@ static GLuint getValidShaderProgram(ShaderProgram::Objects objects) {
 ShaderProgram::ShaderProgram(Objects objects)
     : GLData(getValidShaderProgram(objects))
     , impl(new Impl(getID())) {
-    impl->attach(objects);
+    impl->process(objects, glAttachShader);
     impl->link();
-    impl->detach(objects);
+    impl->process(objects, glDetachShader);
     impl->validateLinkStatus();
 }
 
@@ -146,20 +147,14 @@ ShaderProgram::Impl::Impl(const GLuint id)
         glGetProgramInfoLog
     ) {}
 
-void ShaderProgram::Impl::attach(Objects objects) const {
+void ShaderProgram::Impl::process(Objects objects, Processor processor) const {
     for (auto object : objects) {
-        glAttachShader(id, object->getID());
+        processor(id, object->getID());
     }
 }
 
 void ShaderProgram::Impl::link() const {
     glLinkProgram(id);
-}
-
-void ShaderProgram::Impl::detach(Objects objects) const {
-    for (auto object : objects) {
-        glDetachShader(id, object->getID());
-    }
 }
 
 void ShaderProgram::Impl::validateLinkStatus() const {
