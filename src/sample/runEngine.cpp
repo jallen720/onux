@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <memory>
+#include <exception>
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <GL/glew.h> // Required before other OpenGL headers
@@ -38,6 +39,7 @@
 using std::cerr;
 using std::vector;
 using std::unique_ptr;
+using std::exception;
 using glm::vec3;
 using glm::perspective;
 using glm::radians;
@@ -207,7 +209,7 @@ void runEngine() {
         Engine engine(window, graphicsEngine);
         engine.run();
     }
-    catch (const Error& e) {
+    catch (const exception& e) {
         cerr << e.what() << "\n";
     }
     catch (...) {
