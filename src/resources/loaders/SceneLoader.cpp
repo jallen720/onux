@@ -5,7 +5,7 @@ using std::string;
 namespace onux {
 
 const string& SceneLoader::getSubDirectory() const {
-    static const string SUB_DIRECTORY = "models/";
+    static const string SUB_DIRECTORY = "scenes/";
     return SUB_DIRECTORY;
 }
 
