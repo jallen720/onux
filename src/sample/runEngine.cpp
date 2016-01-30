@@ -19,9 +19,6 @@
 
 #include "gl/ShaderObject.hpp"
 #include "gl/ShaderProgram.hpp"
-#include "gl/VertexBuffer.hpp"
-#include "gl/IndexBuffer.hpp"
-#include "gl/VertexArray.hpp"
 #include "gl/Texture.hpp"
 
 #include "engine/Renderable.hpp"
@@ -55,9 +52,6 @@ using onux::Camera;
 
 using onux::ShaderObject;
 using onux::ShaderProgram;
-using onux::VertexBuffer;
-using onux::IndexBuffer;
-using onux::VertexArray;
 using onux::Texture;
 
 using onux::Renderable;
@@ -142,21 +136,26 @@ void runEngine() {
             Renderable(
                 scenes["hheli.obj"]->getMeshes()[0],
                 *shaderPrograms[1].get(),
+
                 {
                     textures[2].get(),
                 }
             ),
+
             Renderable(
                 scenes["cube.obj"]->getMeshes()[0],
                 *shaderPrograms[0].get(),
+
                 {
                     textures[0].get(),
                     textures[1].get(),
                 }
             ),
+
             Renderable(
                 scenes["hheli.obj"]->getMeshes()[0],
                 *shaderPrograms[1].get(),
+
                 {
                     textures[2].get(),
                 }

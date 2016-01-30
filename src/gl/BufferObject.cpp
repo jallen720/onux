@@ -115,7 +115,15 @@ BufferObject::BufferObject(
     const GLvoid*    data,
     const GLenum     usage
 )   : GLData(getValidBufferObject(target, size, usage))
-    , impl(new Impl({ getID(), target, size, data, usage })) {}
+    , impl(new Impl({
+        getID(),
+        target,
+        size,
+        data,
+        usage
+    })) {
+
+}
 
 BufferObject::~BufferObject() {
     glDeleteBuffers(BUFFER_COUNT, &getID());
