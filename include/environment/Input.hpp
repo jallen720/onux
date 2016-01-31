@@ -8,8 +8,8 @@ struct GLFWwindow;
 
 namespace onux {
 
-struct MouseMoveEvent;
-struct MouseDeltaEvent;
+class MouseMoveEvent;
+class MouseDeltaEvent;
 
 class Input : public IInput {
 public:
