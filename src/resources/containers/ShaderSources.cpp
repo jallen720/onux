@@ -9,7 +9,7 @@ struct ShaderSources::Impl {
 };
 
 ShaderSources::ShaderSources()
-    : impl(new Impl()) {
+    : impl(new Impl {}) {
     load();
 }
 

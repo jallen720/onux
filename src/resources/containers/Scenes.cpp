@@ -9,7 +9,7 @@ struct Scenes::Impl {
 };
 
 Scenes::Scenes()
-    : impl(new Impl()) {
+    : impl(new Impl {}) {
     load();
 }
 

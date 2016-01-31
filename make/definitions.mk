@@ -8,17 +8,18 @@ RM      = rm -fr
 MKDIR_P = mkdir -p
 
 # Compiler options
-CC           = g++
+CC           = clang++
 STD          = -std=c++14
 DEBUG        = -g
 ALL_WARNINGS = -Wall
 COMPILE_ONLY = -c
 OUTPUT       = -o
 GEN_DEPS     = -MM
+ERROR_LIMIT  = -ferror-limit=5
 
 # Flags
-CFLAGS = $(DEBUG) $(ALL_WARNINGS) $(COMPILE_ONLY)
-LFLAGS = $(DEBUG) $(ALL_WARNINGS)
+CFLAGS = $(DEBUG) $(ALL_WARNINGS) $(ERROR_LIMIT) $(COMPILE_ONLY)
+LFLAGS = $(DEBUG) $(ALL_WARNINGS) $(ERROR_LIMIT)
 
 # Output target file
 OUT = $(OUTPUT) $@

@@ -9,7 +9,7 @@ struct Images::Impl {
 };
 
 Images::Images()
-    : impl(new Impl()) {
+    : impl(new Impl {}) {
     load();
 }
 

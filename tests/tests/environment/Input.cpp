@@ -31,7 +31,7 @@ TEST(InputTest, cursorPosEventWorks) {
     static const struct {
         const double X = 1.0;
         const double Y = 2.0;
-    } VALID;
+    } VALID {};
 
     TestWindow window;
     Input input(window);
