@@ -4,8 +4,8 @@
 
 namespace onux {
 
-struct VertexBuffer;
-struct IndexBuffer;
+class VertexBuffer;
+class IndexBuffer;
 
 class VertexArray : public GLData {
 public:

@@ -61,7 +61,7 @@ static const Scene::Meshes loadMeshes(const aiScene* scene) {
     Scene::Meshes meshes;
 
     for (auto i = 0u; i < scene->mNumMeshes; i++) {
-        meshes.push_back({ scene->mMeshes[i] });
+        meshes.emplace_back(scene->mMeshes[i]);
     }
 
     return meshes;
