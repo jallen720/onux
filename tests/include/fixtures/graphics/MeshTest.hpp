@@ -5,7 +5,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#include "utils/testModelPath.hpp"
+#include "utils/testScenePath.hpp"
 
 struct MeshTest : testing::Test {
 private:
@@ -13,7 +13,7 @@ private:
 
 protected:
     const aiMesh* cubeMesh = importer.ReadFile(
-        testModelPath("cube.obj"),
+        testScenePath("cube.obj"),
         aiProcess_GenSmoothNormals      |
         aiProcess_CalcTangentSpace      |
         aiProcess_Triangulate           |

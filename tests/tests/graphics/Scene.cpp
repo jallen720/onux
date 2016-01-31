@@ -2,7 +2,7 @@
 
 #include "fixtures/graphics/SceneTest.hpp"
 #include "utils/expectNoThrow.hpp"
-#include "utils/testModelPath.hpp"
+#include "utils/testScenePath.hpp"
 #include "exceptions/subsystemErrors/AssimpError.hpp"
 #include "exceptions/argErrors/EmptyStringArg.hpp"
 
@@ -12,12 +12,12 @@ using onux::EmptyStringArg;
 
 TEST_F(SceneTest, validCreation) {
     expectNoThrow([] {
-        const Scene scene(testModelPath("cube.obj"));
+        const Scene scene(testScenePath("cube.obj"));
     });
 }
 
 TEST_F(SceneTest, validData) {
-    const Scene scene(testModelPath("cube.obj"));
+    const Scene scene(testScenePath("cube.obj"));
 
     // Cube scene should have 1 mesh
     ASSERT_EQ(1, scene.getMeshes().size());
