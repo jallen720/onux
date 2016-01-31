@@ -16,7 +16,7 @@ struct GraphicsEngine::Impl {
 };
 
 GraphicsEngine::GraphicsEngine(Drawables& drawables, Camera& camera)
-    : impl(new Impl({ drawables, camera })) {}
+    : impl(new Impl { drawables, camera }) {}
 
 GraphicsEngine::~GraphicsEngine() {}
 

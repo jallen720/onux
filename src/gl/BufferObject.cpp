@@ -115,13 +115,13 @@ BufferObject::BufferObject(
     const GLvoid*    data,
     const GLenum     usage
 )   : GLData(getValidBufferObject(target, size, usage))
-    , impl(new Impl({
+    , impl(new Impl {
         getID(),
         target,
         size,
         data,
         usage
-    })) {
+    }) {
 
 }
 

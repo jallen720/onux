@@ -96,13 +96,13 @@ VertexAttribute::VertexAttribute(
     const GLboolean isNormalized,
     const GLvoid*   offset,
     const GLsizei   size
-)   : impl(new Impl({
+)   : impl(new Impl {
         getValidElementCount(elementCount),
         getValidType(type),
         getValidIsNormalized(isNormalized),
         offset,
         size
-    })) {}
+    }) {}
 
 VertexAttribute::~VertexAttribute() {}
 

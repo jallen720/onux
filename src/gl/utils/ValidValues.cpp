@@ -12,7 +12,7 @@ struct ValidValues::Impl {
 };
 
 ValidValues::ValidValues(Values& values)
-    : impl(new Impl({ values })) {}
+    : impl(new Impl { values }) {}
 
 ValidValues::~ValidValues() {}
 

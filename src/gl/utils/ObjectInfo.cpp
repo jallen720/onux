@@ -17,7 +17,7 @@ ObjectInfo::ObjectInfo(
     const GLuint objectID,
     GetValue     getValue,
     GetLog       getLog
-)   : impl(new Impl({ objectID, getValue, getLog })) {}
+)   : impl(new Impl { objectID, getValue, getLog }) {}
 
 ObjectInfo::~ObjectInfo() {}
 

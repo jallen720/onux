@@ -22,7 +22,7 @@ VertexBuffer::VertexBuffer(
         data.getPointer(),
         usage
     )
-    , impl(new Impl({ layout })) {}
+    , impl(new Impl { layout }) {}
 
 VertexBuffer::~VertexBuffer() {}
 

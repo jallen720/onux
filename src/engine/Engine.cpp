@@ -23,7 +23,7 @@ struct Engine::Impl {
 };
 
 Engine::Engine(const Window& window, GraphicsEngine& graphicsEngine)
-    : impl(new Impl({ window, graphicsEngine })) {
+    : impl(new Impl { window, graphicsEngine }) {
     validateNoGLError();
 }
 

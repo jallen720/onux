@@ -20,7 +20,7 @@ struct MouseDeltaEvent::Impl {
 static const auto PREVIOUS_POSITION_UNSET = -10000.0;
 
 MouseDeltaEvent::MouseDeltaEvent()
-    : impl(new Impl({ this, dvec2(PREVIOUS_POSITION_UNSET) })) {}
+    : impl(new Impl { this, dvec2(PREVIOUS_POSITION_UNSET) }) {}
 
 MouseDeltaEvent::~MouseDeltaEvent() {}
 
