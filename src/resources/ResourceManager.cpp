@@ -2,7 +2,7 @@
 
 #include "resources/containers/ShaderSources.hpp"
 #include "resources/containers/Images.hpp"
-#include "resources/containers/Scenes.hpp"
+#include "resources/containers/Models.hpp"
 
 using std::string;
 
@@ -11,7 +11,7 @@ namespace onux {
 struct ResourceManager::Impl {
     const ShaderSources shaderSources;
     const Images images;
-    const Scenes scenes;
+    const Models models;
 };
 
 const string& ResourceManager::DEFAULT_RESOURCES_DIRECTORY = "resources/";
@@ -29,8 +29,8 @@ const Images& ResourceManager::getImages() const {
     return impl->images;
 }
 
-const Scenes& ResourceManager::getScenes() const {
-    return impl->scenes;
+const Models& ResourceManager::getModels() const {
+    return impl->models;
 }
 
 } // namespace onux

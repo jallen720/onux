@@ -12,9 +12,6 @@
 #include "environment/Window.hpp"
 #include "environment/loadExtensions.hpp"
 
-#include "graphics/ShaderSource.hpp"
-#include "graphics/Image.hpp"
-#include "graphics/Scene.hpp"
 #include "graphics/Camera.hpp"
 
 #include "gl/ShaderObject.hpp"
@@ -28,7 +25,7 @@
 #include "resources/ResourceManager.hpp"
 #include "resources/containers/ShaderSources.hpp"
 #include "resources/containers/Images.hpp"
-#include "resources/containers/Scenes.hpp"
+#include "resources/containers/Models.hpp"
 
 #include "exceptions/Error.hpp"
 
@@ -47,9 +44,6 @@ using onux::Environment;
 using onux::Window;
 using onux::loadExtensions;
 
-using onux::ShaderSource;
-using onux::Image;
-using onux::Scene;
 using onux::Camera;
 
 using onux::ShaderObject;
@@ -63,7 +57,7 @@ using onux::Engine;
 using onux::ResourceManager;
 using onux::ShaderSources;
 using onux::Images;
-using onux::Scenes;
+using onux::Models;
 
 using onux::Error;
 
@@ -87,7 +81,7 @@ void runEngine() {
         const ResourceManager resourceManager;
         const ShaderSources& shaderSources = resourceManager.getShaderSources();
         const Images& images = resourceManager.getImages();
-        const Scenes& scenes = resourceManager.getScenes();
+        const Models& models = resourceManager.getModels();
 
         // Shaders
         vector<unique_ptr<ShaderObject>> vertObjects;
@@ -138,7 +132,7 @@ void runEngine() {
         // Drawable data
         Renderable renderables[] {
             Renderable(
-                scenes["hheli.obj"]->getMeshes()[0],
+                models["hheli.obj"]->getMeshes()[0],
                 *shaderPrograms[1].get(),
 
                 {
@@ -147,7 +141,7 @@ void runEngine() {
             ),
 
             Renderable(
-                scenes["cube.obj"]->getMeshes()[0],
+                models["cube.obj"]->getMeshes()[0],
                 *shaderPrograms[0].get(),
 
                 {
@@ -157,7 +151,7 @@ void runEngine() {
             ),
 
             Renderable(
-                scenes["hheli.obj"]->getMeshes()[0],
+                models["hheli.obj"]->getMeshes()[0],
                 *shaderPrograms[1].get(),
 
                 {

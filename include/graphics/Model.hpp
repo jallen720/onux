@@ -9,13 +9,13 @@ struct aiScene;
 
 namespace onux {
 
-class Scene {
+class Model {
 public:
     typedef std::vector<Mesh> Meshes;
 
 public:
-    explicit Scene(const std::string& path);
-    ~Scene();
+    explicit Model(const std::string& path);
+    ~Model();
     const Meshes& getMeshes() const;
 
 private:

@@ -5,7 +5,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#include "utils/testScenePath.hpp"
+#include "utils/testModelPath.hpp"
 
 struct MeshTest : testing::Test {
 private:
@@ -20,7 +20,7 @@ private:
 
 protected:
     const aiMesh* cubeMesh = importer.ReadFile(
-        testScenePath("cube.obj"),
+        testModelPath("cube.obj"),
         POST_PROCESSING_FLAGS
     )->mMeshes[0];
 };

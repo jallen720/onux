@@ -1,4 +1,4 @@
-#include "graphics/Scene.hpp"
+#include "graphics/Model.hpp"
 
 #include <sstream>
 #include <assimp/scene.h>
@@ -14,7 +14,7 @@ using Assimp::Importer;
 
 namespace onux {
 
-struct Scene::Impl {
+struct Model::Impl {
     Importer       importer;
     const aiScene* scene;
     const Meshes   meshes;
@@ -23,16 +23,16 @@ struct Scene::Impl {
 };
 
 static const string getValidPath(const string& path) {
-    validateNotEmpty("path", "Scene::Scene", path);
+    validateNotEmpty("path", "Model::Model", path);
     return path;
 }
 
-Scene::Scene(const string& path)
+Model::Model(const string& path)
     : impl(new Impl(getValidPath(path))) {}
 
-Scene::~Scene() {}
+Model::~Model() {}
 
-const Scene::Meshes& Scene::getMeshes() const {
+const Model::Meshes& Model::getMeshes() const {
     return impl->meshes;
 }
 
@@ -57,8 +57,8 @@ static const aiScene* getValidScene(const string& path, Importer& importer) {
     return scene;
 }
 
-static const Scene::Meshes loadMeshes(const aiScene* scene) {
-    Scene::Meshes meshes;
+static const Model::Meshes loadMeshes(const aiScene* scene) {
+    Model::Meshes meshes;
 
     for (auto i = 0u; i < scene->mNumMeshes; i++) {
         meshes.emplace_back(scene->mMeshes[i]);
@@ -67,7 +67,7 @@ static const Scene::Meshes loadMeshes(const aiScene* scene) {
     return meshes;
 }
 
-Scene::Impl::Impl(const string& path)
+Model::Impl::Impl(const string& path)
     : scene(getValidScene(path, importer))
     , meshes(loadMeshes(scene)) {}
 

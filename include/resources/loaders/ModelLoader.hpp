@@ -1,11 +1,11 @@
 #pragma once
 
 #include "resources/loaders/ResourceLoader.hpp"
-#include "graphics/Scene.hpp"
+#include "graphics/Model.hpp"
 
 namespace onux {
 
-class SceneLoader : public ResourceLoader<const Scene> {
+class ModelLoader : public ResourceLoader<const Model> {
 protected:
     // ResourceLoader
     virtual const std::string& getSubDirectory() const override;

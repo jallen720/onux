@@ -2,4 +2,4 @@
 
 #include <gtest/gtest.h>
 
-struct SceneTest : testing::Test {};
+struct ModelTest : testing::Test {};

@@ -3,14 +3,14 @@
 #include <memory>
 
 #include "resources/containers/Resources.hpp"
-#include "graphics/Scene.hpp"
+#include "graphics/Model.hpp"
 
 namespace onux {
 
-class Scenes : public Resources<const Scene> {
+class Models : public Resources<const Model> {
 public:
-    Scenes();
-    ~Scenes();
+    Models();
+    ~Models();
 
 protected:
     // Resources

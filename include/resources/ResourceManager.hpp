@@ -7,7 +7,7 @@ namespace onux {
 
 class ShaderSources;
 class Images;
-class Scenes;
+class Models;
 
 class ResourceManager {
 private:
@@ -20,7 +20,7 @@ public:
     ~ResourceManager();
     const onux::ShaderSources& getShaderSources() const;
     const onux::Images& getImages() const;
-    const onux::Scenes& getScenes() const;
+    const onux::Models& getModels() const;
 
 private:
     struct Impl;
