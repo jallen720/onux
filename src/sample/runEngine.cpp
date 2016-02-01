@@ -25,6 +25,7 @@
 #include "engine/GraphicsEngine.hpp"
 #include "engine/Engine.hpp"
 
+#include "resources/ResourceManager.hpp"
 #include "resources/containers/ShaderSources.hpp"
 #include "resources/containers/Images.hpp"
 #include "resources/containers/Scenes.hpp"
@@ -37,6 +38,7 @@ using std::cerr;
 using std::vector;
 using std::unique_ptr;
 using std::exception;
+
 using glm::vec3;
 using glm::perspective;
 using glm::radians;
@@ -58,6 +60,7 @@ using onux::Renderable;
 using onux::GraphicsEngine;
 using onux::Engine;
 
+using onux::ResourceManager;
 using onux::ShaderSources;
 using onux::Images;
 using onux::Scenes;
@@ -81,9 +84,10 @@ void runEngine() {
         configureOpenGL();
 
         // Resources
-        ShaderSources shaderSources;
-        Images images;
-        Scenes scenes;
+        const ResourceManager resourceManager;
+        const ShaderSources& shaderSources = resourceManager.getShaderSources();
+        const Images& images = resourceManager.getImages();
+        const Scenes& scenes = resourceManager.getScenes();
 
         // Shaders
         vector<unique_ptr<ShaderObject>> vertObjects;
