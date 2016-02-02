@@ -2,7 +2,7 @@
 
 #include "fixtures/graphics/ShaderSourceTest.hpp"
 #include "utils/expectNoThrow.hpp"
-#include "utils/testShaderPath.hpp"
+#include "utils/testShaderSourcePath.hpp"
 #include "utils/readFile.hpp"
 #include "exceptions/argErrors/InvalidArgProperty.hpp"
 #include "exceptions/argErrors/EmptyStringArg.hpp"
@@ -15,7 +15,7 @@ using onux::EmptyStringArg;
 
 TEST_F(ShaderSourceTest, validCreation) {
     expectNoThrow([] {
-        const ShaderSource shaderSource(testShaderPath("valid.vert"));
+        const ShaderSource shaderSource(testShaderSourcePath("valid.vert"));
     });
 }
 
@@ -34,7 +34,7 @@ TEST_F(ShaderSourceTest, emptyPath) {
 }
 
 static GLenum shaderSourceType(const string& type) {
-    return ShaderSource(testShaderPath("valid." + type)).getType();
+    return ShaderSource(testShaderSourcePath("valid." + type)).getType();
 }
 
 TEST_F(ShaderSourceTest, correctTypes) {
@@ -44,7 +44,7 @@ TEST_F(ShaderSourceTest, correctTypes) {
 }
 
 TEST_F(ShaderSourceTest, correctSources) {
-    const string shaderPath = testShaderPath("valid.vert");
+    const string shaderPath = testShaderSourcePath("valid.vert");
     const ShaderSource shaderSource(shaderPath);
     EXPECT_EQ(readFile(shaderPath), shaderSource.getCode());
 }

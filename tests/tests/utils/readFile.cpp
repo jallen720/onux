@@ -5,7 +5,7 @@
 #include <gtest/gtest.h>
 
 #include "utils/expectNoThrow.hpp"
-#include "utils/testShaderPath.hpp"
+#include "utils/testShaderSourcePath.hpp"
 #include "exceptions/Error.hpp"
 #include "exceptions/argErrors/EmptyStringArg.hpp"
 
@@ -15,7 +15,7 @@ using onux::EmptyStringArg;
 
 TEST(readFileTest, validFile) {
     expectNoThrow([] {
-        readFile(testShaderPath("valid.vert"));
+        readFile(testShaderSourcePath("valid.vert"));
     });
 }
 

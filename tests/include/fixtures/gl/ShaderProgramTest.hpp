@@ -6,13 +6,13 @@
 #include "graphics/ShaderSource.hpp"
 #include "gl/ShaderObject.hpp"
 #include "gl/ShaderProgram.hpp"
-#include "utils/testShaderPath.hpp"
+#include "utils/testShaderSourcePath.hpp"
 
 struct ShaderProgramTest : OnuxTest {
 private:
     const onux::ShaderSource validSources[2] {
-        { testShaderPath("valid.vert") },
-        { testShaderPath("valid.frag") },
+        { testShaderSourcePath("valid.vert") },
+        { testShaderSourcePath("valid.frag") },
     };
 
 protected:

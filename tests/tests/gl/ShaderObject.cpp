@@ -2,7 +2,7 @@
 
 #include "fixtures/gl/ShaderObjectTest.hpp"
 #include "utils/expectNoThrow.hpp"
-#include "utils/testShaderPath.hpp"
+#include "utils/testShaderSourcePath.hpp"
 #include "graphics/ShaderSource.hpp"
 #include "exceptions/Error.hpp"
 #include "exceptions/argErrors/ArgFailedRequirement.hpp"
@@ -15,7 +15,7 @@ using onux::ArgFailedRequirement;
 using onux::InvalidArgProperty;
 
 TEST_F(ShaderObjectTest, validCreation) {
-    const ShaderSource validSource(testShaderPath("valid.vert"));
+    const ShaderSource validSource(testShaderSourcePath("valid.vert"));
 
     expectNoThrow([&validSource] {
         const ShaderObject shaderObject({
@@ -33,8 +33,8 @@ TEST_F(ShaderObjectTest, noSources) {
 
 TEST_F(ShaderObjectTest, differentSourceTypes) {
     const ShaderSource invalidSources[] {
-        { testShaderPath("valid.vert") },
-        { testShaderPath("valid.frag") },
+        { testShaderSourcePath("valid.vert") },
+        { testShaderSourcePath("valid.frag") },
     };
 
     EXPECT_THROW(
@@ -49,8 +49,8 @@ TEST_F(ShaderObjectTest, differentSourceTypes) {
 
 TEST_F(ShaderObjectTest, compilationFailure) {
     const ShaderSource invalidSources[] {
-        { testShaderPath("valid.vert")   },
-        { testShaderPath("invalid.vert") },
+        { testShaderSourcePath("valid.vert")   },
+        { testShaderSourcePath("invalid.vert") },
     };
 
     EXPECT_THROW(

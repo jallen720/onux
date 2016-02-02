@@ -44,7 +44,7 @@ TEST_F(ShaderProgramTest, notAllRequiredTypes) {
 }
 
 TEST_F(ShaderProgramTest, noMainInObject) {
-    const ShaderSource noMainSource(testShaderPath("noMain.vert"));
+    const ShaderSource noMainSource(testShaderSourcePath("noMain.vert"));
     const ShaderObject noMainObject({ &noMainSource });
 
     EXPECT_THROW(
@@ -82,7 +82,7 @@ TEST_F(ShaderProgramTest, setInvalidUniform) {
 }
 
 TEST_F(ShaderProgramTest, setUnusedUniform) {
-    const ShaderSource unusedUniformSource(testShaderPath("unusedUniform.vert"));
+    const ShaderSource unusedUniformSource(testShaderSourcePath("unusedUniform.vert"));
     const ShaderObject unusedUniformObject({ &unusedUniformSource });
 
     const ShaderProgram shaderProgram({

@@ -5,7 +5,7 @@ using std::string;
 namespace onux {
 
 const string& ShaderSourceLoader::getSubDirectory() const {
-    static const string SUB_DIRECTORY = "shaders/";
+    static const string SUB_DIRECTORY = "shaders/src/";
     return SUB_DIRECTORY;
 }
 
