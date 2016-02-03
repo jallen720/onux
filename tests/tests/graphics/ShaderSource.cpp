@@ -3,13 +3,13 @@
 #include "fixtures/graphics/ShaderSourceTest.hpp"
 #include "utils/expectNoThrow.hpp"
 #include "utils/testShaderSourcePath.hpp"
-#include "utils/readFile.hpp"
+#include "utils/File.hpp"
 #include "exceptions/argErrors/InvalidArgProperty.hpp"
 #include "exceptions/argErrors/EmptyStringArg.hpp"
 
 using std::string;
 using onux::ShaderSource;
-using onux::readFile;
+using onux::File;
 using onux::InvalidArgProperty;
 using onux::EmptyStringArg;
 
@@ -46,5 +46,9 @@ TEST_F(ShaderSourceTest, correctTypes) {
 TEST_F(ShaderSourceTest, correctSources) {
     const string shaderPath = testShaderSourcePath("valid.vert");
     const ShaderSource shaderSource(shaderPath);
-    EXPECT_EQ(readFile(shaderPath), shaderSource.getCode());
+
+    EXPECT_EQ(
+        File(shaderPath).getContents(),
+        shaderSource.getCode()
+    );
 }

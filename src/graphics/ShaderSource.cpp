@@ -1,6 +1,6 @@
 #include "graphics/ShaderSource.hpp"
 
-#include "utils/readFile.hpp"
+#include "utils/File.hpp"
 #include "utils/getExtension.hpp"
 #include "exceptions/argErrors/InvalidArgProperty.hpp"
 #include "exceptions/validators/validateNotEmpty.hpp"
@@ -67,6 +67,6 @@ static const GLenum getValidType(const string& path) {
 
 ShaderSource::Impl::Impl(const string& path)
     : type(getValidType(path))
-    , code(readFile(path)) {}
+    , code(File(path).getContents()) {}
 
 } // namespace onux
