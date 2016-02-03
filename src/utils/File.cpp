@@ -29,9 +29,7 @@ File::File(const string& path)
 File::~File() {}
 
 void File::forEachLine(LineCallback callback) const {
-    static const char LINE_DELIMITER = '\r';
-
-    for (const string& line : split(impl->contents, LINE_DELIMITER)) {
+    for (const string& line : split(impl->contents, '\n')) {
         callback(line);
     }
 }
