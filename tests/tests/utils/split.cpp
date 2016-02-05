@@ -1,7 +1,6 @@
 #include "utils/split.hpp"
 
-#include <gtest/gtest.h>
-#include <algorithm>
+#include "utils/assertEqualElements.hpp"
 
 using std::string;
 using std::vector;
@@ -9,23 +8,18 @@ using std::equal;
 using onux::split;
 
 TEST(splitTest, successfulSplit) {
-    const vector<string> result = split("this is a sentence!", ' ');
-    const vector<string> expectedResult { "this", "is", "a", "sentence!" };
-
-    EXPECT_TRUE(equal(
-        result.begin(),
-        result.end(),
-        expectedResult.begin()
-    ));
+    assertEqualElements(
+        { "this", "is", "a", "sentence!" },
+        split("this is a sentence!", ' ')
+    );
 }
 
 TEST(splitTest, emptyString) {
-    const vector<string> result = split("", ' ');
-    const vector<string> expectedResult;
+    assertEqualElements(vector<string>(), split("", ' '));
+}
 
-    EXPECT_TRUE(equal(
-        result.begin(),
-        result.end(),
-        expectedResult.begin()
-    ));
+TEST(splitTest, emptyStringsAroundDelimiter) {
+    EXPECT_EQ(2, split("=src1", '=').size());
+    EXPECT_EQ(1, split("test=", '=').size());
+    EXPECT_EQ(1, split("="    , '=').size());
 }
