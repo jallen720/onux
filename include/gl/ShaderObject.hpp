@@ -11,10 +11,10 @@ struct IShaderSource;
 
 class ShaderObject : public GLData {
 public:
-    typedef const std::vector<const IShaderSource*>& Sources;
+    typedef std::vector<const IShaderSource*> Sources;
 
 public:
-    explicit ShaderObject(Sources sources);
+    explicit ShaderObject(const Sources& sources);
     ~ShaderObject();
     const GLenum getType() const;
 

@@ -15,7 +15,7 @@ struct ShaderObject::Impl {
     const ShaderObjectInfo info;
 
     Impl(const GLuint id);
-    void loadSources(Sources sources) const;
+    void loadSources(const Sources& sources) const;
     void compile() const;
     void validateCompileStatus() const;
     const bool compilationSucceeded() const;
@@ -34,13 +34,13 @@ static void validateSourceCount(const size_t sourceCount) {
     }
 }
 
-static bool areSameType(ShaderObject::Sources sources, const GLenum type) {
+static bool areSameType(const ShaderObject::Sources& sources, const GLenum type) {
     return !existsIn(sources, [&](auto source) {
         return source->getType() != type;
     });
 }
 
-static void validateSameType(ShaderObject::Sources sources, const GLenum type) {
+static void validateSameType(const ShaderObject::Sources& sources, const GLenum type) {
     if (!areSameType(sources, type)) {
         throw ArgFailedRequirement(
             "sources",
@@ -50,14 +50,14 @@ static void validateSameType(ShaderObject::Sources sources, const GLenum type) {
     }
 }
 
-static const GLuint getValidShaderObject(ShaderObject::Sources sources) {
+static const GLuint getValidShaderObject(const ShaderObject::Sources& sources) {
     validateSourceCount(sources.size());
     const GLenum type = sources[0]->getType();
     validateSameType(sources, type);
     return glCreateShader(type);
 }
 
-ShaderObject::ShaderObject(Sources sources)
+ShaderObject::ShaderObject(const Sources& sources)
     : GLData(getValidShaderObject(sources))
     , impl(new Impl(getID())) {
     impl->loadSources(sources);
@@ -83,7 +83,7 @@ ShaderObject::Impl::Impl(const GLuint id)
         glGetShaderInfoLog
     ) {}
 
-void ShaderObject::Impl::loadSources(Sources sources) const {
+void ShaderObject::Impl::loadSources(const Sources& sources) const {
     const size_t sourceCount = sources.size();
     const GLchar* sourceCode[sourceCount];
 
@@ -105,7 +105,7 @@ void ShaderObject::Impl::compile() const {
 
 void ShaderObject::Impl::validateCompileStatus() const {
     if (!compilationSucceeded()) {
-        // TODO: Destroy shader here
+        // TODO: Destroy shader here?
         throw Error("ShaderObject compilation failed:\n" + info.getLog());
     }
 }
