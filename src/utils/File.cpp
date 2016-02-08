@@ -3,7 +3,7 @@
 #include <fstream>
 
 #include "utils/split.hpp"
-#include "exceptions/Error.hpp"
+#include "exceptions/FileError.hpp"
 #include "exceptions/validators/validateNotEmpty.hpp"
 
 using std::string;
@@ -42,7 +42,11 @@ const string& File::getContents() const {
 
 static void validateStream(const ifstream& stream, const string& path) {
     if (!stream.is_open()) {
-        throw Error("Failed to open \"" + path + "\"");
+        throw FileError(
+            path,
+            "File::Impl",
+            "failed to open"
+        );
     }
 }
 

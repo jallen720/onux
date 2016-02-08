@@ -1,20 +1,17 @@
 #include "utils/File.hpp"
 
-#include "utils/values.hpp"
-
 #include <gtest/gtest.h>
-#include <cstring>
 
 #include "utils/expectNoThrow.hpp"
 #include "utils/testShaderSourcePath.hpp"
 #include "utils/testMiscFilePath.hpp"
-#include "exceptions/Error.hpp"
+#include "exceptions/FileError.hpp"
 #include "exceptions/argErrors/EmptyStringArg.hpp"
 
 using std::string;
 using std::vector;
 using onux::File;
-using onux::Error;
+using onux::FileError;
 using onux::EmptyStringArg;
 
 TEST(FileTest, validCreation) {
@@ -24,25 +21,25 @@ TEST(FileTest, validCreation) {
 }
 
 TEST(FileTest, contentsMatch) {
-    static const char* expectedResult =
-        "#version 330 core\n\r"
-        "\n\r"
-        "layout (location = 0) in vec3 position;\n\r"
-        "\n\r"
-        "out vec4 vertColor;\n\r"
-        "\n\r"
-        "uniform vec3 testVec3;\n\r"
-        "uniform mat4 testMat4;\n\r"
-        "\n\r"
-        "void main() {\n\r"
-        "    gl_Position = testMat4 * vec4(position + testVec3, 1.0);\n\r"
-        "    vertColor = gl_Position;\n\r"
-        "}\n\r";
+    static const string expectedResult =
+        "#version 330 core\n"
+        "\n"
+        "layout (location = 0) in vec3 position;\n"
+        "\n"
+        "out vec4 vertColor;\n"
+        "\n"
+        "uniform vec3 testVec3;\n"
+        "uniform mat4 testMat4;\n"
+        "\n"
+        "void main() {\n"
+        "    gl_Position = testMat4 * vec4(position + testVec3, 1.0);\n"
+        "    vertColor = gl_Position;\n"
+        "}\n";
 
-    EXPECT_TRUE(strcmp(
+    EXPECT_EQ(
         expectedResult,
-        File(testShaderSourcePath("valid.vert")).getContents().c_str()
-    ));
+        File(testShaderSourcePath("valid.vert")).getContents()
+    );
 }
 
 TEST(FileTest, linesMatch) {
@@ -66,7 +63,7 @@ TEST(FileTest, linesMatch) {
 TEST(FileTest, invalidFile) {
     EXPECT_THROW(
         const File file("does_not_exist"),
-        Error
+        FileError
     );
 }
 
