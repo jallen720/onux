@@ -1,2 +1,0 @@
-vert=valid
-frag=valid
