@@ -12,10 +12,10 @@ class ShaderObject;
 
 class ShaderProgram : public GLData {
 public:
-    typedef const std::vector<const ShaderObject*>& Objects;
+    typedef std::vector<const ShaderObject*> Objects;
 
 public:
-    explicit ShaderProgram(Objects objects);
+    explicit ShaderProgram(const Objects& objects);
     ~ShaderProgram();
     void use() const;
     void setUniform(const GLchar* name, const GLint value) const;

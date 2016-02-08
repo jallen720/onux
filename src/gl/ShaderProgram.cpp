@@ -34,13 +34,13 @@ struct ShaderProgram::Impl {
     const GLint getUniformLocation(const GLchar* name) const;
 };
 
-static const bool hasType(ShaderProgram::Objects objects, const GLenum type) {
+static const bool hasType(const ShaderProgram::Objects& objects, const GLenum type) {
     return existsIn(objects, [&](auto object) {
         return object->getType() == type;
     });
 }
 
-static const bool hasRequiredTypes(ShaderProgram::Objects objects) {
+static const bool hasRequiredTypes(const ShaderProgram::Objects& objects) {
     // The minimum requirements for a shader program to be created are a vertex shader object and a
     // fragment shader object.
     static const vector<GLenum> REQUIRED_TYPES {
@@ -53,7 +53,7 @@ static const bool hasRequiredTypes(ShaderProgram::Objects objects) {
     });
 }
 
-static void validateHasRequiredTypes(ShaderProgram::Objects objects) {
+static void validateHasRequiredTypes(const ShaderProgram::Objects& objects) {
     if (!hasRequiredTypes(objects)) {
         throw ArgFailedRequirement(
             "objects",
@@ -63,12 +63,12 @@ static void validateHasRequiredTypes(ShaderProgram::Objects objects) {
     }
 }
 
-static GLuint getValidShaderProgram(ShaderProgram::Objects objects) {
+static GLuint getValidShaderProgram(const ShaderProgram::Objects& objects) {
     validateHasRequiredTypes(objects);
     return glCreateProgram();
 }
 
-ShaderProgram::ShaderProgram(Objects objects)
+ShaderProgram::ShaderProgram(const Objects& objects)
     : GLData(getValidShaderProgram(objects))
     , impl(new Impl(getID())) {
     impl->process(objects, glAttachShader);
