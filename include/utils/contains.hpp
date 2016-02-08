@@ -6,8 +6,8 @@
 
 namespace onux {
 
-template<typename T>
-const bool contains(const std::vector<T>& container, const T& item) {
+template<typename Container, typename T>
+const bool contains(const Container& container, const T& item) {
     return std::find(
         container.begin(),
         container.end(),
