@@ -5,7 +5,7 @@
 
 namespace onux {
 
-class ShaderSources;
+class Shaders;
 class Images;
 class Models;
 
@@ -18,9 +18,9 @@ public:
         const std::string& resourcesDirectory = DEFAULT_RESOURCES_DIRECTORY
     );
     ~ResourceManager();
-    const onux::ShaderSources& getShaderSources() const;
-    const onux::Images& getImages() const;
-    const onux::Models& getModels() const;
+    const Shaders& getShaders() const;
+    const Images& getImages() const;
+    const Models& getModels() const;
 
 private:
     struct Impl;

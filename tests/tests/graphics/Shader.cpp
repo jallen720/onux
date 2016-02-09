@@ -18,7 +18,7 @@ using onux::FileError;
 
 TEST_F(ShaderTest, validCreation) {
     expectNoThrow([&] {
-        const Shader shader("resources/shaders/diffuse", shaderSources);
+        const Shader shader("resources/shaders/diffuse.yaml", shaderSources);
     });
 }
 
@@ -31,22 +31,22 @@ TEST_F(ShaderTest, emptyPath) {
 
 TEST_F(ShaderTest, invalidPath) {
     EXPECT_THROW(
-        const Shader shader(testShaderPath("invalid_path"), shaderSources),
+        const Shader shader(testShaderPath("invalid_path.yaml"), shaderSources),
         BadFile
     );
 }
 
 TEST_F(ShaderTest, invalidTypeFormat) {
     EXPECT_THROW(
-        const Shader shader(testShaderPath("invalidTypeFormat"), shaderSources),
+        const Shader shader(testShaderPath("invalidTypeFormat.yaml"), shaderSources),
         FileError
     );
 }
 
 TEST_F(ShaderTest, invalidSourcePathsFormat) {
     const string shaderPaths[] {
-        testShaderPath("invalidSourcePathsFormat0"),
-        testShaderPath("invalidSourcePathsFormat1"),
+        testShaderPath("invalidSourcePathsFormat0.yaml"),
+        testShaderPath("invalidSourcePathsFormat1.yaml"),
     };
 
     for (auto& shaderPath : shaderPaths) {
@@ -59,21 +59,21 @@ TEST_F(ShaderTest, invalidSourcePathsFormat) {
 
 TEST_F(ShaderTest, invalidType) {
     EXPECT_THROW(
-        const Shader shader(testShaderPath("invalidType"), shaderSources),
+        const Shader shader(testShaderPath("invalidType.yaml"), shaderSources),
         FileError
     );
 }
 
 TEST_F(ShaderTest, emptySourcePaths) {
     EXPECT_THROW(
-        const Shader shader(testShaderPath("emptySourcePaths"), shaderSources),
+        const Shader shader(testShaderPath("emptySourcePaths.yaml"), shaderSources),
         FileError
     );
 }
 
 TEST_F(ShaderTest, missingRequiredTypes) {
     EXPECT_THROW(
-        const Shader shader(testShaderPath("missingRequiredTypes"), shaderSources),
+        const Shader shader(testShaderPath("missingRequiredTypes.yaml"), shaderSources),
         FileError
     );
 }

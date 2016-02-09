@@ -24,7 +24,7 @@
 #include "engine/Engine.hpp"
 
 #include "resources/ResourceManager.hpp"
-#include "resources/containers/ShaderSources.hpp"
+#include "resources/containers/Shaders.hpp"
 #include "resources/containers/Images.hpp"
 #include "resources/containers/Models.hpp"
 
@@ -57,7 +57,7 @@ using onux::GraphicsEngine;
 using onux::Engine;
 
 using onux::ResourceManager;
-using onux::ShaderSources;
+using onux::Shaders;
 using onux::Images;
 using onux::Models;
 
@@ -81,22 +81,12 @@ void runEngine() {
 
         // Resources
         const ResourceManager resourceManager;
-        const ShaderSources& shaderSources = resourceManager.getShaderSources();
+        const Shaders& shaders = resourceManager.getShaders();
         const Images& images = resourceManager.getImages();
         const Models& models = resourceManager.getModels();
 
-        const Shader diffuse {
-            "resources/shaders/diffuse",
-            shaderSources
-        };
-
-        const Shader multiTexture {
-            "resources/shaders/multiTexture",
-            shaderSources
-        };
-
-        multiTexture.getProgram().use();
-        multiTexture.getProgram().setUniform("texture1", 1);
+        shaders["multiTexture.yaml"]->getProgram().use();
+        shaders["multiTexture.yaml"]->getProgram().setUniform("texture1", 1);
 
         // Textures
         vector<unique_ptr<Texture>> textures;
@@ -108,7 +98,7 @@ void runEngine() {
         Renderable renderables[] {
             Renderable(
                 models["hheli.obj"]->getMeshes()[0],
-                diffuse.getProgram(),
+                shaders["diffuse.yaml"]->getProgram(),
 
                 {
                     textures[2].get(),
@@ -117,7 +107,7 @@ void runEngine() {
 
             Renderable(
                 models["cube.obj"]->getMeshes()[0],
-                multiTexture.getProgram(),
+                shaders["multiTexture.yaml"]->getProgram(),
 
                 {
                     textures[0].get(),
@@ -127,7 +117,7 @@ void runEngine() {
 
             Renderable(
                 models["hheli.obj"]->getMeshes()[0],
-                diffuse.getProgram(),
+                shaders["diffuse.yaml"]->getProgram(),
 
                 {
                     textures[2].get(),

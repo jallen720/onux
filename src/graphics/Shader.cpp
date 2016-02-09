@@ -34,10 +34,8 @@ struct Shader::Impl {
 };
 
 static const string getValidPath(const string& path) {
-    static const string SHADER_FILE_EXTENSION = "yaml";
-
     validateNotEmpty("path", "ShaderFile::ShaderFile", path);
-    return path + "." + SHADER_FILE_EXTENSION;
+    return path;
 }
 
 Shader::Shader(const string& path, const ShaderSources& shaderSources)

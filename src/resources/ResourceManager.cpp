@@ -1,6 +1,7 @@
 #include "resources/ResourceManager.hpp"
 
 #include "resources/containers/ShaderSources.hpp"
+#include "resources/containers/Shaders.hpp"
 #include "resources/containers/Images.hpp"
 #include "resources/containers/Models.hpp"
 
@@ -10,6 +11,7 @@ namespace onux {
 
 struct ResourceManager::Impl {
     const ShaderSources shaderSources;
+    const Shaders shaders { shaderSources };
     const Images images;
     const Models models;
 };
@@ -21,8 +23,8 @@ ResourceManager::ResourceManager(const string& resourcesDirectory)
 
 ResourceManager::~ResourceManager() {}
 
-const ShaderSources& ResourceManager::getShaderSources() const {
-    return impl->shaderSources;
+const Shaders& ResourceManager::getShaders() const {
+    return impl->shaders;
 }
 
 const Images& ResourceManager::getImages() const {
