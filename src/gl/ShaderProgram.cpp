@@ -27,7 +27,7 @@ struct ShaderProgram::Impl {
     const ShaderProgramInfo info;
 
     Impl(const GLuint id);
-    void process(Objects objects, Processor processor) const;
+    void process(const Objects& objects, Processor processor) const;
     void link() const;
     void validateLinkStatus() const;
     const bool linkingSucceeded() const;
@@ -147,7 +147,7 @@ ShaderProgram::Impl::Impl(const GLuint id)
         glGetProgramInfoLog
     ) {}
 
-void ShaderProgram::Impl::process(Objects objects, Processor processor) const {
+void ShaderProgram::Impl::process(const Objects& objects, Processor processor) const {
     for (auto object : objects) {
         processor(id, object->getID());
     }
