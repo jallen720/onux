@@ -15,18 +15,18 @@ $(info Building tests, adding $(TESTS_INCS) to additional include directories.)
 endif
 
 # Libraries
-APP_LIBS    =
 GTEST_LIBS  = -lgtest -lpthread
 GLEW_LIBS   = `pkg-config --libs glew`
 GLFW3_LIBS  = `pkg-config --static --libs glfw3`
 MAGICK_LIBS = `pkg-config --static --libs Magick++`
 ASSIMP_LIBS = `pkg-config --libs assimp`
 BOOST_LIBS  = -lboost_system -lboost_filesystem
+YAML_CPP    = `pkg-config --static --libs yaml-cpp`
 LIBS        = \
-	$(APP_LIBS) \
 	$(GTEST_LIBS) \
 	$(GLEW_LIBS) \
 	$(GLFW3_LIBS) \
 	$(MAGICK_LIBS) \
 	$(ASSIMP_LIBS) \
-	$(BOOST_LIBS)
+	$(BOOST_LIBS) \
+	$(YAML_CPP)

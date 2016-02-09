@@ -1,0 +1,2 @@
+# Shaders require atleast 1 vertex and 1 fragment source
+vert: ["valid"]

@@ -23,6 +23,7 @@
 #include "engine/Engine.hpp"
 
 #include "resources/ResourceManager.hpp"
+#include "resources/Shader.hpp"
 #include "resources/containers/ShaderSources.hpp"
 #include "resources/containers/Images.hpp"
 #include "resources/containers/Models.hpp"
@@ -55,6 +56,7 @@ using onux::GraphicsEngine;
 using onux::Engine;
 
 using onux::ResourceManager;
+using onux::Shader;
 using onux::ShaderSources;
 using onux::Images;
 using onux::Models;
@@ -83,45 +85,18 @@ void runEngine() {
         const Images& images = resourceManager.getImages();
         const Models& models = resourceManager.getModels();
 
-        // Shaders
-        vector<unique_ptr<ShaderObject>> vertObjects;
+        const Shader diffuse {
+            "resources/shaders/diffuse",
+            shaderSources
+        };
 
-        vertObjects.emplace_back(new ShaderObject({
-            shaderSources["onux.vert"],
-            shaderSources["sample0.vert"],
-        }));
+        const Shader multiTexture {
+            "resources/shaders/multiTexture",
+            shaderSources
+        };
 
-        vertObjects.emplace_back(new ShaderObject({
-            shaderSources["onux.vert"],
-            shaderSources["sample1.vert"],
-        }));
-
-        vector<unique_ptr<ShaderObject>> fragObjects;
-
-        fragObjects.emplace_back(new ShaderObject({
-            shaderSources["onux.frag"],
-            shaderSources["sample0.frag"],
-        }));
-
-        fragObjects.emplace_back(new ShaderObject({
-            shaderSources["onux.frag"],
-            shaderSources["sample1.frag"],
-        }));
-
-        vector<unique_ptr<ShaderProgram>> shaderPrograms;
-
-        shaderPrograms.emplace_back(new ShaderProgram({
-            vertObjects[0].get(),
-            fragObjects[0].get(),
-        }));
-
-        shaderPrograms.emplace_back(new ShaderProgram({
-            vertObjects[1].get(),
-            fragObjects[1].get(),
-        }));
-
-        shaderPrograms[0]->use();
-        shaderPrograms[0]->setUniform("texture1", 1);
+        multiTexture.getProgram().use();
+        multiTexture.getProgram().setUniform("texture1", 1);
 
         // Textures
         vector<unique_ptr<Texture>> textures;
@@ -133,7 +108,7 @@ void runEngine() {
         Renderable renderables[] {
             Renderable(
                 models["hheli.obj"]->getMeshes()[0],
-                *shaderPrograms[1].get(),
+                diffuse.getProgram(),
 
                 {
                     textures[2].get(),
@@ -142,7 +117,7 @@ void runEngine() {
 
             Renderable(
                 models["cube.obj"]->getMeshes()[0],
-                *shaderPrograms[0].get(),
+                multiTexture.getProgram(),
 
                 {
                     textures[0].get(),
@@ -152,7 +127,7 @@ void runEngine() {
 
             Renderable(
                 models["hheli.obj"]->getMeshes()[0],
-                *shaderPrograms[1].get(),
+                diffuse.getProgram(),
 
                 {
                     textures[2].get(),
