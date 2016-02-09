@@ -29,8 +29,8 @@ typedef unique_ptr<const ShaderProgram> ShaderProgramPtr;
 struct Shader::Impl {
     const ShaderProgramPtr shaderProgram;
 
-    explicit Impl(const string& path, const ShaderSources& shaderSources);
-    explicit Impl(const Node& data, const ShaderSources& shaderSources);
+    Impl(const string& path, const ShaderSources& shaderSources);
+    Impl(const Node& data, const ShaderSources& shaderSources);
 };
 
 static const string getValidPath(const string& path) {
@@ -111,8 +111,7 @@ static void validateTypeFormat(const Node& type, const string& path) {
         throw FileError(
             path,
             "ShaderFile::Impl::Impl",
-            "has a type in an invalid format "
-            "(must be a scalar value)"
+            "has a type in an invalid format (must be a scalar value)"
         );
     }
 }
