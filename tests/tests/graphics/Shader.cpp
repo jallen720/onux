@@ -1,10 +1,10 @@
-#include "resources/Shader.hpp"
+#include "graphics/Shader.hpp"
 
 #include <string>
 #include <gtest/gtest.h>
 #include <yaml-cpp/yaml.h>
 
-#include "fixtures/resources/ShaderTest.hpp"
+#include "fixtures/graphics/ShaderTest.hpp"
 #include "utils/expectNoThrow.hpp"
 #include "utils/testShaderPath.hpp"
 #include "exceptions/argErrors/EmptyStringArg.hpp"

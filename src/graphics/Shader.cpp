@@ -1,4 +1,4 @@
-#include "resources/Shader.hpp"
+#include "graphics/Shader.hpp"
 
 #include <vector>
 #include <map>

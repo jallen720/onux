@@ -13,6 +13,7 @@
 #include "environment/loadExtensions.hpp"
 
 #include "graphics/Camera.hpp"
+#include "graphics/Shader.hpp"
 
 #include "gl/ShaderObject.hpp"
 #include "gl/ShaderProgram.hpp"
@@ -23,7 +24,6 @@
 #include "engine/Engine.hpp"
 
 #include "resources/ResourceManager.hpp"
-#include "resources/Shader.hpp"
 #include "resources/containers/ShaderSources.hpp"
 #include "resources/containers/Images.hpp"
 #include "resources/containers/Models.hpp"
@@ -46,6 +46,7 @@ using onux::Window;
 using onux::loadExtensions;
 
 using onux::Camera;
+using onux::Shader;
 
 using onux::ShaderObject;
 using onux::ShaderProgram;
@@ -56,7 +57,6 @@ using onux::GraphicsEngine;
 using onux::Engine;
 
 using onux::ResourceManager;
-using onux::Shader;
 using onux::ShaderSources;
 using onux::Images;
 using onux::Models;
