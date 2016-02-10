@@ -10,9 +10,9 @@ namespace onux {
 
 class ValidValues {
 private:
-    typedef std::string ValueName;
-    typedef const std::vector<ValueName> ValueNames;
-    typedef const std::map<const GLenum, const ValueName> Values;
+    using ValueName = std::string;
+    using ValueNames = const std::vector<ValueName>;
+    using Values = const std::map<const GLenum, const ValueName>;
 
 public:
     explicit ValidValues(Values& values);

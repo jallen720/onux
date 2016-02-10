@@ -8,7 +8,7 @@ namespace onux {
 
 class File {
 private:
-    typedef const std::function<void(const std::string&)>& LineCallback;
+    using LineCallback = const std::function<void(const std::string&)>&;
 
 public:
     explicit File(const std::string& path);

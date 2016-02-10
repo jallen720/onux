@@ -16,8 +16,8 @@ private:
     };
 
 protected:
-    typedef std::unique_ptr<onux::ShaderObject> ShaderObjectPtr;
-    typedef std::unique_ptr<onux::ShaderProgram> ShaderProgramPtr;
+    using ShaderObjectPtr = std::unique_ptr<onux::ShaderObject>;
+    using ShaderProgramPtr = std::unique_ptr<onux::ShaderProgram>;
 
     ShaderObjectPtr validObjects[2] {
         ShaderObjectPtr(new onux::ShaderObject({

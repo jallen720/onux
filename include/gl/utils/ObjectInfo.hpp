@@ -9,8 +9,8 @@ namespace onux {
 
 class ObjectInfo {
 private:
-    typedef void (*GetValue)(const GLuint, const GLenum, GLint*);
-    typedef void (*GetLog)(const GLuint, const GLsizei, GLsizei*, GLchar*);
+    using GetValue = void (*)(const GLuint, const GLenum, GLint*);
+    using GetLog = void (*)(const GLuint, const GLsizei, GLsizei*, GLchar*);
 
 public:
     ObjectInfo(

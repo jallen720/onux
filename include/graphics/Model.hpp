@@ -11,7 +11,7 @@ namespace onux {
 
 class Model {
 public:
-    typedef std::vector<Mesh> Meshes;
+    using Meshes = std::vector<Mesh>;
 
 public:
     explicit Model(const std::string& path);

@@ -12,22 +12,20 @@ using glm::dvec2;
 
 namespace onux {
 
-typedef const GLFWwindow* Window;
-
 struct Input::Impl {
-    Window          window;
+    const Window    window;
     MouseMoveEvent  mouseMoveEvent;
     MouseDeltaEvent mouseDeltaEvent;
 
-    Impl(Window window);
+    Impl(const Window window);
 };
 
-static Window getValidWindow(Window window) {
+static const Input::Window getValidWindow(const Input::Window window) {
     validateNotNull("window", "Input::Input", window);
     return window;
 }
 
-Input::Input(GLFWwindow* window)
+Input::Input(Window window)
     : impl(new Impl(getValidWindow(window))) {
     registerInput(this, window);
 }
@@ -52,7 +50,7 @@ MouseDeltaEvent& Input::getMouseDeltaEvent() {
 
 // Implementation
 
-Input::Impl::Impl(Window window)
+Input::Impl::Impl(const Window window)
     : window(window) {}
 
 } // namespace onux

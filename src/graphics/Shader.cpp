@@ -24,7 +24,7 @@ using YAML::BadConversion;
 
 namespace onux {
 
-typedef unique_ptr<const ShaderProgram> ShaderProgramPtr;
+using ShaderProgramPtr = unique_ptr<const ShaderProgram>;
 
 struct Shader::Impl {
     const ShaderProgramPtr shaderProgram;
@@ -49,7 +49,7 @@ const ShaderProgram& Shader::getProgram() const {
 
 // Implementation
 
-typedef const pair<const Node&, const Node&>& Data;
+using Data = const pair<const Node&, const Node&>&;
 
 static const string getType(Data data) {
     return data.first.as<string>();

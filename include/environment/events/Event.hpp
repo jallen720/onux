@@ -7,10 +7,10 @@ namespace onux {
 template<typename T, typename... Args>
 class Event {
 protected:
-    typedef T* Listener;
+    using Listener = T*;
 
 private:
-    typedef std::vector<Listener> Listeners;
+    using Listeners = std::vector<Listener>;
 
 public:
     virtual ~Event() {}

@@ -10,7 +10,7 @@ class Camera;
 
 class GraphicsEngine {
 public:
-    typedef const std::vector<const Renderable*> Drawables;
+    using Drawables = const std::vector<const Renderable*>;
 
 public:
     GraphicsEngine(Drawables& drawables, Camera& camera);

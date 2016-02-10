@@ -9,10 +9,10 @@ namespace onux {
 template<typename T>
 class ResourceLoader {
 public:
-    typedef std::unique_ptr<T> Resource;
+    using Resource = std::unique_ptr<T>;
 
 private:
-    typedef const std::function<void(const std::string&, Resource)>& LoadCallback;
+    using LoadCallback = const std::function<void(const std::string&, Resource)>&;
 
 public:
     virtual ~ResourceLoader() {}

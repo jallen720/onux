@@ -8,7 +8,7 @@ namespace onux {
 struct IVertexAttribute;
 
 struct IVertexLayout {
-    typedef const std::vector<const IVertexAttribute*> Attributes;
+    using Attributes = const std::vector<const IVertexAttribute*>;
 
     virtual ~IVertexLayout() {}
     virtual Attributes& getAttributes() const = 0;

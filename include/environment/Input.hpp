@@ -13,7 +13,10 @@ class MouseDeltaEvent;
 
 class Input : public IInput {
 public:
-    explicit Input(GLFWwindow* window);
+    using Window = GLFWwindow*;
+
+public:
+    explicit Input(Window window);
     ~Input();
     MouseMoveEvent& getMouseMoveEvent();
     MouseDeltaEvent& getMouseDeltaEvent();

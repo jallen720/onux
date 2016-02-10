@@ -11,7 +11,7 @@ struct IImage;
 
 class Texture : public GLData {
 public:
-    typedef const std::map<const GLenum, const GLint> Options;
+    using Options = const std::map<const GLenum, const GLint>;
 
 private:
     static Options DEFAULT_OPTIONS;

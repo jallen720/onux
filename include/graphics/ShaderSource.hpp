@@ -10,7 +10,7 @@ namespace onux {
 
 class ShaderSource : public IShaderSource {
 public:
-    typedef const std::map<const std::string, const GLenum> Types;
+    using Types = const std::map<const std::string, const GLenum>;
 
 public:
     static Types TYPES;

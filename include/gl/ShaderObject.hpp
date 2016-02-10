@@ -11,7 +11,7 @@ struct IShaderSource;
 
 class ShaderObject : public GLData {
 public:
-    typedef std::vector<const IShaderSource*> Sources;
+    using Sources = std::vector<const IShaderSource*>;
 
 public:
     explicit ShaderObject(const Sources& sources);

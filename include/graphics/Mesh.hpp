@@ -12,8 +12,8 @@ namespace onux {
 
 class Mesh {
 public:
-    typedef BufferData<Vertex> Vertexes;
-    typedef BufferData<GLuint> Indexes;
+    using Vertexes = BufferData<Vertex>;
+    using Indexes = BufferData<GLuint>;
 
 public:
     explicit Mesh(const aiMesh* mesh);

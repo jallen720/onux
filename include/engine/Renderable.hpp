@@ -14,7 +14,7 @@ class Transform;
 
 class Renderable {
 public:
-    typedef const std::vector<const Texture*> Textures;
+    using Textures = const std::vector<const Texture*>;
 
 public:
     Renderable(

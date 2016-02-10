@@ -7,9 +7,9 @@ using glm::dvec2;
 namespace onux {
 
 struct MouseDeltaEvent::Impl {
-    typedef MouseDeltaEvent* Self;
+    using Self = MouseDeltaEvent*;
 
-    Self self;
+    Self  self;
     dvec2 previousPosition;
 
     const dvec2 getDelta(const dvec2& position);

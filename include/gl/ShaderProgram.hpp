@@ -12,7 +12,7 @@ class ShaderObject;
 
 class ShaderProgram : public GLData {
 public:
-    typedef std::vector<const ShaderObject*> Objects;
+    using Objects = std::vector<const ShaderObject*>;
 
 public:
     explicit ShaderProgram(const Objects& objects);

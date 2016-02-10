@@ -21,7 +21,7 @@ using glm::mat4;
 namespace onux {
 
 struct ShaderProgram::Impl {
-    typedef void (*Processor)(const GLuint, const GLuint);
+    using Processor = void (*)(const GLuint, const GLuint);
 
     const GLuint            id;
     const ShaderProgramInfo info;
