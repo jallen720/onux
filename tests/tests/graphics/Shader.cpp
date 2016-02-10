@@ -49,7 +49,7 @@ TEST_F(ShaderTest, invalidSourcePathsFormat) {
         testShaderPath("invalidSourcePathsFormat1.yaml"),
     };
 
-    for (auto& shaderPath : shaderPaths) {
+    for (const string& shaderPath : shaderPaths) {
         EXPECT_THROW(
             const Shader shader(shaderPath, shaderSources),
             FileError

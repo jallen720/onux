@@ -16,7 +16,7 @@ void ResourceLoader<T>::loadAll(LoadCallback loadCallback) const {
 
 template<typename T>
 const std::string ResourceLoader<T>::getDirectory() const {
-    static const auto DIRECTORY = "./resources/";
+    static auto DIRECTORY = "./resources/";
     return DIRECTORY + getSubDirectory();
 }
 

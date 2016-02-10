@@ -35,7 +35,7 @@ static void validateSourceCount(const size_t sourceCount) {
 }
 
 static bool areSameType(const ShaderObject::Sources& sources, const GLenum type) {
-    return !existsIn(sources, [&](auto source) {
+    return !existsIn(sources, [&](const IShaderSource* source) {
         return source->getType() != type;
     });
 }

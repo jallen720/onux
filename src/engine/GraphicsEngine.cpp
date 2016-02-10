@@ -36,7 +36,7 @@ void GraphicsEngine::render() {
 // Implementation
 
 void GraphicsEngine::Impl::renderDrawables() const {
-    for (auto drawable : drawables) {
+    for (const Renderable* drawable : drawables) {
         drawable->enable(camera);
         drawable->getMeshRenderer().render();
     }

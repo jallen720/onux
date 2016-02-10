@@ -185,7 +185,7 @@ static ShaderProgramPtr getShaderProgram(const Node& file, const ShaderSources& 
     for (Data data : file) {
         ShaderObject::Sources sources;
 
-        for (const auto& sourcePath : getSourcePaths(data)) {
+        for (const string& sourcePath : getSourcePaths(data)) {
             sources.push_back(shaderSources[sourcePath + "." + getType(data)]);
         }
 
@@ -193,7 +193,11 @@ static ShaderProgramPtr getShaderProgram(const Node& file, const ShaderSources& 
     }
 
     ShaderProgramPtr shaderProgram(new ShaderProgram(objects));
-    for (auto object : objects) delete object;
+
+    for (const ShaderObject* object : objects) {
+        delete object;
+    }
+
     return shaderProgram;
 }
 

@@ -90,7 +90,7 @@ static void validateOptionValue(const GLenum optionKey, const GLint optionValue)
 }
 
 static void validateOptions(Texture::Options& options) {
-    for (auto option : options) {
+    for (const Texture::Options::value_type& option : options) {
         validateOptionKey(option.first);
         validateOptionValue(option.first, option.second);
     }
@@ -158,7 +158,7 @@ void Texture::Impl::loadImage(const IImage* image) const {
 }
 
 void Texture::Impl::loadOptions(Options& options) const {
-    for (auto option : options) {
+    for (const Options::value_type& option : options) {
         glTexParameteri(
             TARGET,
             option.first,

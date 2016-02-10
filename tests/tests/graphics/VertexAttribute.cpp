@@ -30,10 +30,10 @@ TEST(VertexAttributeTest, invalidElementCount) {
     // Valid element counts are 1 - 4.
     static const GLint INVALID_ELEMENT_COUNTS[] { 0, 5 };
 
-    for (auto INVALID_ELEMENT_COUNT : INVALID_ELEMENT_COUNTS) {
+    for (const GLint invalidElementCount : INVALID_ELEMENT_COUNTS) {
         EXPECT_THROW(
             const VertexAttribute vertexAttribute(
-                INVALID_ELEMENT_COUNT,
+                invalidElementCount,
                 VALID_TYPE,
                 VALID_IS_NORMALIZED,
                 VALID_OFFSET,

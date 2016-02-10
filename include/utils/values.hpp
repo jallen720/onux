@@ -9,7 +9,7 @@ namespace onux {
 
 template<typename Key, typename Value>
 const std::vector<Value> values(const std::map<const Key, const Value>& map) {
-    return transform<Value>(map, [](const auto& pair) {
+    return transform<Value>(map, [](const std::pair<const Key, const Value>& pair) {
         return pair.second;
     });
 }

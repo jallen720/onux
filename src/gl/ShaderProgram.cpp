@@ -35,7 +35,7 @@ struct ShaderProgram::Impl {
 };
 
 static const bool hasType(const ShaderProgram::Objects& objects, const GLenum type) {
-    return existsIn(objects, [&](auto object) {
+    return existsIn(objects, [&](const ShaderObject* object) {
         return object->getType() == type;
     });
 }
@@ -48,7 +48,7 @@ static const bool hasRequiredTypes(const ShaderProgram::Objects& objects) {
         GL_FRAGMENT_SHADER,
     };
 
-    return !existsIn(REQUIRED_TYPES, [&](const auto requiredType) {
+    return !existsIn(REQUIRED_TYPES, [&](const GLenum requiredType) {
         return !hasType(objects, requiredType);
     });
 }
@@ -148,7 +148,7 @@ ShaderProgram::Impl::Impl(const GLuint id)
     ) {}
 
 void ShaderProgram::Impl::process(const Objects& objects, Processor processor) const {
-    for (auto object : objects) {
+    for (const ShaderObject* object : objects) {
         processor(id, object->getID());
     }
 }
