@@ -11,10 +11,12 @@
 namespace onux {
 
 struct ShaderObject::Impl {
-    const GLuint           id;
+    using Self = const ShaderObject*;
+
+    Self                   self;
     const ShaderObjectInfo info;
 
-    explicit Impl(const GLuint id);
+    explicit Impl(Self self);
     void loadSources(const Sources& sources) const;
     void compile() const;
     void validateCompileStatus() const;
@@ -59,7 +61,7 @@ static const GLuint getValidShaderObject(const ShaderObject::Sources& sources) {
 
 ShaderObject::ShaderObject(const Sources& sources)
     : GLData(getValidShaderObject(sources))
-    , impl(new Impl(getID())) {
+    , impl(new Impl(this)) {
     impl->loadSources(sources);
     impl->compile();
     impl->validateCompileStatus();
@@ -75,10 +77,10 @@ const GLenum ShaderObject::getType() const {
 
 // Implementation
 
-ShaderObject::Impl::Impl(const GLuint id)
-    : id(id)
+ShaderObject::Impl::Impl(Self self)
+    : self(self)
     , info(
-        this->id,
+        self->getID(),
         glGetShaderiv,
         glGetShaderInfoLog
     ) {}
@@ -92,7 +94,7 @@ void ShaderObject::Impl::loadSources(const Sources& sources) const {
     }
 
     glShaderSource(
-        id,
+        self->getID(),
         sourceCount,
         sourceCode,
         nullptr
@@ -100,13 +102,13 @@ void ShaderObject::Impl::loadSources(const Sources& sources) const {
 }
 
 void ShaderObject::Impl::compile() const {
-    glCompileShader(id);
+    glCompileShader(self->getID());
 }
 
 void ShaderObject::Impl::validateCompileStatus() const {
     if (!compilationSucceeded()) {
         // TODO: Destroy shader here?
-        throw Error("ShaderObject compilation failed:\n" + info.getLog());
+        throw Error("ShaderObject compilation failed: " + info.getLog());
     }
 }
 

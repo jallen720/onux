@@ -21,17 +21,18 @@ using glm::mat4;
 namespace onux {
 
 struct ShaderProgram::Impl {
+    using Self = const ShaderProgram*;
     using Processor = void (*)(const GLuint, const GLuint);
 
-    const GLuint            id;
+    Self                    self;
     const ShaderProgramInfo info;
 
-    explicit Impl(const GLuint id);
+    explicit Impl(Self self);
     void process(const Objects& objects, Processor processor) const;
     void link() const;
     void validateLinkStatus() const;
     const bool linkingSucceeded() const;
-    const GLint getUniformLocation(const GLchar* name) const;
+    const GLint getValidUniformLocation(const GLchar* name) const;
 };
 
 static const bool hasType(const ShaderProgram::Objects& objects, const GLenum type) {
@@ -70,7 +71,7 @@ static GLuint getValidShaderProgram(const ShaderProgram::Objects& objects) {
 
 ShaderProgram::ShaderProgram(const Objects& objects)
     : GLData(getValidShaderProgram(objects))
-    , impl(new Impl(getID())) {
+    , impl(new Impl(this)) {
     impl->process(objects, glAttachShader);
     impl->link();
     impl->process(objects, glDetachShader);
@@ -94,7 +95,7 @@ void ShaderProgram::setUniform(const GLchar* name, const GLint value) const {
     validateName(name);
 
     glUniform1i(
-        impl->getUniformLocation(name),
+        impl->getValidUniformLocation(name),
         value
     );
 }
@@ -103,7 +104,7 @@ void ShaderProgram::setUniform(const GLchar* name, const vec3& value) const {
     validateName(name);
 
     glUniform3f(
-        impl->getUniformLocation(name),
+        impl->getValidUniformLocation(name),
         value.x,
         value.y,
         value.z
@@ -114,7 +115,7 @@ void ShaderProgram::setUniform(const GLchar* name, const vec4& value) const {
     validateName(name);
 
     glUniform4f(
-        impl->getUniformLocation(name),
+        impl->getValidUniformLocation(name),
         value.x,
         value.y,
         value.z,
@@ -130,7 +131,7 @@ void ShaderProgram::setUniform(
     static const GLsizei MATRIX_COUNT = 1;
 
     glUniformMatrix4fv(
-        impl->getUniformLocation(name),
+        impl->getValidUniformLocation(name),
         MATRIX_COUNT,
         transpose,
         value_ptr(value)
@@ -139,27 +140,27 @@ void ShaderProgram::setUniform(
 
 // Implementation
 
-ShaderProgram::Impl::Impl(const GLuint id)
-    : id(id)
+ShaderProgram::Impl::Impl(Self self)
+    : self(self)
     , info(
-        this->id,
+        self->getID(),
         glGetProgramiv,
         glGetProgramInfoLog
     ) {}
 
 void ShaderProgram::Impl::process(const Objects& objects, Processor processor) const {
     for (const ShaderObject* object : objects) {
-        processor(id, object->getID());
+        processor(self->getID(), object->getID());
     }
 }
 
 void ShaderProgram::Impl::link() const {
-    glLinkProgram(id);
+    glLinkProgram(self->getID());
 }
 
 void ShaderProgram::Impl::validateLinkStatus() const {
     if (!linkingSucceeded()) {
-        throw Error("ShaderProgram linking failed:\n" + info.getLog());
+        throw Error("ShaderProgram linking failed: " + info.getLog());
     }
 }
 
@@ -171,12 +172,12 @@ static const void validateLocation(const GLint location, const string& name) {
     const static GLint UNKNOWN_LOCATION = -1;
 
     if (location == UNKNOWN_LOCATION) {
-        throw Error("Failed to find location of uniform \"" + name + "\"!");
+        throw Error("Failed to find location of uniform \"" + name + "\" in ShaderProgram");
     }
 }
 
-const GLint ShaderProgram::Impl::getUniformLocation(const GLchar* name) const {
-    const GLint location = glGetUniformLocation(id, name);
+const GLint ShaderProgram::Impl::getValidUniformLocation(const GLchar* name) const {
+    const GLint location = glGetUniformLocation(self->getID(), name);
     validateLocation(location, name);
     return location;
 }
