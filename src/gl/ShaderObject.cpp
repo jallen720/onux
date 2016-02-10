@@ -14,7 +14,7 @@ struct ShaderObject::Impl {
     const GLuint           id;
     const ShaderObjectInfo info;
 
-    Impl(const GLuint id);
+    explicit Impl(const GLuint id);
     void loadSources(const Sources& sources) const;
     void compile() const;
     void validateCompileStatus() const;

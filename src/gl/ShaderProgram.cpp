@@ -26,7 +26,7 @@ struct ShaderProgram::Impl {
     const GLuint            id;
     const ShaderProgramInfo info;
 
-    Impl(const GLuint id);
+    explicit Impl(const GLuint id);
     void process(const Objects& objects, Processor processor) const;
     void link() const;
     void validateLinkStatus() const;

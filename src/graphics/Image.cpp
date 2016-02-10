@@ -12,7 +12,7 @@ struct Image::Impl {
     Magick::Blob  blob;
     Magick::Image image;
 
-    Impl(const string& path);
+    explicit Impl(const string& path);
     void loadBlob(const string& path);
 };
 

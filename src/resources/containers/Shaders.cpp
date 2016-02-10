@@ -8,7 +8,7 @@ namespace onux {
 struct Shaders::Impl {
     const ShaderLoader loader;
 
-    Impl(const ShaderSources& shaderSources);
+    explicit Impl(const ShaderSources& shaderSources);
 };
 
 Shaders::Shaders(const ShaderSources& shaderSources)

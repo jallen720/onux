@@ -10,7 +10,7 @@ struct Camera::Impl {
     Transform transform;
     mat4      projection;
 
-    Impl(const mat4& projection);
+    explicit Impl(const mat4& projection);
 };
 
 Camera::Camera(const mat4& projection)

@@ -17,7 +17,7 @@ struct Input::Impl {
     MouseMoveEvent  mouseMoveEvent;
     MouseDeltaEvent mouseDeltaEvent;
 
-    Impl(const Window window);
+    explicit Impl(const Window window);
 };
 
 static const Input::Window getValidWindow(const Input::Window window) {

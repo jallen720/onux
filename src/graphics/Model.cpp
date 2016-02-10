@@ -19,7 +19,7 @@ struct Model::Impl {
     const aiScene* scene;
     const Meshes   meshes;
 
-    Impl(const string& path);
+    explicit Impl(const string& path);
 };
 
 static const string getValidPath(const string& path) {

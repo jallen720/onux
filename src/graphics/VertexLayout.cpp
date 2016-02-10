@@ -9,7 +9,7 @@ struct VertexLayout::Impl {
     Attributes    attributes;
     const GLsizei stride;
 
-    Impl(Attributes& attributes);
+    explicit Impl(Attributes& attributes);
 };
 
 VertexLayout::VertexLayout(Attributes& attributes)

@@ -15,7 +15,7 @@ namespace onux {
 struct File::Impl {
     const string contents;
 
-    Impl(const string& path);
+    explicit Impl(const string& path);
 };
 
 static const string& getValidPath(const string& path) {

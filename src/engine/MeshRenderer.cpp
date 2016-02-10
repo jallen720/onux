@@ -14,7 +14,7 @@ struct MeshRenderer::Impl {
     const IndexBuffer  indexBuffer;
     const VertexArray  vertexArray;
 
-    Impl(const Mesh& mesh);
+    explicit Impl(const Mesh& mesh);
 };
 
 MeshRenderer::MeshRenderer(const Mesh& mesh)

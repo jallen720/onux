@@ -14,7 +14,7 @@ struct ShaderSource::Impl {
     const GLenum type;
     const string code;
 
-    Impl(const string& path);
+    explicit Impl(const string& path);
 };
 
 ShaderSource::Types ShaderSource::TYPES {

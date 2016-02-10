@@ -14,7 +14,7 @@ struct Mesh::Impl {
     const Vertexes vertexes;
     const Indexes  indexes;
 
-    Impl(const aiMesh* mesh);
+    explicit Impl(const aiMesh* mesh);
 };
 
 static const aiMesh* getValidMesh(const aiMesh* mesh) {
