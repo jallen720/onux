@@ -5,6 +5,8 @@
 
 #include "gl/interfaces/IBufferData.hpp"
 
+#include "MACROS/NON_COPYABLE.hpp"
+
 namespace onux {
 
 template<typename T>
@@ -12,7 +14,8 @@ class BufferData : public IBufferData {
 public:
     BufferData();
     explicit BufferData(const std::initializer_list<T>& data);
-    void add(T element);
+    NON_COPYABLE(BufferData)
+    void add(const T& element);
     const size_t getCount() const;
 
     // IBufferData

@@ -8,7 +8,7 @@ BufferData<T>::BufferData(const std::initializer_list<T>& data)
     : m_data(data) {}
 
 template<typename T>
-void BufferData<T>::add(T element) {
+void BufferData<T>::add(const T& element) {
     m_data.push_back(element);
 }
 

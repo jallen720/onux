@@ -59,7 +59,7 @@ static const aiVector3D& getUV(
            : DEFAULT_UV;
 }
 
-static const Mesh::Vertexes loadVertexes(const aiMesh* mesh) {
+static Mesh::Vertexes loadVertexes(const aiMesh* mesh) {
     Mesh::Vertexes vertexes;
 
     for (auto i = 0u; i < mesh->mNumVertices; i++) {
@@ -75,7 +75,7 @@ static const Mesh::Vertexes loadVertexes(const aiMesh* mesh) {
     return vertexes;
 }
 
-static const Mesh::Indexes loadIndexes(const aiMesh* mesh) {
+static Mesh::Indexes loadIndexes(const aiMesh* mesh) {
     Mesh::Indexes indexes;
 
     for (auto i = 0u; i < mesh->mNumFaces; i++) {
