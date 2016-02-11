@@ -9,7 +9,7 @@
 #include "gl/utils/ValidValues.hpp"
 #include "exceptions/argErrors/InvalidArg.hpp"
 
-#include "MACROS/VALID_VALUE.hpp"
+#include "MACROS/ONUX_STRINGIFY.hpp"
 
 using std::vector;
 using std::string;
@@ -43,19 +43,19 @@ static const GLint getValidElementCount(const GLint elementCount) {
 
 static void validateType(const GLenum type) {
     static const ValidValues VALID_TYPES({
-        VALID_VALUE(GL_BYTE),
-        VALID_VALUE(GL_UNSIGNED_BYTE),
-        VALID_VALUE(GL_SHORT),
-        VALID_VALUE(GL_UNSIGNED_SHORT),
-        VALID_VALUE(GL_INT),
-        VALID_VALUE(GL_UNSIGNED_INT),
-        VALID_VALUE(GL_HALF_FLOAT),
-        VALID_VALUE(GL_FLOAT),
-        VALID_VALUE(GL_DOUBLE),
-        VALID_VALUE(GL_FIXED),
-        VALID_VALUE(GL_INT_2_10_10_10_REV),
-        VALID_VALUE(GL_UNSIGNED_INT_2_10_10_10_REV),
-        VALID_VALUE(GL_UNSIGNED_INT_10F_11F_11F_REV),
+        ONUX_STRINGIFY(GL_BYTE),
+        ONUX_STRINGIFY(GL_UNSIGNED_BYTE),
+        ONUX_STRINGIFY(GL_SHORT),
+        ONUX_STRINGIFY(GL_UNSIGNED_SHORT),
+        ONUX_STRINGIFY(GL_INT),
+        ONUX_STRINGIFY(GL_UNSIGNED_INT),
+        ONUX_STRINGIFY(GL_HALF_FLOAT),
+        ONUX_STRINGIFY(GL_FLOAT),
+        ONUX_STRINGIFY(GL_DOUBLE),
+        ONUX_STRINGIFY(GL_FIXED),
+        ONUX_STRINGIFY(GL_INT_2_10_10_10_REV),
+        ONUX_STRINGIFY(GL_UNSIGNED_INT_2_10_10_10_REV),
+        ONUX_STRINGIFY(GL_UNSIGNED_INT_10F_11F_11F_REV),
     });
 
     if (!VALID_TYPES.contains(type)) {
@@ -74,8 +74,8 @@ static const GLenum getValidType(const GLenum type) {
 
 static void validateIsNormalized(const GLboolean isNormalized) {
     static const ValidValues VALID_IS_NORMALIZED_VALUES({
-        VALID_VALUE(GL_TRUE),
-        VALID_VALUE(GL_FALSE),
+        ONUX_STRINGIFY(GL_TRUE),
+        ONUX_STRINGIFY(GL_FALSE),
     });
 
     if (!VALID_IS_NORMALIZED_VALUES.contains(isNormalized)) {

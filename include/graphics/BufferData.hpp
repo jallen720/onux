@@ -5,7 +5,7 @@
 
 #include "gl/interfaces/IBufferData.hpp"
 
-#include "MACROS/NON_COPYABLE.hpp"
+#include "MACROS/ONUX_NON_COPYABLE.hpp"
 
 namespace onux {
 
@@ -14,7 +14,7 @@ class BufferData : public IBufferData {
 public:
     BufferData();
     explicit BufferData(const std::initializer_list<T>& data);
-    NON_COPYABLE(BufferData)
+    ONUX_NON_COPYABLE(BufferData)
     void add(const T& element);
     const size_t getCount() const;
 

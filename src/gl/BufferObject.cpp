@@ -7,7 +7,7 @@
 #include "utils/toString.hpp"
 #include "gl/utils/ValidValues.hpp"
 
-#include "MACROS/VALID_VALUE.hpp"
+#include "MACROS/ONUX_STRINGIFY.hpp"
 
 using std::vector;
 using std::string;
@@ -37,15 +37,15 @@ void BufferObject::loadData() const {
 
 static void validateTarget(const GLenum target) {
     static const ValidValues VALID_TARGETS({
-        VALID_VALUE(GL_ARRAY_BUFFER),
-        VALID_VALUE(GL_COPY_READ_BUFFER),
-        VALID_VALUE(GL_COPY_WRITE_BUFFER),
-        VALID_VALUE(GL_ELEMENT_ARRAY_BUFFER),
-        VALID_VALUE(GL_PIXEL_PACK_BUFFER),
-        VALID_VALUE(GL_PIXEL_UNPACK_BUFFER),
-        VALID_VALUE(GL_TEXTURE_BUFFER),
-        VALID_VALUE(GL_TRANSFORM_FEEDBACK_BUFFER),
-        VALID_VALUE(GL_UNIFORM_BUFFER),
+        ONUX_STRINGIFY(GL_ARRAY_BUFFER),
+        ONUX_STRINGIFY(GL_COPY_READ_BUFFER),
+        ONUX_STRINGIFY(GL_COPY_WRITE_BUFFER),
+        ONUX_STRINGIFY(GL_ELEMENT_ARRAY_BUFFER),
+        ONUX_STRINGIFY(GL_PIXEL_PACK_BUFFER),
+        ONUX_STRINGIFY(GL_PIXEL_UNPACK_BUFFER),
+        ONUX_STRINGIFY(GL_TEXTURE_BUFFER),
+        ONUX_STRINGIFY(GL_TRANSFORM_FEEDBACK_BUFFER),
+        ONUX_STRINGIFY(GL_UNIFORM_BUFFER),
     });
 
     if (!VALID_TARGETS.contains(target)) {
@@ -71,15 +71,15 @@ static void validateSize(const GLsizeiptr size) {
 
 static void validateUsage(const GLenum usage) {
     static const ValidValues VALID_USAGES({
-        VALID_VALUE(GL_STREAM_DRAW),
-        VALID_VALUE(GL_STREAM_READ),
-        VALID_VALUE(GL_STREAM_COPY),
-        VALID_VALUE(GL_STATIC_DRAW),
-        VALID_VALUE(GL_STATIC_READ),
-        VALID_VALUE(GL_STATIC_COPY),
-        VALID_VALUE(GL_DYNAMIC_DRAW),
-        VALID_VALUE(GL_DYNAMIC_READ),
-        VALID_VALUE(GL_DYNAMIC_COPY),
+        ONUX_STRINGIFY(GL_STREAM_DRAW),
+        ONUX_STRINGIFY(GL_STREAM_READ),
+        ONUX_STRINGIFY(GL_STREAM_COPY),
+        ONUX_STRINGIFY(GL_STATIC_DRAW),
+        ONUX_STRINGIFY(GL_STATIC_READ),
+        ONUX_STRINGIFY(GL_STATIC_COPY),
+        ONUX_STRINGIFY(GL_DYNAMIC_DRAW),
+        ONUX_STRINGIFY(GL_DYNAMIC_READ),
+        ONUX_STRINGIFY(GL_DYNAMIC_COPY),
     });
 
     if (!VALID_USAGES.contains(usage)) {

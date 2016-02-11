@@ -13,7 +13,7 @@
 #include "exceptions/validators/validateNotEmpty.hpp"
 #include "utils/existsIn.hpp"
 
-#include "MACROS/VALID_VALUE.hpp"
+#include "MACROS/ONUX_STRINGIFY.hpp"
 
 using std::vector;
 using std::string;
@@ -129,8 +129,8 @@ void ShaderProgram::setUniform(const GLchar* name, const vec4& value) const {
 
 static void validateTranspose(const GLboolean transpose) {
     static const ValidValues VALID_TRANSPOSE_VALUES({
-        VALID_VALUE(GL_TRUE),
-        VALID_VALUE(GL_FALSE),
+        ONUX_STRINGIFY(GL_TRUE),
+        ONUX_STRINGIFY(GL_FALSE),
     });
 
     if (!VALID_TRANSPOSE_VALUES.contains(transpose)) {
