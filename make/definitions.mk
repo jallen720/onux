@@ -15,7 +15,16 @@ ALL_WARNINGS = -Wall
 COMPILE_ONLY = -c
 OUTPUT       = -o
 GEN_DEPS     = -MM
-ERROR_LIMIT  = -ferror-limit=5
+
+ifeq ($(CC),clang++)
+
+ERROR_LIMIT = -ferror-limit=5
+
+else
+
+ERROR_LIMIT =
+
+endif
 
 # Flags
 CFLAGS = $(DEBUG) $(ALL_WARNINGS) $(ERROR_LIMIT) $(COMPILE_ONLY)
