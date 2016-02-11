@@ -1,4 +1,4 @@
-#include "gl/utils/validateNoGLError.hpp"
+#include "exceptions/validators/validateNoGLError.hpp"
 
 #include <GL/glew.h>
 

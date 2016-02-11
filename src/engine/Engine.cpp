@@ -7,7 +7,7 @@
 
 #include "environment/Window.hpp"
 #include "engine/GraphicsEngine.hpp"
-#include "gl/utils/validateNoGLError.hpp"
+#include "exceptions/validators/validateNoGLError.hpp"
 
 using std::this_thread::sleep_for;
 using std::chrono::milliseconds;

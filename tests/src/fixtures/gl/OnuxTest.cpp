@@ -3,7 +3,7 @@
 #include <iostream>
 
 #include "environment/loadExtensions.hpp"
-#include "gl/utils/validateNoGLError.hpp"
+#include "exceptions/validators/validateNoGLError.hpp"
 #include "exceptions/subsystemErrors/GLError.hpp"
 
 using std::cerr;
@@ -16,10 +16,7 @@ static void validateNoUnhandledGLError() {
         validateNoGLError();
     }
     catch(const GLError& e) {
-        cerr <<
-            "Unhandled OpenGL error generated in test:\n"
-            "  " << e.what() << "\n\n";
-
+        cerr << "Unhandled OpenGL error generated in test: " << e.what() << "\n";
         FAIL();
     }
 }
