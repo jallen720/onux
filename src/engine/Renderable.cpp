@@ -46,7 +46,7 @@ void Renderable::enable(Camera& camera) const {
 
     impl->setUniforms(
         impl->transform.getLocalMatrix(),
-        camera.getTransform().getWorldMatrix(),
+        camera.getTransform().getLocalMatrix(),
         camera.getProjection()
     );
 }

@@ -24,22 +24,20 @@ TEST(InputTest, invalidWindow) {
     EXPECT_THROW(Input(nullptr), NullArg);
 }
 
-TEST(InputTest, cursorPosEventWorks) {
-    static const struct {
-        const double X = 1.0;
-        const double Y = 2.0;
-    } VALID {};
+TEST(InputTest, cursorPosEvent) {
+    static const dvec2 expected(1.0, 2.0);
 
     TestWindow window;
     Input input(window);
 
     struct MouseMoveListener : IMouseMoveListener {
         void onMouseMove(const dvec2& position) override {
-            ASSERT_EQ(VALID.X, position.x);
-            ASSERT_EQ(VALID.Y, position.y);
+            ASSERT_EQ(expected.x, position.x);
+            ASSERT_EQ(expected.y, position.y);
         }
     } mouseMoveListener;
 
     input.getMouseMoveEvent().add(&mouseMoveListener);
-    input.cursorPosEvent(VALID.X, VALID.Y);
+    input.cursorPosEvent(expected.x, expected.y);
+    input.getMouseMoveEvent().remove(&mouseMoveListener);
 }
