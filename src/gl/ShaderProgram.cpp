@@ -5,8 +5,10 @@
 
 #include "gl/ShaderObject.hpp"
 #include "gl/utils/ShaderProgramInfo.hpp"
+#include "gl/utils/ValidValues.hpp"
 #include "exceptions/Error.hpp"
 #include "exceptions/argErrors/ArgFailedRequirement.hpp"
+#include "exceptions/argErrors/InvalidArg.hpp"
 #include "exceptions/validators/validateNotNull.hpp"
 #include "exceptions/validators/validateNotEmpty.hpp"
 #include "utils/existsIn.hpp"
@@ -123,12 +125,30 @@ void ShaderProgram::setUniform(const GLchar* name, const vec4& value) const {
     );
 }
 
+static void validateTranspose(const GLboolean transpose) {
+    static const ValidValues VALID_TRANSPOSE_VALUES({
+        VALID_VALUE(GL_TRUE),
+        VALID_VALUE(GL_FALSE),
+    });
+
+    if (!VALID_TRANSPOSE_VALUES.contains(transpose)) {
+        throw InvalidArg(
+            "transpose",
+            "ShaderProgram::setUniform",
+            VALID_TRANSPOSE_VALUES.getNames()
+        );
+    }
+}
+
 void ShaderProgram::setUniform(
     const GLchar*   name,
     const mat4&     value,
     const GLboolean transpose
 ) const {
     static const GLsizei MATRIX_COUNT = 1;
+
+    validateName(name);
+    validateTranspose(transpose);
 
     glUniformMatrix4fv(
         impl->getValidUniformLocation(name),

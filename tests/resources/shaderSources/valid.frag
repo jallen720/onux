@@ -4,8 +4,8 @@ in vec4 vertColor;
 
 out vec4 color;
 
-uniform vec4 testVec4;
+uniform vec4 validVec4;
 
 void main() {
-    color = vertColor + testVec4;
+    color = vertColor + validVec4;
 }

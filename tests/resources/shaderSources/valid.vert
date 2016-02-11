@@ -4,10 +4,11 @@ layout (location = 0) in vec3 position;
 
 out vec4 vertColor;
 
-uniform vec3 testVec3;
-uniform mat4 testMat4;
+uniform int  validInt;
+uniform vec3 validVec3;
+uniform mat4 validMat4;
 
 void main() {
-    gl_Position = testMat4 * vec4(position + testVec3, 1.0);
+    gl_Position = validMat4 * vec4(position + validVec3, validInt);
     vertColor = gl_Position;
 }
