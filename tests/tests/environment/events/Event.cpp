@@ -14,6 +14,7 @@ TEST_F(EventTest, addValidListener) {
 
 TEST_F(EventTest, removeValidListener) {
     MockListener mockListener;
+    mockEvent.add(&mockListener);
 
     expectNoThrow([&] {
         mockEvent.remove(&mockListener);
