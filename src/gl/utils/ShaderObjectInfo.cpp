@@ -3,6 +3,8 @@
 #include "gl/utils/ValidValues.hpp"
 #include "exceptions/argErrors/InvalidArg.hpp"
 
+#include "MACROS/VALID_VALUE.hpp"
+
 namespace onux {
 
 void ShaderObjectInfo::validateParameter(const GLenum parameter) const {

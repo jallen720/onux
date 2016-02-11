@@ -27,5 +27,3 @@ private:
 };
 
 } // namespace onux
-
-#define VALID_VALUE(VALUE) { VALUE, #VALUE }

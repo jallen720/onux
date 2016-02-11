@@ -7,6 +7,8 @@
 #include "utils/toString.hpp"
 #include "gl/utils/ValidValues.hpp"
 
+#include "MACROS/VALID_VALUE.hpp"
+
 using std::vector;
 using std::string;
 

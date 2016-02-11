@@ -14,6 +14,8 @@
 #include "exceptions/argErrors/InvalidArg.hpp"
 #include "exceptions/validators/validateNotNull.hpp"
 
+#include "MACROS/VALID_VALUE.hpp"
+
 using std::map;
 using std::string;
 using std::vector;

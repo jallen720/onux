@@ -13,6 +13,8 @@
 #include "exceptions/validators/validateNotEmpty.hpp"
 #include "utils/existsIn.hpp"
 
+#include "MACROS/VALID_VALUE.hpp"
+
 using std::vector;
 using std::string;
 using glm::value_ptr;

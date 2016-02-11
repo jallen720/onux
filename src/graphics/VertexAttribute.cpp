@@ -9,6 +9,8 @@
 #include "gl/utils/ValidValues.hpp"
 #include "exceptions/argErrors/InvalidArg.hpp"
 
+#include "MACROS/VALID_VALUE.hpp"
+
 using std::vector;
 using std::string;
 
