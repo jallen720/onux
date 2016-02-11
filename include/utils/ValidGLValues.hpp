@@ -8,15 +8,15 @@
 
 namespace onux {
 
-class ValidValues {
+class ValidGLValues {
 private:
     using ValueName = std::string;
     using ValueNames = const std::vector<ValueName>;
     using Values = const std::map<const GLenum, const ValueName>;
 
 public:
-    explicit ValidValues(Values& values);
-    ~ValidValues();
+    explicit ValidGLValues(Values& values);
+    ~ValidGLValues();
     const bool contains(const GLenum value) const;
     ValueName getName(const GLenum value) const;
     ValueNames getNames() const;

@@ -6,10 +6,10 @@
 #include "utils/contains.hpp"
 #include "utils/transform.hpp"
 #include "utils/toString.hpp"
-#include "gl/utils/ValidValues.hpp"
+#include "utils/ValidGLValues.hpp"
 #include "exceptions/argErrors/InvalidArg.hpp"
 
-#include "MACROS/ONUX_STRINGIFY.hpp"
+#include "MACROS/ONUX_VALID_GL_VALUE.hpp"
 
 using std::vector;
 using std::string;
@@ -42,20 +42,20 @@ static const GLint getValidElementCount(const GLint elementCount) {
 }
 
 static void validateType(const GLenum type) {
-    static const ValidValues VALID_TYPES({
-        ONUX_STRINGIFY(GL_BYTE),
-        ONUX_STRINGIFY(GL_UNSIGNED_BYTE),
-        ONUX_STRINGIFY(GL_SHORT),
-        ONUX_STRINGIFY(GL_UNSIGNED_SHORT),
-        ONUX_STRINGIFY(GL_INT),
-        ONUX_STRINGIFY(GL_UNSIGNED_INT),
-        ONUX_STRINGIFY(GL_HALF_FLOAT),
-        ONUX_STRINGIFY(GL_FLOAT),
-        ONUX_STRINGIFY(GL_DOUBLE),
-        ONUX_STRINGIFY(GL_FIXED),
-        ONUX_STRINGIFY(GL_INT_2_10_10_10_REV),
-        ONUX_STRINGIFY(GL_UNSIGNED_INT_2_10_10_10_REV),
-        ONUX_STRINGIFY(GL_UNSIGNED_INT_10F_11F_11F_REV),
+    static const ValidGLValues VALID_TYPES({
+        ONUX_VALID_GL_VALUE(GL_BYTE),
+        ONUX_VALID_GL_VALUE(GL_UNSIGNED_BYTE),
+        ONUX_VALID_GL_VALUE(GL_SHORT),
+        ONUX_VALID_GL_VALUE(GL_UNSIGNED_SHORT),
+        ONUX_VALID_GL_VALUE(GL_INT),
+        ONUX_VALID_GL_VALUE(GL_UNSIGNED_INT),
+        ONUX_VALID_GL_VALUE(GL_HALF_FLOAT),
+        ONUX_VALID_GL_VALUE(GL_FLOAT),
+        ONUX_VALID_GL_VALUE(GL_DOUBLE),
+        ONUX_VALID_GL_VALUE(GL_FIXED),
+        ONUX_VALID_GL_VALUE(GL_INT_2_10_10_10_REV),
+        ONUX_VALID_GL_VALUE(GL_UNSIGNED_INT_2_10_10_10_REV),
+        ONUX_VALID_GL_VALUE(GL_UNSIGNED_INT_10F_11F_11F_REV),
     });
 
     if (!VALID_TYPES.contains(type)) {
@@ -73,9 +73,9 @@ static const GLenum getValidType(const GLenum type) {
 }
 
 static void validateIsNormalized(const GLboolean isNormalized) {
-    static const ValidValues VALID_IS_NORMALIZED_VALUES({
-        ONUX_STRINGIFY(GL_TRUE),
-        ONUX_STRINGIFY(GL_FALSE),
+    static const ValidGLValues VALID_IS_NORMALIZED_VALUES({
+        ONUX_VALID_GL_VALUE(GL_TRUE),
+        ONUX_VALID_GL_VALUE(GL_FALSE),
     });
 
     if (!VALID_IS_NORMALIZED_VALUES.contains(isNormalized)) {

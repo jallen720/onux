@@ -5,7 +5,7 @@
 
 #include "gl/ShaderObject.hpp"
 #include "gl/utils/ShaderProgramInfo.hpp"
-#include "gl/utils/ValidValues.hpp"
+#include "utils/ValidGLValues.hpp"
 #include "exceptions/Error.hpp"
 #include "exceptions/argErrors/ArgFailedRequirement.hpp"
 #include "exceptions/argErrors/InvalidArg.hpp"
@@ -13,7 +13,7 @@
 #include "exceptions/validators/validateNotEmpty.hpp"
 #include "utils/existsIn.hpp"
 
-#include "MACROS/ONUX_STRINGIFY.hpp"
+#include "MACROS/ONUX_VALID_GL_VALUE.hpp"
 
 using std::vector;
 using std::string;
@@ -128,9 +128,9 @@ void ShaderProgram::setUniform(const GLchar* name, const vec4& value) const {
 }
 
 static void validateTranspose(const GLboolean transpose) {
-    static const ValidValues VALID_TRANSPOSE_VALUES({
-        ONUX_STRINGIFY(GL_TRUE),
-        ONUX_STRINGIFY(GL_FALSE),
+    static const ValidGLValues VALID_TRANSPOSE_VALUES({
+        ONUX_VALID_GL_VALUE(GL_TRUE),
+        ONUX_VALID_GL_VALUE(GL_FALSE),
     });
 
     if (!VALID_TRANSPOSE_VALUES.contains(transpose)) {

@@ -6,7 +6,7 @@
 
 #include "utils/toString.hpp"
 #include "gl/interfaces/IImage.hpp"
-#include "gl/utils/ValidValues.hpp"
+#include "utils/ValidGLValues.hpp"
 #include "gl/utils/getInt.hpp"
 #include "exceptions/Error.hpp"
 #include "exceptions/argErrors/InvalidMapKey.hpp"
@@ -14,7 +14,7 @@
 #include "exceptions/argErrors/InvalidArg.hpp"
 #include "exceptions/validators/validateNotNull.hpp"
 
-#include "MACROS/ONUX_STRINGIFY.hpp"
+#include "MACROS/ONUX_VALID_GL_VALUE.hpp"
 
 using std::map;
 using std::string;
@@ -36,34 +36,34 @@ static GLuint createTexture() {
     return id;
 }
 
-static const ValidValues VALID_WRAP_VALUES({
-    ONUX_STRINGIFY(GL_CLAMP_TO_EDGE),
-    ONUX_STRINGIFY(GL_MIRRORED_REPEAT),
-    ONUX_STRINGIFY(GL_REPEAT),
+static const ValidGLValues VALID_WRAP_VALUES({
+    ONUX_VALID_GL_VALUE(GL_CLAMP_TO_EDGE),
+    ONUX_VALID_GL_VALUE(GL_MIRRORED_REPEAT),
+    ONUX_VALID_GL_VALUE(GL_REPEAT),
 });
 
-static const ValidValues VALID_MIN_FILTER_VALUES({
-    ONUX_STRINGIFY(GL_NEAREST),
-    ONUX_STRINGIFY(GL_LINEAR),
-    ONUX_STRINGIFY(GL_NEAREST_MIPMAP_NEAREST),
-    ONUX_STRINGIFY(GL_LINEAR_MIPMAP_NEAREST),
-    ONUX_STRINGIFY(GL_NEAREST_MIPMAP_LINEAR),
-    ONUX_STRINGIFY(GL_LINEAR_MIPMAP_LINEAR),
+static const ValidGLValues VALID_MIN_FILTER_VALUES({
+    ONUX_VALID_GL_VALUE(GL_NEAREST),
+    ONUX_VALID_GL_VALUE(GL_LINEAR),
+    ONUX_VALID_GL_VALUE(GL_NEAREST_MIPMAP_NEAREST),
+    ONUX_VALID_GL_VALUE(GL_LINEAR_MIPMAP_NEAREST),
+    ONUX_VALID_GL_VALUE(GL_NEAREST_MIPMAP_LINEAR),
+    ONUX_VALID_GL_VALUE(GL_LINEAR_MIPMAP_LINEAR),
 });
 
-static const ValidValues VALID_MAG_FILTER_VALUES({
-    ONUX_STRINGIFY(GL_NEAREST),
-    ONUX_STRINGIFY(GL_LINEAR),
+static const ValidGLValues VALID_MAG_FILTER_VALUES({
+    ONUX_VALID_GL_VALUE(GL_NEAREST),
+    ONUX_VALID_GL_VALUE(GL_LINEAR),
 });
 
-static const ValidValues VALID_OPTION_KEYS({
-    ONUX_STRINGIFY(GL_TEXTURE_WRAP_S),
-    ONUX_STRINGIFY(GL_TEXTURE_WRAP_T),
-    ONUX_STRINGIFY(GL_TEXTURE_MIN_FILTER),
-    ONUX_STRINGIFY(GL_TEXTURE_MAG_FILTER),
+static const ValidGLValues VALID_OPTION_KEYS({
+    ONUX_VALID_GL_VALUE(GL_TEXTURE_WRAP_S),
+    ONUX_VALID_GL_VALUE(GL_TEXTURE_WRAP_T),
+    ONUX_VALID_GL_VALUE(GL_TEXTURE_MIN_FILTER),
+    ONUX_VALID_GL_VALUE(GL_TEXTURE_MAG_FILTER),
 });
 
-static const map<const GLenum, const ValidValues&> VALID_OPTION_VALUES {
+static const map<const GLenum, const ValidGLValues&> VALID_OPTION_VALUES {
     { GL_TEXTURE_WRAP_S    , VALID_WRAP_VALUES       },
     { GL_TEXTURE_WRAP_T    , VALID_WRAP_VALUES       },
     { GL_TEXTURE_MIN_FILTER, VALID_MIN_FILTER_VALUES },
