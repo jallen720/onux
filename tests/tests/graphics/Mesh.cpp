@@ -9,16 +9,16 @@ using onux::NullArg;
 
 TEST_F(MeshTest, validCreation) {
     expectNoThrow([&] {
-        const Mesh mesh(cubeMesh);
+        Mesh { cubeMesh };
     });
 }
 
 TEST_F(MeshTest, invalidMesh) {
-    EXPECT_THROW(const Mesh mesh(nullptr), NullArg);
+    EXPECT_THROW(Mesh(nullptr), NullArg);
 }
 
 TEST_F(MeshTest, validData) {
-    const auto INDEXES_PER_FACE = 3u;
+    static const auto INDEXES_PER_FACE = 3u;
     const Mesh mesh(cubeMesh);
 
     ASSERT_EQ(

@@ -9,9 +9,6 @@ using onux::ShaderFile;
 
 TEST_F(ShaderTest, validCreation) {
     expectNoThrow([&] {
-        const Shader shader(
-            ShaderFile("resources/shaders/diffuse.yaml"),
-            shaderSources
-        );
+        Shader(ShaderFile("resources/shaders/diffuse.yaml"), shaderSources);
     });
 }

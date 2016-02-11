@@ -18,17 +18,14 @@ TEST_F(ShaderObjectTest, validCreation) {
     const ShaderSource validSource(testShaderSourcePath("valid.vert"));
 
     expectNoThrow([&validSource] {
-        const ShaderObject shaderObject({
+        ShaderObject({
             &validSource,
         });
     });
 }
 
 TEST_F(ShaderObjectTest, noSources) {
-    EXPECT_THROW(
-        const ShaderObject shaderObject({}),
-        InvalidArgProperty
-    );
+    EXPECT_THROW(ShaderObject({}), InvalidArgProperty);
 }
 
 TEST_F(ShaderObjectTest, differentSourceTypes) {
@@ -38,11 +35,10 @@ TEST_F(ShaderObjectTest, differentSourceTypes) {
     };
 
     EXPECT_THROW(
-        const ShaderObject shaderObject({
+        ShaderObject({
             &invalidSources[0],
             &invalidSources[1],
         }),
-
         ArgFailedRequirement
     );
 }
@@ -54,11 +50,10 @@ TEST_F(ShaderObjectTest, compilationFailure) {
     };
 
     EXPECT_THROW(
-        const ShaderObject shaderObject({
+        ShaderObject({
             &invalidSources[0],
             &invalidSources[1],
         }),
-
         Error
     );
 }

@@ -19,22 +19,19 @@ using onux::InvalidMapValue;
 
 TEST_F(TextureTest, validCreation) {
     expectNoThrow([&] {
-        const Texture texture(&validImage);
+        Texture { &validImage };
     });
 }
 
 TEST_F(TextureTest, invalidImage) {
-    EXPECT_THROW(
-        const Texture texture(nullptr),
-        NullArg
-    );
+    EXPECT_THROW(Texture(nullptr), NullArg);
 }
 
 TEST_F(TextureTest, invalidOptionKey) {
     const GLint INVALID_KEY = 0;
 
     EXPECT_THROW(
-        const Texture texture(&validImage, {
+        Texture(&validImage, {
             { INVALID_KEY, GL_LINEAR },
         }),
         InvalidMapKey
@@ -45,7 +42,7 @@ TEST_F(TextureTest, invalidOptionValue) {
     const GLint INVALID_VALUE = 0;
 
     EXPECT_THROW(
-        const Texture texture(&validImage, {
+        Texture(&validImage, {
             { GL_TEXTURE_MAG_FILTER, INVALID_VALUE },
         }),
         InvalidMapValue
@@ -55,7 +52,7 @@ TEST_F(TextureTest, invalidOptionValue) {
 TEST_F(TextureTest, invalidOptionValueForKey) {
     // GL_LINEAR_MIPMAP_LINEAR is only valid for GL_TEXTURE_MIN_FILTER.
     EXPECT_THROW(
-        const Texture texture(&validImage, {
+        Texture(&validImage, {
             { GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR },
         }),
         InvalidMapValue

@@ -8,8 +8,5 @@ using onux::filesInDirectory;
 using onux::EmptyStringArg;
 
 TEST(filesInDirectoryTest, emptyDirectory) {
-    EXPECT_THROW(
-        filesInDirectory("", [](const string& _) {}),
-        EmptyStringArg
-    );
+    EXPECT_THROW(filesInDirectory("", {}), EmptyStringArg);
 }

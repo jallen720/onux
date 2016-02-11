@@ -18,41 +18,26 @@ using onux::FileError;
 
 TEST(ShaderFileTest, validCreation) {
     expectNoThrow([] {
-        const ShaderFile shaderFile(testShaderPath("valid.yaml"));
+        ShaderFile(testShaderPath("valid.yaml"));
     });
 }
 
 TEST(ShaderFileTest, emptyPath) {
-    EXPECT_THROW(
-        const ShaderFile shaderFile(""),
-        EmptyStringArg
-    );
+    EXPECT_THROW(ShaderFile(""), EmptyStringArg);
 }
 
 TEST(ShaderFileTest, invalidPath) {
-    EXPECT_THROW(
-        const ShaderFile shaderFile("invalid_path.yaml"),
-        BadFile
-    );
+    EXPECT_THROW(ShaderFile(testShaderPath("invalid_path.yaml")), BadFile);
 }
 
 TEST(ShaderFileTest, invalidTypeFormat) {
-    EXPECT_THROW(
-        const ShaderFile shaderFile(testShaderPath("invalidTypeFormat.yaml")),
-        FileError
-    );
+    EXPECT_THROW(ShaderFile(testShaderPath("invalidTypeFormat.yaml")), FileError);
 }
 
 TEST(ShaderFileTest, invalidSourcePathsFormat) {
-    EXPECT_THROW(
-        const ShaderFile shaderFile(testShaderPath("invalidSourcePathsFormat.yaml")),
-        FileError
-    );
+    EXPECT_THROW(ShaderFile(testShaderPath("invalidSourcePathsFormat.yaml")), FileError);
 }
 
 TEST(ShaderFileTest, missingRequiredTypes) {
-    EXPECT_THROW(
-        const ShaderFile shaderFile(testShaderPath("missingRequiredTypes.yaml")),
-        FileError
-    );
+    EXPECT_THROW(ShaderFile(testShaderPath("missingRequiredTypes.yaml")), FileError);
 }

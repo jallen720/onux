@@ -12,27 +12,19 @@ using onux::EmptyStringArg;
 
 TEST_F(ModelTest, validCreation) {
     expectNoThrow([] {
-        const Model model(testModelPath("cube.obj"));
+        Model(testModelPath("cube.obj"));
     });
 }
 
 TEST_F(ModelTest, validData) {
-    const Model model(testModelPath("cube.obj"));
-
     // Cube model should have 1 mesh
-    ASSERT_EQ(1, model.getMeshes().size());
+    ASSERT_EQ(1, Model(testModelPath("cube.obj")).getMeshes().size());
 }
 
 TEST_F(ModelTest, emptyPath) {
-    EXPECT_THROW(
-        const Model model(""),
-        EmptyStringArg
-    );
+    EXPECT_THROW(Model(""), EmptyStringArg);
 }
 
 TEST_F(ModelTest, invalidPath) {
-    EXPECT_THROW(
-        const Model model("invalid/path"),
-        AssimpError
-    );
+    EXPECT_THROW(Model("invalid/path"), AssimpError);
 }

@@ -7,10 +7,7 @@ using onux::InvalidArg;
 using onux::IndexBuffer;
 
 TEST_F(IndexBufferTest, invalidUsage) {
-    const GLenum INVALID_USAGE = 0;
+    static const GLenum INVALID_USAGE = 0;
 
-    EXPECT_THROW(
-        const IndexBuffer indexBuffer(validData, INVALID_USAGE),
-        InvalidArg
-    );
+    EXPECT_THROW(IndexBuffer(validData, INVALID_USAGE), InvalidArg);
 }

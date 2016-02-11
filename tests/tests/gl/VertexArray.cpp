@@ -9,7 +9,7 @@ using onux::getInt;
 
 TEST_F(VertexArrayTest, validCreation) {
     expectNoThrow([&] {
-        const VertexArray vertexArray(
+        VertexArray(
             validVertexBuffer,
             validIndexBuffer
         );

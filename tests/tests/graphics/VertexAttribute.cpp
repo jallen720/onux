@@ -16,7 +16,7 @@ static const GLsizei   VALID_SIZE          = sizeof(GLint);
 
 TEST(VertexAttributeTest, validCreation) {
     expectNoThrow([] {
-        const VertexAttribute vertexAttribute {
+        VertexAttribute {
             VALID_ELEMENT_COUNT,
             VALID_TYPE,
             VALID_IS_NORMALIZED,
@@ -32,7 +32,7 @@ TEST(VertexAttributeTest, invalidElementCount) {
 
     for (const GLint invalidElementCount : INVALID_ELEMENT_COUNTS) {
         EXPECT_THROW(
-            const VertexAttribute vertexAttribute(
+            VertexAttribute(
                 invalidElementCount,
                 VALID_TYPE,
                 VALID_IS_NORMALIZED,
@@ -48,7 +48,7 @@ TEST(VertexAttributeTest, invalidType) {
     static const GLenum INVALID_TYPE = 0;
 
     EXPECT_THROW(
-        const VertexAttribute vertexAttribute(
+        VertexAttribute(
             VALID_ELEMENT_COUNT,
             INVALID_TYPE,
             VALID_IS_NORMALIZED,
@@ -63,7 +63,7 @@ TEST(VertexAttributeTest, invalidIsNormalized) {
     static const GLboolean INVALID_IS_NORMALIZED = -1;
 
     EXPECT_THROW(
-        const VertexAttribute vertexAttribute(
+        VertexAttribute(
             VALID_ELEMENT_COUNT,
             VALID_TYPE,
             INVALID_IS_NORMALIZED,

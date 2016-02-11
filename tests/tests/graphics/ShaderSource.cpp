@@ -15,22 +15,16 @@ using onux::EmptyStringArg;
 
 TEST_F(ShaderSourceTest, validCreation) {
     expectNoThrow([] {
-        const ShaderSource shaderSource(testShaderSourcePath("valid.vert"));
+        ShaderSource(testShaderSourcePath("valid.vert"));
     });
 }
 
 TEST_F(ShaderSourceTest, invalidFileExtension) {
-    EXPECT_THROW(
-        const ShaderSource shaderSource("invalid.ext"),
-        InvalidArgProperty
-    );
+    EXPECT_THROW(ShaderSource("invalid.ext"), InvalidArgProperty);
 }
 
 TEST_F(ShaderSourceTest, emptyPath) {
-    EXPECT_THROW(
-        const ShaderSource shaderSource(""),
-        EmptyStringArg
-    );
+    EXPECT_THROW(ShaderSource(""), EmptyStringArg);
 }
 
 static GLenum shaderSourceType(const string& type) {
@@ -45,10 +39,9 @@ TEST_F(ShaderSourceTest, correctTypes) {
 
 TEST_F(ShaderSourceTest, correctSources) {
     const string shaderPath = testShaderSourcePath("valid.vert");
-    const ShaderSource shaderSource(shaderPath);
 
     EXPECT_EQ(
         File(shaderPath).getContents(),
-        shaderSource.getCode()
+        ShaderSource(shaderPath).getCode()
     );
 }

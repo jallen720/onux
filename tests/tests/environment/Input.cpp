@@ -16,15 +16,12 @@ using onux::NullArg;
 
 TEST(InputTest, validCreation) {
     expectNoThrow([&] {
-        const Input input { TestWindow() };
+        Input(TestWindow());
     });
 }
 
 TEST(InputTest, invalidWindow) {
-    EXPECT_THROW(
-        const Input input(nullptr),
-        NullArg
-    );
+    EXPECT_THROW(Input(nullptr), NullArg);
 }
 
 TEST(InputTest, cursorPosEventWorks) {

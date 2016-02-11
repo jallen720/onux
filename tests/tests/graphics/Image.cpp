@@ -14,21 +14,18 @@ using onux::EmptyStringArg;
 
 TEST_F(ImageTest, validCreation) {
     expectNoThrow([] {
-        const Image image(testImagePath("valid.png"));
+        Image(testImagePath("valid.png"));
     });
 }
 
 TEST_F(ImageTest, emptyPath) {
-    EXPECT_THROW(const Image image(""), EmptyStringArg);
+    EXPECT_THROW(Image(""), EmptyStringArg);
 }
 
 TEST_F(ImageTest, invalidFileExtension) {
-    EXPECT_THROW(
-        const Image image(testImagePath("invalid_format.pngg")),
-        ErrorMissingDelegate
-    );
+    EXPECT_THROW(Image(testImagePath("invalid_format.pngg")), ErrorMissingDelegate);
 }
 
 TEST_F(ImageTest, fileDoesNotExist) {
-    EXPECT_THROW(const Image image("does_not_exist.png"), ErrorBlob);
+    EXPECT_THROW(Image("does_not_exist.png"), ErrorBlob);
 }

@@ -12,20 +12,14 @@ using onux::InvalidArgProperty;
 
 TEST(ShaderObjectDataTest, validCreation) {
     expectNoThrow([] {
-        const ShaderObjectData shaderObjectData("vert", { "valid" });
+        ShaderObjectData("vert", { "valid" });
     });
 }
 
 TEST(ShaderObjectDataTest, invalidType) {
-    EXPECT_THROW(
-        const ShaderObjectData shaderObjectData("invalid_type", { "valid" }),
-        InvalidArg
-    );
+    EXPECT_THROW(ShaderObjectData("invalid_type", { "valid" }), InvalidArg);
 }
 
 TEST(ShaderObjectDataTest, emptySourcePaths) {
-    EXPECT_THROW(
-        const ShaderObjectData shaderObjectData("vert", {}),
-        InvalidArgProperty
-    );
+    EXPECT_THROW(ShaderObjectData("vert", {}), InvalidArgProperty);
 }

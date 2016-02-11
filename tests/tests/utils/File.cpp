@@ -16,7 +16,7 @@ using onux::EmptyStringArg;
 
 TEST(FileTest, validCreation) {
     expectNoThrow([] {
-        const File file(testShaderSourcePath("valid.vert"));
+        File(testShaderSourcePath("valid.vert"));
     });
 }
 
@@ -43,7 +43,7 @@ TEST(FileTest, contentsMatch) {
 }
 
 TEST(FileTest, linesMatch) {
-    const vector<string> expectedResult {
+    static const vector<string> expectedResult {
         "line1",
         "line2",
         "line3",
@@ -61,15 +61,9 @@ TEST(FileTest, linesMatch) {
 }
 
 TEST(FileTest, invalidFile) {
-    EXPECT_THROW(
-        const File file("does_not_exist"),
-        FileError
-    );
+    EXPECT_THROW(File("does_not_exist"), FileError);
 }
 
 TEST(FileTest, emptyPath) {
-    EXPECT_THROW(
-        const File file(""),
-        EmptyStringArg
-    );
+    EXPECT_THROW(File(""), EmptyStringArg);
 }

@@ -17,8 +17,5 @@ TEST_F(getErrorMessageTest, validErrorMessage) {
 }
 
 TEST_F(getErrorMessageTest, invalidError) {
-    EXPECT_THROW(
-        getErrorMessage(-1),
-        out_of_range
-    );
+    EXPECT_THROW(getErrorMessage(-1), out_of_range);
 }
