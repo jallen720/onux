@@ -52,11 +52,11 @@ static const aiVector3D& getUV(
     const unsigned int vertexIndex,
     const unsigned int uvIndex
 ) {
-    static const aiVector3D VEC3_ZERO(0, 0, 0);
+    static const aiVector3D DEFAULT_UV(0, 0, 0);
 
     return mesh->HasTextureCoords(uvIndex)
            ? mesh->mTextureCoords[uvIndex][vertexIndex]
-           : VEC3_ZERO;
+           : DEFAULT_UV;
 }
 
 static const Mesh::Vertexes loadVertexes(const aiMesh* mesh) {
