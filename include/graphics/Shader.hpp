@@ -1,16 +1,16 @@
 #pragma once
 
 #include <memory>
-#include <string>
 
 namespace onux {
 
-class ShaderProgram;
+struct IShaderFile;
 class ShaderSources;
+class ShaderProgram;
 
 class Shader {
 public:
-    Shader(const std::string& path, const ShaderSources& shaderSources);
+    Shader(const IShaderFile& shaderFile, const ShaderSources& shaderSources);
     ~Shader();
     const ShaderProgram& getProgram() const;
 

@@ -16,33 +16,18 @@ private:
     };
 
 protected:
-    using ShaderObjectPtr = std::unique_ptr<onux::ShaderObject>;
+    using ShaderObjects = std::vector<onux::ShaderObject::Ptr>;
     using ShaderProgramPtr = std::unique_ptr<onux::ShaderProgram>;
 
-    ShaderObjectPtr validObjects[2] {
-        ShaderObjectPtr(new onux::ShaderObject({
-            &validSources[0]
-        })),
-        ShaderObjectPtr(new onux::ShaderObject({
-            &validSources[1]
-        })),
-    };
+    ShaderObjects validObjects = [&]() {
+        ShaderObjects validObjects;
+        validObjects.emplace_back(new onux::ShaderObject({ &validSources[0] }));
+        validObjects.emplace_back(new onux::ShaderObject({ &validSources[1] }));
+        return validObjects;
+    }();
 
-    ShaderProgramPtr validShaderProgram =
-        ShaderProgramPtr(new onux::ShaderProgram({
-            validObjects[0].get(),
-            validObjects[1].get(),
-        }));
+    ShaderProgramPtr validShaderProgram { new onux::ShaderProgram(validObjects) };
 
 public:
     ShaderProgramTest() {}
-
-    ShaderProgramTest(ShaderProgramTest&& original)
-        : validObjects {
-            std::move(original.validObjects[0]),
-            std::move(original.validObjects[1]),
-        }
-        , validShaderProgram(
-            std::move(original.validShaderProgram)
-        ) {}
 };

@@ -1,6 +1,7 @@
 #include "resources/loaders/ShaderLoader.hpp"
 
 #include "resources/containers/ShaderSources.hpp"
+#include "resources/files/ShaderFile.hpp"
 
 using std::string;
 
@@ -21,7 +22,7 @@ const string& ShaderLoader::getSubDirectory() const {
 }
 
 auto ShaderLoader::load(const string& path) const -> Resource {
-    return Resource(new Shader(path, impl->shaderSources));
+    return Resource(new Shader(ShaderFile(path), impl->shaderSources));
 }
 
 } // namespace onux

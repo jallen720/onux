@@ -11,6 +11,8 @@
 #include "utils/expectNoThrow.hpp"
 #include "utils/expectGLError.hpp"
 
+using std::vector;
+using std::move;
 using glm::vec3;
 using glm::vec4;
 using glm::mat4;
@@ -25,35 +27,26 @@ using onux::NullArg;
 
 TEST_F(ShaderProgramTest, validCreation) {
     expectNoThrow([&] {
-        const ShaderProgram shaderProgram({
-            validObjects[0].get(),
-            validObjects[1].get(),
-        });
+        const ShaderProgram shaderProgram(validObjects);
     });
 }
 
 TEST_F(ShaderProgramTest, notAllRequiredTypes) {
-    // A ShaderProgram requires atleast a vertex shader object and a fragment
-    // shader object.
-    EXPECT_THROW(
-        const ShaderProgram shaderProgram({
-            validObjects[0].get(),
-        }),
-        ArgFailedRequirement
-    );
+    ShaderObjects invalidObjects;
+    invalidObjects.push_back(move(validObjects[0]));
+
+    // A ShaderProgram requires atleast a vertex shader object and a fragment shader object.
+    EXPECT_THROW(const ShaderProgram shaderProgram(invalidObjects), ArgFailedRequirement);
 }
 
 TEST_F(ShaderProgramTest, noMainInObject) {
     const ShaderSource noMainSource(testShaderSourcePath("noMain.vert"));
-    const ShaderObject noMainObject({ &noMainSource });
+    ShaderObjects invalidObjects;
+    invalidObjects.emplace_back(new ShaderObject({ &noMainSource }));
+    invalidObjects.push_back(move(validObjects[1]));
 
-    EXPECT_THROW(
-        const ShaderProgram shaderProgram({
-            &noMainObject,
-            validObjects[1].get(),
-        }),
-        Error
-    );
+    // If one of the sources is missing a main() function then ShaderProgram linking will fail.
+    EXPECT_THROW(const ShaderProgram shaderProgram(invalidObjects), Error);
 }
 
 TEST_F(ShaderProgramTest, use) {
@@ -83,30 +76,22 @@ TEST_F(ShaderProgramTest, setInvalidUniform) {
 
 TEST_F(ShaderProgramTest, setUnusedUniform) {
     const ShaderSource unusedUniformSource(testShaderSourcePath("unusedUniform.vert"));
-    const ShaderObject unusedUniformObject({ &unusedUniformSource });
+    ShaderObjects invalidObjects;
+    invalidObjects.emplace_back(new ShaderObject({ &unusedUniformSource }));
+    invalidObjects.push_back(move(validObjects[1]));
 
-    const ShaderProgram shaderProgram({
-        &unusedUniformObject,
-        validObjects[1].get(),
-    });
-
-    // OpenGL optimizes out unused uniforms, so trying to set a uniform that is
-    // unused will fail, as the uniform won't exist.
+    // OpenGL optimizes out unused uniforms, so trying to set a uniform that is unused will fail, as
+    // the uniform won't exist.
     EXPECT_THROW(
-        shaderProgram.setUniform("unusedVec3", vec3()),
+        ShaderProgram(invalidObjects).setUniform("unusedVec3", vec3()),
         Error
     );
 }
 
 TEST_F(ShaderProgramTest, setUniformNotCurrentProgram) {
-    const ShaderProgram shaderProgram({
-        validObjects[0].get(),
-        validObjects[1].get(),
-    });
-
-    // Trying to set a uniform on a program that is not the current program will
-    // generate a GL_INVALID_OPERATION error.
-    expectGLError(GL_INVALID_OPERATION, [&shaderProgram] {
-        shaderProgram.setUniform("testVec3", vec3());
+    // Trying to set a uniform on a program that has not been made the current program (via
+    // ShaderProgram::use()) will generate a GL_INVALID_OPERATION error.
+    expectGLError(GL_INVALID_OPERATION, [&] {
+        validShaderProgram->setUniform("testVec3", vec3());
     });
 }

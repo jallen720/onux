@@ -36,7 +36,7 @@ struct ShaderProgram::Impl {
 };
 
 static const bool hasType(const ShaderProgram::Objects& objects, const GLenum type) {
-    return existsIn(objects, [&](const ShaderObject* object) {
+    return existsIn(objects, [&](const ShaderObject::Ptr& object) {
         return object->getType() == type;
     });
 }
@@ -149,7 +149,7 @@ ShaderProgram::Impl::Impl(Self self)
     ) {}
 
 void ShaderProgram::Impl::process(const Objects& objects, Processor processor) const {
-    for (const ShaderObject* object : objects) {
+    for (const ShaderObject::Ptr& object : objects) {
         processor(self->getID(), object->getID());
     }
 }

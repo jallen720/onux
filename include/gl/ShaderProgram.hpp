@@ -5,14 +5,13 @@
 #include <glm/glm.hpp>
 
 #include "gl/GLData.hpp"
+#include "gl/ShaderObject.hpp"
 
 namespace onux {
 
-class ShaderObject;
-
 class ShaderProgram : public GLData {
 public:
-    using Objects = std::vector<const ShaderObject*>;
+    using Objects = std::vector<ShaderObject::Ptr>;
 
 public:
     explicit ShaderProgram(const Objects& objects);
