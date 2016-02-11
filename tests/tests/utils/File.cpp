@@ -3,7 +3,6 @@
 #include <gtest/gtest.h>
 
 #include "utils/expectNoThrow.hpp"
-#include "utils/testShaderSourcePath.hpp"
 #include "utils/testMiscFilePath.hpp"
 #include "exceptions/FileError.hpp"
 #include "exceptions/argErrors/EmptyStringArg.hpp"
@@ -16,30 +15,25 @@ using onux::EmptyStringArg;
 
 TEST(FileTest, validCreation) {
     expectNoThrow([] {
-        File(testShaderSourcePath("valid.vert"));
+        File(testMiscFilePath("test.txt"));
     });
+}
+
+TEST(FileTest, invalidFile) {
+    EXPECT_THROW(File("does_not_exist"), FileError);
+}
+
+TEST(FileTest, emptyPath) {
+    EXPECT_THROW(File(""), EmptyStringArg);
 }
 
 TEST(FileTest, contentsMatch) {
     static const string expectedResult =
-        "#version 330 core\n"
-        "\n"
-        "layout (location = 0) in vec3 position;\n"
-        "\n"
-        "out vec4 vertColor;\n"
-        "\n"
-        "uniform vec3 testVec3;\n"
-        "uniform mat4 testMat4;\n"
-        "\n"
-        "void main() {\n"
-        "    gl_Position = testMat4 * vec4(position + testVec3, 1.0);\n"
-        "    vertColor = gl_Position;\n"
-        "}\n";
+        "line1\n"
+        "line2\n"
+        "line3\n";
 
-    EXPECT_EQ(
-        expectedResult,
-        File(testShaderSourcePath("valid.vert")).getContents()
-    );
+    EXPECT_EQ(expectedResult, File(testMiscFilePath("test.txt")).getContents());
 }
 
 TEST(FileTest, linesMatch) {
@@ -58,12 +52,4 @@ TEST(FileTest, linesMatch) {
     for (auto i = 0u; i < result.size(); i++) {
         EXPECT_EQ(expectedResult[i], result[i]);
     }
-}
-
-TEST(FileTest, invalidFile) {
-    EXPECT_THROW(File("does_not_exist"), FileError);
-}
-
-TEST(FileTest, emptyPath) {
-    EXPECT_THROW(File(""), EmptyStringArg);
 }
