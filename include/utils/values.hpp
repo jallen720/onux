@@ -14,4 +14,11 @@ const std::vector<Value> values(const std::map<const Key, const Value>& map) {
     });
 }
 
+template<typename Key, typename Value>
+const std::vector<Value> values(const std::map<const Key, Value>& map) {
+    return transform<Value>(map, [](const std::pair<const Key, Value>& pair) {
+        return pair.second;
+    });
+}
+
 } // namespace onux
