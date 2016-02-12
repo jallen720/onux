@@ -16,6 +16,7 @@ COMPILE_ONLY = -c
 OUTPUT       = -o
 GEN_DEPS     = -MM
 
+# Only use the -ferror-limit option with clang
 ifeq ($(CC),clang++)
 
 ERROR_LIMIT = -ferror-limit=5
