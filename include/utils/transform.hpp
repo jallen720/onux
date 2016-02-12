@@ -19,4 +19,4 @@ const std::vector<T> transform(const Container& container, const Function& funct
     return result;
 }
 
-}
+} // namespace onux

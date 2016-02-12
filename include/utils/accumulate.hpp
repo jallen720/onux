@@ -18,4 +18,4 @@ T accumulate(
     );
 }
 
-}
+} // namespace onux

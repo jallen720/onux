@@ -14,4 +14,4 @@ const bool existsIn(const Container& container, const Predicate& predicate) {
     ) != container.end();
 }
 
-}
+} // namespace onux

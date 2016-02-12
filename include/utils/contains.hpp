@@ -25,4 +25,4 @@ const bool contains(const std::map<T, _>& container, T& item) {
     return container.find(item) != container.end();
 }
 
-}
+} // namespace onux
