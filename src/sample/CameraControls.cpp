@@ -7,16 +7,14 @@ using glm::dvec2;
 using onux::Transform;
 using onux::Input;
 
-CameraControls::CameraControls(
-    Transform& cameraTransform,
-    Input& input
-)   : m_cameraTransform(cameraTransform)
+CameraControls::CameraControls(Transform& cameraTransform, Input& input)
+    : m_cameraTransform(cameraTransform)
     , m_input(input) {
-    m_input.getMouseDeltaEvent().add(this);
+    m_input.getMouseDeltaEvent().addListener(this);
 }
 
 CameraControls::~CameraControls() {
-    m_input.getMouseDeltaEvent().remove(this);
+    m_input.getMouseDeltaEvent().removeListener(this);
 }
 
 static const vec3 getRotation(const dvec2& delta) {

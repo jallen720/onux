@@ -22,7 +22,7 @@ TEST_F(MouseMoveEventTest, trigger) {
         }
     } mouseMoveListener;
 
-    mouseMoveEvent.add(&mouseMoveListener);
+    mouseMoveEvent.addListener(&mouseMoveListener);
     mouseMoveEvent.trigger(dvec2(expected.x, expected.y));
-    mouseMoveEvent.remove(&mouseMoveListener);
+    mouseMoveEvent.removeListener(&mouseMoveListener);
 }

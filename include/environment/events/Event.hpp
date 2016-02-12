@@ -14,8 +14,8 @@ private:
 
 public:
     virtual ~Event() {}
-    void add(Listener listener);
-    void remove(Listener listener);
+    void addListener(Listener listener);
+    void removeListener(Listener listener);
     Listeners& getListeners();
     virtual void trigger(Args... args) = 0;
 

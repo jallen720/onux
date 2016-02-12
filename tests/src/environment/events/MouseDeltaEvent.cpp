@@ -22,7 +22,7 @@ TEST_F(MouseDeltaEventTest, trigger) {
         }
     } mouseDeltaListener;
 
-    mouseDeltaEvent.add(&mouseDeltaListener);
+    mouseDeltaEvent.addListener(&mouseDeltaListener);
 
     // The first time the mouseDeltaEvent is triggered, it will initialize the previous mouse
     // position to the current mouse position, which will always result in a delta of (0, 0).
@@ -38,5 +38,5 @@ TEST_F(MouseDeltaEventTest, trigger) {
     ASSERT_EQ(mouseDeltaListener.currentDelta.x, -5);
     ASSERT_EQ(mouseDeltaListener.currentDelta.y, -5);
 
-    mouseDeltaEvent.remove(&mouseDeltaListener);
+    mouseDeltaEvent.removeListener(&mouseDeltaListener);
 }

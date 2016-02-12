@@ -5,13 +5,13 @@
 namespace onux {
 
 template<typename T, typename... Args>
-void Event<T, Args...>::add(Listener listener) {
+void Event<T, Args...>::addListener(Listener listener) {
     validateNotNull("listener", "Event<>::add", listener);
     m_listeners.push_back(listener);
 }
 
 template<typename T, typename... Args>
-void Event<T, Args...>::remove(Listener listener) {
+void Event<T, Args...>::removeListener(Listener listener) {
     validateNotNull("listener", "Event<>::remove", listener);
 
     m_listeners.erase(

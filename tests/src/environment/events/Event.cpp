@@ -8,23 +8,23 @@ TEST_F(EventTest, addValidListener) {
     MockListener mockListener;
 
     expectNoThrow([&] {
-        mockEvent.add(&mockListener);
+        mockEvent.addListener(&mockListener);
     });
 }
 
 TEST_F(EventTest, removeValidListener) {
     MockListener mockListener;
-    mockEvent.add(&mockListener);
+    mockEvent.addListener(&mockListener);
 
     expectNoThrow([&] {
-        mockEvent.remove(&mockListener);
+        mockEvent.removeListener(&mockListener);
     });
 }
 
 TEST_F(EventTest, addNullListener) {
-    EXPECT_THROW(mockEvent.add(nullptr), NullArg);
+    EXPECT_THROW(mockEvent.addListener(nullptr), NullArg);
 }
 
 TEST_F(EventTest, removeNullListener) {
-    EXPECT_THROW(mockEvent.remove(nullptr), NullArg);
+    EXPECT_THROW(mockEvent.removeListener(nullptr), NullArg);
 }

@@ -37,7 +37,7 @@ TEST(InputTest, cursorPosEvent) {
         }
     } mouseMoveListener;
 
-    input.getMouseMoveEvent().add(&mouseMoveListener);
+    input.getMouseMoveEvent().addListener(&mouseMoveListener);
     input.cursorPosEvent(expected.x, expected.y);
-    input.getMouseMoveEvent().remove(&mouseMoveListener);
+    input.getMouseMoveEvent().removeListener(&mouseMoveListener);
 }
