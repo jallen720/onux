@@ -1,2 +1,0 @@
-#!/bin/bash
-make onux && clear && ./bin/onux

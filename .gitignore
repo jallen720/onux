@@ -1,6 +1,7 @@
 # Build output directories
-build/
+build.d/
 bin/
+lib/
 
 # Sublime files
 *.sublime*
