@@ -7,6 +7,7 @@ include("cmake/macros/module_dependency.cmake")
 include("cmake/macros/test_module_dependency.cmake")
 
 # Configuration
+set(CMAKE_CXX_COMPILER "clang++")
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
 set(CMAKE_BUILD_TYPE "Release")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -g")
