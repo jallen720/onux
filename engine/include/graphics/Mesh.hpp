@@ -12,17 +12,19 @@ namespace onux {
 
 class Mesh {
 public:
+    using Ptr = std::unique_ptr<const Mesh>;
     using Vertexes = BufferData<Vertex>;
     using Indexes = BufferData<GLuint>;
 
 public:
     explicit Mesh(const aiMesh* mesh);
+    ~Mesh();
     const Vertexes& getVertexes() const;
     const Indexes& getIndexes() const;
 
 private:
     struct Impl;
-    std::shared_ptr<Impl> impl;
+    std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux

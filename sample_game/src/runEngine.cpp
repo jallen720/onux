@@ -92,7 +92,7 @@ void runEngine() {
         // Drawable data
         Renderable renderables[] {
             Renderable(
-                models["hheli.obj"]->getMeshes()[0],
+                *models["hheli.obj"]->getMeshes()[0],
                 shaders["diffuse.yaml"]->getProgram(),
 
                 {
@@ -101,7 +101,7 @@ void runEngine() {
             ),
 
             Renderable(
-                models["cube.obj"]->getMeshes()[0],
+                *models["cube.obj"]->getMeshes()[0],
                 shaders["multiTexture.yaml"]->getProgram(),
 
                 {
@@ -111,7 +111,7 @@ void runEngine() {
             ),
 
             Renderable(
-                models["hheli.obj"]->getMeshes()[0],
+                *models["hheli.obj"]->getMeshes()[0],
                 shaders["diffuse.yaml"]->getProgram(),
 
                 {

@@ -32,11 +32,11 @@ const Model::Meshes& Model::getMeshes() const {
 
 // Implementation
 
-static const Model::Meshes loadMeshes(const aiScene* scene) {
+static Model::Meshes loadMeshes(const aiScene* scene) {
     Model::Meshes meshes;
 
     for (auto i = 0u; i < scene->mNumMeshes; i++) {
-        meshes.emplace_back(scene->mMeshes[i]);
+        meshes.emplace_back(new Mesh(scene->mMeshes[i]));
     }
 
     return meshes;

@@ -25,6 +25,8 @@ static const aiMesh* getValidMesh(const aiMesh* mesh) {
 Mesh::Mesh(const aiMesh* mesh)
     : impl(new Impl(getValidMesh(mesh))) {}
 
+Mesh::~Mesh() {}
+
 const Mesh::Vertexes& Mesh::getVertexes() const {
     return impl->vertexes;
 }

@@ -11,7 +11,7 @@ namespace onux {
 
 class Model {
 public:
-    using Meshes = std::vector<Mesh>;
+    using Meshes = std::vector<Mesh::Ptr>;
 
 public:
     explicit Model(const std::string& path);
