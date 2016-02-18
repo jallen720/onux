@@ -10,9 +10,9 @@ namespace onux {
 
 class ValidGLValues {
 private:
-    using ValueName = std::string;
+    using ValueName  = std::string;
     using ValueNames = const std::vector<ValueName>;
-    using Values = const std::map<const GLenum, const ValueName>;
+    using Values     = const std::map<const GLenum, const ValueName>;
 
 public:
     explicit ValidGLValues(Values& values);

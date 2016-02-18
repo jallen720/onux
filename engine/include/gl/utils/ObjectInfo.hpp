@@ -10,7 +10,7 @@ namespace onux {
 class ObjectInfo {
 private:
     using GetValue = void (*)(const GLuint, const GLenum, GLint*);
-    using GetLog = void (*)(const GLuint, const GLsizei, GLsizei*, GLchar*);
+    using GetLog   = void (*)(const GLuint, const GLsizei, GLsizei*, GLchar*);
 
 public:
     ObjectInfo(

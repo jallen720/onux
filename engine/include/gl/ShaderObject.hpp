@@ -11,7 +11,7 @@ struct IShaderSource;
 
 class ShaderObject : public GLData {
 public:
-    using Ptr = std::unique_ptr<const ShaderObject>;
+    using Ptr     = std::unique_ptr<const ShaderObject>;
     using Sources = std::vector<const IShaderSource*>;
 
 public:

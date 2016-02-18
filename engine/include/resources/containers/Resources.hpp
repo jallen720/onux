@@ -13,7 +13,7 @@ protected:
     using Loader = const ResourceLoader<T>&;
 
 private:
-    using Resource = typename ResourceLoader<T>::Resource;
+    using Resource    = typename ResourceLoader<T>::Resource;
     using ResourceMap = std::map<const std::string, Resource>;
 
 public:

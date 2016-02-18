@@ -25,7 +25,7 @@ using glm::mat4;
 namespace onux {
 
 struct ShaderProgram::Impl {
-    using Self = const ShaderProgram*;
+    using Self      = const ShaderProgram*;
     using Processor = void (*)(const GLuint, const GLuint);
 
     Self                    self;

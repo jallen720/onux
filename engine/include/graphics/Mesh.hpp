@@ -12,9 +12,9 @@ namespace onux {
 
 class Mesh {
 public:
-    using Ptr = std::unique_ptr<const Mesh>;
+    using Ptr      = std::unique_ptr<const Mesh>;
     using Vertexes = BufferData<Vertex>;
-    using Indexes = BufferData<GLuint>;
+    using Indexes  = BufferData<GLuint>;
 
 public:
     explicit Mesh(const aiMesh* mesh);
