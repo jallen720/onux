@@ -1,2 +1,2 @@
 #!/bin/bash
-./build && ./bin/sample-game
+./build && clear && ./bin/sample-game
