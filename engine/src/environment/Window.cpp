@@ -73,7 +73,7 @@ void Window::makeContextCurrent() const {
     glfwMakeContextCurrent(impl->glfwWindow);
 }
 
-const float Window::getAspect() const {
+const float Window::getAspectRatio() const {
     return (float)impl->width / impl->height;
 }
 

@@ -29,6 +29,6 @@ TEST_F(WindowTest, invalidDimensions) {
     EXPECT_THROW(Window(0   , 0  , "Test Window"), InvalidArg);
 }
 
-TEST_F(WindowTest, aspect) {
-    EXPECT_EQ((float)1280 / 720, Window(1280, 720, "Test Window").getAspect());
+TEST_F(WindowTest, aspectRatio) {
+    EXPECT_EQ((float)1280 / 720, Window(1280, 720, "Test Window").getAspectRatio());
 }

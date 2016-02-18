@@ -158,7 +158,13 @@ void runEngine() {
         static const float FOV    = radians(45.0f);
         static const float Z_NEAR = 1.0f;
         static const float Z_FAR  = 500.0f;
-        Camera camera(perspective(FOV, window.getAspect(), Z_NEAR, Z_FAR));
+
+        Camera camera(perspective(
+            FOV,
+            window.getAspectRatio(),
+            Z_NEAR,
+            Z_FAR
+        ));
 
         // Engine setup
         CameraControls cameraControls(camera.getTransform(), window.getInput());

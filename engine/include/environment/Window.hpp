@@ -17,7 +17,7 @@ public:
     );
     ~Window();
     void makeContextCurrent() const;
-    const float getAspect() const;
+    const float getAspectRatio() const;
     const bool shouldClose() const;
     void swapBuffers() const;
     Input& getInput();
