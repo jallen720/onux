@@ -9,9 +9,8 @@ using Assimp::Importer;
 namespace onux {
 
 struct Model::Impl {
-    Importer       importer;
-    const aiScene* scene;
-    const Meshes   meshes;
+    Importer     importer;
+    const Meshes meshes;
 
     explicit Impl(const string& path);
 };
@@ -43,7 +42,6 @@ static Model::Meshes loadMeshes(const aiScene* scene) {
 }
 
 Model::Impl::Impl(const string& path)
-    : scene(getValidAssimpScene(path, importer))
-    , meshes(loadMeshes(scene)) {}
+    : meshes(loadMeshes(getValidAssimpScene(path, importer))) {}
 
 } // namespace onux
