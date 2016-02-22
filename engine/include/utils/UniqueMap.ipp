@@ -13,7 +13,7 @@ const T * const UniqueMap<T>::operator [](const std::string& name) const {
         return m_elementMap.at(name).get();
     }
     catch (const std::out_of_range& _) {
-        throw Error("No element found for name \"" + name + "\"!");
+        throw Error("No element found for name \"" + name + "\"");
     }
 }
 

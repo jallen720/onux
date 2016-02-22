@@ -1,6 +1,5 @@
 #include "assets/Shaders.hpp"
 
-#include <stdexcept>
 #include <string>
 
 using std::string;

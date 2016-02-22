@@ -28,7 +28,7 @@ TEST_F(TextureTest, invalidImage) {
 }
 
 TEST_F(TextureTest, invalidOptionKey) {
-    const GLint INVALID_KEY = 0;
+    static const GLint INVALID_KEY = 0;
 
     EXPECT_THROW(
         Texture(validImage.get(), {
@@ -39,7 +39,7 @@ TEST_F(TextureTest, invalidOptionKey) {
 }
 
 TEST_F(TextureTest, invalidOptionValue) {
-    const GLint INVALID_VALUE = 0;
+    static const GLint INVALID_VALUE = 0;
 
     EXPECT_THROW(
         Texture(validImage.get(), {
