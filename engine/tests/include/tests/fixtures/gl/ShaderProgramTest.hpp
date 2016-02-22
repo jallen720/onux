@@ -6,23 +6,21 @@
 #include "graphics/ShaderSource.hpp"
 #include "gl/ShaderObject.hpp"
 #include "gl/ShaderProgram.hpp"
-#include "tests/utils/testShaderSourcePath.hpp"
+#include "resources/Resources.hpp"
 
 struct ShaderProgramTest : OnuxTest {
 private:
-    const onux::ShaderSource validSources[2] {
-        { testShaderSourcePath("valid.vert") },
-        { testShaderSourcePath("valid.frag") },
+    const onux::Resources<onux::ShaderSource> validSources {
+        "tests/resources/valid/shaderSources"
     };
 
 protected:
-    using ShaderObjects = std::vector<onux::ShaderObject::Ptr>;
     using ShaderProgramPtr = std::unique_ptr<onux::ShaderProgram>;
 
-    ShaderObjects validObjects = [&]() {
-        ShaderObjects validObjects;
-        validObjects.emplace_back(new onux::ShaderObject({ &validSources[0] }));
-        validObjects.emplace_back(new onux::ShaderObject({ &validSources[1] }));
+    onux::ShaderProgram::Objects validObjects = [&]() {
+        onux::ShaderProgram::Objects validObjects;
+        validObjects.emplace_back(new onux::ShaderObject({ validSources["valid.vert"] }));
+        validObjects.emplace_back(new onux::ShaderObject({ validSources["valid.frag"] }));
         return validObjects;
     }();
 

@@ -16,13 +16,13 @@ struct Image::Impl {
     void loadBlob(const string& path);
 };
 
-static const string& getValidPath(const string& path) {
-    validateNotEmpty("path", "Image::Image", path);
-    return path;
+auto Image::create(const string& path) -> Ptr {
+    validateNotEmpty("path", "Image::create", path);
+    return Ptr(new Image(path));
 }
 
 Image::Image(const string& path)
-    : impl(new Impl(getValidPath(path))) {}
+    : impl(new Impl(path)) {}
 
 Image::~Image() {}
 

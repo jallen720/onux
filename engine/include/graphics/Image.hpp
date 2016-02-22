@@ -9,7 +9,12 @@ namespace onux {
 
 class Image : public IImage {
 public:
-    explicit Image(const std::string& path);
+    using Ptr = std::unique_ptr<const Image>;
+
+public:
+    static Ptr create(const std::string& path);
+
+public:
     ~Image();
 
     // IImage
@@ -20,6 +25,8 @@ public:
 private:
     struct Impl;
     std::unique_ptr<Impl> impl;
+
+    explicit Image(const std::string& path);
 };
 
 } // namespace onux

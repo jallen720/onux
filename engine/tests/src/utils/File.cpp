@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 
 #include "tests/utils/expectNoThrow.hpp"
-#include "tests/utils/testMiscFilePath.hpp"
+#include "tests/utils/validResourcePath.hpp"
 #include "exceptions/FileError.hpp"
 #include "exceptions/argErrors/EmptyStringArg.hpp"
 
@@ -15,7 +15,7 @@ using onux::EmptyStringArg;
 
 TEST(FileTest, validCreation) {
     expectNoThrow([] {
-        File(testMiscFilePath("test.txt"));
+        File(validResourcePath("miscFiles", "test.txt"));
     });
 }
 
@@ -33,7 +33,7 @@ TEST(FileTest, contentsMatch) {
         "line2\n"
         "line3\n";
 
-    EXPECT_EQ(expectedResult, File(testMiscFilePath("test.txt")).getContents());
+    EXPECT_EQ(expectedResult, File(validResourcePath("miscFiles", "test.txt")).getContents());
 }
 
 TEST(FileTest, linesMatch) {
@@ -45,7 +45,7 @@ TEST(FileTest, linesMatch) {
 
     vector<string> result;
 
-    File(testMiscFilePath("test.txt")).forEachLine([&](const string& line) {
+    File(validResourcePath("miscFiles", "test.txt")).forEachLine([&](const string& line) {
         result.push_back(line);
     });
 

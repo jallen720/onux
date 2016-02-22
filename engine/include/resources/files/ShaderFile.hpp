@@ -9,7 +9,12 @@ namespace onux {
 
 class ShaderFile : public IShaderFile {
 public:
-    explicit ShaderFile(const std::string& path);
+    using Ptr = std::unique_ptr<const ShaderFile>;
+
+public:
+    static Ptr create(const std::string& path);
+
+public:
     ~ShaderFile();
 
     // IShaderFile
@@ -18,6 +23,8 @@ public:
 private:
     struct Impl;
     std::unique_ptr<Impl> impl;
+
+    explicit ShaderFile(const std::string& path);
 };
 
 } // namespace onux

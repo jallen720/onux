@@ -3,14 +3,15 @@
 #include <glm/glm.hpp>
 
 #include "tests/fixtures/gl/ShaderProgramTest.hpp"
-#include "gl/utils/getInt.hpp"
+#include "tests/utils/expectNoThrow.hpp"
+#include "tests/utils/expectGLError.hpp"
+#include "tests/utils/invalidResourcePath.hpp"
 #include "exceptions/Error.hpp"
 #include "exceptions/argErrors/ArgFailedRequirement.hpp"
 #include "exceptions/argErrors/InvalidArg.hpp"
 #include "exceptions/argErrors/EmptyStringArg.hpp"
 #include "exceptions/argErrors/NullArg.hpp"
-#include "tests/utils/expectNoThrow.hpp"
-#include "tests/utils/expectGLError.hpp"
+#include "gl/utils/getInt.hpp"
 
 using std::vector;
 using std::move;
@@ -20,12 +21,12 @@ using glm::mat4;
 using onux::ShaderProgram;
 using onux::ShaderObject;
 using onux::ShaderSource;
-using onux::getInt;
 using onux::Error;
 using onux::ArgFailedRequirement;
 using onux::InvalidArg;
 using onux::EmptyStringArg;
 using onux::NullArg;
+using onux::getInt;
 
 TEST_F(ShaderProgramTest, validCreation) {
     expectNoThrow([&] {
@@ -34,7 +35,7 @@ TEST_F(ShaderProgramTest, validCreation) {
 }
 
 TEST_F(ShaderProgramTest, notAllRequiredTypes) {
-    ShaderObjects invalidObjects;
+    ShaderProgram::Objects invalidObjects;
     invalidObjects.push_back(move(validObjects[0]));
 
     // A ShaderProgram requires atleast a vertex shader object and a fragment shader object.
@@ -42,9 +43,11 @@ TEST_F(ShaderProgramTest, notAllRequiredTypes) {
 }
 
 TEST_F(ShaderProgramTest, noMainInObject) {
-    const ShaderSource noMainSource(testShaderSourcePath("noMain.vert"));
-    ShaderObjects invalidObjects;
-    invalidObjects.emplace_back(new ShaderObject({ &noMainSource }));
+    const ShaderSource::Ptr noMainSource =
+        ShaderSource::create(invalidResourcePath("shaderSources", "noMain.vert"));
+
+    ShaderProgram::Objects invalidObjects;
+    invalidObjects.emplace_back(new ShaderObject({ noMainSource.get() }));
     invalidObjects.push_back(move(validObjects[1]));
 
     // If one of the sources is missing a main() function then ShaderProgram linking will fail.
@@ -100,9 +103,11 @@ TEST_F(ShaderProgramTest, setUniformMat4InvalidTranspose) {
 }
 
 TEST_F(ShaderProgramTest, setUnusedUniform) {
-    const ShaderSource unusedUniformSource(testShaderSourcePath("unusedUniform.vert"));
-    ShaderObjects invalidObjects;
-    invalidObjects.emplace_back(new ShaderObject({ &unusedUniformSource }));
+    const ShaderSource::Ptr unusedUniformSource =
+        ShaderSource::create(invalidResourcePath("shaderSources", "unusedUniform.vert"));
+
+    ShaderProgram::Objects invalidObjects;
+    invalidObjects.emplace_back(new ShaderObject({ unusedUniformSource.get() }));
     invalidObjects.push_back(move(validObjects[1]));
 
     // OpenGL optimizes out unused uniforms, so trying to set a uniform that is unused will fail, as

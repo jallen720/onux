@@ -12,7 +12,9 @@
 #include "environment/Window.hpp"
 
 #include "graphics/Camera.hpp"
-#include "graphics/Shader.hpp"
+#include "graphics/ShaderSource.hpp"
+#include "graphics/Model.hpp"
+#include "graphics/Image.hpp"
 
 #include "gl/ShaderObject.hpp"
 #include "gl/ShaderProgram.hpp"
@@ -24,10 +26,11 @@
 #include "engine/GraphicsEngine.hpp"
 #include "engine/Engine.hpp"
 
-#include "resources/ResourceManager.hpp"
-#include "resources/containers/Shaders.hpp"
-#include "resources/containers/Images.hpp"
-#include "resources/containers/Models.hpp"
+#include "resources/Resources.hpp"
+#include "resources/files/ShaderFile.hpp"
+
+#include "assets/Shaders.hpp"
+#include "assets/Shader.hpp"
 
 #include "exceptions/Error.hpp"
 
@@ -46,7 +49,9 @@ using onux::Environment;
 using onux::Window;
 
 using onux::Camera;
-using onux::Shader;
+using onux::ShaderSource;
+using onux::Model;
+using onux::Image;
 
 using onux::ShaderObject;
 using onux::ShaderProgram;
@@ -58,10 +63,11 @@ using onux::Renderable;
 using onux::GraphicsEngine;
 using onux::Engine;
 
-using onux::ResourceManager;
+using onux::Resources;
+using onux::ShaderFile;
+
 using onux::Shaders;
-using onux::Images;
-using onux::Models;
+using onux::Shader;
 
 using onux::Error;
 
@@ -75,10 +81,13 @@ void runEngine() {
         configureOpenGL();
 
         // Resources
-        const ResourceManager resourceManager;
-        const Shaders& shaders = resourceManager.getShaders();
-        const Images& images = resourceManager.getImages();
-        const Models& models = resourceManager.getModels();
+        const Resources<ShaderFile>   shaderFiles  ("resources/shaders");
+        const Resources<ShaderSource> shaderSources("resources/shaderSources");
+        const Resources<Image>        images       ("resources/images");
+        const Resources<Model>        models       ("resources/models");
+
+        // Assets
+        const Shaders shaders(shaderFiles, shaderSources);
 
         shaders["multiTexture.yaml"]->getProgram().use();
         shaders["multiTexture.yaml"]->getProgram().setUniform("texture1", 1);
@@ -94,7 +103,6 @@ void runEngine() {
             Renderable(
                 *models["hheli.obj"]->getMeshes()[0],
                 shaders["diffuse.yaml"]->getProgram(),
-
                 {
                     textures[2].get(),
                 }
@@ -103,7 +111,6 @@ void runEngine() {
             Renderable(
                 *models["cube.obj"]->getMeshes()[0],
                 shaders["multiTexture.yaml"]->getProgram(),
-
                 {
                     textures[0].get(),
                     textures[1].get(),
@@ -113,7 +120,6 @@ void runEngine() {
             Renderable(
                 *models["hheli.obj"]->getMeshes()[0],
                 shaders["diffuse.yaml"]->getProgram(),
-
                 {
                     textures[2].get(),
                 }
@@ -173,7 +179,7 @@ void runEngine() {
         engine.run();
     }
     catch (const exception& e) {
-        cerr << e.what() << "\n";
+        cerr << "std::exception thrown: " << e.what() << "\n";
     }
     catch (...) {
         cerr << "Unknown exception thrown!\n";

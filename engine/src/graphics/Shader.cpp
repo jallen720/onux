@@ -6,7 +6,7 @@
 
 #include "gl/ShaderProgram.hpp"
 #include "gl/ShaderObject.hpp"
-#include "resources/containers/ShaderSources.hpp"
+#include "graphics/ShaderSource.hpp"
 #include "graphics/interfaces/IShaderFile.hpp"
 #include "graphics/interfaces/IShaderObjectData.hpp"
 
@@ -20,11 +20,15 @@ namespace onux {
 struct Shader::Impl {
     const ShaderProgram shaderProgram;
 
-    Impl(const IShaderFile& shaderFile, const ShaderSources& shaderSources);
+    Impl(const IShaderFile* shaderFile, Sources sources);
 };
 
-Shader::Shader(const IShaderFile& shaderFile, const ShaderSources& shaderSources)
-    : impl(new Impl(shaderFile, shaderSources)) {}
+auto Shader::create(const IShaderFile* shaderFile, Sources sources) -> Ptr {
+    return Ptr(new Shader(shaderFile, sources));
+}
+
+Shader::Shader(const IShaderFile* shaderFile, Sources sources)
+    : impl(new Impl(shaderFile, sources)) {}
 
 Shader::~Shader() {}
 
@@ -34,37 +38,37 @@ const ShaderProgram& Shader::getProgram() const {
 
 // Implementation
 
-static const ShaderObject::Sources getSources(
+static const ShaderObject::Sources getObjectSources(
     const IShaderObjectData& shaderObjectData,
-    const ShaderSources&     shaderSources
+    Shader::Sources          sources
 ) {
     const string& type = shaderObjectData.getType();
-    ShaderObject::Sources sources;
+    ShaderObject::Sources objectSources;
 
     for (const string& sourcePath : shaderObjectData.getSourcePaths()) {
-        sources.push_back(shaderSources[sourcePath + "." + type]);
+        objectSources.push_back(sources[sourcePath + "." + type]);
     }
 
-    return sources;
+    return objectSources;
 }
 
 static const ShaderProgram::Objects getObjects(
-    const IShaderFile&   shaderFile,
-    const ShaderSources& shaderSources
+    const IShaderFile* shaderFile,
+    Shader::Sources    sources
 ) {
     ShaderProgram::Objects objects;
 
-    shaderFile.forEachShaderObjectData([&](const IShaderObjectData& shaderObjectData) {
-        objects.emplace_back(new ShaderObject(getSources(
+    shaderFile->forEachShaderObjectData([&](const IShaderObjectData& shaderObjectData) {
+        objects.emplace_back(new ShaderObject(getObjectSources(
             shaderObjectData,
-            shaderSources
+            sources
         )));
     });
 
     return objects;
 }
 
-Shader::Impl::Impl(const IShaderFile& shaderFile, const ShaderSources& shaderSources)
-    : shaderProgram(getObjects(shaderFile, shaderSources)) {}
+Shader::Impl::Impl(const IShaderFile* shaderFile, Sources sources)
+    : shaderProgram(getObjects(shaderFile, sources)) {}
 
 } // namespace onux

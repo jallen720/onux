@@ -2,7 +2,7 @@
 
 #include "tests/fixtures/graphics/ShaderSourceTest.hpp"
 #include "tests/utils/expectNoThrow.hpp"
-#include "tests/utils/testShaderSourcePath.hpp"
+#include "tests/utils/validResourcePath.hpp"
 #include "utils/File.hpp"
 #include "exceptions/argErrors/InvalidArgProperty.hpp"
 #include "exceptions/argErrors/EmptyStringArg.hpp"
@@ -15,20 +15,20 @@ using onux::EmptyStringArg;
 
 TEST_F(ShaderSourceTest, validCreation) {
     expectNoThrow([] {
-        ShaderSource(testShaderSourcePath("valid.vert"));
+        ShaderSource::create(validResourcePath("shaderSources", "valid.vert"));
     });
 }
 
 TEST_F(ShaderSourceTest, invalidFileExtension) {
-    EXPECT_THROW(ShaderSource("invalid.ext"), InvalidArgProperty);
+    EXPECT_THROW(ShaderSource::create("invalid.ext"), InvalidArgProperty);
 }
 
 TEST_F(ShaderSourceTest, emptyPath) {
-    EXPECT_THROW(ShaderSource(""), EmptyStringArg);
+    EXPECT_THROW(ShaderSource::create(""), EmptyStringArg);
 }
 
 static GLenum shaderSourceType(const string& type) {
-    return ShaderSource(testShaderSourcePath("valid." + type)).getType();
+    return ShaderSource::create(validResourcePath("shaderSources", "valid." + type))->getType();
 }
 
 TEST_F(ShaderSourceTest, correctTypes) {
@@ -38,10 +38,10 @@ TEST_F(ShaderSourceTest, correctTypes) {
 }
 
 TEST_F(ShaderSourceTest, correctSources) {
-    const string shaderPath = testShaderSourcePath("valid.vert");
+    const string validShaderSourcePath = validResourcePath("shaderSources", "valid.vert");
 
     EXPECT_EQ(
-        File(shaderPath).getContents(),
-        ShaderSource(shaderPath).getCode()
+        File(validShaderSourcePath).getContents(),
+        ShaderSource::create(validShaderSourcePath)->getCode()
     );
 }

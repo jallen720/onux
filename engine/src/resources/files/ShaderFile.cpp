@@ -26,13 +26,13 @@ struct ShaderFile::Impl {
     Impl(const Node& file, const string& path);
 };
 
-static const string& getValidPath(const string& path) {
-    validateNotEmpty("path", "ShaderFile::ShaderFile", path);
-    return path;
+auto ShaderFile::create(const string& path) -> Ptr {
+    validateNotEmpty("path", "ShaderFile::create", path);
+    return Ptr(new ShaderFile(path));
 }
 
 ShaderFile::ShaderFile(const string& path)
-    : impl(new Impl(getValidPath(path))) {}
+    : impl(new Impl(path)) {}
 
 ShaderFile::~ShaderFile() {}
 

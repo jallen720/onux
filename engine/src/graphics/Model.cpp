@@ -15,13 +15,13 @@ struct Model::Impl {
     explicit Impl(const string& path);
 };
 
-static const string getValidPath(const string& path) {
-    validateNotEmpty("path", "Model::Model", path);
-    return path;
+auto Model::create(const string& path) -> Ptr {
+    validateNotEmpty("path", "Model::create", path);
+    return Ptr(new Model(path));
 }
 
 Model::Model(const string& path)
-    : impl(new Impl(getValidPath(path))) {}
+    : impl(new Impl(path)) {}
 
 Model::~Model() {}
 

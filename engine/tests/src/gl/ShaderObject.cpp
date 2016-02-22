@@ -2,7 +2,8 @@
 
 #include "tests/fixtures/gl/ShaderObjectTest.hpp"
 #include "tests/utils/expectNoThrow.hpp"
-#include "tests/utils/testShaderSourcePath.hpp"
+#include "tests/utils/validResourcePath.hpp"
+#include "tests/utils/invalidResourcePath.hpp"
 #include "graphics/ShaderSource.hpp"
 #include "exceptions/Error.hpp"
 #include "exceptions/argErrors/ArgFailedRequirement.hpp"
@@ -15,11 +16,12 @@ using onux::ArgFailedRequirement;
 using onux::InvalidArgProperty;
 
 TEST_F(ShaderObjectTest, validCreation) {
-    const ShaderSource validSource(testShaderSourcePath("valid.vert"));
+    const ShaderSource::Ptr validSource =
+        ShaderSource::create(validResourcePath("shaderSources", "valid.vert"));
 
-    expectNoThrow([&validSource] {
+    expectNoThrow([&] {
         ShaderObject({
-            &validSource,
+            validSource.get(),
         });
     });
 }
@@ -29,30 +31,30 @@ TEST_F(ShaderObjectTest, noSources) {
 }
 
 TEST_F(ShaderObjectTest, differentSourceTypes) {
-    const ShaderSource invalidSources[] {
-        { testShaderSourcePath("valid.vert") },
-        { testShaderSourcePath("valid.frag") },
+    const ShaderSource::Ptr differentSources[] {
+        ShaderSource::create(validResourcePath("shaderSources", "valid.vert")),
+        ShaderSource::create(validResourcePath("shaderSources", "valid.frag")),
     };
 
     EXPECT_THROW(
         ShaderObject({
-            &invalidSources[0],
-            &invalidSources[1],
+            differentSources[0].get(),
+            differentSources[1].get(),
         }),
         ArgFailedRequirement
     );
 }
 
 TEST_F(ShaderObjectTest, compilationFailure) {
-    const ShaderSource invalidSources[] {
-        { testShaderSourcePath("valid.vert")   },
-        { testShaderSourcePath("invalid.vert") },
+    const ShaderSource::Ptr invalidSources[] {
+        ShaderSource::create(validResourcePath("shaderSources", "valid.vert")),
+        ShaderSource::create(invalidResourcePath("shaderSources", "invalid.vert")),
     };
 
     EXPECT_THROW(
         ShaderObject({
-            &invalidSources[0],
-            &invalidSources[1],
+            invalidSources[0].get(),
+            invalidSources[1].get(),
         }),
         Error
     );

@@ -10,13 +10,16 @@ namespace onux {
 
 class ShaderSource : public IShaderSource {
 public:
+    using Ptr   = std::unique_ptr<const ShaderSource>;
     using Types = const std::map<const std::string, const GLenum>;
 
 public:
     static Types TYPES;
 
+    static Ptr create(const std::string& path);
+
 public:
-    ShaderSource(const std::string& path);
+    ~ShaderSource();
 
     // IShaderSource
     virtual const GLenum getType() const override;
@@ -24,7 +27,9 @@ public:
 
 private:
     struct Impl;
-    std::shared_ptr<Impl> impl;
+    std::unique_ptr<Impl> impl;
+
+    ShaderSource(const std::string& path);
 };
 
 } // namespace onux

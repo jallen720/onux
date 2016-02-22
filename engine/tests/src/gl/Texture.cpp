@@ -3,12 +3,12 @@
 #include <GL/glew.h> // Required before other OpenGL headers
 
 #include "tests/fixtures/gl/TextureTest.hpp"
-#include "gl/utils/getInt.hpp"
+#include "tests/utils/expectNoThrow.hpp"
 #include "exceptions/argErrors/NullArg.hpp"
 #include "exceptions/argErrors/InvalidArg.hpp"
 #include "exceptions/argErrors/InvalidMapKey.hpp"
 #include "exceptions/argErrors/InvalidMapValue.hpp"
-#include "tests/utils/expectNoThrow.hpp"
+#include "gl/utils/getInt.hpp"
 
 using onux::Texture;
 using onux::getInt;
@@ -19,7 +19,7 @@ using onux::InvalidMapValue;
 
 TEST_F(TextureTest, validCreation) {
     expectNoThrow([&] {
-        Texture { &validImage };
+        Texture { validImage.get() };
     });
 }
 
@@ -31,7 +31,7 @@ TEST_F(TextureTest, invalidOptionKey) {
     const GLint INVALID_KEY = 0;
 
     EXPECT_THROW(
-        Texture(&validImage, {
+        Texture(validImage.get(), {
             { INVALID_KEY, GL_LINEAR },
         }),
         InvalidMapKey
@@ -42,7 +42,7 @@ TEST_F(TextureTest, invalidOptionValue) {
     const GLint INVALID_VALUE = 0;
 
     EXPECT_THROW(
-        Texture(&validImage, {
+        Texture(validImage.get(), {
             { GL_TEXTURE_MAG_FILTER, INVALID_VALUE },
         }),
         InvalidMapValue
@@ -52,7 +52,7 @@ TEST_F(TextureTest, invalidOptionValue) {
 TEST_F(TextureTest, invalidOptionValueForKey) {
     // GL_LINEAR_MIPMAP_LINEAR is only valid for GL_TEXTURE_MIN_FILTER.
     EXPECT_THROW(
-        Texture(&validImage, {
+        Texture(validImage.get(), {
             { GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR },
         }),
         InvalidMapValue

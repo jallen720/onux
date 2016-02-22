@@ -1,8 +1,8 @@
 #include "graphics/Mesh.hpp"
 
 #include "tests/fixtures/graphics/MeshTest.hpp"
-#include "exceptions/argErrors/NullArg.hpp"
 #include "tests/utils/expectNoThrow.hpp"
+#include "exceptions/argErrors/NullArg.hpp"
 
 using onux::Mesh;
 using onux::NullArg;

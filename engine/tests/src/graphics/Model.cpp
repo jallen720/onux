@@ -2,7 +2,7 @@
 
 #include "tests/fixtures/graphics/ModelTest.hpp"
 #include "tests/utils/expectNoThrow.hpp"
-#include "tests/utils/testModelPath.hpp"
+#include "tests/utils/validResourcePath.hpp"
 #include "exceptions/subsystemErrors/AssimpError.hpp"
 #include "exceptions/argErrors/EmptyStringArg.hpp"
 
@@ -12,19 +12,24 @@ using onux::EmptyStringArg;
 
 TEST_F(ModelTest, validCreation) {
     expectNoThrow([] {
-        Model(testModelPath("cube.obj"));
+        Model::create(validResourcePath("models", "cube.obj"));
     });
 }
 
 TEST_F(ModelTest, validData) {
     // Cube model should have 1 mesh
-    ASSERT_EQ(1, Model(testModelPath("cube.obj")).getMeshes().size());
+    ASSERT_EQ(
+        1,
+        Model::create(validResourcePath("models", "cube.obj"))
+            ->getMeshes()
+            .size()
+    );
 }
 
 TEST_F(ModelTest, emptyPath) {
-    EXPECT_THROW(Model(""), EmptyStringArg);
+    EXPECT_THROW(Model::create(""), EmptyStringArg);
 }
 
 TEST_F(ModelTest, invalidPath) {
-    EXPECT_THROW(Model("invalid/path"), AssimpError);
+    EXPECT_THROW(Model::create("invalid/path"), AssimpError);
 }

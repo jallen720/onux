@@ -26,13 +26,15 @@ ShaderSource::Types ShaderSource::TYPES {
     { "comp", GL_COMPUTE_SHADER         },
 };
 
-static const string& getValidPath(const string& path) {
-    validateNotEmpty("path", "ShaderSource::ShaderSource", path);
-    return path;
+auto ShaderSource::create(const string& path) -> Ptr {
+    validateNotEmpty("path", "ShaderSource::create", path);
+    return Ptr(new ShaderSource(path));
 }
 
 ShaderSource::ShaderSource(const string& path)
-    : impl(new Impl(getValidPath(path))) {}
+    : impl(new Impl(path)) {}
+
+ShaderSource::~ShaderSource() {}
 
 const GLenum ShaderSource::getType() const {
     return impl->type;
@@ -52,7 +54,7 @@ static void validateExtension(const string& extension) {
     if (!isValidExtension(extension)) {
         throw InvalidArgProperty(
             "path",
-            "ShaderSource::ShaderSource",
+            "ShaderSource::Impl::Impl",
             "extension",
             keys(ShaderSource::TYPES)
         );

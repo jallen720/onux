@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 
 #include "graphics/utils/getValidAssimpScene.hpp"
-#include "tests/utils/testModelPath.hpp"
+#include "tests/utils/validResourcePath.hpp"
 
 struct MeshTest : testing::Test {
 private:
@@ -11,7 +11,7 @@ private:
 
 protected:
     const aiMesh* cubeMesh = onux::getValidAssimpScene(
-        testModelPath("cube.obj"),
+        validResourcePath("models", "cube.obj"),
         importer
     )->mMeshes[0];
 };

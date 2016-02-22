@@ -4,7 +4,8 @@
 
 #include "tests/fixtures/graphics/ImageTest.hpp"
 #include "tests/utils/expectNoThrow.hpp"
-#include "tests/utils/testImagePath.hpp"
+#include "tests/utils/validResourcePath.hpp"
+#include "tests/utils/invalidResourcePath.hpp"
 #include "exceptions/argErrors/EmptyStringArg.hpp"
 
 using Magick::ErrorMissingDelegate;
@@ -14,18 +15,21 @@ using onux::EmptyStringArg;
 
 TEST_F(ImageTest, validCreation) {
     expectNoThrow([] {
-        Image(testImagePath("valid.png"));
+        Image::create(validResourcePath("images", "valid.png"));
     });
 }
 
 TEST_F(ImageTest, emptyPath) {
-    EXPECT_THROW(Image(""), EmptyStringArg);
+    EXPECT_THROW(Image::create(""), EmptyStringArg);
 }
 
 TEST_F(ImageTest, invalidFileExtension) {
-    EXPECT_THROW(Image(testImagePath("invalid_format.pngg")), ErrorMissingDelegate);
+    EXPECT_THROW(
+        Image::create(invalidResourcePath("images", "invalid_format.pngg")),
+        ErrorMissingDelegate
+    );
 }
 
 TEST_F(ImageTest, fileDoesNotExist) {
-    EXPECT_THROW(Image("does_not_exist.png"), ErrorBlob);
+    EXPECT_THROW(Image::create("does_not_exist.png"), ErrorBlob);
 }

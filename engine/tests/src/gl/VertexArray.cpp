@@ -1,8 +1,8 @@
 #include "gl/VertexArray.hpp"
 
 #include "tests/fixtures/gl/VertexArrayTest.hpp"
-#include "gl/utils/getInt.hpp"
 #include "tests/utils/expectNoThrow.hpp"
+#include "gl/utils/getInt.hpp"
 
 using onux::VertexArray;
 using onux::getInt;

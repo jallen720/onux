@@ -5,7 +5,8 @@
 #include <yaml-cpp/yaml.h>
 
 #include "tests/utils/expectNoThrow.hpp"
-#include "tests/utils/testShaderPath.hpp"
+#include "tests/utils/validResourcePath.hpp"
+#include "tests/utils/invalidResourcePath.hpp"
 #include "exceptions/argErrors/EmptyStringArg.hpp"
 #include "exceptions/FileError.hpp"
 
@@ -18,26 +19,38 @@ using onux::FileError;
 
 TEST(ShaderFileTest, validCreation) {
     expectNoThrow([] {
-        ShaderFile(testShaderPath("valid.yaml"));
+        ShaderFile::create(validResourcePath("shaders", "valid.yaml"));
     });
 }
 
 TEST(ShaderFileTest, emptyPath) {
-    EXPECT_THROW(ShaderFile(""), EmptyStringArg);
+    EXPECT_THROW(ShaderFile::create(""), EmptyStringArg);
 }
 
 TEST(ShaderFileTest, invalidPath) {
-    EXPECT_THROW(ShaderFile(testShaderPath("invalid_path.yaml")), BadFile);
+    EXPECT_THROW(
+        ShaderFile::create(invalidResourcePath("shaders", "invalid_path.yaml")),
+        BadFile
+    );
 }
 
 TEST(ShaderFileTest, invalidTypeFormat) {
-    EXPECT_THROW(ShaderFile(testShaderPath("invalidTypeFormat.yaml")), FileError);
+    EXPECT_THROW(
+        ShaderFile::create(invalidResourcePath("shaders", "invalidTypeFormat.yaml")),
+        FileError
+    );
 }
 
 TEST(ShaderFileTest, invalidSourcePathsFormat) {
-    EXPECT_THROW(ShaderFile(testShaderPath("invalidSourcePathsFormat.yaml")), FileError);
+    EXPECT_THROW(
+        ShaderFile::create(invalidResourcePath("shaders", "invalidSourcePathsFormat.yaml")),
+        FileError
+    );
 }
 
 TEST(ShaderFileTest, missingRequiredTypes) {
-    EXPECT_THROW(ShaderFile(testShaderPath("missingRequiredTypes.yaml")), FileError);
+    EXPECT_THROW(
+        ShaderFile::create(invalidResourcePath("shaders", "missingRequiredTypes.yaml")),
+        FileError
+    );
 }
