@@ -15,6 +15,7 @@
 #include "graphics/ShaderSource.hpp"
 #include "graphics/Model.hpp"
 #include "graphics/Image.hpp"
+#include "graphics/Shader.hpp"
 
 #include "gl/ShaderObject.hpp"
 #include "gl/ShaderProgram.hpp"
@@ -30,7 +31,7 @@
 #include "resources/files/ShaderFile.hpp"
 
 #include "assets/Shaders.hpp"
-#include "assets/Shader.hpp"
+#include "assets/Textures.hpp"
 
 #include "exceptions/Error.hpp"
 
@@ -52,6 +53,7 @@ using onux::Camera;
 using onux::ShaderSource;
 using onux::Model;
 using onux::Image;
+using onux::Shader;
 
 using onux::ShaderObject;
 using onux::ShaderProgram;
@@ -67,7 +69,7 @@ using onux::Resources;
 using onux::ShaderFile;
 
 using onux::Shaders;
-using onux::Shader;
+using onux::Textures;
 
 using onux::Error;
 
@@ -88,15 +90,10 @@ void runEngine() {
 
         // Assets
         const Shaders shaders(shaderFiles, shaderSources);
+        const Textures textures(images);
 
         shaders["multiTexture.yaml"]->getProgram().use();
         shaders["multiTexture.yaml"]->getProgram().setUniform("texture1", 1);
-
-        // Textures
-        vector<unique_ptr<Texture>> textures;
-        textures.emplace_back(new Texture(images["box.jpg"]));
-        textures.emplace_back(new Texture(images["bricks.png"]));
-        textures.emplace_back(new Texture(images["hheli.bmp"]));
 
         // Drawable data
         Renderable renderables[] {
@@ -104,7 +101,7 @@ void runEngine() {
                 *models["hheli.obj"]->getMeshes()[0],
                 shaders["diffuse.yaml"]->getProgram(),
                 {
-                    textures[2].get(),
+                    textures["hheli.bmp"],
                 }
             ),
 
@@ -112,8 +109,8 @@ void runEngine() {
                 *models["cube.obj"]->getMeshes()[0],
                 shaders["multiTexture.yaml"]->getProgram(),
                 {
-                    textures[0].get(),
-                    textures[1].get(),
+                    textures["box.jpg"],
+                    textures["bricks.png"],
                 }
             ),
 
@@ -121,7 +118,7 @@ void runEngine() {
                 *models["hheli.obj"]->getMeshes()[0],
                 shaders["diffuse.yaml"]->getProgram(),
                 {
-                    textures[2].get(),
+                    textures["hheli.bmp"],
                 }
             ),
         };

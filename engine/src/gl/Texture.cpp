@@ -74,7 +74,7 @@ static void validateOptionKey(const GLenum optionKey) {
     if (!VALID_OPTION_KEYS.contains(optionKey)) {
         throw InvalidMapKey(
             "options",
-            "Texture::Texture",
+            "Texture::create",
             VALID_OPTION_KEYS.getNames()
         );
     }
@@ -84,7 +84,7 @@ static void validateOptionValue(const GLenum optionKey, const GLint optionValue)
     if (!VALID_OPTION_VALUES.at(optionKey).contains(optionValue)) {
         throw InvalidMapValue(
             "options",
-            "Texture::Texture",
+            "Texture::create",
             VALID_OPTION_KEYS.getName(optionKey),
             VALID_OPTION_VALUES.at(optionKey).getNames()
         );
@@ -98,14 +98,14 @@ static void validateOptions(Texture::Options& options) {
     }
 }
 
-static GLuint getValidTexture(const IImage* image, Texture::Options& options) {
-    validateNotNull("image", "Texture::Texture", image);
+auto Texture::create(const IImage* image, Options& options) -> Ptr {
+    validateNotNull("image", "Texture::create", image);
     validateOptions(options);
-    return createTexture();
+    return Ptr(new Texture(image, options, createTexture()));
 }
 
-Texture::Texture(const IImage* image, Options& options)
-    : GLData(getValidTexture(image, options))
+Texture::Texture(const IImage* image, Options& options, const GLuint id)
+    : GLData(id)
     , impl(new Impl()) {
     bind(0);
     impl->loadImage(image);
