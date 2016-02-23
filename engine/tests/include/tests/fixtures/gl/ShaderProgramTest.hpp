@@ -15,8 +15,6 @@ private:
     };
 
 protected:
-    using ShaderProgramPtr = std::unique_ptr<onux::ShaderProgram>;
-
     onux::ShaderProgram::Objects validObjects = [&]() {
         onux::ShaderProgram::Objects validObjects;
         validObjects.push_back(onux::ShaderObject::create({ validSources["valid.vert"] }));
@@ -24,5 +22,6 @@ protected:
         return validObjects;
     }();
 
-    ShaderProgramPtr validShaderProgram { new onux::ShaderProgram(validObjects) };
+    onux::ShaderProgram::Ptr validShaderProgram =
+        onux::ShaderProgram::create(validObjects);
 };

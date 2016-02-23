@@ -30,7 +30,7 @@ using onux::getInt;
 
 TEST_F(ShaderProgramTest, validCreation) {
     expectNoThrow([&] {
-        ShaderProgram { validObjects };
+        ShaderProgram::create(validObjects);
     });
 }
 
@@ -39,7 +39,7 @@ TEST_F(ShaderProgramTest, notAllRequiredTypes) {
     invalidObjects.push_back(move(validObjects[0]));
 
     // A ShaderProgram requires atleast a vertex shader object and a fragment shader object.
-    EXPECT_THROW(ShaderProgram { invalidObjects }, ArgFailedRequirement);
+    EXPECT_THROW(ShaderProgram::create(invalidObjects), ArgFailedRequirement);
 }
 
 TEST_F(ShaderProgramTest, noMainInObject) {
@@ -51,7 +51,7 @@ TEST_F(ShaderProgramTest, noMainInObject) {
     invalidObjects.push_back(move(validObjects[1]));
 
     // If one of the sources is missing a main() function then ShaderProgram linking will fail.
-    EXPECT_THROW(ShaderProgram { invalidObjects }, Error);
+    EXPECT_THROW(ShaderProgram::create(invalidObjects), Error);
 }
 
 TEST_F(ShaderProgramTest, use) {
@@ -113,7 +113,7 @@ TEST_F(ShaderProgramTest, setUnusedUniform) {
     // OpenGL optimizes out unused uniforms, so trying to set a uniform that is unused will fail, as
     // the uniform won't exist.
     EXPECT_THROW(
-        ShaderProgram { invalidObjects }.setUniform("unusedVec3", vec3()),
+        ShaderProgram::create(invalidObjects)->setUniform("unusedVec3", vec3()),
         Error
     );
 }

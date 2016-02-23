@@ -68,13 +68,13 @@ static void validateHasRequiredTypes(const ShaderProgram::Objects& objects) {
     }
 }
 
-static GLuint getValidShaderProgram(const ShaderProgram::Objects& objects) {
+auto ShaderProgram::create(const Objects& objects) -> Ptr {
     validateHasRequiredTypes(objects);
-    return glCreateProgram();
+    return Ptr(new ShaderProgram(glCreateProgram(), objects));
 }
 
-ShaderProgram::ShaderProgram(const Objects& objects)
-    : GLData(getValidShaderProgram(objects))
+ShaderProgram::ShaderProgram(const GLuint id, const Objects& objects)
+    : GLData(id)
     , impl(new Impl(this)) {
     impl->process(objects, glAttachShader);
     impl->link();

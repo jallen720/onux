@@ -11,10 +11,13 @@ namespace onux {
 
 class ShaderProgram : public GLData {
 public:
+    using Ptr     = std::unique_ptr<const ShaderProgram>;
     using Objects = std::vector<ShaderObject::Ptr>;
 
 public:
-    explicit ShaderProgram(const Objects& objects);
+    static Ptr create(const Objects& objects);
+
+public:
     ~ShaderProgram();
     void use() const;
     void setUniform(const GLchar* name, const GLint value) const;
@@ -29,6 +32,8 @@ public:
 private:
     struct Impl;
     std::unique_ptr<Impl> impl;
+
+    ShaderProgram(const GLuint id, const Objects& objects);
 };
 
 } // namespace onux

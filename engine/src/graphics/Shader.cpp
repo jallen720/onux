@@ -18,7 +18,7 @@ using std::move;
 namespace onux {
 
 struct Shader::Impl {
-    const ShaderProgram shaderProgram;
+    const ShaderProgram::Ptr shaderProgram;
 
     Impl(const IShaderFile* shaderFile, Sources sources);
 };
@@ -33,7 +33,7 @@ Shader::Shader(const IShaderFile* shaderFile, Sources sources)
 Shader::~Shader() {}
 
 const ShaderProgram& Shader::getProgram() const {
-    return impl->shaderProgram;
+    return *impl->shaderProgram;
 }
 
 // Implementation
@@ -69,6 +69,9 @@ static const ShaderProgram::Objects getObjects(
 }
 
 Shader::Impl::Impl(const IShaderFile* shaderFile, Sources sources)
-    : shaderProgram(getObjects(shaderFile, sources)) {}
+    : shaderProgram(ShaderProgram::create(getObjects(
+        shaderFile,
+        sources
+    ))) {}
 
 } // namespace onux
