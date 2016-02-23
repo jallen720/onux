@@ -25,7 +25,4 @@ protected:
     }();
 
     ShaderProgramPtr validShaderProgram { new onux::ShaderProgram(validObjects) };
-
-public:
-    ShaderProgramTest() {}
 };
