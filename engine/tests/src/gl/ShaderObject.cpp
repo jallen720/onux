@@ -20,14 +20,14 @@ TEST_F(ShaderObjectTest, validCreation) {
         ShaderSource::create(validResourcePath("shaderSources", "valid.vert"));
 
     expectNoThrow([&] {
-        ShaderObject({
+        ShaderObject::create({
             validSource.get(),
         });
     });
 }
 
 TEST_F(ShaderObjectTest, noSources) {
-    EXPECT_THROW(ShaderObject({}), InvalidArgProperty);
+    EXPECT_THROW(ShaderObject::create({}), InvalidArgProperty);
 }
 
 TEST_F(ShaderObjectTest, differentSourceTypes) {
@@ -37,7 +37,7 @@ TEST_F(ShaderObjectTest, differentSourceTypes) {
     };
 
     EXPECT_THROW(
-        ShaderObject({
+        ShaderObject::create({
             differentSources[0].get(),
             differentSources[1].get(),
         }),
@@ -52,7 +52,7 @@ TEST_F(ShaderObjectTest, compilationFailure) {
     };
 
     EXPECT_THROW(
-        ShaderObject({
+        ShaderObject::create({
             invalidSources[0].get(),
             invalidSources[1].get(),
         }),

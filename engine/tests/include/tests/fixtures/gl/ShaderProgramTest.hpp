@@ -19,8 +19,8 @@ protected:
 
     onux::ShaderProgram::Objects validObjects = [&]() {
         onux::ShaderProgram::Objects validObjects;
-        validObjects.emplace_back(new onux::ShaderObject({ validSources["valid.vert"] }));
-        validObjects.emplace_back(new onux::ShaderObject({ validSources["valid.frag"] }));
+        validObjects.push_back(onux::ShaderObject::create({ validSources["valid.vert"] }));
+        validObjects.push_back(onux::ShaderObject::create({ validSources["valid.frag"] }));
         return validObjects;
     }();
 

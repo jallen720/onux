@@ -52,15 +52,15 @@ static void validateSameType(const ShaderObject::Sources& sources, const GLenum 
     }
 }
 
-static const GLuint getValidShaderObject(const ShaderObject::Sources& sources) {
+auto ShaderObject::create(const Sources& sources) -> Ptr {
     validateSourceCount(sources.size());
     const GLenum type = sources[0]->getType();
     validateSameType(sources, type);
-    return glCreateShader(type);
+    return Ptr(new ShaderObject(glCreateShader(type), sources));
 }
 
-ShaderObject::ShaderObject(const Sources& sources)
-    : GLData(getValidShaderObject(sources))
+ShaderObject::ShaderObject(const GLuint id, const Sources& sources)
+    : GLData(id)
     , impl(new Impl(this)) {
     impl->loadSources(sources);
     impl->compile();

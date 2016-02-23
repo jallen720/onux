@@ -15,13 +15,17 @@ public:
     using Sources = std::vector<const IShaderSource*>;
 
 public:
-    explicit ShaderObject(const Sources& sources);
+    static Ptr create(const Sources& sources);
+
+public:
     ~ShaderObject();
     const GLenum getType() const;
 
 private:
     struct Impl;
     std::unique_ptr<Impl> impl;
+
+    ShaderObject(const GLuint id, const Sources& sources);
 };
 
 } // namespace onux

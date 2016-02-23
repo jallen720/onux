@@ -47,7 +47,7 @@ TEST_F(ShaderProgramTest, noMainInObject) {
         ShaderSource::create(invalidResourcePath("shaderSources", "noMain.vert"));
 
     ShaderProgram::Objects invalidObjects;
-    invalidObjects.emplace_back(new ShaderObject({ noMainSource.get() }));
+    invalidObjects.push_back(ShaderObject::create({ noMainSource.get() }));
     invalidObjects.push_back(move(validObjects[1]));
 
     // If one of the sources is missing a main() function then ShaderProgram linking will fail.
@@ -107,7 +107,7 @@ TEST_F(ShaderProgramTest, setUnusedUniform) {
         ShaderSource::create(invalidResourcePath("shaderSources", "unusedUniform.vert"));
 
     ShaderProgram::Objects invalidObjects;
-    invalidObjects.emplace_back(new ShaderObject({ unusedUniformSource.get() }));
+    invalidObjects.push_back(ShaderObject::create({ unusedUniformSource.get() }));
     invalidObjects.push_back(move(validObjects[1]));
 
     // OpenGL optimizes out unused uniforms, so trying to set a uniform that is unused will fail, as

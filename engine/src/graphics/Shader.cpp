@@ -59,7 +59,7 @@ static const ShaderProgram::Objects getObjects(
     ShaderProgram::Objects objects;
 
     shaderFile->forEachShaderObjectData([&](const IShaderObjectData& shaderObjectData) {
-        objects.emplace_back(new ShaderObject(getObjectSources(
+        objects.push_back(ShaderObject::create(getObjectSources(
             shaderObjectData,
             sources
         )));
