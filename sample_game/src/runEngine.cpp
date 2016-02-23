@@ -12,10 +12,7 @@
 #include "environment/Window.hpp"
 
 #include "graphics/Camera.hpp"
-#include "graphics/ShaderSource.hpp"
 #include "graphics/Model.hpp"
-#include "graphics/Image.hpp"
-#include "graphics/Shader.hpp"
 
 #include "gl/ShaderObject.hpp"
 #include "gl/ShaderProgram.hpp"
@@ -27,9 +24,10 @@
 #include "engine/GraphicsEngine.hpp"
 #include "engine/Engine.hpp"
 
+#include "resources/ResourceManager.hpp"
 #include "resources/Resources.hpp"
-#include "resources/files/ShaderFile.hpp"
 
+#include "assets/AssetManager.hpp"
 #include "assets/Shaders.hpp"
 #include "assets/Textures.hpp"
 
@@ -50,10 +48,7 @@ using onux::Environment;
 using onux::Window;
 
 using onux::Camera;
-using onux::ShaderSource;
 using onux::Model;
-using onux::Image;
-using onux::Shader;
 
 using onux::ShaderObject;
 using onux::ShaderProgram;
@@ -65,9 +60,10 @@ using onux::Renderable;
 using onux::GraphicsEngine;
 using onux::Engine;
 
+using onux::ResourceManager;
 using onux::Resources;
-using onux::ShaderFile;
 
+using onux::AssetManager;
 using onux::Shaders;
 using onux::Textures;
 
@@ -82,15 +78,12 @@ void runEngine() {
         loadExtensions();
         configureOpenGL();
 
-        // Resources
-        const Resources<ShaderFile>   shaderFiles  ("resources/shaders");
-        const Resources<ShaderSource> shaderSources("resources/shaderSources");
-        const Resources<Image>        images       ("resources/images");
-        const Resources<Model>        models       ("resources/models");
+        const ResourceManager resourceManager("resources");
+        const AssetManager    assetManager(resourceManager);
 
-        // Assets
-        const Shaders shaders(shaderFiles, shaderSources);
-        const Textures textures(images);
+        const Resources<Model>& models   = resourceManager.getModels();
+        const Shaders&          shaders  = assetManager.getShaders();
+        const Textures&         textures = assetManager.getTextures();
 
         shaders["multiTexture.yaml"]->getProgram().use();
         shaders["multiTexture.yaml"]->getProgram().setUniform("texture1", 1);
