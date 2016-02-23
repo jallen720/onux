@@ -101,10 +101,10 @@ static void validateOptions(Texture::Options& options) {
 auto Texture::create(const IImage* image, Options& options) -> Ptr {
     validateNotNull("image", "Texture::create", image);
     validateOptions(options);
-    return Ptr(new Texture(image, options, createTexture()));
+    return Ptr(new Texture(createTexture(), image, options));
 }
 
-Texture::Texture(const IImage* image, Options& options, const GLuint id)
+Texture::Texture(const GLuint id, const IImage* image, Options& options)
     : GLData(id)
     , impl(new Impl()) {
     bind(0);

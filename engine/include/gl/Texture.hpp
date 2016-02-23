@@ -18,7 +18,10 @@ private:
     static Options DEFAULT_OPTIONS;
 
 public:
-    static Ptr create(const IImage* image, Options& options = DEFAULT_OPTIONS);
+    static Ptr create(
+        const IImage* image,
+        Options&      options = DEFAULT_OPTIONS
+    );
 
 public:
     ~Texture();
@@ -28,7 +31,7 @@ private:
     struct Impl;
     std::unique_ptr<Impl> impl;
 
-    explicit Texture(const IImage* image, Options& options, const GLuint id);
+    Texture(const GLuint id, const IImage* image, Options& options);
 };
 
 } // namespace onux
