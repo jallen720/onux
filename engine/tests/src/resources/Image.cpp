@@ -1,8 +1,8 @@
-#include "graphics/Image.hpp"
+#include "resources/Image.hpp"
 
 #include <Magick++.h>
 
-#include "tests/fixtures/graphics/ImageTest.hpp"
+#include "tests/fixtures/resources/ImageTest.hpp"
 #include "tests/utils/expectNoThrow.hpp"
 #include "tests/utils/validResourcePath.hpp"
 #include "tests/utils/invalidResourcePath.hpp"

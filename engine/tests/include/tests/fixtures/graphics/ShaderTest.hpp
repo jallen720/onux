@@ -2,7 +2,7 @@
 
 #include "tests/fixtures/gl/OnuxTest.hpp"
 #include "resources/Resources.hpp"
-#include "graphics/ShaderSource.hpp"
+#include "resources/ShaderSource.hpp"
 
 struct ShaderTest : OnuxTest {
 protected:

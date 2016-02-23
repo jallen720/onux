@@ -2,7 +2,7 @@
 
 #include "tests/fixtures/gl/OnuxTest.hpp"
 #include "tests/utils/validResourcePath.hpp"
-#include "graphics/Image.hpp"
+#include "resources/Image.hpp"
 
 struct TextureTest : OnuxTest {
 protected:

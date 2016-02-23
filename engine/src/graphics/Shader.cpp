@@ -6,7 +6,7 @@
 
 #include "gl/ShaderProgram.hpp"
 #include "gl/ShaderObject.hpp"
-#include "graphics/ShaderSource.hpp"
+#include "resources/ShaderSource.hpp"
 #include "graphics/interfaces/IShaderFile.hpp"
 #include "graphics/interfaces/IShaderObjectData.hpp"
 

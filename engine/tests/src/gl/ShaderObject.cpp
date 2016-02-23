@@ -4,7 +4,7 @@
 #include "tests/utils/expectNoThrow.hpp"
 #include "tests/utils/validResourcePath.hpp"
 #include "tests/utils/invalidResourcePath.hpp"
-#include "graphics/ShaderSource.hpp"
+#include "resources/ShaderSource.hpp"
 #include "exceptions/Error.hpp"
 #include "exceptions/argErrors/ArgFailedRequirement.hpp"
 #include "exceptions/argErrors/InvalidArgProperty.hpp"

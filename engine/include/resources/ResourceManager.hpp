@@ -5,9 +5,9 @@
 
 #include "resources/Resources.hpp"
 #include "resources/files/ShaderFile.hpp"
-#include "graphics/ShaderSource.hpp"
-#include "graphics/Image.hpp"
-#include "graphics/Model.hpp"
+#include "resources/ShaderSource.hpp"
+#include "resources/Image.hpp"
+#include "resources/Model.hpp"
 
 namespace onux {
 

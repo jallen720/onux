@@ -2,7 +2,7 @@
 
 #include "resources/Resources.hpp"
 #include "resources/files/ShaderFile.hpp"
-#include "graphics/ShaderSource.hpp"
+#include "resources/ShaderSource.hpp"
 #include "graphics/Shader.hpp"
 #include "utils/UniqueMap.hpp"
 

@@ -12,7 +12,6 @@
 #include "environment/Window.hpp"
 
 #include "graphics/Camera.hpp"
-#include "graphics/Model.hpp"
 
 #include "gl/ShaderObject.hpp"
 #include "gl/ShaderProgram.hpp"
@@ -26,6 +25,7 @@
 
 #include "resources/ResourceManager.hpp"
 #include "resources/Resources.hpp"
+#include "resources/Model.hpp"
 
 #include "assets/AssetManager.hpp"
 #include "assets/Shaders.hpp"
@@ -48,7 +48,6 @@ using onux::Environment;
 using onux::Window;
 
 using onux::Camera;
-using onux::Model;
 
 using onux::ShaderObject;
 using onux::ShaderProgram;
@@ -62,6 +61,7 @@ using onux::Engine;
 
 using onux::ResourceManager;
 using onux::Resources;
+using onux::Model;
 
 using onux::AssetManager;
 using onux::Shaders;

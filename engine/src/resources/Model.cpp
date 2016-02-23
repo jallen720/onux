@@ -1,4 +1,4 @@
-#include "graphics/Model.hpp"
+#include "resources/Model.hpp"
 
 #include "graphics/utils/getValidAssimpScene.hpp"
 #include "exceptions/validators/validateNotEmpty.hpp"

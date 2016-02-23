@@ -3,10 +3,10 @@
 #include <memory>
 
 #include "tests/fixtures/gl/OnuxTest.hpp"
-#include "graphics/ShaderSource.hpp"
+#include "resources/ShaderSource.hpp"
+#include "resources/Resources.hpp"
 #include "gl/ShaderObject.hpp"
 #include "gl/ShaderProgram.hpp"
-#include "resources/Resources.hpp"
 
 struct ShaderProgramTest : OnuxTest {
 private:

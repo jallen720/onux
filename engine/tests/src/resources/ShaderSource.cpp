@@ -1,6 +1,6 @@
-#include "graphics/ShaderSource.hpp"
+#include "resources/ShaderSource.hpp"
 
-#include "tests/fixtures/graphics/ShaderSourceTest.hpp"
+#include "tests/fixtures/resources/ShaderSourceTest.hpp"
 #include "tests/utils/expectNoThrow.hpp"
 #include "tests/utils/validResourcePath.hpp"
 #include "utils/File.hpp"

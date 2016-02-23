@@ -1,4 +1,4 @@
-#include "graphics/ShaderSource.hpp"
+#include "resources/ShaderSource.hpp"
 
 #include "utils/File.hpp"
 #include "utils/getExtension.hpp"

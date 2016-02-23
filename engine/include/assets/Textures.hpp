@@ -3,7 +3,7 @@
 #include "gl/Texture.hpp"
 #include "utils/UniqueMap.hpp"
 #include "resources/Resources.hpp"
-#include "graphics/Image.hpp"
+#include "resources/Image.hpp"
 
 namespace onux {
 

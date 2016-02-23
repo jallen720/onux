@@ -1,4 +1,4 @@
-#include "graphics/Image.hpp"
+#include "resources/Image.hpp"
 
 #include <Magick++.h>
 

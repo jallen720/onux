@@ -1,6 +1,6 @@
-#include "graphics/Model.hpp"
+#include "resources/Model.hpp"
 
-#include "tests/fixtures/graphics/ModelTest.hpp"
+#include "tests/fixtures/resources/ModelTest.hpp"
 #include "tests/utils/expectNoThrow.hpp"
 #include "tests/utils/validResourcePath.hpp"
 #include "exceptions/subsystemErrors/AssimpError.hpp"
