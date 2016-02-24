@@ -86,8 +86,8 @@ static const string getType(Data data) {
     return data.first.as<string>();
 }
 
-static const IShaderObjectData::SourcePaths getSourcePaths(Data data) {
-    return data.second.as<IShaderObjectData::SourcePaths>();
+static const ShaderObjectData::SourcePaths getSourcePaths(Data data) {
+    return data.second.as<ShaderObjectData::SourcePaths>();
 }
 
 static ShaderObjectDatas getShaderObjectDatas(const Node& file) {

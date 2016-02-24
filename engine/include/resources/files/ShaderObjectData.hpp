@@ -4,21 +4,18 @@
 #include <vector>
 #include <string>
 
-#include "graphics/interfaces/IShaderObjectData.hpp"
-
 namespace onux {
 
-class ShaderObjectData : public IShaderObjectData {
+class ShaderObjectData {
 public:
-    using Ptr = std::unique_ptr<const ShaderObjectData>;
+    using Ptr         = std::unique_ptr<const ShaderObjectData>;
+    using SourcePaths = std::vector<std::string>;
 
 public:
     ShaderObjectData(const std::string& type, const SourcePaths& SourcePaths);
     ~ShaderObjectData();
-
-    // IShaderObjectData
-    virtual const std::string& getType() const override;
-    virtual const SourcePaths& getSourcePaths() const override;
+    const std::string& getType() const;
+    const SourcePaths& getSourcePaths() const;
 
 private:
     struct Impl;

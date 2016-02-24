@@ -3,22 +3,23 @@
 #include <memory>
 #include <string>
 
-#include "resources/Resources.hpp"
-#include "resources/files/ShaderFile.hpp"
-#include "resources/ShaderSource.hpp"
-#include "resources/Image.hpp"
-#include "resources/Model.hpp"
+#include "utils/UniqueMap.hpp"
 
 namespace onux {
+
+class ShaderFile;
+class ShaderSource;
+class Image;
+class Model;
 
 class ResourceManager {
 public:
     explicit ResourceManager(const std::string& resourcesDirectory);
     ~ResourceManager();
-    const Resources<ShaderFile>& getShaderFiles() const;
-    const Resources<ShaderSource>& getShaderSources() const;
-    const Resources<Image>& getImages() const;
-    const Resources<Model>& getModels() const;
+    const UniqueMap<ShaderFile>& getShaderFiles() const;
+    const UniqueMap<ShaderSource>& getShaderSources() const;
+    const UniqueMap<Image>& getImages() const;
+    const UniqueMap<Model>& getModels() const;
 
 private:
     struct Impl;

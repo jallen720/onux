@@ -6,6 +6,10 @@
 namespace onux {
 
 template<typename T>
+UniqueMap<T>::UniqueMap(ElementMap elementMap)
+    : m_elementMap(std::move(elementMap)) {}
+
+template<typename T>
 const T * const UniqueMap<T>::operator [](const std::string& name) const {
     validateNotEmpty("name", "UniqueMap<>::operator[]", name);
 
@@ -25,11 +29,6 @@ void UniqueMap<T>::forEach(ElementCB elementCB) const {
             element.first
         );
     }
-}
-
-template<typename T>
-auto UniqueMap<T>::getElementMap() -> ElementMap& {
-    return m_elementMap;
 }
 
 } // namespace onux

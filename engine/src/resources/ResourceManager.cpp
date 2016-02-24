@@ -1,16 +1,21 @@
 #include "resources/ResourceManager.hpp"
 
 #include "exceptions/validators/validateNotEmpty.hpp"
+#include "resources/files/ShaderFile.hpp"
+#include "resources/ShaderSource.hpp"
+#include "resources/Image.hpp"
+#include "resources/Model.hpp"
+#include "resources/loadResources.hpp"
 
 using std::string;
 
 namespace onux {
 
 struct ResourceManager::Impl {
-    Resources<ShaderFile>   shaderFiles;
-    Resources<ShaderSource> shaderSources;
-    Resources<Image>        images;
-    Resources<Model>        models;
+    UniqueMap<ShaderFile>   shaderFiles;
+    UniqueMap<ShaderSource> shaderSources;
+    UniqueMap<Image>        images;
+    UniqueMap<Model>        models;
 
     Impl(const string& resourcesDirectory);
 };
@@ -30,28 +35,28 @@ ResourceManager::ResourceManager(const string& resourcesDirectory)
 
 ResourceManager::~ResourceManager() {}
 
-const Resources<ShaderFile>& ResourceManager::getShaderFiles() const {
+const UniqueMap<ShaderFile>& ResourceManager::getShaderFiles() const {
     return impl->shaderFiles;
 }
 
-const Resources<ShaderSource>& ResourceManager::getShaderSources() const {
+const UniqueMap<ShaderSource>& ResourceManager::getShaderSources() const {
     return impl->shaderSources;
 }
 
-const Resources<Image>& ResourceManager::getImages() const {
+const UniqueMap<Image>& ResourceManager::getImages() const {
     return impl->images;
 }
 
-const Resources<Model>& ResourceManager::getModels() const {
+const UniqueMap<Model>& ResourceManager::getModels() const {
     return impl->models;
 }
 
 // Implementation
 
 ResourceManager::Impl::Impl(const string& resourcesDirectory)
-    : shaderFiles(resourcesDirectory + "/shaders")
-    , shaderSources(resourcesDirectory + "/shaderSources")
-    , images(resourcesDirectory + "/images")
-    , models(resourcesDirectory + "/models") {}
+    : shaderFiles  (loadResources<ShaderFile>  (resourcesDirectory + "/shaders"))
+    , shaderSources(loadResources<ShaderSource>(resourcesDirectory + "/shaderSources"))
+    , images       (loadResources<Image>       (resourcesDirectory + "/images"))
+    , models       (loadResources<Model>       (resourcesDirectory + "/models")) {}
 
 } // namespace onux

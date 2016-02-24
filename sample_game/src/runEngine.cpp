@@ -13,7 +13,6 @@
 
 #include "graphics/Camera.hpp"
 
-#include "gl/ShaderObject.hpp"
 #include "gl/ShaderProgram.hpp"
 #include "gl/Texture.hpp"
 #include "gl/utils/loadExtensions.hpp"
@@ -24,14 +23,13 @@
 #include "engine/Engine.hpp"
 
 #include "resources/ResourceManager.hpp"
-#include "resources/Resources.hpp"
 #include "resources/Model.hpp"
 
 #include "assets/AssetManager.hpp"
-#include "assets/Shaders.hpp"
-#include "assets/Textures.hpp"
 
 #include "exceptions/Error.hpp"
+
+#include "utils/UniqueMap.hpp"
 
 #include "CameraControls.hpp"
 
@@ -49,7 +47,6 @@ using onux::Window;
 
 using onux::Camera;
 
-using onux::ShaderObject;
 using onux::ShaderProgram;
 using onux::Texture;
 using onux::loadExtensions;
@@ -60,14 +57,13 @@ using onux::GraphicsEngine;
 using onux::Engine;
 
 using onux::ResourceManager;
-using onux::Resources;
 using onux::Model;
 
 using onux::AssetManager;
-using onux::Shaders;
-using onux::Textures;
 
 using onux::Error;
+
+using onux::UniqueMap;
 
 void runEngine() {
     try {
@@ -81,18 +77,18 @@ void runEngine() {
         const ResourceManager resourceManager("resources");
         const AssetManager    assetManager(resourceManager);
 
-        const Resources<Model>& models   = resourceManager.getModels();
-        const Shaders&          shaders  = assetManager.getShaders();
-        const Textures&         textures = assetManager.getTextures();
+        const UniqueMap<Model>&         models         = resourceManager.getModels();
+        const UniqueMap<ShaderProgram>& shaderPrograms = assetManager.getShaderPrograms();
+        const UniqueMap<Texture>&       textures       = assetManager.getTextures();
 
-        shaders["multiTexture.yaml"]->getProgram().use();
-        shaders["multiTexture.yaml"]->getProgram().setUniform("texture1", 1);
+        shaderPrograms["multiTexture.yaml"]->use();
+        shaderPrograms["multiTexture.yaml"]->setUniform("texture1", 1);
 
         // Drawable data
         Renderable renderables[] {
             Renderable(
                 *models["hheli.obj"]->getMeshes()[0],
-                shaders["diffuse.yaml"]->getProgram(),
+                *shaderPrograms["diffuse.yaml"],
                 {
                     textures["hheli.bmp"],
                 }
@@ -100,7 +96,7 @@ void runEngine() {
 
             Renderable(
                 *models["cube.obj"]->getMeshes()[0],
-                shaders["multiTexture.yaml"]->getProgram(),
+                *shaderPrograms["multiTexture.yaml"],
                 {
                     textures["box.jpg"],
                     textures["bricks.png"],
@@ -109,7 +105,7 @@ void runEngine() {
 
             Renderable(
                 *models["hheli.obj"]->getMeshes()[0],
-                shaders["diffuse.yaml"]->getProgram(),
+                *shaderPrograms["diffuse.yaml"],
                 {
                     textures["hheli.bmp"],
                 }

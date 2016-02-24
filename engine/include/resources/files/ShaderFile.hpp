@@ -2,23 +2,23 @@
 
 #include <memory>
 #include <string>
-
-#include "graphics/interfaces/IShaderFile.hpp"
+#include <functional>
 
 namespace onux {
 
-class ShaderFile : public IShaderFile {
+class ShaderObjectData;
+
+class ShaderFile {
 public:
-    using Ptr = std::unique_ptr<const ShaderFile>;
+    using Ptr                = std::unique_ptr<const ShaderFile>;
+    using ShaderObjectDataCB = const std::function<void(const ShaderObjectData&)>&;
 
 public:
     static Ptr create(const std::string& path);
 
 public:
     ~ShaderFile();
-
-    // IShaderFile
-    virtual void forEachShaderObjectData(ShaderObjectDataCB shaderObjectDataCB) const;
+    void forEachShaderObjectData(ShaderObjectDataCB shaderObjectDataCB) const;
 
 private:
     struct Impl;
