@@ -87,16 +87,16 @@ void runEngine() {
         // Drawable data
         Renderable renderables[] {
             Renderable(
-                *models["hheli.obj"]->getMeshes()[0],
-                *shaderPrograms["diffuse.yaml"],
+                models["hheli.obj"]->getMeshes()[0].get(),
+                shaderPrograms["diffuse.yaml"],
                 {
                     textures["hheli.bmp"],
                 }
             ),
 
             Renderable(
-                *models["cube.obj"]->getMeshes()[0],
-                *shaderPrograms["multiTexture.yaml"],
+                models["cube.obj"]->getMeshes()[0].get(),
+                shaderPrograms["multiTexture.yaml"],
                 {
                     textures["box.jpg"],
                     textures["bricks.png"],
@@ -104,8 +104,8 @@ void runEngine() {
             ),
 
             Renderable(
-                *models["hheli.obj"]->getMeshes()[0],
-                *shaderPrograms["diffuse.yaml"],
+                models["hheli.obj"]->getMeshes()[0].get(),
+                shaderPrograms["diffuse.yaml"],
                 {
                     textures["hheli.bmp"],
                 }

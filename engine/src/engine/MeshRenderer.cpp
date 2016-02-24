@@ -9,15 +9,15 @@
 namespace onux {
 
 struct MeshRenderer::Impl {
-    const Mesh&        mesh;
+    const Mesh*        mesh;
     const VertexBuffer vertexBuffer;
     const IndexBuffer  indexBuffer;
     const VertexArray  vertexArray;
 
-    explicit Impl(const Mesh& mesh);
+    explicit Impl(const Mesh* mesh);
 };
 
-MeshRenderer::MeshRenderer(const Mesh& mesh)
+MeshRenderer::MeshRenderer(const Mesh* mesh)
     : impl(new Impl(mesh)) {}
 
 MeshRenderer::~MeshRenderer() {}
@@ -31,15 +31,15 @@ static void drawElements(const GLsizei indexCount) {
 
 void MeshRenderer::render() const {
     impl->vertexArray.bind();
-    drawElements(impl->mesh.getIndexes().getCount());
+    drawElements(impl->mesh->getIndexes().getCount());
 }
 
 // Implementation
 
-MeshRenderer::Impl::Impl(const Mesh& mesh)
+MeshRenderer::Impl::Impl(const Mesh* mesh)
     : mesh(mesh)
-    , vertexBuffer(Vertex::LAYOUT, this->mesh.getVertexes())
-    , indexBuffer(this->mesh.getIndexes())
+    , vertexBuffer(Vertex::LAYOUT, this->mesh->getVertexes())
+    , indexBuffer(this->mesh->getIndexes())
     , vertexArray(vertexBuffer, this->indexBuffer) {}
 
 } // namespace onux

@@ -25,7 +25,7 @@ Model::Model(const string& path)
 
 Model::~Model() {}
 
-const Model::Meshes& Model::getMeshes() const {
+auto Model::getMeshes() const -> const Meshes& {
     return impl->meshes;
 }
 

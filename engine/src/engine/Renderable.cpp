@@ -15,15 +15,15 @@ using glm::mat4;
 namespace onux {
 
 struct Renderable::Impl {
-    const Mesh&          mesh;
-    const ShaderProgram& shaderProgram;
+    const Mesh*          mesh;
+    const ShaderProgram* shaderProgram;
     Textures             textures;
     Transform            transform;
     const MeshRenderer   meshRenderer;
 
     Impl(
-        const Mesh&          mesh,
-        const ShaderProgram& shaderProgram,
+        const Mesh*          mesh,
+        const ShaderProgram* shaderProgram,
         Textures             textures
     );
     void bindTextures() const;
@@ -35,13 +35,13 @@ struct Renderable::Impl {
 };
 
 Renderable::Renderable(
-    const Mesh&          mesh,
-    const ShaderProgram& shaderProgram,
+    const Mesh*          mesh,
+    const ShaderProgram* shaderProgram,
     Textures             textures
 )   : impl(new Impl(mesh, shaderProgram, textures)) {}
 
 void Renderable::enable(Camera& camera) const {
-    impl->shaderProgram.use();
+    impl->shaderProgram->use();
     impl->bindTextures();
 
     impl->setUniforms(
@@ -55,10 +55,6 @@ const MeshRenderer& Renderable::getMeshRenderer() const {
     return impl->meshRenderer;
 }
 
-const ShaderProgram& Renderable::getShaderProgram() const {
-    return impl->shaderProgram;
-}
-
 Transform& Renderable::getTransform() {
     return impl->transform;
 }
@@ -66,8 +62,8 @@ Transform& Renderable::getTransform() {
 // Implementation
 
 Renderable::Impl::Impl(
-    const Mesh&          mesh,
-    const ShaderProgram& shaderProgram,
+    const Mesh*          mesh,
+    const ShaderProgram* shaderProgram,
     Textures             textures
 )   : mesh(mesh)
     , shaderProgram(shaderProgram)
@@ -85,9 +81,9 @@ void Renderable::Impl::setUniforms(
     const mat4& view,
     const mat4& projection
 ) const {
-    shaderProgram.setUniform("model"     , model     );
-    shaderProgram.setUniform("view"      , view      );
-    shaderProgram.setUniform("projection", projection);
+    shaderProgram->setUniform("model"     , model     );
+    shaderProgram->setUniform("view"      , view      );
+    shaderProgram->setUniform("projection", projection);
 }
 
 } // namespace onux

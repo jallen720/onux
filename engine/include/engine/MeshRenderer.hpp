@@ -8,7 +8,7 @@ class Mesh;
 
 class MeshRenderer {
 public:
-    explicit MeshRenderer(const Mesh& mesh);
+    explicit MeshRenderer(const Mesh* mesh);
     ~MeshRenderer();
     void render() const;
 

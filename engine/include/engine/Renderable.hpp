@@ -18,13 +18,12 @@ public:
 
 public:
     Renderable(
-        const Mesh&          mesh,
-        const ShaderProgram& shaderProgram,
+        const Mesh*          mesh,
+        const ShaderProgram* shaderProgram,
         Textures             textures
     );
     void enable(Camera& camera) const;
     const MeshRenderer& getMeshRenderer() const;
-    const ShaderProgram& getShaderProgram() const;
     Transform& getTransform();
 
 private:
