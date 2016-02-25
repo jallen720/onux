@@ -119,7 +119,7 @@ static const bool hasRequiredTypes(const ShaderObjectDatas& shaderObjectDatas) {
 
 static void validateHasRequiredTypes(
     const ShaderObjectDatas& shaderObjectDatas,
-    const string& path
+    const string&            path
 ) {
     if (!hasRequiredTypes(shaderObjectDatas)) {
         throw FileError(
