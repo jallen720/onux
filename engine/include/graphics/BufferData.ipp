@@ -1,9 +1,6 @@
 namespace onux {
 
 template<typename T>
-BufferData<T>::BufferData() {}
-
-template<typename T>
 BufferData<T>::BufferData(const std::initializer_list<T>& data)
     : m_data(data) {}
 

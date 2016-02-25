@@ -5,16 +5,16 @@
 
 #include "gl/interfaces/IBufferData.hpp"
 
-#include "MACROS/ONUX_NON_COPYABLE.hpp"
+#include "MACROS/ONUX_MOVE_ONLY.hpp"
 
 namespace onux {
 
 template<typename T>
 class BufferData : public IBufferData {
 public:
-    BufferData();
+    BufferData() = default;
     explicit BufferData(const std::initializer_list<T>& data);
-    ONUX_NON_COPYABLE(BufferData)
+    ONUX_MOVE_ONLY(BufferData)
     void add(const T& element);
     const size_t getCount() const;
 
