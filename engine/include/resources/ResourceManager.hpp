@@ -7,7 +7,7 @@
 
 namespace onux {
 
-class ShaderFile;
+class Shader;
 class ShaderSource;
 class Image;
 class Model;
@@ -16,7 +16,7 @@ class ResourceManager {
 public:
     explicit ResourceManager(const std::string& resourcesDirectory);
     ~ResourceManager();
-    const UniqueMap<ShaderFile>& getShaderFiles() const;
+    const UniqueMap<Shader>& getShaders() const;
     const UniqueMap<ShaderSource>& getShaderSources() const;
     const UniqueMap<Image>& getImages() const;
     const UniqueMap<Model>& getModels() const;

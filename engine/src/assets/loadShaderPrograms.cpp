@@ -1,7 +1,7 @@
 #include "assets/loadShaderPrograms.hpp"
 
-#include "resources/files/ShaderFile.hpp"
-#include "resources/files/ShaderObjectData.hpp"
+#include "resources/utils/ShaderObjectData.hpp"
+#include "resources/Shader.hpp"
 #include "resources/ShaderSource.hpp"
 #include "gl/ShaderProgram.hpp"
 #include "gl/ShaderObject.hpp"
@@ -25,12 +25,12 @@ static const ShaderObject::Sources getSources(
 }
 
 static const ShaderProgram::Objects getObjects(
-    const ShaderFile*              shaderFile,
+    const Shader*                  shader,
     const UniqueMap<ShaderSource>& sources
 ) {
     ShaderProgram::Objects objects;
 
-    shaderFile->forEachShaderObjectData([&](const ShaderObjectData& shaderObjectData) {
+    shader->forEachShaderObjectData([&](const ShaderObjectData& shaderObjectData) {
         objects.push_back(ShaderObject::create(getSources(
             shaderObjectData,
             sources
@@ -41,16 +41,16 @@ static const ShaderProgram::Objects getObjects(
 }
 
 UniqueMap<ShaderProgram> loadShaderPrograms(
-    const UniqueMap<ShaderFile>&   shaderFiles,
+    const UniqueMap<Shader>&       shaders,
     const UniqueMap<ShaderSource>& shaderSources
 ) {
     UniqueMap<ShaderProgram> shaderPrograms;
 
-    shaderFiles.forEach([&](const ShaderFile* shaderFile, const string& path) {
+    shaders.forEach([&](const Shader* shader, const string& path) {
         shaderPrograms.add(
             path,
             ShaderProgram::create(getObjects(
-                shaderFile,
+                shader,
                 shaderSources
             ))
         );

@@ -1,7 +1,7 @@
 #include "resources/ResourceManager.hpp"
 
 #include "exceptions/validators/validateNotEmpty.hpp"
-#include "resources/files/ShaderFile.hpp"
+#include "resources/Shader.hpp"
 #include "resources/ShaderSource.hpp"
 #include "resources/Image.hpp"
 #include "resources/Model.hpp"
@@ -12,7 +12,7 @@ using std::string;
 namespace onux {
 
 struct ResourceManager::Impl {
-    UniqueMap<ShaderFile>   shaderFiles;
+    UniqueMap<Shader>       shaders;
     UniqueMap<ShaderSource> shaderSources;
     UniqueMap<Image>        images;
     UniqueMap<Model>        models;
@@ -35,8 +35,8 @@ ResourceManager::ResourceManager(const string& resourcesDirectory)
 
 ResourceManager::~ResourceManager() {}
 
-const UniqueMap<ShaderFile>& ResourceManager::getShaderFiles() const {
-    return impl->shaderFiles;
+const UniqueMap<Shader>& ResourceManager::getShaders() const {
+    return impl->shaders;
 }
 
 const UniqueMap<ShaderSource>& ResourceManager::getShaderSources() const {
@@ -54,7 +54,7 @@ const UniqueMap<Model>& ResourceManager::getModels() const {
 // Implementation
 
 ResourceManager::Impl::Impl(const string& resourcesDirectory)
-    : shaderFiles  (loadResources<ShaderFile>  (resourcesDirectory + "/shaders"))
+    : shaders      (loadResources<Shader>      (resourcesDirectory + "/shaders"))
     , shaderSources(loadResources<ShaderSource>(resourcesDirectory + "/shaderSources"))
     , images       (loadResources<Image>       (resourcesDirectory + "/images"))
     , models       (loadResources<Model>       (resourcesDirectory + "/models")) {}

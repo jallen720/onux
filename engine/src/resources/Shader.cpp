@@ -1,10 +1,10 @@
-#include "resources/files/ShaderFile.hpp"
+#include "resources/Shader.hpp"
 
 #include <vector>
 #include <map>
 #include <yaml-cpp/yaml.h>
 
-#include "resources/files/ShaderObjectData.hpp"
+#include "resources/utils/ShaderObjectData.hpp"
 #include "exceptions/validators/validateNotEmpty.hpp"
 #include "exceptions/FileError.hpp"
 #include "utils/existsIn.hpp"
@@ -19,24 +19,24 @@ namespace onux {
 
 using ShaderObjectDatas = vector<ShaderObjectData>;
 
-struct ShaderFile::Impl {
+struct Shader::Impl {
     const ShaderObjectDatas shaderObjectDatas;
 
     explicit Impl(const string& path);
     Impl(const Node& file, const string& path);
 };
 
-auto ShaderFile::create(const string& path) -> Ptr {
-    validateNotEmpty("path", "ShaderFile::create", path);
-    return Ptr(new ShaderFile(path));
+auto Shader::create(const string& path) -> Ptr {
+    validateNotEmpty("path", "Shader::create", path);
+    return Ptr(new Shader(path));
 }
 
-ShaderFile::ShaderFile(const string& path)
+Shader::Shader(const string& path)
     : impl(new Impl(path)) {}
 
-ShaderFile::~ShaderFile() {}
+Shader::~Shader() {}
 
-void ShaderFile::forEachShaderObjectData(ShaderObjectDataCB shaderObjectDataCB) const {
+void Shader::forEachShaderObjectData(ShaderObjectDataCB shaderObjectDataCB) const {
     for (const ShaderObjectData& shaderObjectData : impl->shaderObjectDatas) {
         shaderObjectDataCB(shaderObjectData);
     }
@@ -48,7 +48,7 @@ static void validateTypeFormat(const Node& type, const string& path) {
     if (!type.IsScalar()) {
         throw FileError(
             path,
-            "ShaderFile::Impl::Impl",
+            "Shader::Impl::Impl",
             "has a type in an invalid format (must be a scalar string)"
         );
     }
@@ -58,7 +58,7 @@ static void validateSourcePathsFormat(const Node& sourcePaths, const string& pat
     if (!sourcePaths.IsSequence()) {
         throw FileError(
             path,
-            "ShaderFile::Impl::Impl",
+            "Shader::Impl::Impl",
             "has source paths in an invalid format "
             "(must be a sequence of strings)"
         );
@@ -79,7 +79,7 @@ static const Node& getValidFile(const Node& file, const string& path) {
     return file;
 }
 
-ShaderFile::Impl::Impl(const string& path)
+Shader::Impl::Impl(const string& path)
     : Impl(getValidFile(LoadFile(path), path), path) {}
 
 static const string getType(Data data) {
@@ -124,7 +124,7 @@ static void validateHasRequiredTypes(
     if (!hasRequiredTypes(shaderObjectDatas)) {
         throw FileError(
             path,
-            "ShaderFile::Impl::Impl",
+            "Shader::Impl::Impl",
             "must have atleast 1 vertex and 1 fragment source"
         );
     }
@@ -136,7 +136,7 @@ static ShaderObjectDatas getValidShaderObjectDatas(const Node& file, const strin
     return shaderObjectDatas;
 }
 
-ShaderFile::Impl::Impl(const Node& file, const string& path)
+Shader::Impl::Impl(const Node& file, const string& path)
     : shaderObjectDatas(getValidShaderObjectDatas(file, path)) {}
 
 } // namespace onux

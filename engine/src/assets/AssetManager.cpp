@@ -32,7 +32,7 @@ const UniqueMap<Texture>& AssetManager::getTextures() const {
 
 AssetManager::Impl::Impl(const ResourceManager& resourceManager)
     : shaderPrograms(loadShaderPrograms(
-        resourceManager.getShaderFiles(),
+        resourceManager.getShaders(),
         resourceManager.getShaderSources()
     ))
     , textures(loadTextures(resourceManager.getImages())) {}

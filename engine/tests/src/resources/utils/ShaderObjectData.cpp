@@ -1,4 +1,4 @@
-#include "resources/files/ShaderObjectData.hpp"
+#include "resources/utils/ShaderObjectData.hpp"
 
 #include <gtest/gtest.h>
 

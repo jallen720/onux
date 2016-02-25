@@ -5,11 +5,11 @@
 namespace onux {
 
 class ShaderProgram;
-class ShaderFile;
+class Shader;
 class ShaderSource;
 
 UniqueMap<ShaderProgram> loadShaderPrograms(
-    const UniqueMap<ShaderFile>&   shaderFiles,
+    const UniqueMap<Shader>&       shaders,
     const UniqueMap<ShaderSource>& shaderSources
 );
 
