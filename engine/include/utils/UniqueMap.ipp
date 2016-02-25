@@ -6,10 +6,6 @@
 namespace onux {
 
 template<typename T>
-UniqueMap<T>::UniqueMap(ElementMap elementMap)
-    : m_elementMap(std::move(elementMap)) {}
-
-template<typename T>
 const T * const UniqueMap<T>::operator [](const std::string& name) const {
     validateNotEmpty("name", "UniqueMap<>::operator[]", name);
 
@@ -19,6 +15,11 @@ const T * const UniqueMap<T>::operator [](const std::string& name) const {
     catch (const std::out_of_range& _) {
         throw Error("No element found for name \"" + name + "\"");
     }
+}
+
+template<typename T>
+void UniqueMap<T>::add(const std::string& name, ElementPtr element) {
+    m_elementMap[name] = std::move(element);
 }
 
 template<typename T>

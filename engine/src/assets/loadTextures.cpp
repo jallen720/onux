@@ -9,14 +9,14 @@ using std::string;
 
 namespace onux {
 
-UniqueMap<Texture>::ElementMap loadTextures(const UniqueMap<Image>& images) {
-    UniqueMap<Texture>::ElementMap textureMap;
+UniqueMap<Texture> loadTextures(const UniqueMap<Image>& images) {
+    UniqueMap<Texture> textures;
 
     images.forEach([&](const Image* image, const string& path) {
-        textureMap[path] = Texture::create(image);
+        textures.add(path, Texture::create(image));
     });
 
-    return textureMap;
+    return textures;
 }
 
 } // namespace onux

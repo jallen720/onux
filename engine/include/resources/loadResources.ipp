@@ -4,16 +4,19 @@
 namespace onux {
 
 template<typename T>
-typename UniqueMap<T>::ElementMap loadResources(const std::string& directory) {
+UniqueMap<T> loadResources(const std::string& directory) {
     static const std::string DIRECTORY_DELIMITER = "/";
 
-    typename UniqueMap<T>::ElementMap resourceMap;
+    UniqueMap<T> resources;
 
     filesInDirectory(directory, [&](const std::string& path) {
-        resourceMap[removeSubString(path, directory + DIRECTORY_DELIMITER)] = T::create(path);
+        resources.add(
+            removeSubString(path, directory + DIRECTORY_DELIMITER),
+            T::create(path)
+        );
     });
 
-    return resourceMap;
+    return resources;
 }
 
 } // namespace onux

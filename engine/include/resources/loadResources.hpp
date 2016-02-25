@@ -7,7 +7,7 @@
 namespace onux {
 
 template<typename T>
-typename UniqueMap<T>::ElementMap loadResources(const std::string& directory);
+UniqueMap<T> loadResources(const std::string& directory);
 
 } // namespace onux
 

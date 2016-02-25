@@ -8,7 +8,7 @@ class ShaderProgram;
 class ShaderFile;
 class ShaderSource;
 
-UniqueMap<ShaderProgram>::ElementMap loadShaderPrograms(
+UniqueMap<ShaderProgram> loadShaderPrograms(
     const UniqueMap<ShaderFile>&   shaderFiles,
     const UniqueMap<ShaderSource>& shaderSources
 );

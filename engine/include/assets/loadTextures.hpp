@@ -7,6 +7,6 @@ namespace onux {
 class Texture;
 class Image;
 
-UniqueMap<Texture>::ElementMap loadTextures(const UniqueMap<Image>& images);
+UniqueMap<Texture> loadTextures(const UniqueMap<Image>& images);
 
 } // namespace onux

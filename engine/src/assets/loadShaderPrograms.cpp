@@ -40,21 +40,23 @@ static const ShaderProgram::Objects getObjects(
     return objects;
 }
 
-UniqueMap<ShaderProgram>::ElementMap loadShaderPrograms(
+UniqueMap<ShaderProgram> loadShaderPrograms(
     const UniqueMap<ShaderFile>&   shaderFiles,
     const UniqueMap<ShaderSource>& shaderSources
 ) {
-    UniqueMap<ShaderProgram>::ElementMap shaderProgramMap;
+    UniqueMap<ShaderProgram> shaderPrograms;
 
     shaderFiles.forEach([&](const ShaderFile* shaderFile, const string& path) {
-        shaderProgramMap[path] =
+        shaderPrograms.add(
+            path,
             ShaderProgram::create(getObjects(
                 shaderFile,
                 shaderSources
-            ));
+            ))
+        );
     });
 
-    return shaderProgramMap;
+    return shaderPrograms;
 }
 
 } // namespace onux
