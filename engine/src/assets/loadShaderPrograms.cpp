@@ -11,29 +11,30 @@ using std::string;
 namespace onux {
 
 static const ShaderObject::Sources getSources(
-    const ShaderObjectData&        shaderObjectData,
-    const UniqueMap<ShaderSource>& sources
+    const string&                        type,
+    const ShaderObjectData::SourcePaths& sourcePaths,
+    const UniqueMap<ShaderSource>&       shaderSources
 ) {
-    const string& type = shaderObjectData.getType();
-    ShaderObject::Sources objectSources;
+    ShaderObject::Sources sources;
 
-    for (const string& sourcePath : shaderObjectData.getSourcePaths()) {
-        objectSources.push_back(sources[sourcePath + "." + type]);
+    for (const string& sourcePath : sourcePaths) {
+        sources.push_back(shaderSources[sourcePath + "." + type]);
     }
 
-    return objectSources;
+    return sources;
 }
 
 static const ShaderProgram::Objects getObjects(
     const Shader*                  shader,
-    const UniqueMap<ShaderSource>& sources
+    const UniqueMap<ShaderSource>& shaderSources
 ) {
     ShaderProgram::Objects objects;
 
     shader->forEachShaderObjectData([&](const ShaderObjectData& shaderObjectData) {
         objects.push_back(ShaderObject::create(getSources(
-            shaderObjectData,
-            sources
+            shaderObjectData.getType(),
+            shaderObjectData.getSourcePaths(),
+            shaderSources
         )));
     });
 
