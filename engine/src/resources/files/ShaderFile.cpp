@@ -17,7 +17,7 @@ using YAML::LoadFile;
 
 namespace onux {
 
-using ShaderObjectDatas = vector<ShaderObjectData::Ptr>;
+using ShaderObjectDatas = vector<ShaderObjectData>;
 
 struct ShaderFile::Impl {
     const ShaderObjectDatas shaderObjectDatas;
@@ -37,8 +37,8 @@ ShaderFile::ShaderFile(const string& path)
 ShaderFile::~ShaderFile() {}
 
 void ShaderFile::forEachShaderObjectData(ShaderObjectDataCB shaderObjectDataCB) const {
-    for (const ShaderObjectData::Ptr& shaderObjectData : impl->shaderObjectDatas) {
-        shaderObjectDataCB(*shaderObjectData);
+    for (const ShaderObjectData& shaderObjectData : impl->shaderObjectDatas) {
+        shaderObjectDataCB(shaderObjectData);
     }
 }
 
@@ -90,22 +90,22 @@ static const ShaderObjectData::SourcePaths getSourcePaths(Data data) {
     return data.second.as<ShaderObjectData::SourcePaths>();
 }
 
-static ShaderObjectDatas getShaderObjectDatas(const Node& file) {
+static ShaderObjectDatas loadShaderObjectDatas(const Node& file) {
     ShaderObjectDatas shaderObjectDatas;
 
     for (Data data : file) {
-        shaderObjectDatas.emplace_back(new ShaderObjectData(
+        shaderObjectDatas.emplace_back(
             getType(data),
             getSourcePaths(data)
-        ));
+        );
     }
 
     return shaderObjectDatas;
 }
 
 static const bool hasType(const ShaderObjectDatas& shaderObjectDatas, const string& type) {
-    return existsIn(shaderObjectDatas, [&](const ShaderObjectData::Ptr& shaderObjectData) {
-        return shaderObjectData->getType() == type;
+    return existsIn(shaderObjectDatas, [&](const ShaderObjectData& shaderObjectData) {
+        return shaderObjectData.getType() == type;
     });
 }
 
@@ -131,7 +131,7 @@ static void validateHasRequiredTypes(
 }
 
 static ShaderObjectDatas getValidShaderObjectDatas(const Node& file, const string& path) {
-    ShaderObjectDatas shaderObjectDatas = getShaderObjectDatas(file);
+    ShaderObjectDatas shaderObjectDatas = loadShaderObjectDatas(file);
     validateHasRequiredTypes(shaderObjectDatas, path);
     return shaderObjectDatas;
 }

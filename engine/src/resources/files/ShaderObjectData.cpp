@@ -5,6 +5,8 @@
 #include "utils/toString.hpp"
 #include "utils/contains.hpp"
 
+#include "MACROS/ONUX_MOVE_ONLY_IMPLS.hpp"
+
 using std::vector;
 using std::move;
 using std::string;
@@ -66,7 +68,7 @@ ShaderObjectData::ShaderObjectData(const string& type, const SourcePaths& source
         getValidSourcePaths(sourcePaths),
     }) {}
 
-ShaderObjectData::~ShaderObjectData() {}
+ONUX_MOVE_ONLY_IMPLS(ShaderObjectData)
 
 const string& ShaderObjectData::getType() const {
     return impl->type;
