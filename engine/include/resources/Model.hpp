@@ -6,8 +6,6 @@
 
 #include "graphics/Mesh.hpp"
 
-struct aiScene;
-
 namespace onux {
 
 class Model {
