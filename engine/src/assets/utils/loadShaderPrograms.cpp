@@ -1,4 +1,4 @@
-#include "assets/loadShaderPrograms.hpp"
+#include "assets/utils/loadShaderPrograms.hpp"
 
 #include "resources/utils/ShaderObjectData.hpp"
 #include "resources/Shader.hpp"

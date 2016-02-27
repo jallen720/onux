@@ -1,7 +1,7 @@
 #include "assets/AssetManager.hpp"
 
-#include "assets/loadShaderPrograms.hpp"
-#include "assets/loadTextures.hpp"
+#include "assets/utils/loadShaderPrograms.hpp"
+#include "assets/utils/loadTextures.hpp"
 #include "gl/ShaderProgram.hpp"
 #include "gl/Texture.hpp"
 #include "resources/ResourceManager.hpp"

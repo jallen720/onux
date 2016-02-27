@@ -1,4 +1,4 @@
-#include "assets/loadTextures.hpp"
+#include "assets/utils/loadTextures.hpp"
 
 #include <string>
 
