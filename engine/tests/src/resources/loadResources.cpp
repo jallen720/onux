@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <boost/filesystem.hpp>
 
-#include "resources/loadResources.hpp"
+#include "resources/utils/loadResources.hpp"
 #include "resources/ShaderSource.hpp"
 #include "exceptions/argErrors/EmptyStringArg.hpp"
 

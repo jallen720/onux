@@ -1,11 +1,11 @@
 #include "resources/ResourceManager.hpp"
 
 #include "exceptions/validators/validateNotEmpty.hpp"
+#include "resources/utils/loadResources.hpp"
 #include "resources/Shader.hpp"
 #include "resources/ShaderSource.hpp"
 #include "resources/Image.hpp"
 #include "resources/Model.hpp"
-#include "resources/loadResources.hpp"
 
 using std::string;
 

@@ -11,4 +11,4 @@ UniqueMap<T> loadResources(const std::string& directory);
 
 } // namespace onux
 
-#include "resources/loadResources.ipp"
+#include "resources/utils/loadResources.ipp"

@@ -3,8 +3,8 @@
 #include <memory>
 
 #include "tests/fixtures/gl/OnuxTest.hpp"
+#include "resources/utils/loadResources.hpp"
 #include "resources/ShaderSource.hpp"
-#include "resources/loadResources.hpp"
 #include "gl/ShaderObject.hpp"
 #include "gl/ShaderProgram.hpp"
 #include "utils/UniqueMap.hpp"
