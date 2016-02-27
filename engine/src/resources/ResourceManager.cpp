@@ -17,21 +17,21 @@ struct ResourceManager::Impl {
     UniqueMap<Image>        images;
     UniqueMap<Model>        models;
 
-    Impl(const string& resourcesDirectory);
+    Impl(const string& directory);
 };
 
-static const string& getValidResourcesDirectory(const string& resourcesDirectory) {
+static const string& getValidDirectory(const string& directory) {
     validateNotEmpty(
-        "resourcesDirectory",
+        "directory",
         "ResourceManager::ResourceManager",
-        resourcesDirectory
+        directory
     );
 
-    return resourcesDirectory;
+    return directory;
 }
 
-ResourceManager::ResourceManager(const string& resourcesDirectory)
-    : impl(new Impl(getValidResourcesDirectory(resourcesDirectory))) {}
+ResourceManager::ResourceManager(const string& directory)
+    : impl(new Impl(getValidDirectory(directory))) {}
 
 ResourceManager::~ResourceManager() {}
 
@@ -53,10 +53,10 @@ const UniqueMap<Model>& ResourceManager::getModels() const {
 
 // Implementation
 
-ResourceManager::Impl::Impl(const string& resourcesDirectory)
-    : shaders      (loadResources<Shader>      (resourcesDirectory + "/shaders"))
-    , shaderSources(loadResources<ShaderSource>(resourcesDirectory + "/shaderSources"))
-    , images       (loadResources<Image>       (resourcesDirectory + "/images"))
-    , models       (loadResources<Model>       (resourcesDirectory + "/models")) {}
+ResourceManager::Impl::Impl(const string& directory)
+    : shaders      (loadResources<Shader>      (directory + "/shaders"))
+    , shaderSources(loadResources<ShaderSource>(directory + "/shaderSources"))
+    , images       (loadResources<Image>       (directory + "/images"))
+    , models       (loadResources<Model>       (directory + "/models")) {}
 
 } // namespace onux

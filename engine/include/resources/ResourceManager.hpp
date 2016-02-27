@@ -14,7 +14,7 @@ class Model;
 
 class ResourceManager {
 public:
-    explicit ResourceManager(const std::string& resourcesDirectory);
+    explicit ResourceManager(const std::string& directory);
     ~ResourceManager();
     const UniqueMap<Shader>& getShaders() const;
     const UniqueMap<ShaderSource>& getShaderSources() const;
