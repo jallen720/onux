@@ -11,7 +11,7 @@ using onux::NullArg;
 
 TEST_F(MeshTest, validCreation) {
     expectNoThrow([&] {
-        Mesh::create(cubeMesh);
+        Mesh::create(cubeAssimpMesh);
     });
 }
 
@@ -21,15 +21,16 @@ TEST_F(MeshTest, invalidMesh) {
 
 TEST_F(MeshTest, validData) {
     static const auto INDEXES_PER_FACE = 3u;
-    const Mesh::Ptr mesh = Mesh::create(cubeMesh);
+
+    const Mesh::Ptr mesh = Mesh::create(cubeAssimpMesh);
 
     ASSERT_EQ(
-        cubeMesh->mNumVertices,
+        cubeAssimpMesh->mNumVertices,
         mesh->getVertexes().getCount()
     );
 
     ASSERT_EQ(
-        cubeMesh->mNumFaces * INDEXES_PER_FACE,
+        cubeAssimpMesh->mNumFaces * INDEXES_PER_FACE,
         mesh->getIndexes().getCount()
     );
 }

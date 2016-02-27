@@ -31,7 +31,7 @@ private:
     struct Impl;
     std::unique_ptr<Impl> impl;
 
-    explicit ModelScene(
+    ModelScene(
         const std::string& path,
         ImportFlags        importFlags
     );

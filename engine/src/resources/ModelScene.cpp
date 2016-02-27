@@ -67,8 +67,8 @@ static void validateScene(const aiScene* scene, const Importer& importer) {
 }
 
 static const aiScene* loadValidScene(
-    const string&            path,
-    Importer&                importer,
+    const string&           path,
+    Importer&               importer,
     ModelScene::ImportFlags importFlags
 ) {
     const aiScene* scene = importer.ReadFile(path, importFlags);

@@ -11,5 +11,5 @@ private:
         onux::ModelScene::create(validResourcePath("modelScenes", "cube.obj"));
 
 protected:
-    const aiMesh* cubeMesh = cubeScene->getMesh(0);
+    const aiMesh* cubeAssimpMesh = cubeScene->getMesh(0);
 };
