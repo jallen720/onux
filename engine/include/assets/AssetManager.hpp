@@ -9,6 +9,7 @@ namespace onux {
 class ResourceManager;
 class ShaderProgram;
 class Texture;
+class Model;
 
 class AssetManager {
 public:
@@ -16,6 +17,7 @@ public:
     ~AssetManager();
     const UniqueMap<ShaderProgram>& getShaderPrograms() const;
     const UniqueMap<Texture>& getTextures() const;
+    const UniqueMap<Model>& getModels() const;
 
 private:
     struct Impl;

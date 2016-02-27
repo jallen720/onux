@@ -5,7 +5,7 @@
 #include "resources/Shader.hpp"
 #include "resources/ShaderSource.hpp"
 #include "resources/Image.hpp"
-#include "resources/Model.hpp"
+#include "resources/ModelScene.hpp"
 
 using std::string;
 
@@ -15,7 +15,7 @@ struct ResourceManager::Impl {
     UniqueMap<Shader>       shaders;
     UniqueMap<ShaderSource> shaderSources;
     UniqueMap<Image>        images;
-    UniqueMap<Model>        models;
+    UniqueMap<ModelScene>   modelScenes;
 
     Impl(const string& directory);
 };
@@ -47,8 +47,8 @@ const UniqueMap<Image>& ResourceManager::getImages() const {
     return impl->images;
 }
 
-const UniqueMap<Model>& ResourceManager::getModels() const {
-    return impl->models;
+const UniqueMap<ModelScene>& ResourceManager::getModelScenes() const {
+    return impl->modelScenes;
 }
 
 // Implementation
@@ -57,6 +57,6 @@ ResourceManager::Impl::Impl(const string& directory)
     : shaders      (loadResources<Shader>      (directory + "/shaders"))
     , shaderSources(loadResources<ShaderSource>(directory + "/shaderSources"))
     , images       (loadResources<Image>       (directory + "/images"))
-    , models       (loadResources<Model>       (directory + "/models")) {}
+    , modelScenes  (loadResources<ModelScene>  (directory + "/modelScenes")) {}
 
 } // namespace onux

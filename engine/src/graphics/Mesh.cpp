@@ -17,13 +17,13 @@ struct Mesh::Impl {
     explicit Impl(const aiMesh* mesh);
 };
 
-static const aiMesh* getValidMesh(const aiMesh* mesh) {
-    validateNotNull("mesh", "Mesh::Mesh", mesh);
-    return mesh;
+auto Mesh::create(const aiMesh* mesh) -> Ptr {
+    validateNotNull("mesh", "Mesh::create", mesh);
+    return Ptr(new Mesh(mesh));
 }
 
 Mesh::Mesh(const aiMesh* mesh)
-    : impl(new Impl(getValidMesh(mesh))) {}
+    : impl(new Impl(mesh)) {}
 
 Mesh::~Mesh() {}
 

@@ -2,4 +2,11 @@
 
 #include <gtest/gtest.h>
 
-struct ModelTest : testing::Test {};
+#include "resources/ModelScene.hpp"
+#include "tests/utils/validResourcePath.hpp"
+
+struct ModelTest : testing::Test {
+protected:
+    const onux::ModelScene::Ptr cubeScene =
+        onux::ModelScene::create(validResourcePath("modelScenes", "cube.obj"));
+};

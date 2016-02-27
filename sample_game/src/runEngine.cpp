@@ -23,9 +23,9 @@
 #include "engine/Engine.hpp"
 
 #include "resources/ResourceManager.hpp"
-#include "resources/Model.hpp"
 
 #include "assets/AssetManager.hpp"
+#include "assets/Model.hpp"
 
 #include "exceptions/Error.hpp"
 
@@ -57,9 +57,9 @@ using onux::GraphicsEngine;
 using onux::Engine;
 
 using onux::ResourceManager;
-using onux::Model;
 
 using onux::AssetManager;
+using onux::Model;
 
 using onux::Error;
 
@@ -77,9 +77,9 @@ void runEngine() {
         const ResourceManager resourceManager("resources");
         const AssetManager    assetManager(resourceManager);
 
-        const UniqueMap<Model>&         models         = resourceManager.getModels();
         const UniqueMap<ShaderProgram>& shaderPrograms = assetManager.getShaderPrograms();
         const UniqueMap<Texture>&       textures       = assetManager.getTextures();
+        const UniqueMap<Model>&         models         = assetManager.getModels();
 
         shaderPrograms["multiTexture.yaml"]->use();
         shaderPrograms["multiTexture.yaml"]->setUniform("texture1", 1);

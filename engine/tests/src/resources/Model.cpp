@@ -1,18 +1,15 @@
-#include "resources/Model.hpp"
+#include "assets/Model.hpp"
 
 #include "tests/fixtures/resources/ModelTest.hpp"
 #include "tests/utils/expectNoThrow.hpp"
-#include "tests/utils/validResourcePath.hpp"
-#include "exceptions/subsystemErrors/AssimpError.hpp"
-#include "exceptions/argErrors/EmptyStringArg.hpp"
+#include "exceptions/argErrors/NullArg.hpp"
 
 using onux::Model;
-using onux::AssimpError;
-using onux::EmptyStringArg;
+using onux::NullArg;
 
 TEST_F(ModelTest, validCreation) {
-    expectNoThrow([] {
-        Model::create(validResourcePath("models", "cube.obj"));
+    expectNoThrow([&] {
+        Model::create(cubeScene.get());
     });
 }
 
@@ -20,16 +17,12 @@ TEST_F(ModelTest, validData) {
     // Cube model should have 1 mesh
     ASSERT_EQ(
         1,
-        Model::create(validResourcePath("models", "cube.obj"))
+        Model::create(cubeScene.get())
             ->getMeshes()
             .size()
     );
 }
 
-TEST_F(ModelTest, emptyPath) {
-    EXPECT_THROW(Model::create(""), EmptyStringArg);
-}
-
-TEST_F(ModelTest, invalidPath) {
-    EXPECT_THROW(Model::create("invalid/path"), AssimpError);
+TEST_F(ModelTest, nullModelScene) {
+    EXPECT_THROW(Model::create(nullptr), NullArg);
 }

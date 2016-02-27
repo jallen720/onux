@@ -17,7 +17,9 @@ public:
     using Indexes  = BufferData<GLuint>;
 
 public:
-    explicit Mesh(const aiMesh* mesh);
+    static Ptr create(const aiMesh* mesh);
+
+public:
     ~Mesh();
     const Vertexes& getVertexes() const;
     const Indexes& getIndexes() const;
@@ -25,6 +27,8 @@ public:
 private:
     struct Impl;
     std::unique_ptr<Impl> impl;
+
+    explicit Mesh(const aiMesh* mesh);
 };
 
 } // namespace onux

@@ -2,16 +2,14 @@
 
 #include <gtest/gtest.h>
 
-#include "graphics/utils/getValidAssimpScene.hpp"
+#include "resources/ModelScene.hpp"
 #include "tests/utils/validResourcePath.hpp"
 
 struct MeshTest : testing::Test {
 private:
-    Assimp::Importer importer;
+    const onux::ModelScene::Ptr cubeScene =
+        onux::ModelScene::create(validResourcePath("modelScenes", "cube.obj"));
 
 protected:
-    const aiMesh* cubeMesh = onux::getValidAssimpScene(
-        validResourcePath("models", "cube.obj"),
-        importer
-    )->mMeshes[0];
+    const aiMesh* cubeMesh = cubeScene->getMesh(0);
 };

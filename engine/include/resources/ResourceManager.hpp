@@ -10,7 +10,7 @@ namespace onux {
 class Shader;
 class ShaderSource;
 class Image;
-class Model;
+class ModelScene;
 
 class ResourceManager {
 public:
@@ -19,7 +19,7 @@ public:
     const UniqueMap<Shader>& getShaders() const;
     const UniqueMap<ShaderSource>& getShaderSources() const;
     const UniqueMap<Image>& getImages() const;
-    const UniqueMap<Model>& getModels() const;
+    const UniqueMap<ModelScene>& getModelScenes() const;
 
 private:
     struct Impl;
