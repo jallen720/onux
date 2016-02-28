@@ -2,6 +2,8 @@
 build.d/
 bin/
 lib/
+debugging/
+blender/
 
 # Sublime files
 *.sublime*
