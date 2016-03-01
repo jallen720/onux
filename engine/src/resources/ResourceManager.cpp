@@ -54,9 +54,9 @@ const UniqueMap<ModelScene>& ResourceManager::getModelScenes() const {
 // Implementation
 
 ResourceManager::Impl::Impl(const string& directory)
-    : shaders      (loadResources<Shader>      (directory + "/shaders"))
-    , shaderSources(loadResources<ShaderSource>(directory + "/shaderSources"))
-    , images       (loadResources<Image>       (directory + "/images"))
-    , modelScenes  (loadResources<ModelScene>  (directory + "/modelScenes")) {}
+    : shaders      (loadResources<Shader>      (directory + "shaders/"))
+    , shaderSources(loadResources<ShaderSource>(directory + "shaderSources/"))
+    , images       (loadResources<Image>       (directory + "images/"))
+    , modelScenes  (loadResources<ModelScene>  (directory + "modelScenes/")) {}
 
 } // namespace onux

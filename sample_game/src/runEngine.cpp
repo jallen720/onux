@@ -74,7 +74,7 @@ void runEngine() {
         loadExtensions();
         configureOpenGL();
 
-        const ResourceManager resourceManager("resources");
+        const ResourceManager resourceManager("resources/");
         const AssetManager    assetManager(resourceManager);
 
         const UniqueMap<ShaderProgram>& shaderPrograms = assetManager.getShaderPrograms();
