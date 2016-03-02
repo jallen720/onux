@@ -5,15 +5,15 @@
 
 namespace onux {
 
-class Renderable;
+class Entity;
 class Camera;
 
 class GraphicsEngine {
 public:
-    using Drawables = const std::vector<const Renderable*>;
+    using Entities = std::vector<Entity>;
 
 public:
-    GraphicsEngine(Drawables& drawables, Camera& camera);
+    GraphicsEngine(const Entities& entities, Camera& camera);
     ~GraphicsEngine();
     void render();
 

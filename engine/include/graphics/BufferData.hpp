@@ -16,9 +16,9 @@ public:
     explicit BufferData(const std::initializer_list<T>& data);
     ONUX_MOVE_ONLY(BufferData)
     void add(const T& element);
-    const size_t getCount() const;
 
     // IBufferData
+    virtual const size_t getCount() const override;
     virtual const GLsizei getSize() const override;
     virtual const GLvoid* getPointer() const override;
 

@@ -6,17 +6,19 @@
 
 #include "exceptions/validators/validateNotEmpty.hpp"
 #include "exceptions/subsystemErrors/AssimpError.hpp"
-#include "exceptions/Error.hpp"
-#include "utils/toString.hpp"
+#include "resources/utils/MeshData.hpp"
 
 using std::string;
+using std::vector;
 using Assimp::Importer;
 
 namespace onux {
 
+using MeshDatas = vector<MeshData>;
+
 struct ModelScene::Impl {
-    Importer       importer;
-    const aiScene* scene;
+    Importer        importer;
+    const MeshDatas meshDatas;
 
     Impl(const string& path, ImportFlags importFlags);
 };
@@ -38,23 +40,9 @@ ModelScene::ModelScene(const string& path, ImportFlags importFlags)
 
 ModelScene::~ModelScene() {}
 
-static void validateMeshIndex(const unsigned int index, const unsigned int meshCount) {
-    if (index >= meshCount) {
-        throw Error(
-            "ModelScene::getMesh() index out of range "
-            "(mesh count: " + toString(meshCount) + ")"
-        );
-    }
-}
-
-const aiMesh* ModelScene::getMesh(const unsigned int index) const {
-    validateMeshIndex(index, impl->scene->mNumMeshes);
-    return impl->scene->mMeshes[index];
-}
-
-void ModelScene::forEachMesh(MeshCB meshCB) const {
-    for (auto i = 0u; i < impl->scene->mNumMeshes; i++) {
-        meshCB(impl->scene->mMeshes[i]);
+void ModelScene::forEachMeshData(MeshDataCB meshDataCB) const {
+    for (const MeshData& meshData : impl->meshDatas) {
+        meshDataCB(meshData);
     }
 }
 
@@ -76,7 +64,21 @@ static const aiScene* loadValidScene(
     return scene;
 }
 
+static MeshDatas getValidMeshDatas(const aiScene* scene) {
+    MeshDatas meshDatas;
+
+    for (auto i = 0u; i < scene->mNumMeshes; i++) {
+        meshDatas.emplace_back(scene->mMeshes[i], scene);
+    }
+
+    return meshDatas;
+}
+
 ModelScene::Impl::Impl(const string& path, ImportFlags importFlags)
-    : scene(loadValidScene(path, importer, importFlags)) {}
+    : meshDatas(getValidMeshDatas(loadValidScene(
+        path,
+        importer,
+        importFlags
+    ))) {}
 
 } // namespace onux

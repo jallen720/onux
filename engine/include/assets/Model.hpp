@@ -2,30 +2,30 @@
 
 #include <memory>
 #include <vector>
+#include <functional>
 
 #include "graphics/Mesh.hpp"
 
 namespace onux {
 
-class ModelScene;
-
 class Model {
 public:
     using Ptr    = std::unique_ptr<const Model>;
     using Meshes = std::vector<Mesh::Ptr>;
+    using MeshCB = const std::function<void(const Mesh*)>&;
 
 public:
-    static Ptr create(const ModelScene* modelScene);
+    static Ptr create(Meshes meshes);
 
 public:
     ~Model();
-    const Meshes& getMeshes() const;
+    void forEachMesh(MeshCB meshCB) const;
 
 private:
     struct Impl;
     std::unique_ptr<Impl> impl;
 
-    explicit Model(const ModelScene* modelScene);
+    explicit Model(Meshes& meshes);
 };
 
 } // namespace onux

@@ -1,20 +1,23 @@
 #pragma once
 
+#include <memory>
+
 #include "gl/GLData.hpp"
 
 namespace onux {
 
-class VertexBuffer;
-class IndexBuffer;
+struct IVertexData;
 
 class VertexArray : public GLData {
 public:
-    VertexArray(
-        const VertexBuffer& vertexBuffer,
-        const IndexBuffer&  indexBuffer
-    );
+    explicit VertexArray(const IVertexData& vertexData);
     ~VertexArray();
     void bind() const;
+    const size_t getIndexCount() const;
+
+private:
+    struct Impl;
+    std::unique_ptr<Impl> impl;
 };
 
 } // namespace onux

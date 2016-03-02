@@ -13,7 +13,7 @@ public:
     using SourcePaths = std::vector<std::string>;
 
 public:
-    ShaderObjectData(const std::string& type, const SourcePaths& SourcePaths);
+    ShaderObjectData(const std::string& type, const SourcePaths& sourcePaths);
     ONUX_MOVE_ONLY_DEFS(ShaderObjectData)
     const std::string& getType() const;
     const SourcePaths& getSourcePaths() const;

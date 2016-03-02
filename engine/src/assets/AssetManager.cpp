@@ -43,6 +43,10 @@ AssetManager::Impl::Impl(const ResourceManager& resourceManager)
         resourceManager.getShaderSources()
     ))
     , textures(loadTextures(resourceManager.getImages()))
-    , models(loadModels(resourceManager.getModelScenes())) {}
+    , models(loadModels(
+        resourceManager.getModelScenes(),
+        shaderPrograms,
+        textures
+    )) {}
 
 } // namespace onux

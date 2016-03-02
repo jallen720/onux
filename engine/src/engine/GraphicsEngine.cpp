@@ -1,22 +1,30 @@
 #include "engine/GraphicsEngine.hpp"
 
 #include <GL/glew.h>
+#include <glm/glm.hpp>
 
-#include "engine/Renderable.hpp"
-#include "engine/MeshRenderer.hpp"
+#include "engine/Entity.hpp"
 #include "graphics/Camera.hpp"
+#include "graphics/Mesh.hpp"
+#include "graphics/Transform.hpp"
+#include "gl/VertexArray.hpp"
+#include "gl/Texture.hpp"
+#include "gl/ShaderProgram.hpp"
+#include "assets/Model.hpp"
+
+using glm::mat4;
 
 namespace onux {
 
 struct GraphicsEngine::Impl {
-    Drawables& drawables;
-    Camera&    camera;
+    const Entities& entities;
+    Camera&         camera;
 
-    void renderDrawables() const;
+    void renderEntities() const;
 };
 
-GraphicsEngine::GraphicsEngine(Drawables& drawables, Camera& camera)
-    : impl(new Impl { drawables, camera }) {}
+GraphicsEngine::GraphicsEngine(const Entities& entities, Camera& camera)
+    : impl(new Impl { entities, camera }) {}
 
 GraphicsEngine::~GraphicsEngine() {}
 
@@ -30,15 +38,43 @@ static void clearBuffers() {
 
 void GraphicsEngine::render() {
     clearBuffers();
-    impl->renderDrawables();
+    impl->renderEntities();
 }
 
 // Implementation
 
-void GraphicsEngine::Impl::renderDrawables() const {
-    for (const Renderable* drawable : drawables) {
-        drawable->enable(camera);
-        drawable->getMeshRenderer().render();
+static void drawElements(const GLsizei indexCount) {
+    static const GLenum  MODE  = GL_TRIANGLES;
+    static const GLenum  TYPE  = GL_UNSIGNED_INT;
+    static const GLvoid* FIRST = 0;
+    glDrawElements(MODE, indexCount, TYPE, FIRST);
+}
+
+static void setUniforms(
+    const ShaderProgram* shaderProgram,
+    const mat4&          model,
+    const mat4&          view,
+    const mat4&          projection
+) {
+    shaderProgram->setUniform("model"     , model     );
+    shaderProgram->setUniform("view"      , view      );
+    shaderProgram->setUniform("projection", projection);
+}
+
+void GraphicsEngine::Impl::renderEntities() const {
+    for (const Entity& entity : entities) {
+        entity.getModel()->forEachMesh([&](const Mesh* mesh) {
+            mesh->setAsRenderTarget();
+
+            setUniforms(
+                mesh->getShaderProgram(),
+                entity.getTransform().getLocalMatrix(),
+                camera.getTransform().getLocalMatrix(),
+                camera.getProjection()
+            );
+
+            drawElements(mesh->getVertexArray().getIndexCount());
+        });
     }
 }
 

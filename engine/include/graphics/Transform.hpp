@@ -3,12 +3,14 @@
 #include <memory>
 #include <glm/glm.hpp>
 
+#include "MACROS/ONUX_PIMPL_COPY_DEFS.hpp"
+
 namespace onux {
 
 class Transform {
 public:
     Transform();
-    ~Transform();
+    ONUX_PIMPL_COPY_DEFS(Transform)
     void translate(const glm::vec3& translation);
     void rotate(const glm::vec3& rotation);
     void scale(const glm::vec3& scale);

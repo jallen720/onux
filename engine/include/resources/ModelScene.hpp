@@ -2,17 +2,20 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 #include <functional>
 
 struct aiMesh;
 
 namespace onux {
 
+class MeshData;
+
 class ModelScene {
 public:
     using Ptr         = std::unique_ptr<const ModelScene>;
     using ImportFlags = const unsigned int;
-    using MeshCB      = const std::function<void(const aiMesh*)>&;
+    using MeshDataCB  = const std::function<void(const MeshData&)>&;
 
 public:
     static ImportFlags DEFAULT_IMPORT_FLAGS;
@@ -24,8 +27,7 @@ public:
 
 public:
     ~ModelScene();
-    const aiMesh* getMesh(const unsigned int index) const;
-    void forEachMesh(MeshCB meshCB) const;
+    void forEachMeshData(MeshDataCB meshDataCB) const;
 
 private:
     struct Impl;

@@ -1,8 +1,6 @@
 #include "runEngine.hpp"
 
 #include <iostream>
-#include <vector>
-#include <memory>
 #include <exception>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -10,59 +8,36 @@
 
 #include "environment/Environment.hpp"
 #include "environment/Window.hpp"
-
 #include "graphics/Camera.hpp"
-
-#include "gl/ShaderProgram.hpp"
-#include "gl/Texture.hpp"
 #include "gl/utils/loadExtensions.hpp"
 #include "gl/utils/configureOpenGL.hpp"
-
-#include "engine/Renderable.hpp"
+#include "engine/Entity.hpp"
 #include "engine/GraphicsEngine.hpp"
 #include "engine/Engine.hpp"
-
 #include "resources/ResourceManager.hpp"
-
 #include "assets/AssetManager.hpp"
 #include "assets/Model.hpp"
-
 #include "exceptions/Error.hpp"
-
 #include "utils/UniqueMap.hpp"
-
 #include "CameraControls.hpp"
 
 using std::cerr;
-using std::vector;
-using std::unique_ptr;
 using std::exception;
-
 using glm::vec3;
 using glm::perspective;
 using glm::radians;
-
 using onux::Environment;
 using onux::Window;
-
 using onux::Camera;
-
-using onux::ShaderProgram;
-using onux::Texture;
 using onux::loadExtensions;
 using onux::configureOpenGL;
-
-using onux::Renderable;
+using onux::Entity;
 using onux::GraphicsEngine;
 using onux::Engine;
-
 using onux::ResourceManager;
-
 using onux::AssetManager;
 using onux::Model;
-
 using onux::Error;
-
 using onux::UniqueMap;
 
 void runEngine() {
@@ -74,77 +49,18 @@ void runEngine() {
         loadExtensions();
         configureOpenGL();
 
-        const ResourceManager resourceManager("resources/");
-        const AssetManager    assetManager(resourceManager);
-
-        const UniqueMap<ShaderProgram>& shaderPrograms = assetManager.getShaderPrograms();
-        const UniqueMap<Texture>&       textures       = assetManager.getTextures();
-        const UniqueMap<Model>&         models         = assetManager.getModels();
-
-        shaderPrograms["multiTexture.yaml"]->use();
-        shaderPrograms["multiTexture.yaml"]->setUniform("texture1", 1);
+        const ResourceManager   resourceManager("resources/");
+        const AssetManager      assetManager(resourceManager);
+        const UniqueMap<Model>& models = assetManager.getModels();
 
         // Drawable data
-        Renderable renderables[] {
-            Renderable(
-                models["hheli.obj"]->getMeshes()[0].get(),
-                shaderPrograms["diffuse.yaml"],
-                {
-                    textures["hheli.bmp"],
-                }
-            ),
-
-            Renderable(
-                models["cube.obj"]->getMeshes()[0].get(),
-                shaderPrograms["multiTexture.yaml"],
-                {
-                    textures["box.jpg"],
-                    textures["bricks.png"],
-                }
-            ),
-
-            Renderable(
-                models["hheli.obj"]->getMeshes()[0].get(),
-                shaderPrograms["diffuse.yaml"],
-                {
-                    textures["hheli.bmp"],
-                }
-            ),
+        GraphicsEngine::Entities entities {
+            Entity(models["box.obj"]),
+            Entity(models["heli.obj"]),
         };
 
-        renderables[1]
-            .getTransform()
-            .setPosition(vec3(0, 0, -5));
-
-        renderables[0]
-            .getTransform()
-            .setScale(vec3(0.025f));
-
-        renderables[0]
-            .getTransform()
-            .setPosition(vec3(2, -1, -5));
-
-        renderables[0]
-            .getTransform()
-            .setRotation(vec3(0, 90, 0));
-
-        renderables[2]
-            .getTransform()
-            .setScale(vec3(0.025f));
-
-        renderables[2]
-            .getTransform()
-            .setPosition(vec3(-2, -1, -5));
-
-        renderables[2]
-            .getTransform()
-            .setRotation(vec3(0, 90, 0));
-
-        GraphicsEngine::Drawables drawables {
-            &renderables[0],
-            &renderables[1],
-            &renderables[2],
-        };
+        entities[0].getTransform().setPosition(vec3(0, 0, -6));
+        entities[1].getTransform().setPosition(vec3(3, 0, -6));
 
         // Camera setup
         static const float FOV    = radians(45.0f);
@@ -160,7 +76,7 @@ void runEngine() {
 
         // Engine setup
         CameraControls cameraControls(camera.getTransform(), window.getInput());
-        GraphicsEngine graphicsEngine(drawables, camera);
+        GraphicsEngine graphicsEngine(entities, camera);
         Engine engine(window, graphicsEngine);
         engine.run();
     }

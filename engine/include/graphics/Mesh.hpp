@@ -1,34 +1,42 @@
 #pragma once
 
 #include <memory>
-#include <GL/glew.h>
-
-#include "graphics/Vertex.hpp"
-#include "graphics/BufferData.hpp"
-
-struct aiMesh;
+#include <vector>
 
 namespace onux {
+
+class Texture;
+class VertexData;
+class VertexArray;
+class ShaderProgram;
 
 class Mesh {
 public:
     using Ptr      = std::unique_ptr<const Mesh>;
-    using Vertexes = BufferData<Vertex>;
-    using Indexes  = BufferData<GLuint>;
+    using Textures = std::vector<const Texture*>;
 
 public:
-    static Ptr create(const aiMesh* assimpMesh);
+    static Ptr create(
+        const VertexData&    vertexData,
+        Textures             textures,
+        const ShaderProgram* shaderProgram
+    );
 
 public:
     ~Mesh();
-    const Vertexes& getVertexes() const;
-    const Indexes& getIndexes() const;
+    const VertexArray& getVertexArray() const;
+    const ShaderProgram* getShaderProgram() const;
+    void setAsRenderTarget() const;
 
 private:
     struct Impl;
     std::unique_ptr<Impl> impl;
 
-    explicit Mesh(const aiMesh* assimpMesh);
+    Mesh(
+        const VertexData&    vertexData,
+        Textures&            textures,
+        const ShaderProgram* shaderProgram
+    );
 };
 
 } // namespace onux

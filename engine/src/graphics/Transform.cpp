@@ -2,6 +2,8 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "MACROS/ONUX_PIMPL_COPY_IMPLS.hpp"
+
 using glm::vec3;
 using glm::mat4;
 using glm::radians;
@@ -19,7 +21,7 @@ struct Transform::Impl {
 Transform::Transform()
     : impl(new Impl()) {}
 
-Transform::~Transform() {}
+ONUX_PIMPL_COPY_IMPLS(Transform)
 
 void Transform::translate(const vec3& translation) {
     impl->position += translation;
@@ -77,7 +79,9 @@ const mat4 Transform::getWorldMatrix() const {
 
 // Implementation
 
+static const auto DEFAULT_SCALE = 1;
+
 Transform::Impl::Impl()
-    : scale(1) {}
+    : scale(DEFAULT_SCALE) {}
 
 } // namespace onux

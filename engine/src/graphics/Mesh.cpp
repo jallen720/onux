@@ -1,97 +1,75 @@
 #include "graphics/Mesh.hpp"
 
-#include <glm/glm.hpp>
-#include <assimp/mesh.h>
-
+#include "graphics/VertexData.hpp"
+#include "gl/Texture.hpp"
+#include "gl/VertexArray.hpp"
+#include "gl/ShaderProgram.hpp"
 #include "exceptions/validators/validateNotNull.hpp"
-
-using glm::vec2;
-using glm::vec3;
 
 namespace onux {
 
 struct Mesh::Impl {
-    const Vertexes vertexes;
-    const Indexes  indexes;
+    const VertexArray    vertexArray;
+    const Textures       textures;
+    const ShaderProgram* shaderProgram;
 
-    explicit Impl(const aiMesh* assimpMesh);
+    Impl(
+        const VertexData&    vertexData,
+        Textures&            textures,
+        const ShaderProgram* shaderProgram
+    );
+    void bindTextures() const;
 };
 
-auto Mesh::create(const aiMesh* assimpMesh) -> Ptr {
-    validateNotNull("assimpMesh", "Mesh::create", assimpMesh);
-    return Ptr(new Mesh(assimpMesh));
+auto Mesh::create(
+    const VertexData&    vertexData,
+    Textures             textures,
+    const ShaderProgram* shaderProgram
+) -> Ptr {
+    validateNotNull("shaderProgram", "Mesh::create", shaderProgram);
+    return Ptr(new Mesh(vertexData, textures, shaderProgram));
 }
 
-Mesh::Mesh(const aiMesh* assimpMesh)
-    : impl(new Impl(assimpMesh)) {}
+Mesh::Mesh(
+    const VertexData&    vertexData,
+    Textures&            textures,
+    const ShaderProgram* shaderProgram
+)   : impl(new Impl(
+        vertexData,
+        textures,
+        shaderProgram
+    )) {}
 
 Mesh::~Mesh() {}
 
-const Mesh::Vertexes& Mesh::getVertexes() const {
-    return impl->vertexes;
+const VertexArray& Mesh::getVertexArray() const {
+    return impl->vertexArray;
 }
 
-const Mesh::Indexes& Mesh::getIndexes() const {
-    return impl->indexes;
+const ShaderProgram* Mesh::getShaderProgram() const {
+    return impl->shaderProgram;
+}
+
+void Mesh::setAsRenderTarget() const {
+    impl->bindTextures();
+    impl->vertexArray.bind();
+    impl->shaderProgram->use();
 }
 
 // Implementation
 
-static const Vertex createVertex(
-    const aiVector3D& position,
-    const aiVector3D& normal,
-    const aiVector3D& uv
-) {
-    return Vertex {
-        vec3(position.x, position.y, position.z),
-        vec3(normal.x  , normal.y  , normal.z  ),
-        vec2(uv.x      , uv.y)
-    };
-}
+Mesh::Impl::Impl(
+    const VertexData&    vertexData,
+    Textures&            textures,
+    const ShaderProgram* shaderProgram
+)   : vertexArray(vertexData)
+    , textures(textures)
+    , shaderProgram(shaderProgram) {}
 
-static const aiVector3D& getUV(
-    const aiMesh*      assimpMesh,
-    const unsigned int vertexIndex,
-    const unsigned int uvIndex
-) {
-    static const aiVector3D DEFAULT_UV(0, 0, 0);
-
-    return assimpMesh->HasTextureCoords(uvIndex)
-           ? assimpMesh->mTextureCoords[uvIndex][vertexIndex]
-           : DEFAULT_UV;
-}
-
-static Mesh::Vertexes loadVertexes(const aiMesh* assimpMesh) {
-    Mesh::Vertexes vertexes;
-
-    for (auto i = 0u; i < assimpMesh->mNumVertices; i++) {
-        vertexes.add(
-            createVertex(
-                assimpMesh->mVertices[i],
-                assimpMesh->mNormals[i],
-                getUV(assimpMesh, i, 0)
-            )
-        );
+void Mesh::Impl::bindTextures() const {
+    for (auto i = 0u; i < textures.size(); i++) {
+        textures[i]->bind(i);
     }
-
-    return vertexes;
 }
-
-static Mesh::Indexes loadIndexes(const aiMesh* assimpMesh) {
-    Mesh::Indexes indexes;
-
-    for (auto i = 0u; i < assimpMesh->mNumFaces; i++) {
-        const aiFace& face = assimpMesh->mFaces[i];
-        indexes.add(face.mIndices[0]);
-        indexes.add(face.mIndices[1]);
-        indexes.add(face.mIndices[2]);
-    }
-
-    return indexes;
-}
-
-Mesh::Impl::Impl(const aiMesh* assimpMesh)
-    : vertexes(loadVertexes(assimpMesh))
-    , indexes(loadIndexes(assimpMesh)) {}
 
 } // namespace onux
