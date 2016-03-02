@@ -8,12 +8,12 @@ namespace onux {
 
 class File {
 private:
-    using LineCallback = const std::function<void(const std::string&)>&;
+    using LineCB = const std::function<void(const std::string&)>&;
 
 public:
     explicit File(const std::string& path);
     ~File();
-    void forEachLine(LineCallback callback) const;
+    void forEachLine(LineCB lineCB) const;
     const std::string& getContents() const;
 
 private:

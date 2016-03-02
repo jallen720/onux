@@ -28,9 +28,9 @@ File::File(const string& path)
 
 File::~File() {}
 
-void File::forEachLine(LineCallback callback) const {
+void File::forEachLine(LineCB lineCB) const {
     for (const string& line : split(impl->contents, '\n')) {
-        callback(line);
+        lineCB(line);
     }
 }
 
