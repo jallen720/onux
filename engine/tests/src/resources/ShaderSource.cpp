@@ -15,7 +15,7 @@ using onux::EmptyStringArg;
 
 TEST_F(ShaderSourceTest, validCreation) {
     expectNoThrow([] {
-        ShaderSource::create(validResourcePath("shaderSources", "valid.vert"));
+        ShaderSource::create(validResourcePath("shaderSources/", "valid.vert"));
     });
 }
 
@@ -28,7 +28,7 @@ TEST_F(ShaderSourceTest, emptyPath) {
 }
 
 static GLenum shaderSourceType(const string& type) {
-    return ShaderSource::create(validResourcePath("shaderSources", "valid." + type))->getType();
+    return ShaderSource::create(validResourcePath("shaderSources/", "valid." + type))->getType();
 }
 
 TEST_F(ShaderSourceTest, correctTypes) {
@@ -38,7 +38,7 @@ TEST_F(ShaderSourceTest, correctTypes) {
 }
 
 TEST_F(ShaderSourceTest, correctSources) {
-    const string validShaderSourcePath = validResourcePath("shaderSources", "valid.vert");
+    const string validShaderSourcePath = validResourcePath("shaderSources/", "valid.vert");
 
     EXPECT_EQ(
         File(validShaderSourcePath).getContents(),

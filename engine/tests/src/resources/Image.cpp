@@ -15,7 +15,7 @@ using onux::EmptyStringArg;
 
 TEST_F(ImageTest, validCreation) {
     expectNoThrow([] {
-        Image::create(validResourcePath("images", "valid.png"));
+        Image::create(validResourcePath("images/", "valid.png"));
     });
 }
 
@@ -25,7 +25,7 @@ TEST_F(ImageTest, emptyPath) {
 
 TEST_F(ImageTest, invalidFileExtension) {
     EXPECT_THROW(
-        Image::create(invalidResourcePath("images", "invalid_format.pngg")),
+        Image::create(invalidResourcePath("images/", "invalid_format.pngg")),
         ErrorMissingDelegate
     );
 }

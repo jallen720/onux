@@ -1,9 +1,9 @@
 #pragma once
 
 #include "tests/fixtures/gl/OnuxTest.hpp"
-#include "graphics/Mesh.hpp"
+#include "graphics/VertexData.hpp"
 
 struct IndexBufferTest : OnuxTest {
 protected:
-    const onux::Mesh::Indexes validData { 0, 1, 2 };
+    const onux::VertexData::Indexes validIndexes { 0, 1, 2 };
 };

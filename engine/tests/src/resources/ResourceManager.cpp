@@ -13,7 +13,7 @@ using onux::ResourceManager;
 using onux::EmptyStringArg;
 
 TEST(ResourceManagerTest, validCreation) {
-    static const string VALID_RESOURCES_DIRECTORY = "tests/resources/valid";
+    static const string VALID_RESOURCES_DIRECTORY = "tests/resources/valid/";
 
     expectNoThrow([&] {
         ResourceManager { VALID_RESOURCES_DIRECTORY };
@@ -26,7 +26,7 @@ TEST(ResourceManagerTest, emptyResourcesDirectory) {
 
 TEST(ResourceManagerTest, invalidResourcesDirectory) {
     EXPECT_THROW(
-        ResourceManager("invalid/resources/directory"),
+        ResourceManager("invalid/resources/directory/"),
         filesystem_error
     );
 }

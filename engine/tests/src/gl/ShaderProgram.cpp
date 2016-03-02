@@ -44,7 +44,7 @@ TEST_F(ShaderProgramTest, notAllRequiredTypes) {
 
 TEST_F(ShaderProgramTest, noMainInObject) {
     const ShaderSource::Ptr noMainSource =
-        ShaderSource::create(invalidResourcePath("shaderSources", "noMain.vert"));
+        ShaderSource::create(invalidResourcePath("shaderSources/", "noMain.vert"));
 
     ShaderProgram::Objects invalidObjects;
     invalidObjects.push_back(ShaderObject::create({ noMainSource.get() }));
@@ -104,7 +104,7 @@ TEST_F(ShaderProgramTest, setUniformMat4InvalidTranspose) {
 
 TEST_F(ShaderProgramTest, setUnusedUniform) {
     const ShaderSource::Ptr unusedUniformSource =
-        ShaderSource::create(invalidResourcePath("shaderSources", "unusedUniform.vert"));
+        ShaderSource::create(invalidResourcePath("shaderSources/", "unusedUniform.vert"));
 
     ShaderProgram::Objects invalidObjects;
     invalidObjects.push_back(ShaderObject::create({ unusedUniformSource.get() }));

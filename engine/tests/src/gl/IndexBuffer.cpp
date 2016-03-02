@@ -9,5 +9,5 @@ using onux::IndexBuffer;
 TEST_F(IndexBufferTest, invalidUsage) {
     static const GLenum INVALID_USAGE = 0;
 
-    EXPECT_THROW(IndexBuffer(validData, INVALID_USAGE), InvalidArg);
+    EXPECT_THROW(IndexBuffer(validIndexes, INVALID_USAGE), InvalidArg);
 }

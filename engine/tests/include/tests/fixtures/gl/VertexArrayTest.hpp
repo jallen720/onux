@@ -1,25 +1,20 @@
 #pragma once
 
 #include "tests/fixtures/gl/OnuxTest.hpp"
-#include "gl/VertexBuffer.hpp"
-#include "gl/IndexBuffer.hpp"
-#include "graphics/Mesh.hpp"
+#include "resources/ResourceManager.hpp"
+#include "graphics/VertexData.hpp"
+#include "resources/utils/MeshData.hpp"
+#include "resources/ModelScene.hpp"
 
 struct VertexArrayTest : OnuxTest {
 private:
-    const onux::Mesh::Vertexes validVertexData {
-        onux::Vertex(),
-        onux::Vertex(),
-        onux::Vertex(),
-    };
-
-    const onux::Mesh::Indexes validIndexData { 0, 1, 2 };
+    const onux::ResourceManager validResourceManager { "tests/resources/valid/" };
 
 protected:
-    const onux::VertexBuffer validVertexBuffer {
-        onux::Vertex::LAYOUT,
-        validVertexData
+    const onux::VertexData validVertexData {
+        validResourceManager
+            .getModelScenes()["box.obj"]
+            ->getMeshDatas()[0]
+            .getMesh()
     };
-
-    const onux::IndexBuffer validIndexBuffer { validIndexData };
 };

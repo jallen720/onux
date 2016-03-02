@@ -1,15 +1,30 @@
 #pragma once
 
-#include <gtest/gtest.h>
-
+#include "tests/fixtures/gl/OnuxTest.hpp"
+#include "resources/ResourceManager.hpp"
 #include "resources/ModelScene.hpp"
-#include "tests/utils/validResourcePath.hpp"
+#include "resources/utils/MeshData.hpp"
+#include "assets/AssetManager.hpp"
+#include "graphics/Mesh.hpp"
+#include "graphics/VertexData.hpp"
 
-struct MeshTest : testing::Test {
+struct MeshTest : OnuxTest {
 private:
-    const onux::ModelScene::Ptr cubeScene =
-        onux::ModelScene::create(validResourcePath("modelScenes", "cube.obj"));
+    const onux::ResourceManager validResourceManager { "tests/resources/valid/" };
+    const onux::AssetManager    validAssetManager { validResourceManager };
 
 protected:
-    const aiMesh* cubeAssimpMesh = cubeScene->getMesh(0);
+    const onux::VertexData validVertexData {
+        validResourceManager
+            .getModelScenes()["box.obj"]
+            ->getMeshDatas()[0]
+            .getMesh()
+    };
+
+    const onux::Mesh::Textures validTextures {
+        validAssetManager.getTextures()["valid.png"]
+    };
+
+    const onux::ShaderProgram* validShaderProgram =
+        validAssetManager.getShaderPrograms()["valid.yaml"];
 };

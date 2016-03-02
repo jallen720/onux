@@ -15,7 +15,7 @@ using onux::EmptyStringArg;
 
 TEST(FileTest, validCreation) {
     expectNoThrow([] {
-        File(validResourcePath("miscFiles", "test.txt"));
+        File(validResourcePath("miscFiles/", "test.txt"));
     });
 }
 
@@ -33,7 +33,7 @@ TEST(FileTest, contentsMatch) {
         "line2\n"
         "line3\n";
 
-    EXPECT_EQ(expectedResult, File(validResourcePath("miscFiles", "test.txt")).getContents());
+    EXPECT_EQ(expectedResult, File(validResourcePath("miscFiles/", "test.txt")).getContents());
 }
 
 TEST(FileTest, linesMatch) {
@@ -45,7 +45,7 @@ TEST(FileTest, linesMatch) {
 
     vector<string> result;
 
-    File(validResourcePath("miscFiles", "test.txt")).forEachLine([&](const string& line) {
+    File(validResourcePath("miscFiles/", "test.txt")).forEachLine([&](const string& line) {
         result.push_back(line);
     });
 

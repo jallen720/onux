@@ -14,8 +14,6 @@ using Assimp::Importer;
 
 namespace onux {
 
-using MeshDatas = vector<MeshData>;
-
 struct ModelScene::Impl {
     Importer        importer;
     const MeshDatas meshDatas;
@@ -40,10 +38,8 @@ ModelScene::ModelScene(const string& path, ImportFlags importFlags)
 
 ModelScene::~ModelScene() {}
 
-void ModelScene::forEachMeshData(MeshDataCB meshDataCB) const {
-    for (const MeshData& meshData : impl->meshDatas) {
-        meshDataCB(meshData);
-    }
+auto ModelScene::getMeshDatas() const -> const MeshDatas& {
+    return impl->meshDatas;
 }
 
 // Implementation
@@ -64,8 +60,8 @@ static const aiScene* loadValidScene(
     return scene;
 }
 
-static MeshDatas getValidMeshDatas(const aiScene* scene) {
-    MeshDatas meshDatas;
+static ModelScene::MeshDatas getValidMeshDatas(const aiScene* scene) {
+    ModelScene::MeshDatas meshDatas;
 
     for (auto i = 0u; i < scene->mNumMeshes; i++) {
         meshDatas.emplace_back(scene->mMeshes[i], scene);

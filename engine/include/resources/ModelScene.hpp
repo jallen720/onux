@@ -3,9 +3,6 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include <functional>
-
-struct aiMesh;
 
 namespace onux {
 
@@ -15,7 +12,7 @@ class ModelScene {
 public:
     using Ptr         = std::unique_ptr<const ModelScene>;
     using ImportFlags = const unsigned int;
-    using MeshDataCB  = const std::function<void(const MeshData&)>&;
+    using MeshDatas   = std::vector<MeshData>;
 
 public:
     static ImportFlags DEFAULT_IMPORT_FLAGS;
@@ -27,7 +24,7 @@ public:
 
 public:
     ~ModelScene();
-    void forEachMeshData(MeshDataCB meshDataCB) const;
+    const MeshDatas& getMeshDatas() const;
 
 private:
     struct Impl;

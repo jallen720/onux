@@ -12,7 +12,7 @@
 struct ShaderProgramTest : OnuxTest {
 private:
     const onux::UniqueMap<onux::ShaderSource> validShaderSources =
-        onux::loadResources<onux::ShaderSource>("tests/resources/valid/shaderSources");
+        onux::loadResources<onux::ShaderSource>("tests/resources/valid/shaderSources/");
 
 protected:
     onux::ShaderProgram::Objects validObjects = [&]() {

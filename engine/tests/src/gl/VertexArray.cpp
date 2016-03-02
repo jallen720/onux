@@ -9,18 +9,12 @@ using onux::getInt;
 
 TEST_F(VertexArrayTest, validCreation) {
     expectNoThrow([&] {
-        VertexArray(
-            validVertexBuffer,
-            validIndexBuffer
-        );
+        VertexArray { validVertexData };
     });
 }
 
 TEST_F(VertexArrayTest, bind) {
-    const VertexArray vertexArray(
-        validVertexBuffer,
-        validIndexBuffer
-    );
+    const VertexArray vertexArray(validVertexData);
 
     // A VertexArray will be bound after successful creation.
     ASSERT_EQ(getInt(GL_VERTEX_ARRAY_BINDING), vertexArray.getID());

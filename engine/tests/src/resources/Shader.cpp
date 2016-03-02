@@ -19,7 +19,7 @@ using onux::FileError;
 
 TEST(ShaderTest, validCreation) {
     expectNoThrow([] {
-        Shader::create(validResourcePath("shaders", "valid.yaml"));
+        Shader::create(validResourcePath("shaders/", "valid.yaml"));
     });
 }
 
@@ -29,28 +29,28 @@ TEST(ShaderTest, emptyPath) {
 
 TEST(ShaderTest, invalidPath) {
     EXPECT_THROW(
-        Shader::create(invalidResourcePath("shaders", "invalid_path.yaml")),
+        Shader::create(invalidResourcePath("shaders/", "invalid_path.yaml")),
         BadFile
     );
 }
 
 TEST(ShaderTest, invalidTypeFormat) {
     EXPECT_THROW(
-        Shader::create(invalidResourcePath("shaders", "invalidTypeFormat.yaml")),
+        Shader::create(invalidResourcePath("shaders/", "invalidTypeFormat.yaml")),
         FileError
     );
 }
 
 TEST(ShaderTest, invalidSourcePathsFormat) {
     EXPECT_THROW(
-        Shader::create(invalidResourcePath("shaders", "invalidSourcePathsFormat.yaml")),
+        Shader::create(invalidResourcePath("shaders/", "invalidSourcePathsFormat.yaml")),
         FileError
     );
 }
 
 TEST(ShaderTest, missingRequiredTypes) {
     EXPECT_THROW(
-        Shader::create(invalidResourcePath("shaders", "missingRequiredTypes.yaml")),
+        Shader::create(invalidResourcePath("shaders/", "missingRequiredTypes.yaml")),
         FileError
     );
 }

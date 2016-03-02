@@ -17,7 +17,7 @@ using onux::InvalidArgProperty;
 
 TEST_F(ShaderObjectTest, validCreation) {
     const ShaderSource::Ptr validSource =
-        ShaderSource::create(validResourcePath("shaderSources", "valid.vert"));
+        ShaderSource::create(validResourcePath("shaderSources/", "valid.vert"));
 
     expectNoThrow([&] {
         ShaderObject::create({
@@ -32,8 +32,8 @@ TEST_F(ShaderObjectTest, noSources) {
 
 TEST_F(ShaderObjectTest, differentSourceTypes) {
     const ShaderSource::Ptr differentSources[] {
-        ShaderSource::create(validResourcePath("shaderSources", "valid.vert")),
-        ShaderSource::create(validResourcePath("shaderSources", "valid.frag")),
+        ShaderSource::create(validResourcePath("shaderSources/", "valid.vert")),
+        ShaderSource::create(validResourcePath("shaderSources/", "valid.frag")),
     };
 
     EXPECT_THROW(
@@ -47,8 +47,8 @@ TEST_F(ShaderObjectTest, differentSourceTypes) {
 
 TEST_F(ShaderObjectTest, compilationFailure) {
     const ShaderSource::Ptr invalidSources[] {
-        ShaderSource::create(validResourcePath("shaderSources", "valid.vert")),
-        ShaderSource::create(invalidResourcePath("shaderSources", "invalid.vert")),
+        ShaderSource::create(validResourcePath("shaderSources/", "valid.vert")),
+        ShaderSource::create(invalidResourcePath("shaderSources/", "invalid.vert")),
     };
 
     EXPECT_THROW(

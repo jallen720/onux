@@ -13,7 +13,7 @@ TEST_F(VertexBufferTest, invalidUsage) {
     EXPECT_THROW(
         VertexBuffer(
             Vertex::LAYOUT,
-            validData,
+            validVertexes,
             INVALID_USAGE
         ),
         InvalidArg

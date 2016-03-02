@@ -29,20 +29,20 @@ static Mesh::Textures getMeshTextures(
     return meshTextures;
 }
 
-static Model::Meshes getMeshes(
+static Model::Meshes loadMeshes(
     const ModelScene*         modelScene,
     const UniqueMap<Texture>& textures,
     const ShaderProgram*      shaderProgram
 ) {
     Model::Meshes meshes;
 
-    modelScene->forEachMeshData([&](const MeshData& meshData) {
+    for (const MeshData& meshData : modelScene->getMeshDatas()) {
         meshes.push_back(Mesh::create(
             VertexData(meshData.getMesh()),
             getMeshTextures(meshData.getTexturePaths(), textures),
             shaderProgram
         ));
-    });
+    }
 
     return meshes;
 }
@@ -57,7 +57,7 @@ UniqueMap<Model> loadModels(
     modelScenes.forEach([&](const ModelScene* modelScene, const string& path) {
         models.add(
             path,
-            Model::create(getMeshes(
+            Model::create(loadMeshes(
                 modelScene,
                 textures,
                 shaderPrograms["diffuse.yaml"]
