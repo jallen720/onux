@@ -1,6 +1,6 @@
 # Project info
 cmake_minimum_required(VERSION "3.2.2" FATAL_ERROR)
-project("sample-game")
+project("demo")
 
 # Utilities
 include("cmake/macros/module_dependency.cmake")

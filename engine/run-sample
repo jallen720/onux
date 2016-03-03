@@ -1,2 +1,0 @@
-#!/bin/bash
-./build && cd ../sample_game && ./run
